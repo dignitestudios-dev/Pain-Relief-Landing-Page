@@ -1,0 +1,53 @@
+.bg-hero {
+    background: url('../src/assets/LandingPage/hero-section.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-height: 658px;
+    height: 100%;
+}
+
+.bg-flexible-hero {
+    background: url('../src/assets/LandingPage/flexiblehero.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-height: 658px;
+    height: 100%;
+}
+
+.bg-img-card {
+    background: url('../src/assets/LandingPage/bgcardimg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+.bg-subscription {
+    background: url('../src/assets/LandingPage/subscriptionBg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+}
+
+.bg-cards {
+    background: url('../src/assets/LandingPage/bg-cards.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.bg-provider-detail {
+    background: url('../src/assets/LandingPage/bg-provider-detail.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+.backdrop {
+    transition: background 0.3s ease-in-out;
+}
