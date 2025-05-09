@@ -5,7 +5,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router";
 
 const Navbar = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropMemeberOpen, setIsDropMemeberOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -109,9 +109,17 @@ const Navbar = () => {
             )}
           </li>
 
-          <li className="cursor-pointer" onClick={()=>navigate('/auth/sign-up')}>Sign Up</li>
-          <li >
-            <button onClick={()=>navigate('/auth/sign-in')} className="border px-3 py-1 h-[43px] w-[135.27px] text-[#63CFAC] bg-white rounded-md">
+          <li
+            className="cursor-pointer"
+            onClick={() => navigate("/auth/sign-up")}
+          >
+            Sign Up
+          </li>
+          <li>
+            <button
+              onClick={() => navigate("/auth/sign-in")}
+              className="border px-3 py-1 h-[43px] w-[135.27px] text-[#63CFAC] bg-white rounded-md"
+            >
               Login
             </button>
           </li>
@@ -139,10 +147,10 @@ const Navbar = () => {
         <div className="p-4 flex justify-end" onClick={toggleMobileMenu}>
           <HiX size={28} />
         </div>
-        <div className="p-4 space-y-4">
-          <span onClick={closeMenus} className="cursor-pointer">
+        <div className="p-4 space-y-4 text-black">
+          <Link to="home" onClick={closeMenus} className="block">
             Home
-          </span>
+          </Link>
 
           <div>
             <button
@@ -152,23 +160,53 @@ const Navbar = () => {
               Pain Relief Support <MdArrowDropDown />
             </button>
             {isDropdownOpen && (
-              <div className="mt-2 ml-4 space-y-1 text-gray-700">
-                {["Hello", "World", "Hannan"].map((item) => (
-                  <div
-                    key={item}
-                    className="py-1 border-b"
+              <div className="mt-2 ml-4 space-y-1 text-black">
+                {SupportLinks.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.url}
                     onClick={closeMenus}
+                    className="block py-1 border-b"
                   >
-                    {item}
-                  </div>
+                    {item.label}
+                  </Link>
                 ))}
               </div>
             )}
           </div>
 
-          <div onClick={closeMenus}>Membership</div>
-          <div onClick={closeMenus}>Sign Up</div>
-          <button className="border px-3 py-1 rounded-md w-fit">Login</button>
+          <div>
+            <button
+              className="flex items-center justify-between w-full"
+              onClick={() => setIsDropMemeberOpen(!dropMemeberOpen)}
+            >
+              Membership <MdArrowDropDown />
+            </button>
+            {dropMemeberOpen && (
+              <div className="mt-2 ml-4 space-y-1 text-black">
+                {MemeberLinks.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.url}
+                    onClick={closeMenus}
+                    className="block py-1 border-b"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link to="/auth/sign-up" onClick={closeMenus} className="block">
+            Sign Up
+          </Link>
+
+          <Link to="/auth/sign-in" onClick={closeMenus}>
+            <button className="border px-3 py-1 rounded-md w-fit text-[#63CFAC]">
+              Login
+            </button>
+          </Link>
         </div>
       </div>
     </nav>
