@@ -13,9 +13,52 @@ import AuthInput from "../../components/onboarding/AuthInput";
 import SelectField from "../../components/onboarding/SelectField";
 import { useNavigate } from "react-router";
 import Button from "../../components/app/landingPage/Inputs/Button";
+import { useLogin } from "../../hooks/api/Post";
+import { useFormik } from "formik";
+import { signInValues } from "../../init/authentication/authenticationValues";
+import { signInSchema } from "../../schema/authentication/authenticationSchema";
+import { processLogin } from "../../lib/utils";
+import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { loading, postData } = useLogin();
+  console.log("🚀 ~ Login ~ loading:", loading);
+  const [isSelected, setIsSelected] = useState("");
+
+  const {
+    values,
+    setFieldValue,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+  } = useFormik({
+    initialValues: signInValues,
+    validationSchema: signInSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: async (values, action) => {
+      console.log("🚀 ~ onSubmit: ~ action:", action);
+      let routeName =
+        values?.type === "member" ? "user/dashboard" : "network/dashboard";
+      postData(
+        "/auth/adminSignIn",
+        false,
+        null,
+        values,
+        processLogin,
+        routeName
+      );
+    },
+  });
+
+  const handleSelection = (text) => {
+    setIsSelected(text);
+    setFieldValue("type", text);
+  };
+
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc]">
       <div className="p-4 lg:block hidden">
@@ -40,52 +83,72 @@ const Login = () => {
           </p>
         </div>
 
-        <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
-          <div className=" flex justify-between gap-2">
-            <SelectField
-              icon={UserWhite}
-              iconDark={UserDark}
-              text="I'm a member"
-              tick={SmallTick}
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
+            <div className=" flex justify-between gap-2">
+              <SelectField
+                icon={UserWhite}
+                iconDark={UserDark}
+                label="I'm a member"
+                value="member"
+                tick={SmallTick}
+                isSelected={isSelected}
+                handleSelection={handleSelection}
+              />
+              <SelectField
+                icon={NetworkProviderLight}
+                iconDark={NetworkProviderDark}
+                label="I’m a service provider"
+                value="provider"
+                tick={SmallTick}
+                isSelected={isSelected}
+                handleSelection={handleSelection}
+              />
+            </div>
+            {errors?.type && touched?.type && (
+              <p className="text-red-600 text-[12px]">{errors?.type}</p>
+            )}
+
+            <AuthInput
+              text={"Email address"}
+              placeholder={"Enter email here"}
+              type={"email"}
+              id={"email"}
+              name={"email"}
+              maxLength={50}
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors?.email}
+              touched={touched?.email}
             />
-            <SelectField
-              icon={NetworkProviderLight}
-              iconDark={NetworkProviderDark}
-              text="I’m a service provider "
-              tick={SmallTick}
+            <AuthInput
+              text={" Password"}
+              placeholder={"Password"}
+              type={"password"}
+              id={"password"}
+              name={"password"}
+              maxLength={50}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors?.password}
+              touched={touched?.password}
             />
           </div>
-
-          <AuthInput
-            text={"Email address"}
-            placeholder={"Enter email here"}
-            type={"email"}
-            id={"email"}
-            name={"email"}
-            maxLength={50}
-          />
-          <AuthInput
-            text={" Password"}
-            placeholder={"Password"}
-            type={"password"}
-            id={"password"}
-            name={"password"}
-            max
-            Length={50}
-          />
-        </div>
-        <div className="flex my-2 justify-end lg:w-[350px] md:w-[550px] w-[320px]">
-          <p
-            type="button"
-            className="text-[#181818] text-[12px] font-[500] pt-1 cursor-pointer"
-            onClick={() => navigate("/auth/forget-password")}
-          >
-            Forgot password?
-          </p>
-        </div>
-        <div className="w-[350px] mt-3 mb-4">
-          <Button text={"Login"} />
-        </div>
+          <div className="flex my-2 justify-end lg:w-[350px] md:w-[550px] w-[320px]">
+            <p
+              type="button"
+              className="text-[#181818] text-[12px] font-[500] pt-1 cursor-pointer"
+              onClick={() => navigate("/auth/forget-password")}
+            >
+              Forgot password?
+            </p>
+          </div>
+          <div className="w-[350px] mt-3 mb-4">
+            <Button text={"Login"} />
+          </div>
+        </form>
         <div className="flex items-center  lg:w-[350px] md:w-[550px] w-[320px]">
           <hr className="w-full border-t border-[#D9D9D9]" />
           <p className="px-2 text-[#D9D9D9]">OR</p>

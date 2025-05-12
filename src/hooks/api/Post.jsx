@@ -12,13 +12,14 @@ const useLogin = () => {
     isFormData = false,
     formdata = null,
     data = null,
-    callback
+    callback,
+    routeName
   ) => {
     try {
       setLoading(true);
       const response = await axios.post(url, isFormData ? formdata : data);
       if (typeof callback === "function") {
-        callback(response?.data, navigate);
+        callback(response?.data, navigate, routeName);
       }
       return response?.data;
     } catch (error) {

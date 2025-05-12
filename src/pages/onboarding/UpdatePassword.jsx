@@ -1,12 +1,26 @@
-import React, { useState } from "react";
-import { IoIosArrowDropleftCircle } from "react-icons/io";
+import { useState } from "react";
 import { OtpLogo, SideImg } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
 import PasswordUpdatedModal from "../../components/onboarding/PasswordUpdatedModal";
 import Button from "../../components/app/landingPage/Inputs/Button";
+import { updatePasswordSchema } from "../../schema/authentication/authenticationSchema";
+import { useFormik } from "formik";
+import { updatePasswordValues } from "../../init/authentication/authenticationValues";
 
 const UpdatePassword = () => {
   const [isModal, setIsModal] = useState(false);
+
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: updatePasswordValues,
+      validationSchema: updatePasswordSchema,
+      validateOnChange: true,
+      validateOnBlur: true,
+      onSubmit: async (values, action) => {
+        console.log("🚀 ~ onSubmit: ~ action:", action);
+        setIsModal(true);
+      },
+    });
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
@@ -25,30 +39,44 @@ const UpdatePassword = () => {
           </p>
         </div>
 
-        <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
-          <AuthInput
-            text={" New Password"}
-            placeholder={"New Password"}
-            type={"password"}
-            id={"password"}
-            name={"password"}
-            max
-            Length={50}
-          />
-          <AuthInput
-            text={" Confirm Password"}
-            placeholder={"Confirm Password"}
-            type={"password"}
-            id={"cPassword"}
-            name={"cPassword"}
-            max
-            Length={50}
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
+            <AuthInput
+              text={" New Password"}
+              placeholder={"New Password"}
+              type={"password"}
+              id={"password"}
+              name={"password"}
+              max
+              Length={50}
+              maxLength={50}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors?.password}
+              touched={touched?.password}
+            />
+            <AuthInput
+              text={" Confirm Password"}
+              placeholder={"Confirm Password"}
+              type={"password"}
+              id={"cPassword"}
+              name={"cPassword"}
+              max
+              Length={50}
+              maxLength={50}
+              value={values.cPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors?.cPassword}
+              touched={touched?.cPassword}
+            />
+          </div>
 
-        <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
-          <Button text="Save" onClick={() => setIsModal(true)} />
-        </div>
+          <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
+            <Button text="Save" />
+          </div>
+        </form>
       </div>
       {isModal && <PasswordUpdatedModal isOpen={setIsModal} />}
     </div>

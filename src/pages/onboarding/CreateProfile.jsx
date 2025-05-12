@@ -1,11 +1,6 @@
-import React from "react";
 import {
-  Logo,
   MapImg,
-  NetworkProvider,
   SideImg,
-  SmallTick,
-  User,
   UserProfile,
 } from "../../../../painRelief/src/assets/export";
 

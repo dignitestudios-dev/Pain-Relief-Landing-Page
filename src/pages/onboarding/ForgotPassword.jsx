@@ -3,9 +3,24 @@ import { OtpLogo, SideImg } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
 import { useNavigate } from "react-router";
 import Button from "../../components/app/landingPage/Inputs/Button";
+import { useFormik } from "formik";
+import { forgotValues } from "../../init/authentication/authenticationValues";
+import { forgotSchema } from "../../schema/authentication/authenticationSchema";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
+
+  const { values, handleBlur, handleSubmit, handleChange, errors, touched } =
+    useFormik({
+      initialValues: forgotValues,
+      validationSchema: forgotSchema,
+      validateOnChange: true,
+      validateOnBlur: true,
+      onSubmit: async (values, action) => {
+        console.log("🚀 ~ onSubmit: ~ action:", action);
+        navigate("/auth/verify-otp");
+      },
+    });
 
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full min-h-screen">
@@ -27,22 +42,27 @@ const ForgotPassword = () => {
             Enter your registered email address below
           </p>
         </div>
+        <form onSubmit={handleSubmit}>
+          <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full space-y-4 mt-8">
+            <AuthInput
+              text="Email address"
+              placeholder="Enter email here"
+              type="email"
+              id="email"
+              name="email"
+              maxLength={50}
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors?.email}
+              touched={touched?.email}
+            />
+          </div>
 
-        <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full space-y-4 mt-8">
-          <AuthInput
-            text="Email address"
-            placeholder="Enter email here"
-            type="email"
-            id="email"
-            name="email"
-            maxLength={50}
-          />
-        </div>
-
-        <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
-          <Button text="Send" onClick={()=>navigate('/auth/verify-otp')} />
-        </div>
-
+          <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
+            <Button text="Send" />
+          </div>
+        </form>
         <button
           type="button"
           className="w-full flex justify-center items-center gap-1 mt-4"
@@ -59,4 +79,3 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-  

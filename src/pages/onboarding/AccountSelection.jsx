@@ -8,20 +8,25 @@ import {
   UserDark,
   UserWhite,
 } from "../../assets/export";
-import SocialLogin from "../../components/onboarding/SocialLogin";
-import AuthInput from "../../components/onboarding/AuthInput";
+
 import SelectField from "../../components/onboarding/SelectField";
 import { useNavigate } from "react-router";
 import Button from "../../components/app/landingPage/Inputs/Button";
+import { useState } from "react";
 
 const AccountSelection = () => {
   const navigate = useNavigate();
+  const [isSelected, setIsSelected] = useState("");
+
+  const handleSelection = (text) => {
+    setIsSelected(text);
+  };
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc]">
       <div className="p-4 lg:block hidden">
         <img src={SideImg} />
       </div>
-      <div className="flex flex-col justify-center items-center h-auto p-2">
+      <div className="flex flex-col mt-10 items-center h-auto p-2">
         <div className="my-4 text-center">
           <div className="w-[148px] h-[158px]">
             <img src={Logo} />
@@ -45,13 +50,20 @@ const AccountSelection = () => {
               icon={UserWhite}
               iconDark={UserDark}
               text="I'm a member"
+              label="I'm a member"
+              value="member"
               tick={SmallTick}
+              isSelected={isSelected}
+              handleSelection={handleSelection}
             />
             <SelectField
               icon={NetworkProviderLight}
               iconDark={NetworkProviderDark}
-              text="I’m a service provider "
+              label="I’m a service provider"
+              value="provider"
               tick={SmallTick}
+              isSelected={isSelected}
+              handleSelection={handleSelection}
             />
           </div>
         </div>

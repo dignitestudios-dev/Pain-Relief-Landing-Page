@@ -6,6 +6,8 @@ import "./App.css";
 import { PublicRoutes } from "./routes/app/landingPage/PublicRoutes";
 import AppLayout from "./components/app/landingPage/layout/AppLayout";
 import { AuthRoutes } from "./routes/app/userInterface/AuthRoutes";
+import { ProviderRoutes } from "./routes/app/networkProviderInterface/ProviderRoutes";
+import { UserRoutes } from "./routes/app/userInterface/UserRoutes";
 
 function App() {
   return (
@@ -20,6 +22,18 @@ function App() {
 
       <Route path="auth">
         {AuthRoutes?.map((Link, i) => (
+          <Route path={Link.url} key={i} element={Link.page} />
+        ))}
+      </Route>
+
+      <Route path="user">
+        {UserRoutes?.map((Link, i) => (
+          <Route path={Link.url} key={i} element={Link.page} />
+        ))}
+      </Route>
+
+      <Route path="network">
+        {ProviderRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}
       </Route>

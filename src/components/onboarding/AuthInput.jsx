@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { BsEyeSlash } from "react-icons/bs";
 import { Eye } from "../../assets/export";
@@ -43,7 +44,7 @@ const AuthInput = ({
             (!isPassVisible ? <BsEyeSlash /> : <img src={Eye} />)}
         </span>
       </div>
-      {error && touched && <p className="text-error text-[12px]">{error}</p>}
+      {error && touched && <p className="text-red-600 text-[12px]">{error}</p>}
     </div>
   );
 };
