@@ -1,3 +1,4 @@
+import AccountSelection from "../../../pages/onboarding/AccountSelection";
 import ForgotPassword from "../../../pages/onboarding/ForgotPassword";
 import Login from "../../../pages/onboarding/Login";
 import SignUp from "../../../pages/onboarding/Signup";
@@ -5,6 +6,10 @@ import UpdatePassword from "../../../pages/onboarding/UpdatePassword";
 import VerifyOtp from "../../../pages/onboarding/VerifyOtp";
 
 export const AuthRoutes = [
+  {
+    url: "/auth/account-selection",
+    page: <AccountSelection />,
+  },
   {
     url: "/auth/sign-up",
     page: <SignUp />,

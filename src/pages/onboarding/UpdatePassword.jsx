@@ -3,6 +3,7 @@ import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { OtpLogo, SideImg } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
 import PasswordUpdatedModal from "../../components/onboarding/PasswordUpdatedModal";
+import Button from "../../components/app/landingPage/Inputs/Button";
 
 const UpdatePassword = () => {
   const [isModal, setIsModal] = useState(false);
@@ -45,21 +46,9 @@ const UpdatePassword = () => {
           />
         </div>
 
-        <button
-          onClick={() => setIsModal(true)}
-          className="bg-[#29ABE2] text-white lg:w-[350px] md:w-[550px] w-[320px] h-[48px] rounded-[8px] mt-6"
-        >
-          Send
-        </button>
-        <button
-          type="button"
-          className="w-full flex justify-center items-center gap-1 cursor-pointer mt-6"
-        >
-          <IoIosArrowDropleftCircle className="text-lg text-[#212121]" />
-          <p className="text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
-            Back
-          </p>
-        </button>
+        <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
+          <Button text="Save" onClick={() => setIsModal(true)} />
+        </div>
       </div>
       {isModal && <PasswordUpdatedModal isOpen={setIsModal} />}
     </div>

@@ -43,9 +43,10 @@ import Access from "./LandingPage/access.png";
 import Map from "./LandingPage/map.png";
 import SideImg from "./UserInterFace/Side-Images.png";
 import Eye from "./UserInterFace/Eye.png";
-import User from "./UserInterFace/User.png";
+import UserDark from "./UserInterFace/User.png";
 import SmallTick from "./UserInterFace/Small-tick.png";
-import NetworkProvider from "./UserInterFace/Network-provider.png";
+import NetworkProviderDark from "./UserInterFace/Network-provider-Dark.png";
+import NetworkProviderLight from "./UserInterFace/Network-provider-Light.png";
 import GoogleIcon from "./UserInterFace/icons-google.png";
 import AppleIcon from "./UserInterFace/icons-apple.png";
 import OtpLogo from "./UserInterFace/OtpLogo.png";
@@ -105,10 +106,9 @@ export {
   SideImg,
   OtpLogo,
   Eye,
-  User,
+  UserDark,
   UserProfile,
   SmallTick,
-  NetworkProvider,
   GoogleIcon,
   AppleIcon,
   MapImg,
@@ -117,5 +117,7 @@ export {
   RadioBtnActive,
   RedBin,
   EditIcon,
-  UserWhite
+  UserWhite,
+  NetworkProviderLight,
+  NetworkProviderDark
 };

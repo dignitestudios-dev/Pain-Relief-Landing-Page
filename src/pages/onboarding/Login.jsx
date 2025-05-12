@@ -1,9 +1,11 @@
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import {
   Logo,
-  NetworkProvider,
+  NetworkProviderDark,
+  NetworkProviderLight,
   SideImg,
   SmallTick,
+  UserDark,
   UserWhite,
 } from "../../assets/export";
 import SocialLogin from "../../components/onboarding/SocialLogin";
@@ -42,11 +44,13 @@ const Login = () => {
           <div className=" flex justify-between gap-2">
             <SelectField
               icon={UserWhite}
+              iconDark={UserDark}
               text="I'm a member"
               tick={SmallTick}
             />
             <SelectField
-              icon={NetworkProvider}
+              icon={NetworkProviderLight}
+              iconDark={NetworkProviderDark}
               text="I’m a service provider "
               tick={SmallTick}
             />
@@ -93,7 +97,7 @@ const Login = () => {
             Don’t have an account?
             <span
               className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent font-medium pl-1 cursor-pointer "
-              onClick={() => navigate("/auth/sign-up")}
+              onClick={() => navigate("/auth/account-selection")}
             >
               Sign Up
             </span>

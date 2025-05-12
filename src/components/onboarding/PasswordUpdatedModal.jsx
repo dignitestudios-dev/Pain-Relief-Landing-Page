@@ -1,10 +1,14 @@
 import React from "react";
 import { SmallTick } from "../../assets/export";
+import Button from "../app/landingPage/Inputs/Button";
+import { useNavigate } from "react-router";
 
 const PasswordUpdatedModal = ({ isOpen }) => {
+  const navigate =useNavigate()
   return (
-    <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center">
-      <div className="bg-white bg-opacity-10 rounded-[26px] shadow-md p-8 w-[470px] h-[337px]">
+    <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
+     <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] h-[337px]">
+
         <div className="flex flex-col justify-center items-center lg:h-auto md:h-screen ">
           <div className="pb-4 text-center w-[330px] flex flex-col justify-center items-center">
             <div className=" mb-8">
@@ -18,12 +22,9 @@ const PasswordUpdatedModal = ({ isOpen }) => {
             </p>
           </div>
 
-          <button
-            onClick={() => isOpen(false)}
-            className="bg-[#29ABE2] text-white w-[420px] h-[48px] rounded-[8px] mt-6"
-          >
-            Continue
-          </button>
+        <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
+          <Button text="Continue" onClick={() => navigate("/auth/sign-in")} />
+        </div>
         </div>
       </div>
     </div>
