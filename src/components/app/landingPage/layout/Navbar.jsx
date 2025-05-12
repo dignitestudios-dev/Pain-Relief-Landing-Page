@@ -113,7 +113,7 @@ const Navbar = () => {
 
           <li
             className="cursor-pointer"
-            onClick={() => navigate("/auth/sign-up")}
+            onClick={() => navigate("/auth/account-selection")}
           >
             Sign Up
           </li>
