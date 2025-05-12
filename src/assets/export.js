@@ -58,6 +58,7 @@ import RadioBtnActive from "./UserInterFace/RadioBtnActive.png";
 import RedBin from "./UserInterFace/RedBin.png";
 import EditIcon from "./UserInterFace/EditIcon.png";
 import UserWhite from "./UserInterFace/userwhite.png";
+import LocationDark from "./UserInterFace/locationDark.png";
 
 export {
   NoInternetImage,
@@ -119,5 +120,6 @@ export {
   EditIcon,
   UserWhite,
   NetworkProviderLight,
-  NetworkProviderDark
+  NetworkProviderDark,
+  LocationDark
 };
