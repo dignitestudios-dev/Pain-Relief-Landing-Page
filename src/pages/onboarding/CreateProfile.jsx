@@ -9,7 +9,7 @@ import {
   UserProfile,
 } from "../../../../painRelief/src/assets/export";
 
-import InputField from "../../../../components/app/userInterface/onboarding/InputField";
+import InputField from "../../components/app/userInterface/onboarding/InputField";
 
 const CreateProfile = () => {
   return (

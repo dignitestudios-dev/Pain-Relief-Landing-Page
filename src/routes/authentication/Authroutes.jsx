@@ -1,10 +1,10 @@
 import Signup from "../../pages/onboarding/Signup";
 
-export const Authroutes = [
+export const AuthRoutes = [
   {
     url: "sign-up",
     title: "Signup",
     page: <Signup />,
-    ispublic: true,
+    isPublic: true,
   },
 ];

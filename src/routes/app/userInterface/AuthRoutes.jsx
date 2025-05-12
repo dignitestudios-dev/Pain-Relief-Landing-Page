@@ -1,9 +1,8 @@
-import SignUp from "../../../pages/app/userInterface/onboarding/SignUp";
-import Login from "../../../pages/app/userInterface/onboarding/Login";
-import ForgotPassword from "../../../pages/app/userInterface/onboarding/ForgotPassword";
-import VerifyOtp from "../../../pages/app/userInterface/onboarding/VerifyOtp";
-import UpdatePassword from "../../../pages/app/userInterface/onboarding/UpdatePassword";
-
+import ForgotPassword from "../../../pages/onboarding/ForgotPassword";
+import Login from "../../../pages/onboarding/Login";
+import SignUp from "../../../pages/onboarding/Signup";
+import UpdatePassword from "../../../pages/onboarding/UpdatePassword";
+import VerifyOtp from "../../../pages/onboarding/VerifyOtp";
 
 export const AuthRoutes = [
   {

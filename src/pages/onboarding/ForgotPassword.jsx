@@ -1,8 +1,8 @@
 import React from "react";
 
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import { OtpLogo, SideImg } from "../../../../assets/export";
-import AuthInput from "../../../../components/app/userInterface/onboarding/AuthInput";
+import { OtpLogo, SideImg } from "../../assets/export";
+import AuthInput from "../../components/onboarding/AuthInput";
 import { useNavigate } from "react-router";
 
 const ForgotPassword = () => {
@@ -36,7 +36,10 @@ const ForgotPassword = () => {
           />
         </div>
 
-        <button onClick={()=>navigate('/auth/verify-otp')} className="bg-[#29ABE2] text-white lg:w-[350px] md:w-[550px] w-[350px] h-[48px] rounded-[8px] mt-6">
+        <button
+          onClick={() => navigate("/auth/verify-otp")}
+          className="bg-[#29ABE2] text-white lg:w-[350px] md:w-[550px] w-[350px] h-[48px] rounded-[8px] mt-6"
+        >
           Send
         </button>
         <button

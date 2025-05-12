@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { OtpLogo, SideImg } from "../../../../assets/export";
+import { OtpLogo, SideImg } from "../../assets/export";
 import { useNavigate } from "react-router";
 
 const VerifyOtp = () => {

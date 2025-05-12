@@ -4,7 +4,7 @@ import "./App.css";
 // import AuthLayout from "./layouts/AuthLayout";
 
 import { PublicRoutes } from "./routes/app/landingPage/PublicRoutes";
-import Applayout from "./components/app/landingPage/layout/AppLayout";
+import AppLayout from "./components/app/landingPage/layout/AppLayout";
 import { AuthRoutes } from "./routes/app/userInterface/AuthRoutes";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/app/home" />} />
 
-      <Route path="app" element={<Applayout />}>
+      <Route path="app" element={<AppLayout />}>
         {PublicRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}

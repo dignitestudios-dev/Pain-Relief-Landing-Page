@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import { OtpLogo, SideImg } from "../../../../assets/export";
-import AuthInput from "../../../../components/app/userInterface/onboarding/AuthInput";
-import PasswordUpdatedModal from "../../../../components/app/userInterface/onboarding/PasswordUpdatedModal";
-
+import { OtpLogo, SideImg } from "../../assets/export";
+import AuthInput from "../../components/onboarding/AuthInput";
+import PasswordUpdatedModal from "../../components/onboarding/PasswordUpdatedModal";
 
 const UpdatePassword = () => {
   const [isModal, setIsModal] = useState(false);

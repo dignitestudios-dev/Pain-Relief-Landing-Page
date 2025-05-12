@@ -1,9 +1,9 @@
-import React from "react";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router";
 import Footer from "./Footer";
 
-const Applayout = ({ page }) => {
+// eslint-disable-next-line react/prop-types
+const AppLayout = ({ page }) => {
   return (
     <div className="relative bg-[#f5f5f5]">
       <div className="flex absolute right-0 left-0 z-20 justify-between items-center bg-transparent mt-3 md:mx-auto  xl:w-[90%] lg:w-[95%] md:w-[100%]  md:px-3 md:pe-10">
@@ -18,4 +18,4 @@ const Applayout = ({ page }) => {
   );
 };
 
-export default Applayout;
+export default AppLayout;

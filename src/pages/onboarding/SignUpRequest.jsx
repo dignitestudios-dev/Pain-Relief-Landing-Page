@@ -6,9 +6,9 @@ import {
   SmallTick,
   User,
 } from "../../../../painRelief/src/assets/export";
-import AuthInput from "../../../../components/app/userInterface/onboarding/AuthInput";
-import SelectField from "../../../../components/app/userInterface/onboarding/SelectField";
-import SocialLogin from "../../../../components/app/userInterface/onboarding/SocialLogin";
+import AuthInput from "../../components/app/userInterface/onboarding/AuthInput";
+import SelectField from "../../components/app/userInterface/onboarding/SelectField";
+import SocialLogin from "../../components/app/userInterface/onboarding/SocialLogin";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 
 const SignUpRequest = () => {

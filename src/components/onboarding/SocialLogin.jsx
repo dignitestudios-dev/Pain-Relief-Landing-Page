@@ -1,6 +1,6 @@
 import React from "react";
 import { FaApple } from "react-icons/fa";
-import { GoogleIcon } from "../../../../assets/export";
+import { GoogleIcon } from "../../assets/export";
 
 const SocialLogin = () => {
   return (

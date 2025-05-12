@@ -1,6 +1,5 @@
 import React from "react";
-import { SmallTick } from "../../../../assets/export";
-
+import { SmallTick } from "../../assets/export";
 
 const PasswordUpdatedModal = ({ isOpen }) => {
   return (

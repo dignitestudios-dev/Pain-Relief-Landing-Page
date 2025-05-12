@@ -4,42 +4,42 @@ import Insurance from "../../../pages/app/landingPage/Insurance";
 import MemberShip from "../../../pages/app/landingPage/MemberShip";
 import PainReliefCoach from "../../../pages/app/landingPage/PainReliefCoach";
 import ProviderDetail from "../../../pages/app/landingPage/ProviderDetail";
-import ScheduleAppoitment from "../../../pages/app/landingPage/ScheduleAppoitment";
+import ScheduleAppointment from "../../../pages/app/landingPage/ScheduleAppointment";
 
 export const PublicRoutes = [
   {
     url: "home",
     page: <Home />,
-    ispublic: true,
+    isPublic: true,
   },
   {
     url: "more-insurance",
     page: <Insurance />,
-    ispublic: true,
+    isPublic: true,
   },
   {
     url: "immediate-options",
     page: <ImmediateOptions />,
-    ispublic: true,
+    isPublic: true,
   },
   {
     url: "schedule-appointment",
-    page: <ScheduleAppoitment />,
-    ispublic: true,
+    page: <ScheduleAppointment />,
+    isPublic: true,
   },
   {
     url: "membership",
     page: <MemberShip />,
-    ispublic: true,
+    isPublic: true,
   },
   {
     url: "pain-relief-coach",
     page: <PainReliefCoach />,
-    ispublic: true,
+    isPublic: true,
   },
   {
     url: "provider-detail",
     page: <ProviderDetail />,
-    ispublic: true,
+    isPublic: true,
   },
 ];

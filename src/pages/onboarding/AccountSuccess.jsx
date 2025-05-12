@@ -1,9 +1,4 @@
-import React from "react";
-import {
-  OtpLogo,
-  SideImg,
-  SmallTick,
-} from "../../../../painRelief/src/assets/export";
+import { SideImg, SmallTick } from "../../../../painRelief/src/assets/export";
 
 const AccountSuccess = () => {
   return (

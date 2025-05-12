@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { GoChevronDown } from "react-icons/go";
-import { RadioBtn, RadioBtnActive } from "../../../../assets/export";
-
+import { RadioBtn, RadioBtnActive } from "../../assets/export";
 
 const SelectableField = ({ label, placeholder, options, error, loader }) => {
   const dropdownRef = useRef(null);

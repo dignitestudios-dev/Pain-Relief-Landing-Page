@@ -1,19 +1,16 @@
-import React from "react";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import {
   Logo,
   NetworkProvider,
   SideImg,
   SmallTick,
-  User,
   UserWhite,
-} from "../../../../assets/export";
-import SocialLogin from "../../../../components/app/userInterface/onboarding/SocialLogin";
-import AuthInput from "../../../../components/app/userInterface/onboarding/AuthInput";
-import SelectableField from "../../../../components/app/userInterface/onboarding/SelectableField";
-import SelectField from "../../../../components/app/userInterface/onboarding/SelectField";
+} from "../../assets/export";
+import SocialLogin from "../../components/onboarding/SocialLogin";
+import AuthInput from "../../components/onboarding/AuthInput";
+import SelectField from "../../components/onboarding/SelectField";
 import { useNavigate } from "react-router";
-import Button from "../../../../components/app/landingPage/Inputs/Button";
+import Button from "../../components/app/landingPage/Inputs/Button";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,7 +40,11 @@ const Login = () => {
 
         <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
           <div className=" flex justify-between gap-2">
-            <SelectField icon={UserWhite} text="I'm a member" tick={SmallTick} />
+            <SelectField
+              icon={UserWhite}
+              text="I'm a member"
+              tick={SmallTick}
+            />
             <SelectField
               icon={NetworkProvider}
               text="I’m a service provider "

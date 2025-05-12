@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { BsEyeSlash } from "react-icons/bs";
-import { Eye } from "../../../../assets/export";
-
+import { Eye } from "../../assets/export";
 
 const AuthInput = ({
   placeholder,

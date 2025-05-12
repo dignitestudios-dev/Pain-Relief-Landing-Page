@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiFilter } from "react-icons/fi";
 import Cards from "./Cards";
 import FilterSection from "./FilterSection";
 
+// eslint-disable-next-line react/prop-types
 const SearchServiceProvider = ({ setShowFilter }) => {
   const [showDrawer, setShowDrawer] = useState(false);
 

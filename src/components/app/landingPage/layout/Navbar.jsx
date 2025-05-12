@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { DesktopLogo, Logo } from "../../../../assets/export";
+import { useState } from "react";
+import { DesktopLogo } from "../../../../assets/export";
 import { MdArrowDropDown } from "react-icons/md";
 import { HiMenu, HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router";
@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router";
 const Navbar = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [dropMemeberOpen, setIsDropMemeberOpen] = useState(false);
+  const [dropMemberOpen, setIsDropMemberOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -29,7 +29,7 @@ const Navbar = () => {
       url: "schedule-appointment",
     },
   ];
-  const MemeberLinks = [
+  const MemberLinks = [
     {
       label: "Flexible Memberships",
       url: "membership",
@@ -68,8 +68,9 @@ const Navbar = () => {
             {isDropdownOpen && (
               <div className="absolute top-full left-0  w-[180px] border border-t-0 border-[#FFFFFF4D] rounded-b-md z-20">
                 <div className="py-1 p-2 bg-gradient-to-r  text-white text-sm">
-                  {SupportLinks.map((item) => (
+                  {SupportLinks.map((item, index) => (
                     <div
+                      key={index}
                       className={` text-start pt-2  py-1 text-[14px] text-white  border-t border-[#FFFFFF4D] text-nowrap font-[500] `}
                     >
                       <Link to={item.url} onClick={closeMenus}>
@@ -84,19 +85,20 @@ const Navbar = () => {
           <li className="relative">
             <button
               className={`flex items-center w-[155px] gap-1 px-2 py-1 ${
-                dropMemeberOpen
+                dropMemberOpen
                   ? "border border-b-0 rounded-t-md border-[#FFFFFF4D]"
                   : ""
               }`}
-              onClick={() => setIsDropMemeberOpen(!dropMemeberOpen)}
+              onClick={() => setIsDropMemberOpen(!dropMemberOpen)}
             >
               Membership <MdArrowDropDown size={16} />
             </button>
-            {dropMemeberOpen && (
+            {dropMemberOpen && (
               <div className="absolute top-full left-0  w-[155px] border border-t-0 border-[#FFFFFF4D] rounded-b-md z-20">
                 <div className="py-1 p-2 bg-gradient-to-r  text-white text-sm">
-                  {MemeberLinks?.map((item) => (
+                  {MemberLinks?.map((item, index) => (
                     <div
+                      key={index}
                       className={` text-start pt-2  py-1 text-[14px] text-white  border-t border-[#FFFFFF4D] text-nowrap font-[500] `}
                     >
                       <Link to={item.url} onClick={closeMenus}>
@@ -178,13 +180,13 @@ const Navbar = () => {
           <div>
             <button
               className="flex items-center justify-between w-full"
-              onClick={() => setIsDropMemeberOpen(!dropMemeberOpen)}
+              onClick={() => setIsDropMemberOpen(!dropMemberOpen)}
             >
               Membership <MdArrowDropDown />
             </button>
-            {dropMemeberOpen && (
+            {dropMemberOpen && (
               <div className="mt-2 ml-4 space-y-1 text-black">
-                {MemeberLinks.map((item) => (
+                {MemberLinks.map((item) => (
                   <Link
                     key={item.label}
                     to={item.url}
