@@ -1,12 +1,20 @@
-import {
-  MapImg,
-  SideImg,
-  UserProfile,
-} from "../../../../painRelief/src/assets/export";
-
-import InputField from "../../components/app/userInterface/onboarding/InputField";
+import { useFormik } from "formik";
+import { MapImg, SideImg, UserProfile } from "../../assets/export";
+import InputField from "../../components/onboarding/InputField";
+import { userInfoInitialValues } from "../../init/app/userInformation";
+import { userInfoValidationSchema } from "../../schema/app/userInfoSchema";
 
 const CreateProfile = () => {
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: userInfoInitialValues,
+      validationSchema: userInfoValidationSchema,
+      onSubmit: (values) => {
+        console.log("Form values:", values);
+        // Send to backend or process
+      },
+    });
+
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
@@ -38,58 +46,89 @@ const CreateProfile = () => {
         </div>
 
         <div className="space-y-4 xl:w-[500px] lg:w-[400px] md:w-[600px] w-[350px]">
-          <div className="grid grid-cols-2 gap-3">
-            <InputField
-              text={"First Name (required)"}
-              placeholder={"First Name"}
-              type={"text"}
-              id={"fname"}
-              name={"fname"}
-              maxLength={50}
-            />
-            <InputField
-              text={"Last Name"}
-              placeholder={"Last Name"}
-              type={"text"}
-              id={"lname"}
-              name={"lname"}
-              maxLength={50}
-            />
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-2 gap-3">
+              <InputField
+                text={"First Name (required)"}
+                placeholder={"First Name"}
+                type={"text"}
+                id={"fname"}
+                name={"fname"}
+                maxLength={50}
+                value={values.fname}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.fname}
+                touched={touched.fname}
+              />
+              <InputField
+                text={"Last Name"}
+                placeholder={"Last Name"}
+                type={"text"}
+                id={"lname"}
+                name={"lname"}
+                maxLength={50}
+                value={values.lname}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.lname}
+                touched={touched.lname}
+              />
+              <InputField
+                text={"Email Address"}
+                placeholder={"Email Address"}
+                type={"email"}
+                id={"email"}
+                name={"email"}
+                maxLength={50}
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.email}
+                touched={touched.email}
+              />
+              <InputField
+                text={"Mobile Number"}
+                placeholder={"Mobile Number"}
+                type={"text"}
+                id={"number"}
+                name={"number"}
+                maxLength={50}
+                value={values.number}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.number}
+                touched={touched.number}
+              />
+            </div>
 
             <InputField
-              text={"Email Address"}
-              placeholder={"Email Address"}
-              type={"email"}
-              id={"email"}
-              name={"email"}
-              maxLength={50}
-            />
-            <InputField
-              text={"Mobile Number"}
-              placeholder={"Mobile Number"}
+              text={"Home address (required)"}
+              placeholder={"Enter your street, city, state, zip?"}
               type={"text"}
-              id={"number"}
-              name={"number"}
+              id={"address"}
+              name={"address"}
               maxLength={50}
+              value={values.address}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.address}
+              touched={touched.address}
             />
-          </div>
 
-          <InputField
-            text={"Home address (required)"}
-            placeholder={"Enter your street, city, state, zip?"}
-            type={"text"}
-            id={"number"}
-            name={"number"}
-            maxLength={50}
-          />
-          <div>
-            <img src={MapImg} className="rounded-md" />
-          </div>
-          <div className="flex justify-end">
-            <button className="bg-[#29ABE2] text-white w-[128px] h-[48px] rounded-xl mt-2">
-              Save
-            </button>
-          </div>
+            <div>
+              <img src={MapImg} className="rounded-md" />
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="bg-[#29ABE2] text-white w-[128px] h-[48px] rounded-xl mt-2"
+              >
+                Save
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -32,4 +32,26 @@ const useLogin = () => {
   return { loading, postData };
 };
 
-export { useLogin };
+const useSignUp = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const postData = async (url, data = null, callback) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, data);
+      if (typeof callback === "function") {
+        callback(response?.data, navigate, data);
+      }
+      return response?.data;
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
+
+export { useLogin, useSignUp };

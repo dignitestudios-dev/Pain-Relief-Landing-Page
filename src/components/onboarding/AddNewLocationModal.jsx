@@ -1,17 +1,76 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import { MapImg } from "../../assets/export";
 import InputField from "./InputField";
 import SelectableField from "./SelectableField";
 import Button from "../app/landingPage/Inputs/Button";
 
-const AddNewLocationModal = ({ setIsModal, setIsMemberAdded }) => {
-  const ServiceSpecialityOptions = [
-    "Chiropectic Care",
+const AddNewLocationModal = ({
+  setIsModal,
+  setIsLocationAdded,
+  editIndex,
+  setEditIndex,
+  isLocationAdded,
+}) => {
+  const ServiceSpecialtyOptions = [
+    "Chiropractic Care",
     "Massage Therapy Care",
     "Acupuncture Care",
     "Diet/Wellness Services",
     "Adjunctive Therapy Services",
   ];
+
+  const [form, setForm] = useState({ address: "", specialty: "" });
+  const [errors, setErrors] = useState({ address: "", specialty: "" });
+
+  const validateForm = () => {
+    const newErrors = { address: "", specialty: "" };
+    let valid = true;
+
+    if (!form.address.trim()) {
+      newErrors.address = "Address is required";
+      valid = false;
+    }
+
+    if (!form.specialty.trim()) {
+      newErrors.specialty = "Specialty is required";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    setErrors((prev) => ({ ...prev, [field]: "" }));
+  };
+
+  const handleAddLocation = () => {
+    if (!validateForm()) return;
+
+    if (editIndex !== null) {
+      // Edit mode
+      setIsLocationAdded((prev) => {
+        const updated = [...prev];
+        updated[editIndex] = form;
+        return updated;
+      });
+    } else {
+      // Add mode
+      setIsLocationAdded((prev) => [...prev, form]);
+    }
+
+    setEditIndex(null);
+    setForm({ address: "", specialty: "" });
+    setIsModal(false);
+  };
+
+  useEffect(() => {
+    if (editIndex !== null && isLocationAdded[editIndex]) {
+      setForm(isLocationAdded[editIndex]);
+    }
+  }, [editIndex]);
 
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
@@ -42,27 +101,28 @@ const AddNewLocationModal = ({ setIsModal, setIsMemberAdded }) => {
 
         <div className="space-y-3 mt-4">
           <InputField
-            placeholder={"Enter your street, city, state, zip?"}
-            text={"Primary Clinic Location (Required)"}
+            placeholder="Enter your street, city, state, zip?"
+            text="Primary Clinic Location (Required)"
+            value={form.address}
+            onChange={(e) => handleChange("address", e.target.value)}
+            error={errors.address}
+            touched={errors.address}
           />
           <div className="mt-3">
             <img src={MapImg} className="w-[421px] h-[124px] " alt="" />
           </div>
           <div>
             <SelectableField
-              placeholder={"Select"}
-              label={"List Specialty Services"}
-              options={ServiceSpecialityOptions}
+              placeholder="Select"
+              label="List Specialty Services"
+              options={ServiceSpecialtyOptions}
+              value={form.specialty}
+              onChange={(value) => handleChange("specialty", value)}
+              error={errors.specialty}
             />
           </div>
           <div>
-            <Button
-              text={"Add Location"}
-              onClick={() => {
-                setIsModal(false);
-                setIsMemberAdded(true);
-              }}
-            />
+            <Button text="Add Location" onClick={handleAddLocation} />
           </div>
         </div>
       </div>
