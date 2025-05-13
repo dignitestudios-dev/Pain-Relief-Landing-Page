@@ -1,16 +1,16 @@
-import { useNavigate } from "react-router";
 import { ErrorToast } from "../components/global/Toaster";
 
-export const processSignup = (data, navigate) => {
+export const processSignup = (data, navigate, userData) => {
   if (data?.success) {
-    navigate("/app/dashboard");
+    sessionStorage.setItem("email", userData?.email);
+    navigate("/auth/verify-otp", { state: { userType: userData?.role } });
     return;
   }
 };
 
-export const processLogin = (data, navigate) => {
+export const processLogin = (data, navigate, routeName) => {
   if (data?.success) {
-    navigate("/app/dashboard");
+    navigate(routeName);
     return;
   }
 };

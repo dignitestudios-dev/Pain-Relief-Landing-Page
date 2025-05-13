@@ -41,16 +41,15 @@ const Login = () => {
     validateOnBlur: true,
     onSubmit: async (values, action) => {
       console.log("🚀 ~ onSubmit: ~ action:", action);
+      let payload = {
+        email: values.email,
+        password: values.password,
+        fcmToken: "123",
+        role: values?.type === "member" ? "user" : "network",
+      };
       let routeName =
-        values?.type === "member" ? "user/dashboard" : "network/dashboard";
-      postData(
-        "/auth/adminSignIn",
-        false,
-        null,
-        values,
-        processLogin,
-        routeName
-      );
+        values?.type === "member" ? "/user/dashboard" : "network/dashboard";
+      postData("/auth/login", false, null, payload, processLogin, routeName);
     },
   });
 

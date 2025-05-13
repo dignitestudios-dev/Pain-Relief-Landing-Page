@@ -13,6 +13,9 @@ import SelectField from "../../components/onboarding/SelectField";
 import { useNavigate } from "react-router";
 import Button from "../../components/app/landingPage/Inputs/Button";
 import { useState } from "react";
+import { selectAccountSchema } from "../../schema/authentication/authenticationSchema";
+import { selectAccountValues } from "../../init/authentication/authenticationValues";
+import { useFormik } from "formik";
 
 const AccountSelection = () => {
   const navigate = useNavigate();
@@ -20,7 +23,25 @@ const AccountSelection = () => {
 
   const handleSelection = (text) => {
     setIsSelected(text);
+    setFieldValue("type", text);
   };
+
+  const { setFieldValue, handleSubmit, errors, touched } = useFormik({
+    initialValues: selectAccountValues,
+    validationSchema: selectAccountSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: async (values, action) => {
+      console.log("🚀 ~ onSubmit: ~ action:", action);
+      let routeName = "/auth/sign-up";
+
+      // navigate(routeName);
+      navigate(routeName, { state: { userType: values.type } });
+    },
+  });
+
+  selectAccountValues, selectAccountSchema;
+
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc]">
       <div className="p-4 lg:block hidden">
@@ -43,35 +64,38 @@ const AccountSelection = () => {
             Create Account Request
           </p>
         </div>
-
-        <div className="space-y-4 xl:w-[350px] lg:w-[350px] md:w-[550px] w-full ">
-          <div className=" space-y-5">
-            <SelectField
-              icon={UserWhite}
-              iconDark={UserDark}
-              text="I'm a member"
-              label="I'm a member"
-              value="member"
-              tick={SmallTick}
-              isSelected={isSelected}
-              handleSelection={handleSelection}
-            />
-            <SelectField
-              icon={NetworkProviderLight}
-              iconDark={NetworkProviderDark}
-              label="I’m a service provider"
-              value="provider"
-              tick={SmallTick}
-              isSelected={isSelected}
-              handleSelection={handleSelection}
-            />
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4 xl:w-[350px] lg:w-[350px] md:w-[550px] w-full ">
+            <div className=" space-y-5">
+              <SelectField
+                icon={UserWhite}
+                iconDark={UserDark}
+                text="I'm a member"
+                label="I'm a member"
+                value="member"
+                tick={SmallTick}
+                isSelected={isSelected}
+                handleSelection={handleSelection}
+              />
+              <SelectField
+                icon={NetworkProviderLight}
+                iconDark={NetworkProviderDark}
+                label="I’m a service provider"
+                value="provider"
+                tick={SmallTick}
+                isSelected={isSelected}
+                handleSelection={handleSelection}
+              />
+            </div>
+            {errors?.type && touched?.type && (
+              <p className="text-red-600 text-[12px]">{errors?.type}</p>
+            )}
           </div>
-        </div>
 
-        <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-3 mb-4">
-          <Button text={"Continue"} />
-        </div>
-
+          <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-3 mb-4">
+            <Button text={"Continue"} />
+          </div>
+        </form>
         <button
           type="button"
           className="w-full flex justify-center  items-center gap-1 cursor-pointer"

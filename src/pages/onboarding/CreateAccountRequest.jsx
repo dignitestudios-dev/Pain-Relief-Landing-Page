@@ -1,7 +1,6 @@
-import React, { Fragment, useState } from "react";
-import { EditIcon, LocationDark, RedBin, SideImg } from "../../assets/export";
+import { Fragment, useState } from "react";
+import { SideImg } from "../../assets/export";
 import Button from "../../components/app/landingPage/Inputs/Button";
-import AddNewLocationModal from "../../components/onboarding/AddNewLocationModal";
 import MediaLicense from "../../components/onboarding/MediaLicense";
 import AddNewLocation from "../../components/onboarding/AddNewLocation";
 import RequestModal from "../../components/onboarding/RequestModal";

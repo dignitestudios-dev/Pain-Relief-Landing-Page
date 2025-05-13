@@ -1,14 +1,11 @@
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import AuthInput from "../../components/app/userInterface/onboarding/AuthInput";
 import {
   AccountLogo,
   EditIcon,
-  OtpLogo,
   RedBin,
   SideImg,
 } from "../../../../painRelief/src/assets/export";
-import PasswordUpdatedModal from "../../components/app/userInterface/onboarding/PasswordUpdatedModal";
 import AddFamilyMemberModal from "../../components/app/userInterface/onboarding/AddFamilyMemberModal";
 
 const CreateFamilyMember = () => {

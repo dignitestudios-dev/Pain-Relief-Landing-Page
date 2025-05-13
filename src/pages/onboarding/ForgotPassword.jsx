@@ -30,7 +30,7 @@ const ForgotPassword = () => {
       </div>
 
       {/* Right Form Panel */}
-      <div className="flex flex-col justify-center items-center px-6 py-10">
+      <div className="flex flex-col pt-44 items-center px-6 py-10">
         <div className="text-center w-full max-w-md">
           <div className="flex justify-center mb-8">
             <img src={OtpLogo} alt="Logo" className="w-52 sm:w-48" />
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
           </p>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full space-y-4 mt-8">
+          <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-[350px] space-y-4 mt-8">
             <AuthInput
               text="Email address"
               placeholder="Enter email here"
