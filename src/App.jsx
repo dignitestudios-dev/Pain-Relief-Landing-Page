@@ -8,6 +8,7 @@ import AppLayout from "./components/app/landingPage/layout/AppLayout";
 import { AuthRoutes } from "./routes/app/userInterface/AuthRoutes";
 import { ProviderRoutes } from "./routes/app/networkProviderInterface/ProviderRoutes";
 import { UserRoutes } from "./routes/app/userInterface/UserRoutes";
+import NetwrokProviderLayout from "./components/app/networkProviderInterface/layout/NetwrokProviderLayout";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
         ))}
       </Route>
 
-      <Route path="network">
+      <Route path="network"  element={<NetwrokProviderLayout  />}>
         {ProviderRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}

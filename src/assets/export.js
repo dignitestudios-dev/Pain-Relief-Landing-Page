@@ -59,6 +59,13 @@ import RedBin from "./UserInterFace/RedBin.png";
 import EditIcon from "./UserInterFace/EditIcon.png";
 import UserWhite from "./UserInterFace/userwhite.png";
 import LocationDark from "./UserInterFace/locationDark.png";
+import BecomeCoach from "./UserInterFace/becomeCoach.png";
+import ComingSoonImg from "./UserInterFace/ComingSoon.png";
+import MedicallicenseCard from "./UserInterFace/Medical-license-card.png";
+import ErrorIcon from "./UserInterFace/errorIcon.png";
+import Brochure from "./UserInterFace/Brochure.png";
+import QrBg from "./UserInterFace/qrBg.png";
+import CalenderIcon from "./UserInterFace/calenderIcon.png";
 
 export {
   NoInternetImage,
@@ -121,5 +128,12 @@ export {
   UserWhite,
   NetworkProviderLight,
   NetworkProviderDark,
-  LocationDark
+  LocationDark,
+  BecomeCoach,
+  ComingSoonImg,
+  MedicallicenseCard,
+  ErrorIcon,
+  Brochure,
+  QrBg,
+  CalenderIcon
 };

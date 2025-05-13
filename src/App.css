@@ -40,6 +40,7 @@
     background-repeat: no-repeat;
 
 }
+
 .bg-provider-detail {
     background: url('../src/assets/LandingPage/bg-provider-detail.png');
     background-size: cover;
@@ -50,4 +51,36 @@
 
 .backdrop {
     transition: background 0.3s ease-in-out;
+}
+
+.heading-colors strong {
+    font-weight: 500 !important;
+    font-size: 24px;
+    color: black !important;
+}
+
+.memberShipcontent h2 {
+    font-weight: 500 !important;
+    font-size: 24px;
+
+}
+
+.memberShipcontent h2>span {
+    font-size: 16px;
+    color: black !important;
+
+}
+
+.bg-qr {
+  background: url('../src/assets/UserInterFace/qrBg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 350px;
+  border-radius: 20px;
+
+  /* Optional for better layout behavior */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

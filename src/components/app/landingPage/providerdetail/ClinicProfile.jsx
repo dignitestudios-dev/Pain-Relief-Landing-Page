@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
+import AddNewLocationModal from "../../../onboarding/AddNewLocationModal";
+import RequestSendModal from "../../networkProviderInterface/dashboard/home/RequestSendModal";
 
 const ClinicProfile = () => {
+  const [locationModal, setLocationModal] = useState(false);
+  const [requestSendModal, setRequestSendModal] = useState(false);
   const CliniDetail = [
     {
       title: "Name of Clinic/Practice",
@@ -65,7 +69,10 @@ const ClinicProfile = () => {
         <h2 className="text-[24px] font-semibold text-[#181818]">
           Clinic Profile
         </h2>
-        <button className="text-transparent bg-clip-text bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] border-b border-[#63CFAC]">
+        <button
+          onClick={() => setLocationModal(true)}
+          className="text-transparent bg-clip-text bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] border-b border-[#63CFAC]"
+        >
           Add New Location
         </button>
       </div>
@@ -78,9 +85,9 @@ const ClinicProfile = () => {
             </h3>
 
             <div className="flex gap-3 items-center">
-              {item.editIcon && <span >{item.editIcon}</span>}
+              {item.editIcon && <span>{item.editIcon}</span>}
               {item.request && (
-                <button className="text-transparent bg-clip-text bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] border-b border-[#63CFAC] text-sm">
+                <button onClick={()=>setRequestSendModal(true)} className="text-transparent bg-clip-text bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] border-b border-[#63CFAC] text-sm">
                   {item.request}
                 </button>
               )}
@@ -97,6 +104,15 @@ const ClinicProfile = () => {
           </p>
         </div>
       ))}
+      {locationModal && (
+        <AddNewLocationModal setIsModal={() => setLocationModal(false)} />
+      )}
+      {requestSendModal && (
+        <RequestSendModal
+          isOpen={requestSendModal}
+          onClick={() => setRequestSendModal(false)}
+        />
+      )}
     </div>
   );
 };
