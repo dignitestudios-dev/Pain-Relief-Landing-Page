@@ -7,8 +7,8 @@ export const baseUrl = "https://api.painreliefusa.com";
 // export const baseUrl = "http://192.168.8.125:3050";
 
 async function getDeviceFingerprint() {
-  const fp = await FingerprintJS.load();
-  const result = await fp.get();
+  const fp = FingerprintJS.load();
+  const result = fp.get();
   console.log(result.visitorId); // Unique device ID
   return result.visitorId;
 }
@@ -16,8 +16,8 @@ async function getDeviceFingerprint() {
 const instance = axios.create({
   baseURL: baseUrl,
   headers: {
-    devicemodel: await getDeviceFingerprint(),
-    deviceuniqueid: await getDeviceFingerprint(),
+    devicemodel: getDeviceFingerprint(),
+    deviceuniqueid: getDeviceFingerprint(),
   },
   timeout: 10000, // 10 seconds timeout
 });
