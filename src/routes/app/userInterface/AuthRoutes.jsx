@@ -7,6 +7,7 @@ import VerifyOtp from "../../../pages/onboarding/VerifyOtp";
 import CreateProviderProfile from "../../../pages/onboarding/CreateProviderProfile";
 import CreateProfile from "../../../pages/onboarding/CreateProfile";
 import CreateAccountRequest from "./../../../pages/onboarding/CreateAccountRequest";
+import ForgetOtp from "../../../pages/onboarding/ForgetOtp";
 
 export const AuthRoutes = [
   {
@@ -32,6 +33,10 @@ export const AuthRoutes = [
   {
     url: "/auth/sign-in",
     page: <Login />,
+  },
+  {
+    url: "/auth/forget-otp",
+    page: <ForgetOtp />,
   },
   {
     url: "/auth/forget-password",

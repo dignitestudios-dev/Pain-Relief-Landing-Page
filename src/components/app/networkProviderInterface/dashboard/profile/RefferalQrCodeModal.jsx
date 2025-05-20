@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ErrorIcon } from "../../../../../assets/export";
 import BrochureSection from "./BrochureSection";
 import QrCode from "./QrCode";
@@ -6,10 +6,10 @@ import QrCode from "./QrCode";
 const RefferalQrCodeModal = ({ onClick }) => {
   const [tabActive, setTabActive] = useState("Brochure");
   const tabs = ["Brochure", "QR Code"];
-
+  
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
-      <div className="bg-[#fefefe] rounded-[26px] shadow-md p-8 w-[470px] ">
+      <div className="bg-[#fefefe] rounded-[26px] shadow-md p-8 w-[470px] h-[700px] overflow-auto ">
         <div>
           <div
             className="flex justify-end items-center pb-4 "

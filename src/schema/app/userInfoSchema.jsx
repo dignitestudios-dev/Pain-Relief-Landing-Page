@@ -14,13 +14,31 @@ export const userInfoValidationSchema = Yup.object({
 });
 
 export const providerSchema = Yup.object({
-  fname: Yup.string().required("Name of service provider is required"),
-  lname: Yup.string().required("Clinic/practice name is required"),
-  email: Yup.string()
-    .email("Enter a valid email")
-    .required("Email is required"),
-  number: Yup.string().required("Mobile number is required"),
-  providerNPI: Yup.string(),
-  website: Yup.string().url("Enter a valid URL"),
+  userImage: Yup.mixed()
+    .required("Image is required")
+    .test(
+      "fileSize",
+      "File too large",
+      (value) => !value || (value && value.size <= 10 * 1024 * 1024)
+    )
+    .test(
+      "fileType",
+      "Unsupported file format",
+      (value) =>
+        !value ||
+        (value && ["image/jpeg", "image/jpg", "image/png"].includes(value.type))
+    ),
+  name: Yup.string().required("Name of service provider is required"),
+  clinicName: Yup.string().required("Clinic/practice name is required"),
+
+  number: Yup.string()
+    .transform((value) => value.replace(/\D/g, "")) // Remove all non-numeric chars
+    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
+    .required("Please enter your phone number"),
+  providerNPI: Yup.string().required("Provider NPI is required"),
+  website: Yup.string()
+    .url("Enter a valid URL")
+    .required("Website is required"),
+
   description: Yup.string().required("Description is required"),
 });

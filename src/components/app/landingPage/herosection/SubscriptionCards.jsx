@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { SubsTick } from "../../../../assets/export";
 import Button from "../Inputs/Button";
+import { useNavigate } from "react-router";
 
 const SubscriptionCards = () => {
+  const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState("Individual");
   const [selectedPremiumPlan, setSelectedPremiumPlan] = useState("Individual");
   const [Isactive, setIsActive] = useState("Monthly");
@@ -84,7 +86,10 @@ const SubscriptionCards = () => {
 
         <div className="mt-6 flex items-center gap-3">
           <div className="w-[249px]">
-            <Button text={"Buy Now"} />
+            <Button
+              text={"Buy Now"}
+              onClick={() => navigate("/auth/account-selection")}
+            />
           </div>
           <p className="xl:text-[12px] text-[10px] font-[500] text-[#000000]">
             All membership plans will have an additional $20 one-time
@@ -105,7 +110,7 @@ const SubscriptionCards = () => {
                     ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] "
                     : "text-black"
                 }   `}
-                onClick={()=>setIsActive('Monthly')}
+                onClick={() => setIsActive("Monthly")}
               >
                 Month{" "}
               </button>
@@ -115,7 +120,7 @@ const SubscriptionCards = () => {
                     ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] "
                     : "text-black"
                 }   `}
-                onClick={()=>setIsActive('Year')}
+                onClick={() => setIsActive("Year")}
               >
                 Year{" "}
               </button>
@@ -171,7 +176,10 @@ const SubscriptionCards = () => {
 
         <div className="mt-6 flex items-center gap-3">
           <div className="w-[249px]">
-            <Button text={"Buy Now"} />
+            <Button
+              text={"Buy Now"}
+              onClick={() => navigate("/auth/account-selection")}
+            />
           </div>
           <p className="xl:text-[12px] text-[10px] font-[500] text-[#000000]">
             All membership plans will have an additional $20 one-time

@@ -2,13 +2,15 @@ import { useState } from "react";
 import { EditIcon, LocationDark, RedBin } from "../../assets/export";
 import AddNewLocationModal from "./AddNewLocationModal";
 
-const AddNewLocation = () => {
-  const [isModal, setIsModal] = useState(false);
-
-  const [isLocationAdded, setIsLocationAdded] = useState([]);
-  console.log("🚀 ~ AddNewLocation ~ isLocationAdded:", isLocationAdded);
-  const [editIndex, setEditIndex] = useState(null);
-
+const AddNewLocation = ({
+  therapyTypesOption,
+  isModal,
+  setIsModal,
+  setIsLocationAdded,
+  isLocationAdded,
+  setEditIndex,
+  editIndex,
+}) => {
   return (
     <div>
       <div className="border border-dashed border-[rgba(85,85,85,0.2)] bg-[#EAEAEA50] rounded-2xl flex justify-center items-center h-[142px]">
@@ -33,11 +35,12 @@ const AddNewLocation = () => {
                     alt=""
                   />
                   <h2 className="text-[14px] font-[400] text-[#1F1F1F] ">
-                    {item.address}
+                    {item?.address?.address},{item?.address?.city},
+                    {item?.address?.state},
                   </h2>
                 </div>
-                <p className="text-[14px] text-[#1F1F1F] font-[500] pt-2 px-1 ">
-                  {item.specialty}
+                <p className="text-[14px] text-[#1F1F1F] font-[500] pt-2 px-8 ">
+                  {item?.specialty?.map((s) => s?.label).join(", ")}
                 </p>
               </div>
               <div className="flex items-center gap-3 cursor-pointer">
@@ -69,6 +72,7 @@ const AddNewLocation = () => {
           editIndex={editIndex}
           setEditIndex={setEditIndex}
           isLocationAdded={isLocationAdded}
+          therapyTypesOption={therapyTypesOption}
         />
       )}
     </div>

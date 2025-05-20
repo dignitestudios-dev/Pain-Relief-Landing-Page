@@ -6,9 +6,12 @@ import Button from "../../components/app/landingPage/Inputs/Button";
 import { useFormik } from "formik";
 import { forgotValues } from "../../init/authentication/authenticationValues";
 import { forgotSchema } from "../../schema/authentication/authenticationSchema";
+import { useForget } from "../../hooks/api/Post";
+import { processForget } from "../../lib/utils";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
+  const { loading, postData } = useForget();
 
   const { values, handleBlur, handleSubmit, handleChange, errors, touched } =
     useFormik({
@@ -17,8 +20,11 @@ const ForgotPassword = () => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values, action) => {
-        console.log("🚀 ~ onSubmit: ~ action:", action);
-        navigate("/auth/verify-otp");
+        let payload = {
+          email: values.email,
+        };
+
+        postData("/auth/forgot-password", false, null, payload, processForget);
       },
     });
 
@@ -60,7 +66,7 @@ const ForgotPassword = () => {
           </div>
 
           <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
-            <Button text="Send" />
+            <Button text="Send" loading={loading} />
           </div>
         </form>
         <button

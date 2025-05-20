@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const MediaLicense = () => {
+const MediaLicense = ({setFileName,fileName,setFile }) => {
   const [isLicenseAdded, setIsLicenseAdded] = useState(false);
-  const [fileName, setFileName] = useState("");
 
   const handleFileChange = (event) => {
     const file = event.target.files?.[0];
     if (file) {
       setFileName(file.name);
+      setFile(file); // 👈 set actual file
       setIsLicenseAdded(true);
     }
   };

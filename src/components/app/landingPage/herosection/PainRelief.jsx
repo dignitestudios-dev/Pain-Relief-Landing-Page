@@ -1,10 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputsDark } from "../Inputs/Inputs";
 import { DropDownDark } from "../Inputs/DropDown";
 import Button from "../Inputs/Button";
 import Carousel from "./Carousel";
+import {
+  useDashboardProvider,
+  useTherapyType,
+} from "../../../../hooks/api/Get";
 
 const PainRelief = () => {
+  const [update, setUpdate] = useState("");
+  const [services, setServices] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [radius, setRadius] = useState([]);
+
+  const radiusOptions = [
+    { _id: 10, name: "10" },
+    { _id: 20, name: "20" },
+    { _id: 30, name: "30" },
+    { _id: 40, name: "40" },
+    { _id: 50, name: "50" },
+  ];
+
+  const [filters, setFilter] = useState({
+    zipCode: "",
+    therapistName: "",
+    practiceName: "",
+  });
+
+  const { data, loading, pagination } = useDashboardProvider(
+    `/provider/dashboard`,
+    { ...filters, radius: radius?.map((item) => item?.id) },
+    services,
+    currentPage,
+    update,
+    true
+  );
+
+  const { data: therapyTypes, loading: loader } =
+    useTherapyType(`/booking/services`);
+
+  const handleSelect = (option) => {
+    setServices((prev) => {
+      const exists = prev.some((item) => item.id === option._id);
+
+      if (exists) {
+        return prev.filter((item) => item.id !== option._id);
+      } else {
+        return [...prev, { name: option.name, id: option._id }];
+      }
+    });
+  };
+
+  const handleDistance = (option) => {
+    console.log("option 52=> ", option);
+    setRadius((prev) => {
+      const exists = prev.some((item) => item.id === option._id);
+
+      if (exists) {
+        return prev.filter((item) => item.id !== option._id);
+      } else {
+        return [{ name: option.name, id: option._id }];
+      }
+    });
+  };
   return (
     <div className="bg-[#EAF7FB] flex flex-col items-center justify-center  lg:h-[740px] h-auto mt-10 ">
       <div className="w-[90%] mt-4">
@@ -22,34 +81,69 @@ const PainRelief = () => {
             label={"Therapist Last Name "}
             type={"text"}
             placeholder={"Enter therapist name"}
+            value={filters?.therapistName}
+            onChange={(e) =>
+              setFilter((prev) => ({
+                ...prev,
+                therapistName: e.target.value,
+              }))
+            }
           />
           <InputsDark
             label={"Practice Name "}
             type={"text"}
             placeholder={"Enter practice name"}
+            value={filters?.practiceName}
+            onChange={(e) =>
+              setFilter((prev) => ({
+                ...prev,
+                practiceName: e.target.value,
+              }))
+            }
           />
           <DropDownDark
             label={"Therapy Type"}
             placeholder={"Select "}
-            // options={TherapyOptions}
+            options={therapyTypes}
+            value={services}
+            onChange={handleSelect}
+            loader={loader}
           />
           <InputsDark
             label={"Zip Code "}
             type={"text"}
             placeholder={"Enter zip Code"}
+            value={filters?.zipCode}
+            onChange={(e) =>
+              setFilter((prev) => ({
+                ...prev,
+                zipCode: e.target.value,
+              }))
+            }
           />
 
           <DropDownDark
             label="Distance From Zip"
-            // options={ZipCode}
+            options={radiusOptions}
+            value={radius}
+            onChange={handleDistance}
             placeholder={"Select Miles"}
           />
           <div className="mt-7 w-[164px] ">
-            <Button text={"Find Therapist"} />
+            <Button
+              text={"Find Therapist"}
+              onClick={() => setUpdate((prev) => !prev)}
+            />
           </div>
         </div>
       </div>
-      <Carousel />
+      <Carousel
+        providerData={data}
+        loading={loading}
+        pagination={pagination}
+        currentPage={pagination?.currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };

@@ -6,8 +6,11 @@ import Button from "../../components/app/landingPage/Inputs/Button";
 import { updatePasswordSchema } from "../../schema/authentication/authenticationSchema";
 import { useFormik } from "formik";
 import { updatePasswordValues } from "../../init/authentication/authenticationValues";
+import { useUpdatePassword } from "../../hooks/api/Post";
+import { processUpdatePassword } from "../../lib/utils";
 
 const UpdatePassword = () => {
+  const { loading, postData } = useUpdatePassword();
   const [isModal, setIsModal] = useState(false);
 
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
@@ -17,8 +20,12 @@ const UpdatePassword = () => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values, action) => {
-        console.log("🚀 ~ onSubmit: ~ action:", action);
-        setIsModal(true);
+        let obj = {
+          newPassword: values.password,
+        };
+        postData("/auth/reset-password",   false, null, obj,processUpdatePassword ,setIsModal);
+
+      
       },
     });
   return (
@@ -47,7 +54,6 @@ const UpdatePassword = () => {
               type={"password"}
               id={"password"}
               name={"password"}
-              max
               Length={50}
               maxLength={50}
               value={values.password}
@@ -62,7 +68,6 @@ const UpdatePassword = () => {
               type={"password"}
               id={"cPassword"}
               name={"cPassword"}
-              max
               Length={50}
               maxLength={50}
               value={values.cPassword}
@@ -74,7 +79,7 @@ const UpdatePassword = () => {
           </div>
 
           <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
-            <Button text="Save" />
+            <Button text="Save" loading={loading} />
           </div>
         </form>
       </div>

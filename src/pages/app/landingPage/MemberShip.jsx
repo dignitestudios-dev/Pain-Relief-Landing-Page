@@ -4,8 +4,11 @@ import Cards from "../../../components/app/landingPage/membership/Cards";
 import MemeberContent from "../../../components/app/landingPage/membership/MemeberContent";
 import SubscriptionCards from "../../../components/app/landingPage/herosection/SubscriptionCards";
 import Button from "../../../components/app/landingPage/Inputs/Button";
+import { useNavigate } from "react-router";
 
 const MemberShip = () => {
+    const navigate =useNavigate()
+
   return (
     <div>
       <HeroSection />
@@ -18,7 +21,7 @@ const MemberShip = () => {
           </div>
           <div className="flex justify-center">
             <div className="xl:w-[249px] lg:w-[200px] md:w-[150px]  w-[160px]  my-10 ">
-              <Button text={"Get Started Now"} />
+              <Button text={"Get Started Now"}  onClick={() => navigate("/auth/account-selection")} />
             </div>
           </div>
         </div>

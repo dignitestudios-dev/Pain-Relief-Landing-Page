@@ -1,12 +1,12 @@
 import React from "react";
 import { RiLoader5Line } from "react-icons/ri";
 
-// eslint-disable-next-line react/prop-types
-const Button = ({ text, onClick, loading }) => {
+
+const Button = ({ text, onClick, loading, type }) => {
   return (
     <div>
       <button
-        type="submit"
+        type={type}
         onClick={onClick}
         className="bg-gradient-to-l   to-[#63CFAC] from-[#29ABE2]  rounded-[8px] w-full text-white  font-[500] text-[16px] h-[49px] "
       >

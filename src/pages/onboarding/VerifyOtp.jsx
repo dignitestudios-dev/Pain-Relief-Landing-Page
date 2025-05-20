@@ -1,16 +1,16 @@
 import { useRef, useState } from "react";
 import { OtpLogo, SideImg, SmallTick } from "../../assets/export";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Button from "../../components/app/landingPage/Inputs/Button";
-import axios from "axios";
+import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../../components/global/Toaster";
 import CountDown from "../../components/global/CountDown";
-
+import Cookies from "js-cookie";
 const VerifyOtp = () => {
   const [loading, setLoading] = useState(false);
   const [isOtpSuccess, setIsOtpSuccess] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
-
+  const location = useLocation();
   // const [resendLoading, setResendLoading] = useState(false);
   const email = sessionStorage.getItem("email");
   const userType = location.state?.userType;
@@ -66,17 +66,13 @@ const VerifyOtp = () => {
         type: "email",
       };
 
-      const response = await axios.post("/auth/verify-otp", obj, {
-        baseURL: "https://api.painreliefusa.com",
-        headers: {
-          deviceuniqueid: "123",
-          devicemodel: "123",
-        },
-      });
-      if (response.status === 200 && response?.data?.is_verified === true) {
+      const response = await axios.post("/auth/verify-otp", obj);
+
+      if (response.status === 200) {
         // login(response?.data);
-        setLoading(false);
-        SuccessToast("OTP Verified");
+   
+        Cookies.set("token",response?.data?.data?.token);
+        SuccessToast(response?.data?.message);
         setIsOtpSuccess(true);
       }
     } catch (err) {
@@ -92,16 +88,10 @@ const VerifyOtp = () => {
       setResendLoading(true);
       let obj = { email: email };
 
-      const response = await axios.post("/auth/request-email-otp", obj, {
-        baseURL: "https://api.painreliefusa.com",
-        headers: {
-          deviceuniqueid: "123",
-          devicemodel: "123",
-        },
-      });
+      const response = await axios.post("/auth/request-email-otp", obj);
 
       if (response.status === 200) {
-        SuccessToast("Otp has been sent to your email");
+        SuccessToast(response?.data?.message);
         setResendLoading(false);
         setOtp(Array(4).fill("")); // Reset OTP fields
         handleRestart();
@@ -141,13 +131,9 @@ const VerifyOtp = () => {
               Email Address Verified Successfully
             </p>
           </div>
-
-          <button
-            onClick={handleContinue}
-            className="bg-[#29ABE2] text-white w-[350px] h-[48px] rounded-[8px] mt-6"
-          >
-            Continue
-          </button>
+          <div className="w-[350px]">
+            <Button text="Continue" onClick={handleContinue} />
+          </div>
         </div>
       ) : (
         <div className="flex flex-col mt-24 items-center lg:h-auto h-screen p-3">
@@ -158,32 +144,32 @@ const VerifyOtp = () => {
               </div>
             </div>
             <p className="text-[32px] font-semibold capitalize">Verify OTP </p>
-            <p className="text-[16px] capitalize text-[#565656]">
-              The code was sent to{" "}
-              <span className="text-black"> johndoe@mail.com</span>
+            <p className="text-[16px] mt-3  text-[#565656]">
+              The code was sent to <span className="text-black">{email}</span>
             </p>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="xl:w-[300px] lg:w-[350px] md:w-[550px] w-full h-auto grid grid-cols-4 justify-center items-center gap-2 mb-2 pl-16">
-              {otp.map((digit, index) => (
-                <input
-                  inputMode="numeric"
-                  key={index}
-                  type="password"
-                  placeholder="0"
-                  maxLength="1"
-                  value={digit}
-                  onChange={(e) => handleChange(e, index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  ref={(el) => (inputs.current[index] = el)}
-                  className="h-[49px] w-[49px] rounded-[12px] outline-none text-center border-[1px] border-[#D9D9D9] placeholder:text-[#181818]
+            <div className="flex flex-col items-center justify-center">
+              <div className="grid grid-cols-4 gap-4 xl:w-[300px] lg:w-[350px] md:w-[550px] w-full pl-2 ">
+                {otp.map((digit, index) => (
+                  <input
+                    inputMode="numeric"
+                    key={index}
+                    type="password"
+                    placeholder="0"
+                    maxLength="1"
+                    value={digit}
+                    onChange={(e) => handleChange(e, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    ref={(el) => (inputs.current[index] = el)}
+                    className="h-[49px] w-[49px] rounded-[12px] outline-none text-center border-[1px] border-[#D9D9D9] placeholder:text-[#181818]
                 placeholder:text-[16px] focus-within:border-[#8A8A8A] flex items-center justify-center"
-                />
-              ))}
-            </div>
-
-            <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
-              <Button loading={loading} text="Verify" />
+                  />
+                ))}
+              </div>
+              <div className="xl:w-[290px] lg:w-[350px] md:w-[550px] w-full mt-3 ">
+                <Button loading={loading} text="Verify" />
+              </div>
             </div>
           </form>
           <div className="flex items-center justify-center gap-2  mt-4 mb-3 relative z-10">

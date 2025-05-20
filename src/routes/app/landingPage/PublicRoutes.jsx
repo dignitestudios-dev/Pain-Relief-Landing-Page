@@ -38,7 +38,7 @@ export const PublicRoutes = [
     isPublic: true,
   },
   {
-    url: "provider-detail",
+    url: "provider-detail/:id",
     page: <ProviderDetail />,
     isPublic: true,
   },

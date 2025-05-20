@@ -1,7 +1,9 @@
 import React from "react";
 import { Tick } from "../../../../assets/export";
+import { useNavigate } from "react-router";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-hero text-white">
       <div className="flex  h-[100vh] justify-center lg:items-center py-40 min-h-screen w-[90%] mx-auto">
@@ -22,17 +24,25 @@ const HeroSection = () => {
             ].map((item) => (
               <div key={item} className="flex items-center gap-2">
                 <img src={Tick} className="w-6 h-6" alt="Tick" />
-                <span className="lg:text-[24px] md:text-[18px] text-[16px] font-[500] ">{item}</span>
+                <span className="lg:text-[24px] md:text-[18px] text-[16px] font-[500] ">
+                  {item}
+                </span>
               </div>
             ))}
           </div>
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-            <button className="rounded-lg border border-white h-12 px-6 w-full sm:w-[210px]">
+            <button
+              onClick={() => navigate("/auth/account-selection")}
+              className="rounded-lg border border-white h-12 px-6 w-full sm:w-[210px]"
+            >
               Join Now
             </button>
-            <button className="rounded-lg text-nowrap bg-white text-[#63CFAC] h-12 px-6 w-full sm:w-[210px]">
+            <button
+              onClick={() => navigate("/app/schedule-appointment")}
+              className="rounded-lg text-nowrap bg-white text-[#63CFAC] h-12 px-6 w-full sm:w-[210px]"
+            >
               Explore Service Providers
             </button>
           </div>

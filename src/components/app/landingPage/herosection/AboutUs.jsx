@@ -1,7 +1,9 @@
 import React from "react";
 import { AboutUs } from "../../../../assets/export";
 import Button from "../Inputs/Button";
+import { useNavigate } from "react-router";
 const About = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex justify-center mt-5">
       <div className="grid lg:grid-cols-2  md:grid-cols-1 w-[90%] ">
@@ -40,8 +42,11 @@ const About = () => {
             to make quality chiropractic services convenient, affordable, and
             accessible to all.
           </p>
-          <div className="w-[181px] mt-4"> 
-            <Button text={"Join Now"} />
+          <div className="w-[181px] mt-4">
+            <Button
+              text={"Join Now"}
+              onClick={() => navigate("/auth/account-selection")}
+            />
           </div>
         </div>
       </div>

@@ -9,9 +9,9 @@ import { signUpValues } from "../../init/authentication/authenticationValues";
 import { signupSchema } from "../../schema/authentication/authenticationSchema";
 import { useSignUp } from "../../hooks/api/Post";
 import { processSignup } from "../../lib/utils";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { ErrorToast, SuccessToast } from "../../components/global/Toaster";
+import { phoneFormater } from "../../lib/helpers";
+import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
+
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -25,11 +25,15 @@ const SignUp = () => {
       initialValues: signUpValues,
       validationSchema: signupSchema,
       onSubmit: (values) => {
+        let formattedPhoneNumber = values?.number.startsWith("+1")
+          ? values?.number
+          : `+1${values?.number}`;
+
         let payload = {
           firstName: values.fname,
           lastName: values.lname,
           email: values.email,
-          phone: values.number,
+          phone: formattedPhoneNumber,
           password: values.password,
           role: userType === "member" ? "user" : "provider",
           idToken: "123",
@@ -125,19 +129,15 @@ const SignUp = () => {
               touched={touched.email}
               maxLength={50}
             />
-
-            <AuthInput
-              text="Mobile Number"
-              placeholder="Mobile Number"
-              type="text"
-              id="number"
-              name="number"
-              value={values.number}
+            <PhoneInput
+              value={phoneFormater(values.number)}
+              id={"number"}
+              name={"number"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.number}
               touched={touched.number}
-              maxLength={15}
+             autoComplete="off"
             />
 
             <AuthInput

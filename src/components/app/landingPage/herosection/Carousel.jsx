@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Card from "./Cards";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
+import { SkeletonProviderCard } from "../../../global/Sekelton";
 
-const Carousel = () => {
+const Carousel = ({ providerData, loading, currentPage, pagination,setCurrentPage }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(5);
   const cardWidth = 270; // px
@@ -50,9 +51,11 @@ const Carousel = () => {
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * cardWidth}px)` }}
         >
-          {cards.map((_, index) => (
-            <Card key={index} />
-          ))}
+          {loading ? (
+            <SkeletonProviderCard />
+          ) : (
+            providerData?.map((item, index) => <Card key={index} data={item} />)
+          )}
         </div>
       </div>
 

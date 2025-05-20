@@ -23,7 +23,7 @@ import { useState } from "react";
 const Login = () => {
   const navigate = useNavigate();
   const { loading, postData } = useLogin();
-  console.log("🚀 ~ Login ~ loading:", loading);
+
   const [isSelected, setIsSelected] = useState("");
 
   const {
@@ -40,15 +40,15 @@ const Login = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values, action) => {
-      console.log("🚀 ~ onSubmit: ~ action:", action);
+
       let payload = {
         email: values.email,
         password: values.password,
         fcmToken: "123",
-        role: values?.type === "member" ? "user" : "network",
+        role: values?.type === "member" ? "user" : "provider",
       };
       let routeName =
-        values?.type === "member" ? "/user/dashboard" : "network/dashboard";
+        values?.type === "member" ? "/user/dashboard" : "/network/dashboard";
       postData("/auth/login", false, null, payload, processLogin, routeName);
     },
   });
@@ -145,7 +145,7 @@ const Login = () => {
             </p>
           </div>
           <div className="w-[350px] mt-3 mb-4">
-            <Button text={"Login"} />
+            <Button text={"Login"} loading={loading} />
           </div>
         </form>
         <div className="flex items-center  lg:w-[350px] md:w-[550px] w-[320px]">

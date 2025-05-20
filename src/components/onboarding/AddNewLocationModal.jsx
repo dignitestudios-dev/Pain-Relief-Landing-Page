@@ -4,6 +4,7 @@ import { MapImg } from "../../assets/export";
 import InputField from "./InputField";
 import SelectableField from "./SelectableField";
 import Button from "../app/landingPage/Inputs/Button";
+import GoogleMapComponent from "../global/GoogleMap";
 
 const AddNewLocationModal = ({
   setIsModal,
@@ -11,28 +12,22 @@ const AddNewLocationModal = ({
   editIndex,
   setEditIndex,
   isLocationAdded,
+  therapyTypesOption,
 }) => {
-  const ServiceSpecialtyOptions = [
-    "Chiropractic Care",
-    "Massage Therapy Care",
-    "Acupuncture Care",
-    "Diet/Wellness Services",
-    "Adjunctive Therapy Services",
-  ];
+  const [form, setForm] = useState({ address: "", specialty: [] });
 
-  const [form, setForm] = useState({ address: "", specialty: "" });
-  const [errors, setErrors] = useState({ address: "", specialty: "" });
+  const [errors, setErrors] = useState({ address: "", specialty: [] });
 
   const validateForm = () => {
-    const newErrors = { address: "", specialty: "" };
+    const newErrors = { address: "", specialty: [] };
     let valid = true;
 
-    if (!form.address.trim()) {
+    if (!form.address || Object.keys(form.address).length === 0) {
       newErrors.address = "Address is required";
       valid = false;
     }
 
-    if (!form.specialty.trim()) {
+    if (form.specialty.length === 0) {
       newErrors.specialty = "Specialty is required";
       valid = false;
     }
@@ -72,10 +67,16 @@ const AddNewLocationModal = ({
     }
   }, [editIndex]);
 
+  const onLocationSelect = (data) => {
+    setForm({
+      address: data,
+    });
+    setErrors("");
+  };
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
       <div
-        className="bg-white overflow-y-auto overflow-x-hidden  rounded-[18px] shadow-md p-6 
+        className="bg-white  overflow-y-auto overflow-x-hidden  rounded-[18px] shadow-md p-6 
       lg:h-[466px] h-[482px]"
       >
         <div className="flex  justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
@@ -100,27 +101,29 @@ const AddNewLocationModal = ({
         </div>
 
         <div className="space-y-3 mt-4">
-          <InputField
-            placeholder="Enter your street, city, state, zip?"
-            text="Primary Clinic Location (Required)"
-            value={form.address}
-            onChange={(e) => handleChange("address", e.target.value)}
-            error={errors.address}
-            touched={errors.address}
-          />
           <div className="mt-3">
-            <img src={MapImg} className="w-[421px] h-[124px] " alt="" />
+            <div className="w-[421px] h-[194px] mt-3 rounded-md overflow-hidden">
+              <GoogleMapComponent
+                onLocationSelect={onLocationSelect}
+                editAddress={form.address}
+              />
+            </div>
           </div>
+          {errors.address && (
+            <p className="text-red-600 text-[12px] ">{errors.address}</p>
+          )}
           <div>
             <SelectableField
-              placeholder="Select"
-              label="List Specialty Services"
-              options={ServiceSpecialtyOptions}
+              placeholder="Select Specialties"
+              label="Specialty Services"
+              options={therapyTypesOption}
               value={form.specialty}
               onChange={(value) => handleChange("specialty", value)}
               error={errors.specialty}
+              isMulti={true}
             />
           </div>
+
           <div>
             <Button text="Add Location" onClick={handleAddLocation} />
           </div>

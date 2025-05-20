@@ -1,36 +1,70 @@
 import { SideImg, UserProfile } from "../../assets/export";
 import InputField from "../../components/onboarding/InputField";
-// import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 import { providerInitialValues } from "../../init/app/userInformation";
 import { providerSchema } from "../../schema/app/userInfoSchema";
 import Button from "./../../components/app/landingPage/Inputs/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
+import { phoneFormater } from "../../lib/helpers";
+import { useProviderCreateProfile } from "../../hooks/api/Post";
+import { processProviderProfileCreate } from "../../lib/utils";
 
 const CreateProviderProfile = () => {
   const [userImage, setUserImage] = useState("");
   const [userImageError, setUserImageError] = useState("");
+  const email = sessionStorage.getItem("email");
+  const phone = sessionStorage.getItem("phone");
 
-  // const navigate = useNavigate();
-  const { values, handleChange, handleBlur, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: providerInitialValues, // or providerInitialValues
-      validationSchema: providerSchema, // or providerSchema
-      onSubmit: (values) => {
-        if (!userImage) {
-          setUserImageError("Please upload an image");
-          return;
-        }
-        console.log("Form submitted:", values);
-        // Your submit logic here
-      },
-    });
+  const { loading, postData } = useProviderCreateProfile();
 
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    initialValues: providerInitialValues,
+    validationSchema: providerSchema,
+    onSubmit: (values) => {
+      console.log(values, "values.userImage");
+      let obj = {
+        name: "",
+        clinicName: values.clinicName,
+        profilePicture: values.userImage,
+        phone: phone,
+        npi: values.providerNPI,
+        description: values.description,
+        website: values.website,
+      };
+      postData("/provider/complete-profile", obj, processProviderProfileCreate);
+    },
+  });
+  
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setUserImage(file);
-    setUserImageError("");
+    if (file) {
+      setUserImage(file);
+      setFieldValue("userImage", file); // this sets formik value
+    }
   };
+
+  useEffect(() => {
+    const email = sessionStorage.getItem("email");
+    const phone = sessionStorage.getItem("phone");
+    const firstName = sessionStorage.getItem("firstName");
+    const lastName = sessionStorage.getItem("lastName");
+
+    if (firstName || lastName) {
+      setFieldValue("name", `${firstName ?? ""} ${lastName ?? ""}`.trim());
+    }
+
+    if (phone) setFieldValue("number", phone);
+    if (email) setFieldValue("email", email);
+  }, [setFieldValue]);
 
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
@@ -50,7 +84,11 @@ const CreateProviderProfile = () => {
           <div className="md:w-[80px] w-[60px] md:h-[80px] h-[60px] rounded-full  overflow-hidden">
             <img
               className="object-cover md:w-[80px] w-[60px] md:h-[80px] h-[60px] "
-              src={userImage ? URL.createObjectURL(userImage) : UserProfile}
+              src={
+                values.userImage
+                  ? URL.createObjectURL(values.userImage)
+                  : UserProfile
+              }
             />
           </div>
           <div className="pl-2 ">
@@ -66,8 +104,8 @@ const CreateProviderProfile = () => {
               </span>{" "}
               or drag and drop PNG, JPG up to 10mb
             </p>
-            {userImageError && (
-              <p className="text-red-600 text-[14px]"> {userImageError}</p>
+            {touched.userImage && errors.userImage && (
+              <p className="text-red-600 text-xs mt-1">{errors.userImage}</p>
             )}
           </div>
         </div>
@@ -81,28 +119,28 @@ const CreateProviderProfile = () => {
             <div className="grid grid-cols-2 gap-3">
               <InputField
                 text="Name of Service Provider"
-                placeholder="First Name"
+                placeholder="Enter your full name"
                 type="text"
-                id="fname"
-                name="fname"
-                value={values.fname}
+                id="name"
+                name="name"
+                value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={errors.fname}
-                touched={touched.fname}
+                error={errors.name}
+                touched={touched.name}
                 maxLength={50}
               />
               <InputField
                 text="Name of Clinic/Practice (required)"
-                placeholder="Last Name"
+                placeholder="Name of Clinic"
                 type="text"
-                id="lname"
-                name="lname"
-                value={values.lname}
+                id="clinicName"
+                name="clinicName"
+                value={values.clinicName}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={errors.lname}
-                touched={touched.lname}
+                error={errors.clinicName}
+                touched={touched.clinicName}
                 maxLength={50}
               />
 
@@ -112,26 +150,25 @@ const CreateProviderProfile = () => {
                 type="email"
                 id="email"
                 name="email"
-                value={values.email}
+                value={email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={errors.email}
-                touched={touched.email}
                 maxLength={50}
+                disabled={true}
               />
-              <InputField
-                text="Mobile Number (required)"
-                placeholder="Mobile Number"
-                type="text"
-                id="number"
-                name="number"
-                value={values.number}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.number}
-                touched={touched.number}
-                maxLength={15}
-              />
+              <div>
+                <PhoneInput
+                  label={"Mobile Number (required)"}
+                  value={phoneFormater(values.number)}
+                  id={"number"}
+                  name={"number"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={errors.number}
+                  touched={touched.number}
+                  autoComplete="off"
+                />
+              </div>
             </div>
 
             <InputField
@@ -191,7 +228,7 @@ const CreateProviderProfile = () => {
 
             <div className="flex justify-end">
               <div className="w-[128px]">
-                <Button text="Next" />
+                <Button text="Next" loading={loading} type={"submit"} />
               </div>
             </div>
           </div>

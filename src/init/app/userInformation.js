@@ -7,11 +7,12 @@ export const userInfoInitialValues = {
 };
 
 export const providerInitialValues = {
-  fname: "",
-  lname: "",
+  name: "",
+  clinicName: "",
   email: "",
   number: "",
   providerNPI: "",
   website: "",
   description: "",
+   userImage: null,
 };

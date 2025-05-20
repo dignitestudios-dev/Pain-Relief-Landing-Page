@@ -4,9 +4,53 @@ import Button from "../../components/app/landingPage/Inputs/Button";
 import MediaLicense from "../../components/onboarding/MediaLicense";
 import AddNewLocation from "../../components/onboarding/AddNewLocation";
 import RequestModal from "../../components/onboarding/RequestModal";
+import { useTherapyType } from "../../hooks/api/Get";
+import { useAccountRequest } from "../../hooks/api/Post";
+import { processAccountRequest } from "../../lib/utils";
 
 const CreateAccountRequest = () => {
   const [requestModal, setRequestModal] = useState(false);
+  const [isModal, setIsModal] = useState(false);
+  const [isLocationAdded, setIsLocationAdded] = useState([]);
+  const [fileName, setFileName] = useState("");
+  const [editIndex, setEditIndex] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const { data: therapyTypes, loading: loader } =
+    useTherapyType(`/booking/services`);
+
+  const therapyTypesOption = therapyTypes?.map((item) => ({
+    id: item?._id,
+    label: item?.name,
+  }));
+
+  const { loading, postData } = useAccountRequest();
+
+  const handleAccountRequest = () => {
+    if (!selectedFile || !isLocationAdded.length) return;
+
+    let locations = isLocationAdded?.map((item) => {
+      return {
+        ...item.address,
+        services: item?.specialty?.map((item) => item?.id),
+      };
+    });
+
+    console.log(locations, "locations  ");
+    const formData = new FormData();
+
+    formData.append("addresses", JSON.stringify(locations));
+
+    formData.append("documents", selectedFile);
+
+    postData(
+      "/provider/add-details",
+      formData,
+      processAccountRequest,
+      setRequestModal
+    );
+  };
+
   return (
     <Fragment>
       <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
@@ -31,11 +75,27 @@ const CreateAccountRequest = () => {
                 Location <span className="text-[#555555]">(Required)</span>{" "}
               </p>
             </div>
-            <AddNewLocation />
-            <MediaLicense />
+            <AddNewLocation
+              therapyTypesOption={therapyTypesOption}
+              isLocationAdded={isLocationAdded}
+              setIsLocationAdded={setIsLocationAdded}
+              setIsModal={setIsModal}
+              isModal={isModal}
+              editIndex={editIndex}
+              setEditIndex={setEditIndex}
+            />
+            <MediaLicense
+              fileName={fileName}
+              setFileName={setFileName}
+              setFile={setSelectedFile}
+            />
             <div className="flex justify-end">
               <div className="w-[128px]  ">
-                <Button text={"Send"} onClick={() => setRequestModal(true)} />
+                <Button
+                  text={"Send"}
+                  onClick={() => handleAccountRequest()}
+                  loading={loading}
+                />
               </div>
             </div>
           </div>
