@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import Button from "../../../landingPage/Inputs/Button";
 import ApprovedPending from "./ApprovedPending";
 
-const LicenseApprovedModal = ({ onClick, setLicenseModal,setPendingModal }) => {
+const LicenseApprovedModal = ({
+  onClick,
+  setFile,
+  handleUploadLicense,
+  licenseloader,
+}) => {
   const [isLicenseAdded, setIsLicenseAdded] = useState(false);
   const [fileName, setFileName] = useState("");
 
@@ -10,6 +15,7 @@ const LicenseApprovedModal = ({ onClick, setLicenseModal,setPendingModal }) => {
     const file = event.target.files?.[0];
     if (file) {
       setFileName(file.name);
+      setFile(file);
       setIsLicenseAdded(true);
     }
   };
@@ -55,14 +61,27 @@ const LicenseApprovedModal = ({ onClick, setLicenseModal,setPendingModal }) => {
               id="license-upload"
               className="hidden"
               onChange={handleFileChange}
-              accept=".jpg,.jpeg,.png,.pdf"
+             accept=".jpg,.jpeg,.png" 
             />
             <p className="underline text-[#212121]">Upload “document name”</p>
             <p className="text-[12px] text-[#8F8F8F] mt-1">
               Up to 20MB JPG, PNG, PDF
             </p>
           </label>
-
+          {isLicenseAdded && fileName && (
+            <div className=" mt-3">
+              <div className="  flex items-center justify-between rounded-[12px]  p-4 shadow-[0_0_16px_rgba(17,17,26,0.1)] ">
+                <div>
+                  <div className="flex items-center gap-3 ">
+                    Uploaded:{" "}
+                    <span className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">
+                      {fileName}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           {/* Uploaded File Info */}
         </div>
         <div className="flex justify-between my-4">
@@ -73,14 +92,13 @@ const LicenseApprovedModal = ({ onClick, setLicenseModal,setPendingModal }) => {
             <Button
               text={"Submit"}
               onClick={() => {
-                setPendingModal(true);
-                setLicenseModal(false);
+                handleUploadLicense();
               }}
+              loading={licenseloader}
             />
           </div>
         </div>
       </div>
-     
     </div>
   );
 };

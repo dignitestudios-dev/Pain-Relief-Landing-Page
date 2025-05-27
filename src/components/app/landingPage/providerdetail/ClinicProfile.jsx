@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import AddNewLocationModal from "../../../onboarding/AddNewLocationModal";
 import RequestSendModal from "../../networkProviderInterface/dashboard/home/RequestSendModal";
 import { phoneFormater } from "../../../../lib/helpers";
@@ -68,6 +67,7 @@ const ClinicProfile = ({ providerDetail, loading }) => {
           editIndex={editIndex}
           setEditIndex={setEditIndex}
           isLocationAdded={isLocationAdded}
+          therapyTypesOption={therapyTypesOption}
         />
       )}
       {requestSendModal && (

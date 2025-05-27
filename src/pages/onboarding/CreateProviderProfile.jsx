@@ -31,19 +31,20 @@ const CreateProviderProfile = () => {
     validationSchema: providerSchema,
     onSubmit: (values) => {
       console.log(values, "values.userImage");
-      let obj = {
-        name: "",
-        clinicName: values.clinicName,
-        profilePicture: values.userImage,
-        phone: phone,
-        npi: values.providerNPI,
-        description: values.description,
-        website: values.website,
-      };
-      postData("/provider/complete-profile", obj, processProviderProfileCreate);
+      const formData = new FormData();
+
+      formData.append("name", values.name);
+      formData.append("clinicName", values.clinicName);
+      formData.append("profilePicture", values.userImage); // File object
+      formData.append("phone", phone || "");
+      formData.append("npi", values.providerNPI);
+      formData.append("description", values.description);
+      formData.append("website", values.website);
+
+      postData("/provider/complete-profile", formData, processProviderProfileCreate);
     },
   });
-  
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {

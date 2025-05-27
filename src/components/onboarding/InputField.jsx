@@ -11,6 +11,7 @@ const InputField = ({
   onBlur,
   error,
   touched,
+  id,
   disabled = false,
 }) => {
   return (
@@ -31,6 +32,7 @@ const InputField = ({
             placeholder={placeholder}
             type={type}
             value={value}
+            id={id}
             name={name}
             maxLength={maxLength}
             onChange={onChange}

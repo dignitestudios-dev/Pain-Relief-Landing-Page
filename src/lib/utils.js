@@ -70,6 +70,72 @@ export const processAccountRequest = (data, setRequestModal) => {
     return;
   }
 };
+export const processUploadLicese = (
+  data,
+  setLicenseModal,
+  setPendingModal,
+  setUpdate
+) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    setLicenseModal(false);
+    setPendingModal(true);
+    setUpdate((prev) => !prev);
+
+    return;
+  }
+};
+export const processSendRequest = (data, setLicenseModal, setUpdate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    setLicenseModal(true);
+    setUpdate((prev) => !prev);
+
+    return;
+  }
+};
+export const processEditProviderProfile = (data, navigate, setUpdate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    navigate("/network/profile-netwrok-provider");
+    setUpdate((prev) => !prev);
+
+    return;
+  }
+};
+
+export const processAddAddress = (data, setIsModal, setUpdate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    setIsModal(false);
+    setUpdate((prev) => !prev);
+    return;
+  }
+};
+export const processChangePassword = (data, setPasswordUpdateModal) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    setPasswordUpdateModal(true);
+
+    return;
+  }
+};
+export const processReportIssue = (data, setReportModal, action) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    setReportModal(true);
+    action.resetForm();
+    return;
+  }
+};
+export const processDeleteAccount = (data, setDeleteModal) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    setDeleteModal(true);
+
+    return;
+  }
+};
 
 export const processError = (error) => {
   console.log(error);

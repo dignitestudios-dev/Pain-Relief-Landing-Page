@@ -14,5 +14,24 @@ export const providerInitialValues = {
   providerNPI: "",
   website: "",
   description: "",
-   userImage: null,
+  userImage: null,
+};
+
+export const EditProfileproviderInitialValues = {
+  name: "",
+  clinicName: "",
+  email: "",
+  phone: "", // ✅ changed from number ➝ phone
+  npi: "", // ✅ changed from providerNPI ➝ npi
+  website: "",
+  description: "",
+};
+
+export const changePassValues = {
+  currentPassword: "",
+  newPassword: "",
+  cPassword: "",
+};
+export const reportIssueValues = {
+  description: "",
 };
