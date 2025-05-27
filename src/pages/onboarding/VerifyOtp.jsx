@@ -1,19 +1,23 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { OtpLogo, SideImg, SmallTick } from "../../assets/export";
 import { useLocation, useNavigate } from "react-router";
 import Button from "../../components/app/landingPage/Inputs/Button";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../../components/global/Toaster";
 import CountDown from "../../components/global/CountDown";
-import Cookies from "js-cookie";
+import { AppContext } from "../../context/AppContext";
 const VerifyOtp = () => {
+  const { loginAuth, userData } = useContext(AppContext);
+  console.log("🚀 ~ VerifyOtp ~ userData:", userData);
   const [loading, setLoading] = useState(false);
   const [isOtpSuccess, setIsOtpSuccess] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
   const location = useLocation();
   // const [resendLoading, setResendLoading] = useState(false);
-  const email = sessionStorage.getItem("email");
+  // const email = sessionStorage.getItem("email");
   const userType = location.state?.userType;
+  const email = location.state?.email;
+
   // const token = sessionStorage.getItem("token");
   const [otp, setOtp] = useState(Array(4).fill(""));
   const inputs = useRef([]);
@@ -70,8 +74,13 @@ const VerifyOtp = () => {
 
       if (response.status === 200) {
         // login(response?.data);
-   
-        Cookies.set("token",response?.data?.data?.token);
+        // Cookies.set("token", response?.data?.data?.token);
+        loginAuth({
+          data: {
+            token: response?.data?.data?.token,
+            user: { ...userData, role: userType },
+          },
+        });
         SuccessToast(response?.data?.message);
         setIsOtpSuccess(true);
       }
@@ -105,9 +114,9 @@ const VerifyOtp = () => {
 
   const handleContinue = () => {
     if (userType === "provider") {
-      navigate("/auth/create-provider-profile");
+      navigate("/provider/create-provider-profile");
     } else {
-      navigate("/auth/user-profile");
+      navigate("/user/create-profile");
     }
   };
 

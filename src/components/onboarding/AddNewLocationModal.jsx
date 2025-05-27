@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { MapImg } from "../../assets/export";
-import InputField from "./InputField";
+
 import SelectableField from "./SelectableField";
 import Button from "../app/landingPage/Inputs/Button";
 import GoogleMapComponent from "../global/GoogleMap";

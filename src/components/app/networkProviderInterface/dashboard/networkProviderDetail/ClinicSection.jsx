@@ -1,10 +1,9 @@
-import React from "react";
 import { LocationDark, MapImg, ProfileImg } from "../../../../../assets/export";
 import Button from "../../../landingPage/Inputs/Button";
 import { useNavigate } from "react-router";
 
 const ClinicSection = () => {
-    const navigate =useNavigate()
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex flex-col items-center justify-center relative bottom-28">
@@ -48,7 +47,12 @@ const ClinicSection = () => {
                   <p className="text-[14px] font-[500]">+000 0000 00</p>
                 </div>
                 <div className="w-[150px]">
-                  <Button text="View Profile"  onClick={()=>navigate('/network/view-profile-netwrok-provider')}/>
+                  <Button
+                    text="View Profile"
+                    onClick={() =>
+                      navigate("/provider/view-profile-netwrok-provider")
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -92,7 +96,10 @@ const ClinicSection = () => {
           </div>
         </div>
         <div className="w-[228px] mt-8">
-          <Button text={"Return to Dashboard"} onClick={()=>navigate('/network/dashboard')} />
+          <Button
+            text={"Return to Dashboard"}
+            onClick={() => navigate("/provider/dashboard")}
+          />
         </div>
       </div>
     </>

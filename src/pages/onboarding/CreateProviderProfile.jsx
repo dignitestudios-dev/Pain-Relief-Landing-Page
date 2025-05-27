@@ -4,19 +4,20 @@ import { useFormik } from "formik";
 import { providerInitialValues } from "../../init/app/userInformation";
 import { providerSchema } from "../../schema/app/userInfoSchema";
 import Button from "./../../components/app/landingPage/Inputs/Button";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
-import { phoneFormater } from "../../lib/helpers";
+import { phoneFormatter } from "../../lib/helpers";
 import { useProviderCreateProfile } from "../../hooks/api/Post";
 import { processProviderProfileCreate } from "../../lib/utils";
+import { AppContext } from "../../context/AppContext";
 
 const CreateProviderProfile = () => {
   const [userImage, setUserImage] = useState("");
-  const [userImageError, setUserImageError] = useState("");
-  const email = sessionStorage.getItem("email");
-  const phone = sessionStorage.getItem("phone");
+  console.log("🚀 ~ CreateProviderProfile ~ userImage:", userImage);
+  // const [userImageError, setUserImageError] = useState("");
 
   const { loading, postData } = useProviderCreateProfile();
+  const { userData } = useContext(AppContext);
 
   const {
     values,
@@ -30,12 +31,11 @@ const CreateProviderProfile = () => {
     initialValues: providerInitialValues,
     validationSchema: providerSchema,
     onSubmit: (values) => {
-      console.log(values, "values.userImage");
       let obj = {
-        name: "",
+        name: values?.name,
         clinicName: values.clinicName,
         profilePicture: values.userImage,
-        phone: phone,
+        phone: values?.number,
         npi: values.providerNPI,
         description: values.description,
         website: values.website,
@@ -43,7 +43,7 @@ const CreateProviderProfile = () => {
       postData("/provider/complete-profile", obj, processProviderProfileCreate);
     },
   });
-  
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -53,18 +53,26 @@ const CreateProviderProfile = () => {
   };
 
   useEffect(() => {
-    const email = sessionStorage.getItem("email");
-    const phone = sessionStorage.getItem("phone");
-    const firstName = sessionStorage.getItem("firstName");
-    const lastName = sessionStorage.getItem("lastName");
+    const email = userData?.email;
+    const phone = userData?.phone;
+    // const nameParts = userData?.name;
+    // const firstName = nameParts[0] || "";
+    // const lastName = nameParts.slice(1).join(" ") || "";
+    const nameParts = `${userData?.firstName ?? ""} ${
+      userData?.lastName ?? ""
+    }`.trim();
 
-    if (firstName || lastName) {
-      setFieldValue("name", `${firstName ?? ""} ${lastName ?? ""}`.trim());
+    if (nameParts) {
+      setFieldValue("name", nameParts);
+    }
+
+    if (nameParts) {
+      setFieldValue("name", nameParts);
     }
 
     if (phone) setFieldValue("number", phone);
     if (email) setFieldValue("email", email);
-  }, [setFieldValue]);
+  }, [userData, setFieldValue]);
 
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
@@ -150,7 +158,7 @@ const CreateProviderProfile = () => {
                 type="email"
                 id="email"
                 name="email"
-                value={email}
+                value={values?.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 maxLength={50}
@@ -159,7 +167,7 @@ const CreateProviderProfile = () => {
               <div>
                 <PhoneInput
                   label={"Mobile Number (required)"}
-                  value={phoneFormater(values.number)}
+                  value={phoneFormatter(values.number)}
                   id={"number"}
                   name={"number"}
                   onChange={handleChange}
@@ -182,7 +190,7 @@ const CreateProviderProfile = () => {
               onBlur={handleBlur}
               error={errors.providerNPI}
               touched={touched.providerNPI}
-              maxLength={50}
+              maxLength={10}
             />
 
             <InputField

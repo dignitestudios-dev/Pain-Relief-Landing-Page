@@ -8,8 +8,19 @@ import Profile from "../../../pages/app/networkProviderInterface/dashboard/Profi
 import TermsOfUse from "../../../pages/app/networkProviderInterface/dashboard/TermsOfUse";
 import ViewProfile from "../../../pages/app/networkProviderInterface/dashboard/ViewProfile";
 
-
 export const ProviderRoutes = [
+  // {
+  //   url: "create-provider-profile",
+  //   page: <CreateProviderProfile />,
+  // },
+  // {
+  //   url: "create-account-request",
+  //   page: <CreateAccountRequest />,
+  // },
+  // {
+  //   url: "create-profile",
+  //   page: <CreateProfile />,
+  // },
   {
     url: "dashboard",
     page: <Dashboard />,

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import AddNewLocationModal from "../../../onboarding/AddNewLocationModal";
 import RequestSendModal from "../../networkProviderInterface/dashboard/home/RequestSendModal";
-import { phoneFormater } from "../../../../lib/helpers";
+import { phoneFormatter } from "../../../../lib/helpers";
 import NetworkDetail from "./NetworkDetail";
 import { SkeletonNetworkDetail } from "../../../global/Sekelton";
 
@@ -34,11 +34,12 @@ const ClinicProfile = ({ providerDetail, loading }) => {
           />
           <NetworkDetail
             title={"Mobile Number"}
-            detail={phoneFormater(providerDetail?.phone) || "N/A"}
+            detail={phoneFormatter(providerDetail?.phone) || "N/A"}
           />
 
           {providerDetail?.addresses?.map((item, index) => (
             <NetworkDetail
+              key={index}
               title={
                 index === 0 ? "Primary Clinic Location" : "Clinic Location"
               }

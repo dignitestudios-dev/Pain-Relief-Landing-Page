@@ -18,6 +18,7 @@ const CreateAccountRequest = () => {
 
   const { data: therapyTypes, loading: loader } =
     useTherapyType(`/booking/services`);
+  console.log("🚀 ~ CreateAccountRequest ~ loader:", loader);
 
   const therapyTypesOption = therapyTypes?.map((item) => ({
     id: item?._id,
@@ -100,7 +101,9 @@ const CreateAccountRequest = () => {
             </div>
           </div>
         </div>
-        {requestModal && <RequestModal isOpen={requestModal} />}
+        {requestModal && (
+          <RequestModal setIsOpen={setRequestModal} isLogin={false} />
+        )}
       </div>
     </Fragment>
   );

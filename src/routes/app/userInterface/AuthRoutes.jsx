@@ -4,50 +4,35 @@ import Login from "../../../pages/onboarding/Login";
 import SignUp from "../../../pages/onboarding/Signup";
 import UpdatePassword from "../../../pages/onboarding/UpdatePassword";
 import VerifyOtp from "../../../pages/onboarding/VerifyOtp";
-import CreateProviderProfile from "../../../pages/onboarding/CreateProviderProfile";
-import CreateProfile from "../../../pages/onboarding/CreateProfile";
-import CreateAccountRequest from "./../../../pages/onboarding/CreateAccountRequest";
 import ForgetOtp from "../../../pages/onboarding/ForgetOtp";
 
 export const AuthRoutes = [
   {
-    url: "/auth/account-selection",
+    url: "account-selection",
     page: <AccountSelection />,
   },
   {
-    url: "/auth/sign-up",
+    url: "sign-up",
     page: <SignUp />,
   },
   {
-    url: "/auth/create-provider-profile",
-    page: <CreateProviderProfile />,
-  },
-  {
-    url: "/auth/create-account-request",
-    page: <CreateAccountRequest />,
-  },
-  {
-    url: "/auth/create-profile",
-    page: <CreateProfile />,
-  },
-  {
-    url: "/auth/sign-in",
+    url: "sign-in",
     page: <Login />,
   },
   {
-    url: "/auth/forget-otp",
+    url: "forget-otp",
     page: <ForgetOtp />,
   },
   {
-    url: "/auth/forget-password",
+    url: "forget-password",
     page: <ForgotPassword />,
   },
   {
-    url: "/auth/verify-otp",
+    url: "verify-otp",
     page: <VerifyOtp />,
   },
   {
-    url: "/auth/update-password",
+    url: "update-password",
     page: <UpdatePassword />,
   },
 ];

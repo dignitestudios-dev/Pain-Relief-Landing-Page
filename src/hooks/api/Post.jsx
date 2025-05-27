@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "../../axios";
 import { processError } from "../../lib/utils";
 import { useNavigate } from "react-router";
+import { AppContext } from "../../context/AppContext";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { loginAuth } = useContext(AppContext);
 
   const postData = async (
     url,
@@ -13,13 +15,20 @@ const useLogin = () => {
     formdata = null,
     data = null,
     callback,
-    routeName
+    routeName,
+    setRequestModal
   ) => {
     try {
       setLoading(true);
       const response = await axios.post(url, isFormData ? formdata : data);
       if (typeof callback === "function") {
-        callback(response?.data, navigate, routeName);
+        callback(
+          response?.data,
+          navigate,
+          routeName,
+          loginAuth,
+          setRequestModal
+        );
       }
       return response?.data;
     } catch (error) {
@@ -35,13 +44,14 @@ const useLogin = () => {
 const useSignUp = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { loginAuth } = useContext(AppContext);
 
   const postData = async (url, data = null, callback) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data);
       if (typeof callback === "function") {
-        callback(response?.data, navigate, data);
+        callback(response?.data, navigate, data, loginAuth);
       }
       return response?.data;
     } catch (error) {
@@ -113,13 +123,15 @@ const useUpdatePassword = () => {
 const useProviderCreateProfile = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { loginAuth } = useContext(AppContext);
 
   const postData = async (url, data = null, callback, formdata) => {
+    console.log("🚀 ~ postData ~ formdata:", formdata);
     try {
       setLoading(true);
       const response = await axios.post(url, data);
       if (typeof callback === "function") {
-        callback(response?.data, navigate);
+        callback(response?.data, navigate, loginAuth);
       }
       return response?.data;
     } catch (error) {
@@ -133,7 +145,7 @@ const useProviderCreateProfile = () => {
 };
 const useAccountRequest = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const postData = async (url, data = null, callback, modal = false) => {
     try {

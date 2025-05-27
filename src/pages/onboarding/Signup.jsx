@@ -9,9 +9,8 @@ import { signUpValues } from "../../init/authentication/authenticationValues";
 import { signupSchema } from "../../schema/authentication/authenticationSchema";
 import { useSignUp } from "../../hooks/api/Post";
 import { processSignup } from "../../lib/utils";
-import { phoneFormater } from "../../lib/helpers";
+import { phoneFormatter } from "../../lib/helpers";
 import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
-
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ const SignUp = () => {
           email: values.email,
           phone: formattedPhoneNumber,
           password: values.password,
-          role: userType === "member" ? "user" : "provider",
+          role: userType === "user" ? "user" : "provider",
           idToken: "123",
           fcmToken: "123",
         };
@@ -74,7 +73,7 @@ const SignUp = () => {
       </div>
       <div
         className={`flex flex-col ${
-          userType === "member" ? "justify-center" : "mt-16"
+          userType === "user" ? "justify-center" : "mt-16"
         } items-center lg:h-auto md:h-screen  `}
       >
         <div className="pb-4 text-center">
@@ -130,14 +129,14 @@ const SignUp = () => {
               maxLength={50}
             />
             <PhoneInput
-              value={phoneFormater(values.number)}
+              value={phoneFormatter(values.number)}
               id={"number"}
               name={"number"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.number}
               touched={touched.number}
-             autoComplete="off"
+              autoComplete="off"
             />
 
             <AuthInput
@@ -172,7 +171,7 @@ const SignUp = () => {
             <Button text="Sign Up" loading={loading} />
           </div>
         </form>
-        {userType === "member" && (
+        {userType === "user" && (
           <>
             <div className="flex items-center lg:w-[350px] md:w-[550px] w-[340px]">
               <hr className="w-full border-t border-[#D9D9D9]" />

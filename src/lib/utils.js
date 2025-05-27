@@ -1,45 +1,55 @@
 import { ErrorToast, SuccessToast } from "../components/global/Toaster";
-import Cookies from "js-cookie";
 
-export const processSignup = (data, navigate, userData) => {
+export const processSignup = (data, navigate, userData, loginAuth) => {
   if (data?.success) {
-    sessionStorage.setItem("email", userData?.email);
-    sessionStorage.setItem("phone", userData?.phone);
-    sessionStorage.setItem("firstName", userData?.firstName);
-    sessionStorage.setItem("lastName", userData?.lastName);
+    loginAuth({
+      data: { user: userData },
+    });
     SuccessToast(data?.message);
-    navigate("/auth/verify-otp", { state: { userType: userData?.role } });
+    navigate("/auth/verify-otp", {
+      state: { userType: userData?.role, email: userData?.email },
+    });
     return;
   }
 };
 
-export const processLogin = (data, navigate, routeName) => {
+export const processLogin = (
+  data,
+  navigate,
+  routeName,
+  loginAuth,
+  setRequestModal
+) => {
   if (data?.success) {
+    loginAuth(data);
     const user = data?.data?.user;
-
-    Cookies.set("token", data?.data?.token);
     if (!user?.isProfileCompleted) {
-      navigate("/auth/create-provider-profile");
+      navigate("/provider/create-provider-profile");
       return;
     }
 
     if (!user?.isDocumentsSubmitted || !user?.isAddressCompleted) {
-      navigate("/auth/create-account-request");
+      navigate("/provider/create-account-request");
       return;
     }
 
     if (user?.profileStatus === "pending") {
+      setRequestModal(true);
       return;
     }
-
-    navigate(routeName);
+    if (user?.profileStatus === "approved") {
+      navigate(routeName);
+      return;
+    }
   }
 };
 
-export const processProviderProfileCreate = (data, navigate) => {
+export const processProviderProfileCreate = (data, navigate, loginAuth) => {
+  console.log("🚀 ~ processProviderProfileCreate ~ data:", data);
   if (data?.success) {
+    loginAuth({ data: { user: data?.data } });
     SuccessToast(data?.message);
-    navigate("/auth/create-account-request");
+    navigate("/provider/create-account-request");
     return;
   }
 };

@@ -32,10 +32,13 @@ export const providerSchema = Yup.object({
   clinicName: Yup.string().required("Clinic/practice name is required"),
 
   number: Yup.string()
-    .transform((value) => value.replace(/\D/g, "")) // Remove all non-numeric chars
+    .transform((value) => value.replace(/\D/g, ""))
     .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
     .required("Please enter your phone number"),
-  providerNPI: Yup.string().required("Provider NPI is required"),
+  providerNPI: Yup.string()
+    .transform((value) => value.replace(/\D/g, ""))
+    .matches(/^[0-9]{10}$/, "NPI must be exactly 10 digits.")
+    .required("Provider NPI is required"),
   website: Yup.string()
     .url("Enter a valid URL")
     .required("Website is required"),

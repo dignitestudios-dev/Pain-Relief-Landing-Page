@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { DesktopLogo, ProfileImg } from "../../../../assets/export";
-import { MdArrowDropDown } from "react-icons/md";
 import { HiMenu, HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { AppContext } from "../../../../context/AppContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { logoutAuth } = useContext(AppContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [dropMemberOpen, setIsDropMemberOpen] = useState(false);
+  console.log("🚀 ~ Navbar ~ isDropdownOpen:", isDropdownOpen);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -22,7 +23,7 @@ const Navbar = () => {
     { url: "terms-of-use", name: "Terms of use" },
     { url: "membership-agreement", name: "Membership Agreement" },
     { url: "profile", name: "Account & Setting" },
-    { url: "profile", name: "Logout" },
+    // { url: "profile", name: "Logout" },
   ];
   return (
     <nav className="w-full border-b border-[#FFFFFF5E] bg-transparent">
@@ -64,14 +65,21 @@ const Navbar = () => {
             </li>
             {openProfile && (
               <div className="bg-[#FFFFFF] text-nowrap absolute top-28 w-[206px]  right-14 rounded-[12px] p-2 ">
-                {LinksPage.map((item) => (
+                {LinksPage.map((item, index) => (
                   <li
+                    key={index}
                     onClick={() => navigate(item?.url)}
                     className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
                   >
                     {item.name}
                   </li>
                 ))}
+                <li
+                  onClick={() => logoutAuth()}
+                  className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
+                >
+                  Logout
+                </li>
               </div>
             )}
           </div>

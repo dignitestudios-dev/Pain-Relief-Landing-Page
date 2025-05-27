@@ -1,4 +1,3 @@
-import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
 import { useNavigate } from "react-router";
@@ -47,7 +46,7 @@ const HeroSection = () => {
               <Button
                 text={"Edit Profile"}
                 onClick={() =>
-                  navigate("/network/edit-profile-netwrok-provider")
+                  navigate("/provider/edit-profile-netwrok-provider")
                 }
               />
             </div>

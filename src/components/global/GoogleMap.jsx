@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   GoogleMap,
   Marker,
@@ -13,8 +13,8 @@ const containerStyle = {
 };
 
 const defaultCenter = {
-  lat: 24.8607, // Karachi
-  lng: 67.0011,
+  lat: 40.7128, // New York City
+  lng: -74.006,
 };
 
 const libraries = ["places"];
@@ -83,11 +83,10 @@ const GoogleMapComponent = ({ onLocationSelect, editAddress }) => {
       >
         <input
           type="text"
-                    value={inputValue}
-
+          value={inputValue}
           placeholder="Enter your street, city, state, zip?"
           className="w-full p-2 rounded-md border border-gray-300 mb-2"
-            onChange={(e) => setInputValue(e.target.value)} // controlled input
+          onChange={(e) => setInputValue(e.target.value)} // controlled input
         />
       </Autocomplete>
       <GoogleMap

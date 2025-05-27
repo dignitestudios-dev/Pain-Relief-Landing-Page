@@ -64,7 +64,7 @@ const appointments = [
 ];
 
 const AppoitmentTable = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   return (
     <div className=" flex justify-center my-6">
       <div className="w-[90%]  b min-h-screen">
@@ -141,7 +141,12 @@ const AppoitmentTable = () => {
                   <td className="px-4 py-3">
                     <span className="capitalize text-sm ">{a.status}</span>
                   </td>
-                  <td onClick={()=>navigate('/network/network-provider-detail')} className="px-4 py-3 text-black underline font-medium cursor-pointer">
+                  <td
+                    onClick={() =>
+                      navigate("/provider/network-provider-detail")
+                    }
+                    className="px-4 py-3 text-black underline font-medium cursor-pointer"
+                  >
                     View Detail
                   </td>
                 </tr>

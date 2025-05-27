@@ -72,7 +72,7 @@ const AccountSelection = () => {
                 iconDark={UserDark}
                 text="I'm a member"
                 label="I'm a member"
-                value="member"
+                value="user"
                 tick={SmallTick}
                 isSelected={isSelected}
                 handleSelection={handleSelection}

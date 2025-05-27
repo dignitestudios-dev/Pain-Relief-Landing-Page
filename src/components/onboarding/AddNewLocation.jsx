@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { EditIcon, LocationDark, RedBin } from "../../assets/export";
 import AddNewLocationModal from "./AddNewLocationModal";
 

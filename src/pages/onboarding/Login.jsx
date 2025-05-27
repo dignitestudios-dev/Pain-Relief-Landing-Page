@@ -19,10 +19,12 @@ import { signInValues } from "../../init/authentication/authenticationValues";
 import { signInSchema } from "../../schema/authentication/authenticationSchema";
 import { processLogin } from "../../lib/utils";
 import { useState } from "react";
+import RequestModal from "../../components/onboarding/RequestModal";
 
 const Login = () => {
   const navigate = useNavigate();
   const { loading, postData } = useLogin();
+  const [requestModal, setRequestModal] = useState(false);
 
   const [isSelected, setIsSelected] = useState("");
 
@@ -40,16 +42,24 @@ const Login = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values, action) => {
-
+      console.log("🚀 ~ onSubmit: ~ action:", action);
       let payload = {
         email: values.email,
         password: values.password,
         fcmToken: "123",
-        role: values?.type === "member" ? "user" : "provider",
+        role: values?.type === "user" ? "user" : "provider",
       };
       let routeName =
-        values?.type === "member" ? "/user/dashboard" : "/network/dashboard";
-      postData("/auth/login", false, null, payload, processLogin, routeName);
+        values?.type === "user" ? "/user/dashboard" : "/provider/dashboard";
+      postData(
+        "/auth/login",
+        false,
+        null,
+        payload,
+        processLogin,
+        routeName,
+        setRequestModal
+      );
     },
   });
 
@@ -89,7 +99,7 @@ const Login = () => {
                 icon={UserWhite}
                 iconDark={UserDark}
                 label="I'm a member"
-                value="member"
+                value="user"
                 tick={SmallTick}
                 isSelected={isSelected}
                 handleSelection={handleSelection}
@@ -176,6 +186,9 @@ const Login = () => {
           </p>
         </button>
       </div>
+      {requestModal && (
+        <RequestModal setIsOpen={setRequestModal} isLogin={true} />
+      )}
     </div>
   );
 };
