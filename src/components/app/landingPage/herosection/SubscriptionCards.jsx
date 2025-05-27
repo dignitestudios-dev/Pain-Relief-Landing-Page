@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SubsTick } from "../../../../assets/export";
+import { RadioBtn, RadioBtnActive, SubsTick } from "../../../../assets/export";
 import Button from "../Inputs/Button";
 import { useNavigate } from "react-router";
 
@@ -48,13 +48,13 @@ const SubscriptionCards = () => {
                     key={plan}
                     className="flex items-center space-x-1 text-sm"
                   >
-                    <input
-                      type="radio"
-                      value={plan}
-                      checked={selectedPlan === plan}
-                      onChange={() => setSelectedPlan(plan)}
-                      className="accent-[#2ac8b3]"
+                    <img
+                      onClick={() => setSelectedPlan(plan)}
+                      src={selectedPlan === plan ? RadioBtnActive : RadioBtn}
+                      alt=""
+                      className="cursor-pointer w-[17px] h-[17px] "
                     />
+
                     <span className="text-black">{plan}</span>
                   </label>
                 ))}
@@ -103,11 +103,11 @@ const SubscriptionCards = () => {
             <h2 className="lg:text-[24px] text-[18px] text-[#000000] font-semibold ">
               Premium Plan
             </h2>
-            <div className="flex gap-2 border xl:h-[43px] lg:h-[43px] h-[42px] border-[#63CFAC] p-1 xl:w-[180px] lg:w-[180px] md:w-[150px] w-[120px] rounded-[6px] ">
+            <div className="flex gap-2 border xl:h-[43px] lg:h-[43px] h-[42px] border-[#63CFAC] p-[2px] xl:w-[180px] lg:w-[180px] md:w-[150px] w-[120px] rounded-[6px] ">
               <button
-                className={`w-[88.06px] h-[32px] rounded-[6px] ${
+                className={`w-[88.06px]  rounded-[6px] ${
                   Isactive === "Monthly"
-                    ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] "
+                    ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white "
                     : "text-black"
                 }   `}
                 onClick={() => setIsActive("Monthly")}
@@ -115,9 +115,9 @@ const SubscriptionCards = () => {
                 Month{" "}
               </button>
               <button
-                className={`w-[88.06px] h-[32px] rounded-[6px] ${
+                className={`w-[88.06px] rounded-[6px] ${
                   Isactive === "Year"
-                    ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] "
+                    ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2]  text-white"
                     : "text-black"
                 }   `}
                 onClick={() => setIsActive("Year")}
@@ -138,13 +138,15 @@ const SubscriptionCards = () => {
                     key={plan}
                     className="flex items-center space-x-1 text-sm"
                   >
-                    <input
-                      type="radio"
-                      value={plan}
-                      checked={selectedPremiumPlan === plan}
-                      onChange={() => setSelectedPremiumPlan(plan)}
-                      className="accent-[#2ac8b3]"
+                    <img
+                      onClick={() => setSelectedPremiumPlan(plan)}
+                      src={
+                        selectedPremiumPlan === plan ? RadioBtnActive : RadioBtn
+                      }
+                      alt=""
+                      className="cursor-pointer w-[17px] h-[17px] "
                     />
+
                     <span className="text-black">{plan}</span>
                   </label>
                 ))}

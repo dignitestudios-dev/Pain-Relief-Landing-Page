@@ -21,7 +21,7 @@ export const Inputs = ({ type, name, id, onClick, onBlur, placeholder, label,val
 export const InputsDark = ({ type, name, id, onClick, onBlur, placeholder, label,value,onChange }) => {
   return (
     <div className="flex  flex-col">
-      <label htmlFor="">{label}</label>
+      <label htmlFor="" className=" text-[16px] text-[#212121] font-[500]">{label}</label>
       <input
         type={type}
         name={name}

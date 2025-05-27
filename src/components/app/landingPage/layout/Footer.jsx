@@ -22,7 +22,7 @@ const Footer = () => {
     { label: "Multiple Levels", url: "schedule-appointment" },
     { label: "Pain Relief Coach", url: "pain-relief-coach" },
   ];
-
+ 
   const location =useLocation()
 
   return (

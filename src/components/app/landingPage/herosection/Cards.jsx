@@ -12,7 +12,7 @@ const Card = ({ data }) => {
           <img
             src={data?.provider?.profilePicture}
             alt="Avatar"
-            className="w-16 h-16 rounded-full bg-white"
+            className="w-16 h-16 object-cover rounded-full bg-white"
           />
         </div>
       </div>
@@ -31,10 +31,12 @@ const Card = ({ data }) => {
               alt=""
             />
           </div>
-          <div className="text-[#181818] text-[14px] font-[500] break-words whitespace-normal text-center">
-            {" "}
-            {data?.address}
-          </div>
+      <div className="text-[#181818] text-[14px] font-[500] text-center">
+  {data?.address?.length > 20
+    ? `${data.address.slice(0, 20)}...`
+    : data?.address}
+</div>
+
         </div>
         <p className="text-[#565656] text-[14px] font-[500] mt-1">
           20Miles Away

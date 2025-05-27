@@ -35,15 +35,18 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <button
               onClick={() => navigate("/auth/account-selection")}
-              className="rounded-lg border border-white h-12 px-6 w-full sm:w-[210px]"
+              className="rounded-lg border border-white h-12 px-6 w-full font-[600] sm:w-[210px]"
             >
               Join Now
             </button>
             <button
               onClick={() => navigate("/app/schedule-appointment")}
-              className="rounded-lg text-nowrap bg-white text-[#63CFAC] h-12 px-6 w-full sm:w-[210px]"
+              className="rounded-lg text-nowrap bg-white text-[#63CFAC] h-12 font-[500] w-full sm:w-[210px]"
             >
-              Explore Service Providers
+              <p className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">
+                {" "}
+                Explore Service Providers
+              </p>
             </button>
           </div>
         </div>

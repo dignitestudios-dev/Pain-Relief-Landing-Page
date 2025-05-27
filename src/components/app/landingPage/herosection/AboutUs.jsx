@@ -5,12 +5,12 @@ import { useNavigate } from "react-router";
 const About = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex justify-center mt-5">
-      <div className="grid lg:grid-cols-2  md:grid-cols-1 w-[90%] ">
-        <div className="col-span-1   xl:mt-10 lg:mt-3 md:flex hidden ">
+    <div className="flex justify-center items-center mt-5">
+      <div className="grid lg:grid-cols-2   md:grid-cols-1 items-center  w-[90%] ">
+        <div className="  xl:mt-10 lg:mt-3 md:flex hidden ">
           <img
             src={AboutUs}
-            className="lg:pl-12  md:pl-0 lg:h-[514.05px] md:h-[400px] "
+            className="lg:pl-20  md:pl-0 lg:h-[514.05px] md:h-[400px] "
             alt=""
           />
         </div>

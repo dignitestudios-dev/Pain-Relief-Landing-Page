@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { DesktopLogo } from "../../../../assets/export";
+import { useEffect, useRef, useState } from "react";
+import { Arrodropnav, DesktopLogo } from "../../../../assets/export";
 import { MdArrowDropDown } from "react-icons/md";
 import { HiMenu, HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router";
@@ -15,6 +15,34 @@ const Navbar = () => {
     setIsDropdownOpen(false);
     setIsMobileMenuOpen(false);
   };
+
+  const dropdownRef = useRef(null);
+  const dropdownMemberRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownMemberRef.current && !dropdownMemberRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const SupportLinks = [
     {
       label: "More Than Insurance",
@@ -44,8 +72,9 @@ const Navbar = () => {
       <div className="flex items-center justify-between lg:px-2  md:px-2 p-4">
         <div className="">
           <img
+            onClick={() => navigate("home")}
             src={DesktopLogo}
-            className="lg:w-[262px] lg:h-[93.38px] md:w-[130px] w-[150px] object-contain "
+            className="lg:w-[352px] cursor-pointer lg:h-[93.38px] md:w-[130px] w-[150px] object-contain "
             alt="Logo"
           />
         </div>
@@ -54,24 +83,28 @@ const Navbar = () => {
           <li className="cursor-pointer border-b border-b-white w-[30px]  ">
             <Link to={"home"}>Home</Link>
           </li>
-          <li className="relative">
+          <li className="relative " ref={dropdownRef}>
             <button
-              className={`flex items-center gap-1 w-[180px] px-2 py-1 ${
-                isDropdownOpen
-                  ? "border border-b-0 rounded-t-md border-[#FFFFFF4D]"
-                  : ""
+              className={`flex items-center gap-2 py-1  ${
+                isDropdownOpen ? "" : ""
               }`}
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              onClick={() => {
+                setIsDropdownOpen(!isDropdownOpen);
+                setIsDropMemberOpen(false);
+              }}
             >
-              Pain Relief Support <MdArrowDropDown size={16} />
+              Pain Relief Support{" "}
+              <img src={Arrodropnav} className="h-[7px]   " alt="" />
             </button>
             {isDropdownOpen && (
-              <div className="absolute top-full left-0  w-[180px] border border-t-0 border-[#FFFFFF4D] rounded-b-md z-20">
+              <div className="absolute top-full left-0  border    border-[#FFFFFF4D] rounded-md z-20">
                 <div className="py-1 p-2 bg-gradient-to-r  text-white text-sm">
                   {SupportLinks.map((item, index) => (
                     <div
                       key={index}
-                      className={` text-start pt-2  py-1 text-[14px] text-white  border-t border-[#FFFFFF4D] text-nowrap font-[500] `}
+                      className={` text-start pt-2  py-2 text-[16px] text-white ${
+                        index === 0 ? "  " : "border-t"
+                      } border-[#FFFFFF4D] text-nowrap font-[400] `}
                     >
                       <Link to={item.url} onClick={closeMenus}>
                         {item.label}
@@ -82,24 +115,25 @@ const Navbar = () => {
               </div>
             )}
           </li>
-          <li className="relative">
+          <li className="relative" ref={dropdownMemberRef}>
             <button
-              className={`flex items-center w-[155px] gap-1 px-2 py-1 ${
-                dropMemberOpen
-                  ? "border border-b-0 rounded-t-md border-[#FFFFFF4D]"
-                  : ""
-              }`}
-              onClick={() => setIsDropMemberOpen(!dropMemberOpen)}
+              className={`flex items-center gap-2 py-1`}
+              onClick={() => {
+                setIsDropMemberOpen(!dropMemberOpen);
+              }}
             >
-              Membership <MdArrowDropDown size={16} />
+              Membership
+              <img src={Arrodropnav} className="h-[7px]" alt="" />
             </button>
             {dropMemberOpen && (
-              <div className="absolute top-full left-0  w-[155px] border border-t-0 border-[#FFFFFF4D] rounded-b-md z-20">
-                <div className="py-1 p-2 bg-gradient-to-r  text-white text-sm">
-                  {MemberLinks?.map((item, index) => (
+              <div className="absolute top-full left-0 border rounded-md border-[#FFFFFF4D] z-20">
+                <div className="py-1 p-2 bg-gradient-to-r text-white text-sm">
+                  {MemberLinks.map((item, index) => (
                     <div
                       key={index}
-                      className={` text-start pt-2  py-1 text-[14px] text-white  border-t border-[#FFFFFF4D] text-nowrap font-[500] `}
+                      className={`text-start pt-2 py-1 text-[16px] text-white ${
+                        index === 0 ? "" : "border-t"
+                      } border-[#FFFFFF4D] text-nowrap font-[400]`}
                     >
                       <Link to={item.url} onClick={closeMenus}>
                         {item.label}
