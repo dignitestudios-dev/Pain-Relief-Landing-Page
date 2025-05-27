@@ -158,12 +158,16 @@ const Login = () => {
             <Button text={"Login"} loading={loading} />
           </div>
         </form>
-        <div className="flex items-center  lg:w-[350px] md:w-[550px] w-[320px]">
-          <hr className="w-full border-t border-[#D9D9D9]" />
-          <p className="px-2 text-[#D9D9D9]">OR</p>
-          <hr className="w-full border-t border-[#D9D9D9]" />
-        </div>
-        <SocialLogin />
+        {values?.type === "member" && (
+          <>
+            <div className="flex items-center lg:w-[350px] md:w-[550px] w-[340px]">
+              <hr className="w-full border-t border-[#D9D9D9]" />
+              <p className="px-2 text-[#D9D9D9]">OR</p>
+              <hr className="w-full border-t border-[#D9D9D9]" />
+            </div>
+            <SocialLogin />
+          </>
+        )}
         <div className="flex items-center justify-center gap-2 my-6  ">
           <p className="text-center text-[16px] leading-[21.6px] text-[#181818]">
             Don’t have an account?

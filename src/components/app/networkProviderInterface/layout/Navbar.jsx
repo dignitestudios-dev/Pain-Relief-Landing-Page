@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { DesktopLogo, ProfileImg } from "../../../../assets/export";
 import { HiMenu, HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router";
@@ -9,9 +9,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { logoutAuth } = useContext(AppContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  console.log("🚀 ~ Navbar ~ isDropdownOpen:", isDropdownOpen);
+  const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const profileRef = useRef(null); // NEW ref
+  const notiRef = useRef(null); // NEW ref
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMenus = () => {
     setIsDropdownOpen(false);
@@ -22,9 +24,24 @@ const Navbar = () => {
     { url: "privacy-policy", name: "Privacy Policy" },
     { url: "terms-of-use", name: "Terms of use" },
     { url: "membership-agreement", name: "Membership Agreement" },
-    { url: "profile", name: "Account & Setting" },
-    // { url: "profile", name: "Logout" },
+    { url: "account-setting", name: "Account & Setting" },
   ];
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setOpenProfile(false);
+      }
+      if (notiRef.current && !notiRef.current.contains(event.target)) {
+        setIsNotiOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav className="w-full border-b border-[#FFFFFF5E] bg-transparent">
       <div className="flex items-center justify-between lg:px-2  md:px-2 p-4">
@@ -44,16 +61,25 @@ const Navbar = () => {
           <li className="cursor-pointer ">
             <Link to={"pain-relief-coach"}>Pain Relief Coach</Link>
           </li>
-          <div className="flex justify-center items-center gap-10">
+          <div
+            className="flex justify-center items-center gap-10"
+            ref={profileRef}
+          >
             <li
               className="cursor-pointer"
-              onClick={() => navigate("/auth/account-selection")}
+              onClick={() => {
+                setIsNotiOpen((prev) => !prev);
+                setOpenProfile(false);
+              }}
             >
               <IoMdNotificationsOutline size={21} />
             </li>
             <li
               className="rounded-full border cursor-pointer "
-              onClick={() => setOpenProfile((prev) => !prev)}
+              onClick={() => {
+                setOpenProfile((prev) => !prev);
+                setIsNotiOpen(false);
+              }}
             >
               <div className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] rounded-full relative  p-[1.5px] ">
                 <img
@@ -80,6 +106,44 @@ const Navbar = () => {
                 >
                   Logout
                 </li>
+              </div>
+            )}
+            {notiOpen && (
+              <div
+                ref={notiRef}
+                className="bg-white w-[292px] absolute top-28  right-14 rounded-[12px]"
+              >
+                <div className="flex  justify-between bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] rounded-t-[12px]  p-3 text-nowrap  ">
+                  <h2>Notification</h2>
+                  <p className="text-[10px] font-[600] text-[#F8F8F8] ">
+                    View All
+                  </p>
+                </div>
+                <div>
+                  {["Appointment Title", "Appointment Title"].map(
+                    (item, index) => (
+                      <li
+                        key={index}
+                        onClick={() => navigate(item?.url)}
+                        className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
+                      >
+                        <h2 className="flex justify-between ">
+                          {item}
+                          <p className="text-[12px] font-[400] text-[#0000007A] ">
+                            09:00pm
+                          </p>
+                        </h2>
+                        <p className="flex justify-between text-[12px] font-[400] text-[#212121] ">
+                          Your appointment has been{" "}
+                          {index == 0 ? "accepted" : "rejected"}
+                          <p className="text-[12px] font-[400] text-[#0000007A] ">
+                            {index == 0 ? "Today" : "9 May, 25"}
+                          </p>
+                        </p>
+                      </li>
+                    )
+                  )}
+                </div>
               </div>
             )}
           </div>

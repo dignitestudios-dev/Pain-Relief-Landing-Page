@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AppoitmentCard,
   ChossePlanCard,
@@ -8,7 +7,7 @@ import Button from "../Inputs/Button";
 import { useNavigate } from "react-router";
 
 const Cards = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="flex justify-center items-center">
       <div className="w-[80%] ">
@@ -35,7 +34,10 @@ const Cards = () => {
         </div>
         <div className="flex justify-center">
           <div className="xl:w-[249px] lg:w-[200px] md:w-[150px] w-[140px] mb-10">
-            <Button text={"Get Started Now"}  onClick={() => navigate("/auth/account-selection")} />
+            <Button
+              text={"Get Started Now"}
+              onClick={() => navigate("/auth/account-selection")}
+            />
           </div>
         </div>
       </div>

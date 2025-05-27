@@ -11,17 +11,18 @@ const PhoneInput = ({
   autoComplete,
   error,
   touched,
-  label
+  label,
+  isLight,
 }) => {
-  const handlePhoneChange = (e) => {
-    const formattedValue = e.target.value.replace(/[^0-9]/g, "");
-    onChange({
-      target: {
-        name: e.target.name,
-        value: formattedValue,
-      },
-    });
-  };
+  // const handlePhoneChange = (e) => {
+  //   const formattedValue = e.target.value.replace(/[^0-9]/g, "");
+  //   onChange({
+  //     target: {
+  //       name: e.target.name,
+  //       value: formattedValue,
+  //     },
+  //   });
+  // };
 
   const handleKeyPress = (e) => {
     if (!/[0-9]/.test(e.key)) {
@@ -31,13 +32,19 @@ const PhoneInput = ({
 
   return (
     <div>
-          <label htmlFor="" className="text-[12px] text-[#121516] font-medium">{label}</label>
+      <label htmlFor="" className="text-[12px] text-[#121516] font-medium">
+        {label}
+      </label>
       <div
-        className={`flex items-center p-0 w-full pl-2 outline-none font-[500] focus-within:border-[#0E73D0] 
-      border border-[#9A9A9A] rounded-[15px] placeholder:text-[16px] placeholder:font-[400]
+        className={`flex  items-center p-0 w-full pl-2 outline-none font-[500] focus-within:border-[#0E73D0] 
+      border border-[#9A9A9A] ${isLight ? "rounded-[8px]" : "rounded-[15px]"}  placeholder:text-[16px] placeholder:font-[400]
       placeholder:text-[#181818] text-[#181818] ${
         (isAuth ? "bg-transparent" : "bg-white",
-        isDisabled ? "bg-gray-100" : "bg-white")
+        isDisabled
+          ? "bg-gray-100"
+          : "bg-white" || isLight
+          ? "bg-transparent"
+          : "bg-white")
       } 
       h-full px-3 text-sm font-medium`}
       >
@@ -49,17 +56,23 @@ const PhoneInput = ({
           />
         </span> */}
 
-        <span className="text-[16px] font-[400] w-[40px] text-center" >+1</span>
+        <span className="text-[16px] font-[400] w-[40px] text-center">+1</span>
 
         <div className="border-l h-6 mx-2"></div>
 
         <input
           type="text"
           className={`outline-none w-full placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] 
-          text-[#181818] h-[49px] ${isDisabled ? "bg-gray-100 " : "bg-white"}`}
+          text-[#181818] ${isLight ? "h-[42px]" :"h-[49px]"} ${
+            isDisabled
+              ? "bg-gray-100 "
+              : "bg-white" || isLight
+              ? "bg-transparent  "
+              : "bg-white"
+          }`}
           placeholder="123-456-7890"
           value={value}
-          onChange={handlePhoneChange}
+          onChange={onChange}
           onBlur={onBlur}
           onKeyPress={handleKeyPress}
           id={id}
@@ -69,7 +82,9 @@ const PhoneInput = ({
           autoComplete={autoComplete}
         />
       </div>
-      {error && touched && <p className="text-red-600 text-[12px] mt-3">{error}</p>}
+      {error && touched && (
+        <p className="text-red-600 text-[12px] mt-3">{error}</p>
+      )}
     </div>
   );
 };

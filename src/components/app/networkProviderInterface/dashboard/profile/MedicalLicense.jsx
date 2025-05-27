@@ -3,9 +3,7 @@ import { MedicallicenseCard } from "../../../../../assets/export";
 import LicenseApprovedModal from "./LicenseApprovedModal";
 import ApprovedPending from "./ApprovedPending";
 
-const MedicalLicense = () => {
-  const [licenseModal, setLicenseModal] = useState(false);
-  const [pendingModal, setPendingModal] = useState(false);
+const MedicalLicense = ({ profileData, setLicenseModal, loader }) => {
   return (
     <div className="bg-white rounded-[8px] mt-4">
       <div className="flex flex-col xl:flex-row lg:flex-row md:flex-row gap-4 justify-between  xl:items-center border-b border-b-[#EAEAEA] p-4">
@@ -19,34 +17,35 @@ const MedicalLicense = () => {
           Upload New Medical License
         </p>
       </div>
-
-      <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 p-8 gap-6">
-        {[1, 2, 3, 4, 5].map((item, index) => (
-          <div key={index}>
-            <h2 className="text-[14px] font-[500] px-2 text-[#565656]">
-              Medical License
-            </h2>
-            <div>
-              <img
-                src={MedicallicenseCard}
-                className="w-[289.6px] h-[183.67px] my-3"
-                alt=""
-              />
+      {loader ? (
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 p-8 gap-6">
+          {[...Array(4)].map((_, index) => (
+            <div key={index}>
+              <div className="h-[14px] w-[120px] bg-gray-200 rounded mb-2 animate-pulse"></div>
+              <div className="w-[289.6px] h-[183.67px] bg-gray-200 rounded-md animate-pulse"></div>
             </div>
-          </div>
-        ))}
-      </div>
-      {licenseModal && (
-        <LicenseApprovedModal
-          onClick={() => setLicenseModal(false)}
-          setLicenseModal={setLicenseModal}
-          setPendingModal={setPendingModal}
-        />
+          ))}
+        </div>
+      ) : (
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 p-8 gap-6">
+          {profileData?.documents?.map((item, index) => (
+            <div key={index}>
+              <h2 className="text-[14px] font-[500] px-2 text-[#565656]">
+                Medical License
+              </h2>
+              <div>
+                <img
+                  src={item}
+                  className="w-[289.6px] h-[183.67px] my-3"
+                  alt=""
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       )}
-       {pendingModal && (
-        <ApprovedPending onClick={() => setPendingModal(false)} />
-      )}
-      
+
+     
     </div>
   );
 };

@@ -1,22 +1,34 @@
 import React, { useEffect, useRef } from "react";
 import QRCode from "qrcode";
 import Button from "../../../landingPage/Inputs/Button";
+import { SuccessToast } from "../../../../global/Toaster";
 
-const QrCode = () => {
+const QrCode = ({ referralCode }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    if (canvasRef.current) {
+    if (canvasRef.current && referralCode?.referralLink) {
       QRCode.toCanvas(
         canvasRef.current,
-        "https://example.com/brochure-link",
-        { width: 100 },
+        referralCode?.referralLink,
+
         function (error) {
           if (error) console.error(error);
         }
       );
     }
-  }, []);
+  }, [referralCode]);
+
+  const handleCopyLink = async () => {
+    if (referralCode?.referralLink) {
+      try {
+        await navigator.clipboard.writeText(referralCode.referralLink);
+        SuccessToast("Link copied to clipboard!");
+      } catch (err) {
+        console.error("Failed to copy link: ", err);
+      }
+    }
+  };
 
   return (
     <div>
@@ -24,13 +36,12 @@ const QrCode = () => {
         <canvas ref={canvasRef} />
       </div>
       <div className="flex justify-between gap-2 mt-3">
-        <button className="border rounded-[8px] border-[#63CFAC] h-[49px] w-[205px] text-[#63CFAC] ">
-          {" "}
+        <button
+          onClick={handleCopyLink}
+          className="border rounded-[8px] border-[#63CFAC] h-[49px] w-full text-[#63CFAC]"
+        >
           Copy Link
         </button>
-        <div className="w-[205px]">
-          <Button text={"Download QR Code"} />
-        </div>
       </div>
     </div>
   );

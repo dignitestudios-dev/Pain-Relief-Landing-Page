@@ -19,8 +19,7 @@ const defaultCenter = {
 
 const libraries = ["places"];
 
-const GoogleMapComponent = ({ onLocationSelect, editAddress }) => {
-  console.log(editAddress, "editAddress");
+const GoogleMapComponent = ({ onLocationSelect, editAddress, isEditMode }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -34,6 +33,11 @@ const GoogleMapComponent = ({ onLocationSelect, editAddress }) => {
   useEffect(() => {
     if (editAddress?.location?.coordinates?.length) {
       const [lng, lat] = editAddress.location.coordinates;
+      setMapCenter({ lat, lng });
+      setMarker({ lat, lng });
+      setInputValue(editAddress.address || "");
+    } else if (editAddress?.location?.length) {
+      const [lng, lat] = editAddress?.location;
       setMapCenter({ lat, lng });
       setMarker({ lat, lng });
       setInputValue(editAddress.address || "");

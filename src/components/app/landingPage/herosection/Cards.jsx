@@ -31,7 +31,7 @@ const Card = ({ data }) => {
               alt=""
             />
           </div>
-          <div className="text-[#181818] text-nowrap text-[14px]  font-[500] ">
+          <div className="text-[#181818] text-[14px] font-[500] break-words whitespace-normal text-center">
             {" "}
             {data?.address}
           </div>

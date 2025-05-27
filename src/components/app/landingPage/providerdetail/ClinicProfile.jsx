@@ -69,6 +69,7 @@ const ClinicProfile = ({ providerDetail, loading }) => {
           editIndex={editIndex}
           setEditIndex={setEditIndex}
           isLocationAdded={isLocationAdded}
+          therapyTypesOption={therapyTypesOption}
         />
       )}
       {requestSendModal && (

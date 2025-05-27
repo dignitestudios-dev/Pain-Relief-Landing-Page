@@ -37,7 +37,7 @@ const CreateAccountRequest = () => {
       };
     });
 
-    console.log(locations, "locations  ");
+  
     const formData = new FormData();
 
     formData.append("addresses", JSON.stringify(locations));

@@ -8,8 +8,11 @@ import { useFormik } from "formik";
 import { updatePasswordValues } from "../../init/authentication/authenticationValues";
 import { useUpdatePassword } from "../../hooks/api/Post";
 import { processUpdatePassword } from "../../lib/utils";
+import { useNavigate } from "react-router";
 
 const UpdatePassword = () => {
+  const navigate = useNavigate();
+
   const { loading, postData } = useUpdatePassword();
   const [isModal, setIsModal] = useState(false);
 
@@ -23,9 +26,14 @@ const UpdatePassword = () => {
         let obj = {
           newPassword: values.password,
         };
-        postData("/auth/reset-password",   false, null, obj,processUpdatePassword ,setIsModal);
-
-      
+        postData(
+          "/auth/reset-password",
+          false,
+          null,
+          obj,
+          processUpdatePassword,
+          setIsModal
+        );
       },
     });
   return (
@@ -83,7 +91,12 @@ const UpdatePassword = () => {
           </div>
         </form>
       </div>
-      {isModal && <PasswordUpdatedModal isOpen={setIsModal} />}
+      {isModal && (
+        <PasswordUpdatedModal
+          isOpen={setIsModal}
+          onClick={() => navigate("/auth/sign-in")}
+        />
+      )}
     </div>
   );
 };

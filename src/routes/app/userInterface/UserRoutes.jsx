@@ -1,7 +1,7 @@
 import Dashboard from "../../../pages/app/userInterface/dashboard/Dashboard";
-import CreateAccountRequest from "../../../pages/onboarding/CreateAccountRequest";
 import CreateProfile from "../../../pages/onboarding/CreateProfile";
-import CreateProviderProfile from "../../../pages/onboarding/CreateProviderProfile";
+// import CreateAccountRequest from "../../../pages/onboarding/CreateAccountRequest";
+// import CreateProviderProfile from "../../../pages/onboarding/CreateProviderProfile";
 
 export const UserRoutes = [
   {
@@ -9,14 +9,14 @@ export const UserRoutes = [
     page: <Dashboard />,
     isPublic: true,
   },
-  {
-    url: "create-provider-profile",
-    page: <CreateProviderProfile />,
-  },
-  {
-    url: "create-account-request",
-    page: <CreateAccountRequest />,
-  },
+  // {
+  //   url: "create-provider-profile",
+  //   page: <CreateProviderProfile />,
+  // },
+  // {
+  //   url: "create-account-request",
+  //   page: <CreateAccountRequest />,
+  // },
   {
     url: "create-profile",
     page: <CreateProfile />,

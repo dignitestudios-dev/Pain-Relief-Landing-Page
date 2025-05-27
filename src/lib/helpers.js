@@ -1,3 +1,9 @@
+import moment from "moment/moment";
+
+export const getDateFormat = (date) => {
+  return moment(date).format("MM-DD-YYYY");
+};
+
 export const phoneFormatter = (input) => {
   if (typeof input !== "string") {
     return ""; // or return input if you want to keep original value

@@ -1,16 +1,25 @@
 import React from "react";
 
-const NetworkDetail = ({ title, message, detail, request, editIcon }) => {
+const NetworkDetail = ({
+  title,
+  message,
+  detail,
+  request,
+  editIcon,
+  onClickEdit,
+  onClickRequest,
+}) => {
   return (
-    <div  className="border-b border-[#EAEAEA] px-4 py-4">
+    <div className="border-b border-[#EAEAEA] px-4 py-4">
       <div className="flex justify-between items-center">
         <h3 className="text-[14px] text-[#565656] font-medium">{title}</h3>
 
-        <div className="flex gap-3 items-center">
-          {editIcon && <span>{editIcon}</span>}
+        <div className="flex gap-3 items-center cursor-pointer">
+          {editIcon && <span onClick={onClickEdit}>{editIcon}</span>}
+
           {request && (
             <button
-              onClick={() => setRequestSendModal(true)}
+              onClick={() => onClickRequest()}
               className="text-transparent bg-clip-text bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] border-b border-[#63CFAC] text-sm"
             >
               {request}

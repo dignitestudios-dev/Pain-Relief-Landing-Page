@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import ClinicProfile from "../../../landingPage/providerdetail/ClinicProfile";
-import SubscriptionCards from "../../../landingPage/herosection/SubscriptionCards";
-import CareCosts from "../../../landingPage/providerdetail/CareCosts";
-import MapSection from "../../../landingPage/providerdetail/MapSection";
 import MedicalLicense from "./MedicalLicense";
 import ReferralTable from "./ReferralTable";
+import ClinicProvider from "./ClinicProvider";
 
-const ProfileDetailSection = () => {
+const ProfileDetailSection = ({
+  profileData,
+  setIsModal,
+  setEditIndex,
+  editIndex,
+  setLicenseModal,
+  ReferralFriends,
+  referralLoader,
+  setVoucherModal,
+  loader,
+  handleRequestSend,
+  setIsEditModall
+}) => {
   const [tabActive, setTabActive] = useState("Provider Detail");
   const tabs = ["Provider Detail", "Medical License", "Referral Friends"];
 
@@ -29,9 +38,31 @@ const ProfileDetailSection = () => {
           ))}
         </div>
       </div>
-      {tabActive === "Provider Detail" && <ClinicProfile />}
-      {tabActive === "Medical License" && <MedicalLicense />}
-      {tabActive === "Referral Friends" && <ReferralTable />}
+      {tabActive === "Provider Detail" && (
+        <ClinicProvider
+          profileData={profileData}
+          setIsModal={setIsModal}
+          editIndex={editIndex}
+          setIsEditModall={setIsEditModall}
+          setEditIndex={setEditIndex}
+          handleRequestSend={handleRequestSend}
+          loader={loader}
+        />
+      )}
+      {tabActive === "Medical License" && (
+        <MedicalLicense
+          profileData={profileData}
+          setLicenseModal={setLicenseModal}
+          loader={loader}
+        />
+      )}
+      {tabActive === "Referral Friends" && (
+        <ReferralTable
+          referralLoader={referralLoader}
+          referralFriends={ReferralFriends}
+          setVoucherModal={setVoucherModal}
+        />
+      )}
     </div>
   );
 };

@@ -16,8 +16,11 @@ const Cards = ({ providerData, loading }) => {
           <EmptyScreen text={"No Data Found"} />
         </div>
       ) : (
-        providerData?.map((item) => (
-          <div className="min-w-[250px] bg-white p-2 rounded-[14px] mx-2 w-[279px] flex flex-col justify-between min-h-[310px]">
+        providerData?.map((item, index) => (
+          <div
+            key={index}
+            className="min-w-[250px] bg-white p-2 rounded-[14px] mx-2 w-[279px] flex flex-col justify-between min-h-[310px]"
+          >
             <div className="bg-cards  h-24 flex items-center justify-center rounded-md">
               <div className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] p-[3px] rounded-full relative top-6  ">
                 <img
@@ -34,15 +37,15 @@ const Cards = ({ providerData, loading }) => {
               <p className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent text-[14px] font-[500] ">
                 {item?.services?.flatMap((item) => item?.name).join(", ")}
               </p>
-              <div className="flex  justify-center items-center gap-2">
+              <div className="flex  justify-center  gap-2">
                 <div>
                   <img
                     src={Location}
-                    className="w-[13px] h-[15.69px] object-contain  "
+                    className="w-[13px] mt-1 h-[15.69px] object-contain  "
                     alt=""
                   />
                 </div>
-                <div className="text-[#181818] text-nowrap text-[14px]  font-[500] ">
+                <div className="text-[#181818] break-words whitespace-normal text-center text-[14px]  font-[500] ">
                   {" "}
                   {item?.address}
                 </div>

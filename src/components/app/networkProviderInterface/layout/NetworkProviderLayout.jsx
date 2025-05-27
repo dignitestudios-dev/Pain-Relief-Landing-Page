@@ -4,6 +4,7 @@ import Footer from "./Footer";
 
 // eslint-disable-next-line react/prop-types
 const NetworkProviderLayout = ({ page, token, role, user }) => {
+  console.log("🚀 ~ NetworkProviderLayout ~ role:", role);
   if (!token || role !== "provider") {
     return <Navigate to="/auth/sign-in" replace />;
   } else if (!user?.isProfileCompleted) {

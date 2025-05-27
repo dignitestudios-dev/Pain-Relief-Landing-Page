@@ -1,3 +1,4 @@
+import AccountSetting from "../../../pages/app/networkProviderInterface/dashboard/AccountSetting";
 import Dashboard from "../../../pages/app/networkProviderInterface/dashboard/Dashboard";
 import EditProfile from "../../../pages/app/networkProviderInterface/dashboard/EditProfile";
 import MembershipAgreement from "../../../pages/app/networkProviderInterface/dashboard/MembershipAgreement";
@@ -64,6 +65,11 @@ export const ProviderRoutes = [
   {
     url: "view-profile-netwrok-provider",
     page: <ViewProfile />,
+    isPublic: true,
+  },
+  {
+    url: "account-setting",
+    page: <AccountSetting />,
     isPublic: true,
   },
 ];

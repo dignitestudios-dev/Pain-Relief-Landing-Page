@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-
+import { MapImg } from "../../assets/export";
+import InputField from "./InputField";
 import SelectableField from "./SelectableField";
 import Button from "../app/landingPage/Inputs/Button";
 import GoogleMapComponent from "../global/GoogleMap";
-import { useAddAddresss } from "../../hooks/api/Post";
+import { useAddAddresss, useEditAddresss } from "../../hooks/api/Post";
 import { processAddAddress } from "../../lib/utils";
 
-const AddNewLocationModal = ({
+const EditLocationModal = ({
   setIsModal,
   setIsLocationAdded,
   editIndex,
@@ -15,12 +16,9 @@ const AddNewLocationModal = ({
   isLocationAdded,
   therapyTypesOption,
   isEditMode = false,
-  isBtn=false,
   setUpdate,
 }) => {
-
   const [form, setForm] = useState({ address: "", specialty: [] });
-  console.log(form, "form=2=2=");
 
   const [errors, setErrors] = useState({ address: "", specialty: [] });
 
@@ -47,58 +45,37 @@ const AddNewLocationModal = ({
     setErrors((prev) => ({ ...prev, [field]: "" }));
   };
 
-  const handleAddLocation = () => {
-    if (!validateForm()) return;
-
-    if (editIndex !== null) {
-      // Edit mode
-      setIsLocationAdded((prev) => {
-        const updated = [...prev];
-        updated[editIndex] = form;
-        return updated;
-      });
-    } else {
-      // Add mode
-      setIsLocationAdded((prev) => [...prev, form]);
-    }
-
-    setEditIndex(null);
-    setForm({ address: "", specialty: "" });
-    setIsModal(false);
-  };
-
   useEffect(() => {
     if (editIndex !== null && isLocationAdded[editIndex]) {
-      if (isEditMode) {
-        setForm(() => ({
-          address: isLocationAdded[editIndex],
-          specialty: isLocationAdded[editIndex].services,
-        }));
-      } else {
-        setForm(isLocationAdded[editIndex]);
-      }
+      setForm(() => ({
+        address: isLocationAdded[editIndex],
+        specialty: isLocationAdded[editIndex].services,
+      }));
     }
   }, [editIndex]);
 
   const onLocationSelect = (data) => {
+    console.log(data);
     setForm({
       address: data,
     });
     setErrors("");
   };
 
-  const { loading: addressLoader, postData: postAddAddress } = useAddAddresss();
+  const { loading: addressLoader, postData: postEditAddress } =
+    useEditAddresss();
 
-  const handleAddAddress = () => {
+  const handleEditAddress = () => {
     if (!validateForm()) return;
 
     let location = {
-      ...form.address,
-      services: form.specialty?.map((item) => item?.id),
+      ...form?.address,
+      _id: isLocationAdded[editIndex]?._id,
+      services: form?.specialty.map((item) => item?.id),
     };
 
-    postAddAddress(
-      "/provider/add-address",
+    postEditAddress(
+      "/provider/update-address",
       location,
       processAddAddress,
       setIsModal,
@@ -161,8 +138,8 @@ const AddNewLocationModal = ({
           <div>
             <Button
               text="Add Location"
-              onClick={isBtn ? handleAddAddress : handleAddLocation}
-              loading={isBtn ? addressLoader : false}
+              onClick={handleEditAddress}
+              loading={addressLoader}
             />
           </div>
         </div>
@@ -171,4 +148,4 @@ const AddNewLocationModal = ({
   );
 };
 
-export default AddNewLocationModal;
+export default EditLocationModal;

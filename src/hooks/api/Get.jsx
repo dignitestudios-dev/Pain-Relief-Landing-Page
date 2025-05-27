@@ -39,34 +39,32 @@ const useDashboardProvider = (
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
-  
-const getProvider = async () => {
-  try {
-    setLoading(true);
 
-    const filterParams = new URLSearchParams({
-      ...filters,
-      page: currentPage, // 🔁 add currentPage to params
-    }).toString();
+  const getProvider = async () => {
+    try {
+      setLoading(true);
 
-    const serviceParams = services
-      .map((service) => `services[]=${encodeURIComponent(service.id)}`)
-      .join("&");
+      const filterParams = new URLSearchParams({
+        ...filters,
+        page: currentPage, // 🔁 add currentPage to params
+      }).toString();
 
-    const requestUrl = `${url}?${filterParams}&${serviceParams}`;
+      const serviceParams = services
+        .map((service) => `services[]=${encodeURIComponent(service.id)}`)
+        .join("&");
 
-    const { data } = await axios.get(requestUrl);
+      const requestUrl = `${url}?${filterParams}&${serviceParams}`;
 
-    setData(data?.data);
-    setPagination(data?.pagination);
-    
-  } catch (error) {
-    processError(error);
-  } finally {
-    setLoading(false);
-  }
-};
+      const { data } = await axios.get(requestUrl);
 
+      setData(data?.data);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (isTrue === true) {
@@ -126,5 +124,87 @@ const useTherapyType = (url) => {
 
   return { loading, data, pagination };
 };
+const useProviderProfile = (url, update, setIsLocationAdded) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
 
-export { useUsers, useDashboardProvider, useDetailProvider, useTherapyType };
+  const getProviderProfile = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${url}`);
+      setData(data?.data);
+      setIsLocationAdded(data?.data?.addresses);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getProviderProfile();
+  }, [update]);
+
+  return { loading, data, pagination };
+};
+const useReferralFriendsProvider = (url) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
+
+  const getReferralFriends = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${url}`);
+      setData(data?.data);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getReferralFriends();
+  }, []);
+
+  return { loading, data, pagination };
+};
+
+const useReferralCodeProvider = (url) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
+
+  const getReferralCode = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${url}`);
+      setData(data?.data);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getReferralCode();
+  }, []);
+
+  return { loading, data, pagination };
+};
+
+export {
+  useUsers,
+  useDashboardProvider,
+  useDetailProvider,
+  useTherapyType,
+  useProviderProfile,
+  useReferralFriendsProvider,
+  useReferralCodeProvider,
+};

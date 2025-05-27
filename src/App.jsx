@@ -17,7 +17,7 @@ import CreateAccountRequest from "./pages/onboarding/CreateAccountRequest";
 
 function App() {
   const { token, role, userData } = useContext(AppContext);
-  console.log("🚀 ~ App ~ userData:", userData);
+  console.log("🚀 ~ App ~ token, role:", token, role);
 
   return (
     <Routes>
@@ -67,10 +67,7 @@ function App() {
             element={<CreateAccountRequest />}
           />
         ) : (
-          <Route
-            path="create-account-request"
-            element={<CreateProviderProfile />}
-          />
+          <Route element={<Navigate to="/auth/sign-in" />} />
         )}
         {/* <Route path="create-profile" element={<CreateProfile />} /> */}
       </Route>

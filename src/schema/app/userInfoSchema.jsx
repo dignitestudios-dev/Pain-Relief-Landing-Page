@@ -45,3 +45,37 @@ export const providerSchema = Yup.object({
 
   description: Yup.string().required("Description is required"),
 });
+
+export const EditproviderSchema = Yup.object({
+  name: Yup.string().required("Name of service provider is required"),
+  clinicName: Yup.string().required("Clinic/practice name is required"),
+
+  phone: Yup.string()
+    .transform((value) => value.replace(/\D/g, ""))
+    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
+    .required("Please enter your phone number"),
+
+  npi: Yup.string().required("Provider NPI is required"),
+
+  website: Yup.string()
+    .url("Enter a valid URL")
+    .required("Website is required"),
+
+  description: Yup.string().required("Description is required"),
+});
+
+export const changePassSchema = Yup.object({
+  currentPassword: Yup.string().required("Password  is required."),
+  newPassword: Yup.string()
+    .matches(/^(?!\s)(?!.*\s$)/, "Password must not begin or end with spaces")
+    .min(6, "Password must contain at least 6 alphanumeric characters.")
+    .required("Please enter your password"),
+
+  cPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
+    .required("Please confirm your password"),
+});
+export const reportIssueSchema = Yup.object({ 
+
+    description: Yup.string().required("Description is required"),
+})

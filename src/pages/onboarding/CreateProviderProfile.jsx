@@ -31,16 +31,21 @@ const CreateProviderProfile = () => {
     initialValues: providerInitialValues,
     validationSchema: providerSchema,
     onSubmit: (values) => {
-      let obj = {
-        name: values?.name,
-        clinicName: values.clinicName,
-        profilePicture: values.userImage,
-        phone: values?.number,
-        npi: values.providerNPI,
-        description: values.description,
-        website: values.website,
-      };
-      postData("/provider/complete-profile", obj, processProviderProfileCreate);
+      const formData = new FormData();
+
+      formData.append("name", values.name);
+      formData.append("clinicName", values.clinicName);
+      formData.append("profilePicture", values.userImage); // File object
+      formData.append("phone", values?.number || "");
+      formData.append("npi", values.providerNPI);
+      formData.append("description", values.description);
+      formData.append("website", values.website);
+      postData(
+        "/provider/complete-profile",
+        null,
+        processProviderProfileCreate,
+        formData
+      );
     },
   });
 

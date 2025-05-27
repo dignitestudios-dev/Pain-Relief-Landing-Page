@@ -36,7 +36,7 @@ export const AppContextProvider = ({ children }) => {
 
   const logoutAuth = () => {
     Cookies.remove("token");
-    Cookies.remove("name");
+    Cookies.remove("user");
     Cookies.remove("role");
     setToken(null);
     setUserData(null);
