@@ -95,9 +95,22 @@ const EditForm = ({
             text="Email Address (required)"
             disabled={true}
           />
-          <div className="h-[20px]">
+          <InputField
+            id={"phone"}
+            name="phone"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.phone}
+            touched={touched.phone}
+            value={values.phone}
+            placeholder="Mobile Number"
+            text="Mobile Number"
+            disabled={true}
+          />
+          {/* <div className="h-[20px]">
             <PhoneInput
               label={"Mobile Number (required)"}
+              isDisabled={true}
               value={phoneFormatter(values.phone)}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -107,7 +120,7 @@ const EditForm = ({
               error={errors.phone}
               touched={touched.phone}
             />
-          </div>
+          </div> */}
         </div>
         <div className="mt-4">
           <InputField

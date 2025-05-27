@@ -12,13 +12,20 @@ export const signInSchema = Yup.object({
 });
 
 export const signupSchema = Yup.object().shape({
-  fname: Yup.string().required("First name is required"),
-  lname: Yup.string().required("Last name is required"),
+  fname: Yup.string()
+    .trim()
+    .required("First name is required.")
+    .matches(/^[A-Za-z ]+$/, "First name must only contain letters and spaces"),
+
+  lname: Yup.string()
+    .trim()
+    .required("Last name is required.")
+    .matches(/^[A-Za-z ]+$/, "Last name must only contain letters and spaces"),
   email: Yup.string().email("Invalid email").required("Email is required"),
- number: Yup.string()
-  .transform(value => value.replace(/\D/g, "")) // Remove all non-numeric chars
-  .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
-  .required("Please enter your phone number"),
+  number: Yup.string()
+    .transform((value) => value.replace(/\D/g, "")) // Remove all non-numeric chars
+    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
+    .required("Please enter your phone number"),
 
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long.")

@@ -8,7 +8,7 @@ import CountDown from "../../components/global/CountDown";
 import { AppContext } from "../../context/AppContext";
 const VerifyOtp = () => {
   const { loginAuth, userData } = useContext(AppContext);
-  console.log("🚀 ~ VerifyOtp ~ userData:", userData);
+
   const [loading, setLoading] = useState(false);
   const [isOtpSuccess, setIsOtpSuccess] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
@@ -24,6 +24,7 @@ const VerifyOtp = () => {
   const [isActive, setIsActive] = useState(true);
   const [seconds, setSeconds] = useState(30);
   const navigate = useNavigate();
+
   const handleChange = (e, index) => {
     const { value } = e.target;
 
@@ -32,20 +33,28 @@ const VerifyOtp = () => {
       newOtp[index] = value;
       setOtp(newOtp);
 
-      if (index < otp.length - 1) {
-        inputs.current[index + 1].focus();
+      // Move to next only if next is empty
+      const nextIndex = index + 1;
+      if (nextIndex < otp.length && !newOtp[nextIndex]) {
+        inputs.current[nextIndex].focus();
       }
     }
   };
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
+      e.preventDefault(); // prevent default backspace behavior
       const newOtp = [...otp];
-      newOtp[index] = "";
-      setOtp(newOtp);
 
-      if (index > 0) {
+      if (otp[index]) {
+        // Just clear current input if not already empty
+        newOtp[index] = "";
+        setOtp(newOtp);
+      } else if (index > 0) {
+        // Move focus back and clear previous
         inputs.current[index - 1].focus();
+        newOtp[index - 1] = "";
+        setOtp(newOtp);
       }
     }
   };
@@ -56,11 +65,16 @@ const VerifyOtp = () => {
     return parseInt(otp.join(""), 10);
   };
 
-  const isOtpFilled = otp.every((digit) => digit !== "");
+  // const isOtpFilled = otp.every((digit) => digit !== "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isOtpFilled) return;
+    const isOtpFilled = otp.every((digit) => digit !== "");
+
+    if (!isOtpFilled) {
+      ErrorToast("Please enter all OTP digits");
+      return;
+    }
 
     setLoading(true);
     try {
@@ -86,6 +100,7 @@ const VerifyOtp = () => {
       }
     } catch (err) {
       console.log("🚀 ~ createAccount ~ err:", err);
+      setOtp(Array(4).fill(""));
       ErrorToast(err?.response?.data?.message);
     } finally {
       setLoading(false);

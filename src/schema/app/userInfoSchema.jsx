@@ -1,8 +1,15 @@
 import * as Yup from "yup";
 
 export const userInfoValidationSchema = Yup.object({
-  fname: Yup.string().required("First name is required."),
-  lname: Yup.string(),
+  fname: Yup.string()
+    .trim()
+    .required("First name is required.")
+    .matches(/^[A-Za-z ]+$/, "First name must only contain letters and spaces"),
+
+  lname: Yup.string()
+    .trim()
+    .required("Last name is required.")
+    .matches(/^[A-Za-z ]+$/, "Last name must only contain letters and spaces"),
   email: Yup.string()
     .email("Please enter a valid email address.")
     .required("Email is required."),
@@ -31,10 +38,10 @@ export const providerSchema = Yup.object({
   name: Yup.string().required("Name of service provider is required"),
   clinicName: Yup.string().required("Clinic/practice name is required"),
 
-  number: Yup.string()
-    .transform((value) => value.replace(/\D/g, ""))
-    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
-    .required("Please enter your phone number"),
+  // number: Yup.string()
+  //   .transform((value) => value.replace(/\D/g, ""))
+  //   .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
+  //   .required("Please enter your phone number"),
   providerNPI: Yup.string()
     .transform((value) => value.replace(/\D/g, ""))
     .matches(/^[0-9]{10}$/, "NPI must be exactly 10 digits.")
@@ -47,13 +54,16 @@ export const providerSchema = Yup.object({
 });
 
 export const EditproviderSchema = Yup.object({
-  name: Yup.string().required("Name of service provider is required"),
+  // name: Yup.string().required("Name of service provider is required"),
+  name: Yup.string()
+    .required("Name of service provider is required")
+    .matches(/^[A-Za-z\s]+$/, "Name must only contain letters and spaces"),
   clinicName: Yup.string().required("Clinic/practice name is required"),
 
-  phone: Yup.string()
-    .transform((value) => value.replace(/\D/g, ""))
-    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
-    .required("Please enter your phone number"),
+  // phone: Yup.string()
+  //   .transform((value) => value.replace(/\D/g, ""))
+  //   .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
+  //   .required("Please enter your phone number"),
 
   npi: Yup.string().required("Provider NPI is required"),
 
@@ -75,7 +85,6 @@ export const changePassSchema = Yup.object({
     .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
     .required("Please confirm your password"),
 });
-export const reportIssueSchema = Yup.object({ 
-
-    description: Yup.string().required("Description is required"),
-})
+export const reportIssueSchema = Yup.object({
+  description: Yup.string().required("Description is required"),
+});

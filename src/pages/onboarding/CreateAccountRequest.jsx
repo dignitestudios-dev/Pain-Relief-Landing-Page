@@ -16,6 +16,11 @@ const CreateAccountRequest = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const [formErrors, setFormErrors] = useState({
+    document: "",
+    locations: "",
+  });
+
   const { data: therapyTypes, loading: loader } =
     useTherapyType(`/booking/services`);
   console.log("🚀 ~ CreateAccountRequest ~ loader:", loader);
@@ -28,7 +33,31 @@ const CreateAccountRequest = () => {
   const { loading, postData } = useAccountRequest();
 
   const handleAccountRequest = () => {
-    if (!selectedFile || !isLocationAdded.length) return;
+    let errors = { document: "", locations: "" };
+    let hasError = false;
+
+    if (!selectedFile) {
+      errors.document = "Please upload the required document.";
+      hasError = true;
+    }
+
+    if (!isLocationAdded.length) {
+      errors.locations = "Please add at least one location with specialties.";
+      hasError = true;
+    } else {
+      const hasEmptySpecialties = isLocationAdded.some(
+        (item) => !item?.specialty?.length
+      );
+      if (hasEmptySpecialties) {
+        errors.locations =
+          "Please select at least one specialty for each location.";
+        hasError = true;
+      }
+    }
+
+    setFormErrors(errors);
+
+    if (hasError) return;
 
     let locations = isLocationAdded?.map((item) => {
       return {
@@ -37,7 +66,6 @@ const CreateAccountRequest = () => {
       };
     });
 
-  
     const formData = new FormData();
 
     formData.append("addresses", JSON.stringify(locations));
@@ -84,12 +112,22 @@ const CreateAccountRequest = () => {
               isModal={isModal}
               editIndex={editIndex}
               setEditIndex={setEditIndex}
+              setFormErrors={setFormErrors}
             />
+            {formErrors.document && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.document}</p>
+            )}
             <MediaLicense
               fileName={fileName}
               setFileName={setFileName}
               setFile={setSelectedFile}
+              setFormErrors={setFormErrors}
             />
+            {formErrors.locations && (
+              <p className="text-red-500 text-sm mt-1">
+                {formErrors.locations}
+              </p>
+            )}
             <div className="flex justify-end">
               <div className="w-[128px]  ">
                 <Button

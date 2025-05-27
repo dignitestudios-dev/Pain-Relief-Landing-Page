@@ -15,14 +15,16 @@ const AddNewLocationModal = ({
   isLocationAdded,
   therapyTypesOption,
   isEditMode = false,
-  isBtn=false,
+  isBtn = false,
   setUpdate,
+  setFormErrors,
 }) => {
-
   const [form, setForm] = useState({ address: "", specialty: [] });
-  console.log(form, "form=2=2=");
+  console.log("🚀 ~ form:", form);
 
   const [errors, setErrors] = useState({ address: "", specialty: [] });
+  console.log("🚀 ~ errors:", errors);
+  const [isSelectField, setIsSelectField] = useState(false);
 
   const validateForm = () => {
     const newErrors = { address: "", specialty: [] };
@@ -33,7 +35,7 @@ const AddNewLocationModal = ({
       valid = false;
     }
 
-    if (form.specialty.length === 0) {
+    if (form?.specialty?.length < 1) {
       newErrors.specialty = "Specialty is required";
       valid = false;
     }
@@ -43,13 +45,14 @@ const AddNewLocationModal = ({
   };
 
   const handleChange = (field, value) => {
+    console.log("🚀 ~ handleChange ~ field:", field);
     setForm((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: "" }));
+    setErrors({ address: "", specialty: [] });
   };
 
   const handleAddLocation = () => {
     if (!validateForm()) return;
-
+    setFormErrors({});
     if (editIndex !== null) {
       // Edit mode
       setIsLocationAdded((prev) => {
@@ -83,8 +86,9 @@ const AddNewLocationModal = ({
   const onLocationSelect = (data) => {
     setForm({
       address: data,
+      specialty: [],
     });
-    setErrors("");
+    setErrors({ address: "", specialty: [] });
   };
 
   const { loading: addressLoader, postData: postAddAddress } = useAddAddresss();
@@ -109,8 +113,8 @@ const AddNewLocationModal = ({
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
       <div
-        className="bg-white  overflow-y-auto overflow-x-hidden  rounded-[18px] shadow-md p-6 
-      lg:h-[466px] h-[482px]"
+        className={`bg-white  overflow-y-auto overflow-x-hidden  rounded-[18px] shadow-md p-6 
+       ${isSelectField ? "lg:h-[660px]" : "lg:h-[460px]"} h-[482px]`}
       >
         <div className="flex  justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
           <p className="text-[24px] font-semibold">Add New Location</p>
@@ -136,6 +140,9 @@ const AddNewLocationModal = ({
         <div className="space-y-3 mt-4">
           <div className="mt-3">
             <div className="w-[421px] h-[194px] mt-3 rounded-md overflow-hidden">
+              <label className="text-[12px] text-[#121516] font-medium">
+                Primary Clinic Location
+              </label>
               <GoogleMapComponent
                 onLocationSelect={onLocationSelect}
                 editAddress={form.address}
@@ -155,10 +162,11 @@ const AddNewLocationModal = ({
               onChange={(value) => handleChange("specialty", value)}
               error={errors.specialty}
               isMulti={true}
+              setIsSelectField={setIsSelectField}
             />
           </div>
 
-          <div>
+          <div className={`${isSelectField ? "pt-44" : "pt-0"}`}>
             <Button
               text="Add Location"
               onClick={isBtn ? handleAddAddress : handleAddLocation}

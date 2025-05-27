@@ -3,14 +3,8 @@ import HeroSection from "../../../../components/app/networkProviderInterface/das
 import EditForm from "../../../../components/app/networkProviderInterface/dashboard/editProfile/EditForm";
 import { useLocation } from "react-router";
 import { useEditProfileProvider } from "../../../../hooks/api/Post";
-import {
-  EditProfileproviderInitialValues,
-  providerInitialValues,
-} from "../../../../init/app/userInformation";
-import {
-  EditproviderSchema,
-  providerSchema,
-} from "../../../../schema/app/userInfoSchema";
+
+import { EditproviderSchema } from "../../../../schema/app/userInfoSchema";
 import { processEditProviderProfile } from "../../../../lib/utils";
 import { useFormik } from "formik";
 

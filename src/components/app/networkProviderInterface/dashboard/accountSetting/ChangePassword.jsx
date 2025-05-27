@@ -18,21 +18,25 @@ const ChangePassword = ({
       </h2>
       <form action="" onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-10 mt-5">
-          <AuthInput
-            value={passwordValues.currentPassword}
-            text={"Current Password"}
-            placeholder={"*******"}
-            error={errors.currentPassword}
-            touched={touched.currentPassword}
-            onChange={handleChange}
-            id={"currentPassword"}
-            name={"currentPassword"}
-            onBlur={handleBlur}
-            type={"password"}
-          />
-          <div className="">
+          <div>
+            <label>Current Password</label>
             <AuthInput
-             type={"password"}
+              value={passwordValues.currentPassword}
+              text={"Current Password"}
+              placeholder={"*******"}
+              error={errors.currentPassword}
+              touched={touched.currentPassword}
+              onChange={handleChange}
+              id={"currentPassword"}
+              name={"currentPassword"}
+              onBlur={handleBlur}
+              type={"password"}
+            />
+          </div>
+          <div className="">
+            <label>New Password</label>
+            <AuthInput
+              type={"password"}
               value={passwordValues.newPassword}
               text={"New Password"}
               placeholder={"*******"}
@@ -44,8 +48,9 @@ const ChangePassword = ({
               onBlur={handleBlur}
             />
             <div className="mt-3">
+              <label>Confirm Password</label>
               <AuthInput
-               type={"password"}
+                type={"password"}
                 text={"Confirm New Password"}
                 placeholder={"*******"}
                 error={errors.cPassword}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { InputsDark } from "../Inputs/Inputs";
 import { DropDownDark } from "../Inputs/DropDown";
 import Button from "../Inputs/Button";
@@ -7,7 +7,7 @@ import {
   useTherapyType,
 } from "../../../../hooks/api/Get";
 
-const FilterSection = ({ setShowFilter, getproviderData }) => {
+const FilterSection = ({ getproviderData }) => {
   const [isTrue, setIsTrue] = useState(false);
   const [update, setUpdate] = useState("");
   const [services, setServices] = useState([]);
@@ -33,7 +33,6 @@ const FilterSection = ({ setShowFilter, getproviderData }) => {
     services,
     1,
     update,
-
     isTrue
   );
 
@@ -72,16 +71,15 @@ const FilterSection = ({ setShowFilter, getproviderData }) => {
     });
   };
   const handleClear = () => {
-   setFilter({
-  zipCode: "",
-  therapistName: "",
-  practiceName: "",
-});
+    setFilter({
+      zipCode: "",
+      therapistName: "",
+      practiceName: "",
+    });
 
     setServices([]);
     setRadius([]);
     setUpdate((prev) => !prev);
-  
   };
 
   return (

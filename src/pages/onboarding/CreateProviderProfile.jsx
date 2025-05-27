@@ -170,9 +170,21 @@ const CreateProviderProfile = () => {
                 disabled={true}
               />
               <div>
-                <PhoneInput
+                <InputField
+                  text="Mobile Number (required)"
+                  placeholder="Mobile Number"
+                  id="number"
+                  name="number"
+                  value={values?.number}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={true}
+                />
+                {/* <PhoneInput
+                  isDisabled={true}
                   label={"Mobile Number (required)"}
-                  value={phoneFormatter(values.number)}
+                  value={values.number}
+                  // value={phoneFormatter(values.number)}
                   id={"number"}
                   name={"number"}
                   onChange={handleChange}
@@ -180,7 +192,7 @@ const CreateProviderProfile = () => {
                   error={errors.number}
                   touched={touched.number}
                   autoComplete="off"
-                />
+                /> */}
               </div>
             </div>
 

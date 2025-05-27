@@ -12,6 +12,7 @@ const SelectableField = ({
   error,
   loader,
   isMulti = false, // NEW PROP
+  setIsSelectField = () => {},
 }) => {
   const dropdownRef = useRef(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -35,6 +36,7 @@ const SelectableField = ({
     } else {
       onChange(option);
       setDropdownVisible(false);
+      setIsSelectField(false);
     }
   };
 
@@ -50,11 +52,17 @@ const SelectableField = ({
   return (
     <div className="flex flex-col gap-1 justify-start items-start">
       <label className="text-[12px] text-[#121516] font-medium">{label}</label>
-      <div className="relative w-full h-[48px]   border-[1px] border-[#D9D9D9] focus-within:border-[#55C9FA] flex justify-between items-center rounded-[8px] md:pl-3 pl-1.5">
+      <div
+        type="button"
+        onClick={() => {
+          setDropdownVisible(!dropdownVisible);
+          setIsSelectField((prev) => !prev);
+        }}
+        className="cursor-pointer relative w-full h-[48px]   border-[1px] border-[#D9D9D9] focus-within:border-[#55C9FA] flex justify-between items-center rounded-[8px] md:pl-3 pl-1.5"
+      >
         <button
           type="button"
           className="w-[400px] text-left text-[#565656] h-[48px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
-          onClick={() => setDropdownVisible(!dropdownVisible)}
         >
           <div className="pr-2">{displayValue()}</div>
         </button>
@@ -63,7 +71,7 @@ const SelectableField = ({
         {dropdownVisible && (
           <div
             ref={dropdownRef}
-            className="absolute top-12 left-0 w-full max-h-[280px] overflow-auto bg-white border rounded-[8px] z-10"
+            className="absolute top-12 left-0 w-full max-h-[220px] overflow-auto bg-white border rounded-[8px] z-10 "
           >
             {loader ? (
               <div className="text-center p-3">Loading...</div>

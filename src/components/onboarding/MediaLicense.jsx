@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const MediaLicense = ({ setFileName, fileName, setFile }) => {
+const MediaLicense = ({ setFileName, fileName, setFile, setFormErrors }) => {
   const [isLicenseAdded, setIsLicenseAdded] = useState(false);
 
   const handleFileChange = (event) => {
+    setFormErrors({});
     const file = event.target.files?.[0];
     if (file) {
       setFileName(file.name);

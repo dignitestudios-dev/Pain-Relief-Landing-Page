@@ -115,7 +115,12 @@ const AccountSetting = () => {
         deleteAccountloader={deleteAccountloader}
       />
       {passwordUpdateModal && (
-        <PasswordUpdatedModal onClick={() => setPasswordUpdateModal(false)} />
+        <PasswordUpdatedModal
+          onClick={() => {
+            setPasswordUpdateModal(false);
+            navigate("/provider/dashboard");
+          }}
+        />
       )}
       {reportModal && (
         <ReportIssueModal onClick={() => setReportModal(false)} />

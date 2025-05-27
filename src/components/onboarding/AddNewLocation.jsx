@@ -9,6 +9,7 @@ const AddNewLocation = ({
   isLocationAdded,
   setEditIndex,
   editIndex,
+  setFormErrors,
 }) => {
   return (
     <div>
@@ -33,12 +34,12 @@ const AddNewLocation = ({
                     className="w-[17px] h-[17px] "
                     alt=""
                   />
-                  <h2 className="text-[14px] font-[400] text-[#1F1F1F] ">
+                  <h2 className="text-[14px] w-[300px] font-[400] text-[#1F1F1F] ">
                     {item?.address?.address},{item?.address?.city},
                     {item?.address?.state},
                   </h2>
                 </div>
-                <p className="text-[14px] text-[#1F1F1F] font-[500] pt-2 px-8 ">
+                <p className="text-[14px] w-[300px] text-[#1F1F1F] font-[500] pt-2 px-8 ">
                   {item?.specialty?.map((s) => s?.label).join(", ")}
                 </p>
               </div>
@@ -72,6 +73,7 @@ const AddNewLocation = ({
           setEditIndex={setEditIndex}
           isLocationAdded={isLocationAdded}
           therapyTypesOption={therapyTypesOption}
+          setFormErrors={setFormErrors}
         />
       )}
     </div>
