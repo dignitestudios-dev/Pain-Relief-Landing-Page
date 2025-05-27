@@ -39,8 +39,10 @@ import CarePlan from "./LandingPage/carePlan.png";
 import VideoExercise from "./LandingPage/videoexercise.png";
 import MultilingualApp from "./LandingPage/multilingualapp.png";
 import VisionTechnology from "./LandingPage/visiontechnology.png";
+import ArroCrousel from "./LandingPage/arroCrousel.png";
 import Access from "./LandingPage/access.png";
 import Map from "./LandingPage/map.png";
+import Arrodropnav from "./LandingPage/arrodropnav.png";
 import SideImg from "./UserInterFace/Side-Images.png";
 import Eye from "./UserInterFace/Eye.png";
 import UserDark from "./UserInterFace/User.png";
@@ -135,5 +137,7 @@ export {
   ErrorIcon,
   Brochure,
   QrBg,
-  CalenderIcon
+  CalenderIcon,
+  Arrodropnav,
+  ArroCrousel
 };

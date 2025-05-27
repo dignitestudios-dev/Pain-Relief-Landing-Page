@@ -35,7 +35,7 @@
 
 .bg-cards {
     background: url('../src/assets/LandingPage/bg-cards.png');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 

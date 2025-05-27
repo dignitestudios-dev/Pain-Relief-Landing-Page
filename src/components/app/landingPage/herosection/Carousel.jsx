@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import Card from "./Cards";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
 import { SkeletonProviderCard } from "../../../global/Sekelton";
+import { ArroCrousel } from "../../../../assets/export";
 
-const Carousel = ({ providerData, loading, currentPage, pagination,setCurrentPage }) => {
+const Carousel = ({
+  providerData,
+  loading,
+  currentPage,
+  pagination,
+  setCurrentPage,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(5);
   const cardWidth = 270; // px
@@ -60,18 +67,22 @@ const Carousel = ({ providerData, loading, currentPage, pagination,setCurrentPag
       </div>
 
       {/* Controls */}
-      <div className="flex justify-center gap-10 mt-8">
+      <div className="flex justify-center gap-2 mt-8">
         <button
           onClick={prev}
-          className="bg-gradient-to-l h-[36px] w-[36px] flex items-center to-[#63CFAC] from-[#29ABE2] p-2 rounded-full shadow"
+          className={` h-[36px] w-[36px] flex justify-center items-center bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] p-2 rounded-full shadow`}
         >
-          <RiArrowDropLeftLine color="white" size={35} />
+          <img
+            src={ArroCrousel}
+            className="w-[6px] h-[12px] rotate-180 "
+            alt=""
+          />
         </button>
         <button
           onClick={next}
-          className="bg-gradient-to-l h-[36px] w-[36px] flex items-center to-[#63CFAC] from-[#29ABE2] p-2 rounded-full shadow"
+          className="bg-gradient-to-l h-[36px] w-[36px] flex justify-center items-center to-[#63CFAC] from-[#29ABE2] p-2 rounded-full shadow"
         >
-          <RiArrowDropRightLine color="white" size={35} />
+          <img src={ArroCrousel} className="w-[6px] h-[12px] " alt="" />
         </button>
       </div>
     </div>

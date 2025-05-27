@@ -81,11 +81,11 @@ const Management = () => {
               key={idx}
               className={`relative xl:text-right lg:text-center  xl:w-[350px] lg:w-full ${
                 item?.title === "Expert Chiropractors"
-                  ? "xl:left-[200px]  "
+                  ? "xl:left-[150px]  "
                   : item?.title === "Flexible Membership Plans"
-                  ? "xl:left-[60px]"
+                  ? "xl:left-[50px]"
                   : item?.title === "Family Member Registration"
-                  ? "xl:left-[90px]"
+                  ? "xl:left-[70px]"
                   : ""
               }`}
             >
@@ -118,11 +118,11 @@ const Management = () => {
               key={idx}
               className={`relative xl:text-left lg:text-center  xl:w-[350px] lg:w-full  ${
                 item?.title === "Seamless Online Appointments"
-                  ? "xl:right-[250px]"
+                  ? "xl:right-[230px]"
                   : item?.title === "Secure Payment Integration"
                   ? "xl:right-[140px]"
                   : item?.title === "Referral Benefits"
-                  ? "xl:right-[200px]"
+                  ? "xl:right-[190px]"
                   : ""
               }`}
             >
