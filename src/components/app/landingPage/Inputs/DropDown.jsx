@@ -33,27 +33,28 @@ export const DropDown = ({
   return (
     <div ref={dropdownRef} className="relative w-full">
       {label && <label className="block mb-1 text-white">{label}</label>}
-        <div
+      <div
         onClick={toggleDropdown}
         className="border border-white px-4 py-2 rounded-[8px] overflow-auto h-[49px] flex flex-wrap  gap-2 cursor-pointer bg-transparent text-black"
       >
-        <div className="flex flex-wrap gap-2 flex-1">
+        <div className="flex-1 overflow-hidden">
           {value.length === 0 ? (
-            <span className="text-white flex items-center">{placeholder}</span>
+            <span className="text-white flex items-center pt-1">{placeholder}</span>
           ) : (
-            value.map((item) => (
-              <span
-                key={item.id}
-                className="bg-white flex  items-center   text-black text-xs px-3 py-1 rounded-[10px]"
-              >
-                {item.name}
-              </span>
-            ))
+            <div
+              className="text-white text-[14px] font-[500] px-3 py-1 rounded-[10px] whitespace-nowrap overflow-hidden text-ellipsis"
+              title={value.map((item) => item?.name).join(", ")} // show full list on hover
+            >
+              {value
+                .map((item) => item?.name)
+                .slice(0, 2) // show only first 2 names
+                .join(", ")}
+              {value.length > 2 && "..."}
+            </div>
           )}
         </div>
-        <MdArrowDropDown size={26} color="white" className="shrink-0" />
+        <MdArrowDropDown size={26} color="white" className="shrink-0 pt-1" />
       </div>
-
 
       {isOpen &&
         (loader ? (
@@ -63,7 +64,7 @@ export const DropDown = ({
             {options?.map((option) => {
               const isChecked = value?.some((item) => item.id === option._id);
               return (
-               <label
+                <label
                   key={option?._id}
                   className="flex  px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
@@ -95,7 +96,7 @@ export const DropDown = ({
                     </div>
                   </div>
                   <span className="ml-2">{option?.name}</span>
-                </label>  
+                </label>
               );
             })}
           </div>
@@ -143,21 +144,23 @@ export const DropDownDark = ({
         onClick={toggleDropdown}
         className="border border-black px-4 py-2 rounded-[8px] overflow-auto h-[49px] flex flex-wrap  gap-2 cursor-pointer bg-transparent text-black"
       >
-        <div className="flex flex-wrap gap-2 flex-1">
+        <div className="flex-1 overflow-hidden">
           {value.length === 0 ? (
-            <span className="text-gray-500 flex items-center">{placeholder}</span>
+            <span className="text-black flex items-center pt-1">{placeholder}</span>
           ) : (
-            value.map((item) => (
-              <span
-                key={item.id}
-                className="bg-gradient-to-l to-[#63CFAC] flex  items-center  from-[#29ABE2] text-white text-xs px-3 py-1 rounded-[10px]"
-              >
-                {item.name}
-              </span>
-            ))
+            <div
+              className="text-black text-[14px] font-[500] px-3 py-1 rounded-[10px] whitespace-nowrap overflow-hidden text-ellipsis"
+              title={value.map((item) => item?.name).join(", ")} // show full list on hover
+            >
+              {value
+                .map((item) => item?.name)
+                .slice(0, 2) // show only first 2 names
+                .join(", ")}
+              {value.length > 2 && "..."}
+            </div>
           )}
         </div>
-        <MdArrowDropDown size={26} color="black" className="shrink-0" />
+        <MdArrowDropDown size={26} color="black" className="shrink-0 pt-1" />
       </div>
 
       {isOpen &&

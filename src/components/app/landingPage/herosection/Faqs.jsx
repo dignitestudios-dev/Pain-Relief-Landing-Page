@@ -4,10 +4,17 @@ import { HiOutlineMinus } from "react-icons/hi";
 
 const FAQAccordion = () => {
   const [openIndex, setOpenIndex] = useState(null);
+const toggleAccordion = (index) => {
+  setOpenIndex(openIndex === index ? null : index);
 
-  const toggleAccordion = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  setTimeout(() => {
+    const el = document.getElementById(`faq-item-${index}`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 100); // small delay so content opens first
+};
+
 
   const faqItems = [
     {
@@ -16,7 +23,8 @@ const FAQAccordion = () => {
         "A discount medical plan (also known as a membership plan) provides access to discounted rates on healthcare services, including those related to pain management. It's not insurance; it's a membership that gives you pre-negotiated discounts with participating providers.",
     },
     {
-      question: "How is a discount medical plan different from health insurance?",
+      question:
+        "How is a discount medical plan different from health insurance?",
       answer:
         "Health insurance covers a portion of your medical costs after you meet deductibles and copayments. A discount medical plan offers discounts on services, but you are responsible for paying the discounted fee directly to the provider. It does not pay for your care.",
     },
@@ -29,10 +37,16 @@ const FAQAccordion = () => {
       question: "Who is a discount medical plan good for?",
       answer: "These plans can be beneficial for individuals who:",
       liData: [
-        { list: "Have high deductibles or limited insurance coverage for pain management therapies." },
+        {
+          list: "Have high deductibles or limited insurance coverage for pain management therapies.",
+        },
         { list: "Need services not covered by their insurance." },
-        { list: "Are looking for ways to save money on out-of-pocket expenses." },
-        { list: "Do not qualify for or cannot afford traditional health insurance." },
+        {
+          list: "Are looking for ways to save money on out-of-pocket expenses.",
+        },
+        {
+          list: "Do not qualify for or cannot afford traditional health insurance.",
+        },
       ],
     },
     {
@@ -67,7 +81,7 @@ Includes everything in Standard plus:\n
     {
       question: "How do I find participating providers in my area?",
       answer:
-        'Choose “Provider Search” tab from this web app. Enter your zip code, distance from zip code, and specialty type. You can also search for a specific provider by entering their name or their practice name.',
+        "Choose “Provider Search” tab from this web app. Enter your zip code, distance from zip code, and specialty type. You can also search for a specific provider by entering their name or their practice name.",
     },
     {
       question: "Can I use my discount card at any doctor's office?",
@@ -85,7 +99,8 @@ Includes everything in Standard plus:\n
         "Simply log on to the secure web app and schedule an appointment with your preferred provider. Network providers will confirm your appointment via the web app. Present your Membership Card (digital or printed). The provider will apply the discounted rate, and you will pay the discounted fee directly.",
     },
     {
-      question: "Are alternative therapies like acupuncture or massage therapy discounted?",
+      question:
+        "Are alternative therapies like acupuncture or massage therapy discounted?",
       answer:
         "Yes. All plans include discounts on complementary and alternative medicine (CAM) therapies often used for pain management, including sine wave stimulation, ultrasound, laser therapy, acupuncture, and massage therapy. Members receive 30% discounts on these services.",
     },
@@ -109,7 +124,8 @@ Includes everything in Standard plus:\n
 
       <div className="space-y-0">
         {faqItems.map((item, index) => (
-          <div key={index} className="border-b border-gray-200">
+        <div key={index} id={`faq-item-${index}`} className="border-b border-gray-200">
+
             <button
               className="w-full flex justify-between items-center py-5 text-left focus:outline-none"
               onClick={() => toggleAccordion(index)}
