@@ -96,21 +96,34 @@ const Footer = () => {
           </div>
 
           {/* Social Icons */}
-          <div className="lg:mt-5">
-            <h2 className="text-[18px] font-semibold text-[#212121] mb-2">
-              Social Link
-            </h2>
-            <div className="flex gap-3">
-              {[Facebook, Instagram, Twitter, Youtube].map((item, index) => (
-                <img
-                  key={index}
-                  src={item}
-                  alt="social-icon"
-                  className="w-[24px] h-[20px] object-contain"
-                />
-              ))}
-            </div>
-          </div>
+        <div className="lg:mt-5">
+  <h2 className="text-[18px] font-semibold text-[#212121] mb-2">
+    Social Link
+  </h2>
+  <div className="flex gap-3">
+    {[
+      { icon: Facebook, url: "https://facebook.com" },
+      { icon: Instagram, url: "https://instagram.com" },
+      { icon: Twitter, url: "https://twitter.com" },
+      { icon: Youtube, url: "https://youtube.com" },
+    ].map((item, index) => (
+      <a
+        key={index}
+        href={item.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-[24px] h-[20px]"
+      >
+        <img
+          src={item.icon}
+          alt="social-icon"
+          className="w-full h-full object-contain"
+        />
+      </a>
+    ))}
+  </div>
+</div>
+
         </div>
 
         <hr className="my-6 border-gray-300" />
