@@ -2,40 +2,46 @@ import { useEffect, useRef, useState } from "react";
 import { Arrodropnav, DesktopLogo } from "../../../../assets/export";
 import { MdArrowDropDown } from "react-icons/md";
 import { HiMenu, HiX } from "react-icons/hi";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropMemberOpen, setIsDropMemberOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const currentPath = location.pathname;
+  // Add inside Navbar component, before return
+  const isActiveParent = (urls) => {
+    // Check if currentPath matches any of the dropdown children URLs
+    return urls.some((url) => currentPath.includes(url));
+  };
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMenus = () => {
     setIsDropdownOpen(false);
     setIsDropMemberOpen(false);
   };
-const dropdownRef = useRef(null);
-const memberRef = useRef(null);
+  const dropdownRef = useRef(null);
+  const memberRef = useRef(null);
 
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target) &&
-      memberRef.current &&
-      !memberRef.current.contains(event.target)
-    ) {
-      closeMenus();
-    }
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        memberRef.current &&
+        !memberRef.current.contains(event.target)
+      ) {
+        closeMenus();
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
-
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const SupportLinks = [
     {
@@ -74,13 +80,24 @@ useEffect(() => {
         </div>
 
         <ul className="hidden md:flex items-center font-[500] text-white gap-10 text-sm lg:text-base">
-          <li className="cursor-pointer border-b border-b-white w-[30px]  ">
+          <li
+            className={`cursor-pointer  w-[30px] ${
+              currentPath === "/app/home" ? "border-b border-b-white" : ""
+            } `}
+          >
             <Link to={"home"}>Home</Link>
           </li>
-          <li className="relative"  ref={dropdownRef}>
+          <li className="relative" ref={dropdownRef}>
             <button
-              className={`flex items-center gap-2 py-1  ${
-                isDropdownOpen ? "" : ""
+              className={`flex items-center w-[]    gap-2 py-1 
+              ${
+                isActiveParent([
+                  "/app/schedule-appointment",
+                  "/app/immediate-options",
+                  "/app/more-insurance",
+                ])
+                  ? "border-b   border-b-white"
+                  : ""
               }`}
               onClick={() => {
                 setIsDropdownOpen(!isDropdownOpen);
@@ -109,12 +126,16 @@ useEffect(() => {
               </div>
             )}
           </li>
-          <li className="relative"  ref={memberRef}>
+          <li className="relative" ref={memberRef}>
             <button
-              className={`flex items-center gap-2 py-1`}
+              className={`flex items-center gap-2 py-1 ${
+                isActiveParent(["/app/membership", "/app/pain-relief-coach"])
+                  ? "border-b border-b-white"
+                  : ""
+              }`}
               onClick={() => {
                 setIsDropMemberOpen(!dropMemberOpen);
-              setIsDropdownOpen(false);
+                setIsDropdownOpen(false);
               }}
             >
               Membership

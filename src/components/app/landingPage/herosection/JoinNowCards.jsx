@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 const JoinNowCards = () => {
   const navigate=useNavigate()
   return (
-    <div className="flex justify-center relative xl:top-20 lg:top-10 ">
+    <div className="flex justify-center relative xl:top-10 lg:top-10 ">
       <div className="grid xl:grid-cols-2 lg:grid-cols-2 gap-5 xl:w-[80%] w-full justify-center   xl:p-0 lg:p-4 p-10 xl:mb-0 mb-10 ">
         <div className="flex h-[347px] justify-center items-center rounded-[26px] bg-gradient-to-l to-[#63CFAC] from-[#29ABE2]">
           <div className="text-white text-center">
