@@ -13,35 +13,29 @@ const Navbar = () => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMenus = () => {
     setIsDropdownOpen(false);
-    setIsMobileMenuOpen(false);
+    setIsDropMemberOpen(false);
+  };
+const dropdownRef = useRef(null);
+const memberRef = useRef(null);
+
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      memberRef.current &&
+      !memberRef.current.contains(event.target)
+    ) {
+      closeMenus();
+    }
   };
 
-  const dropdownRef = useRef(null);
-  const dropdownMemberRef = useRef(null);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownMemberRef.current && !dropdownMemberRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const SupportLinks = [
     {
@@ -83,7 +77,7 @@ const Navbar = () => {
           <li className="cursor-pointer border-b border-b-white w-[30px]  ">
             <Link to={"home"}>Home</Link>
           </li>
-          <li className="relative " ref={dropdownRef}>
+          <li className="relative"  ref={dropdownRef}>
             <button
               className={`flex items-center gap-2 py-1  ${
                 isDropdownOpen ? "" : ""
@@ -115,11 +109,12 @@ const Navbar = () => {
               </div>
             )}
           </li>
-          <li className="relative" ref={dropdownMemberRef}>
+          <li className="relative"  ref={memberRef}>
             <button
               className={`flex items-center gap-2 py-1`}
               onClick={() => {
                 setIsDropMemberOpen(!dropMemberOpen);
+              setIsDropdownOpen(false);
               }}
             >
               Membership
