@@ -31,12 +31,11 @@ const Card = ({ data }) => {
               alt=""
             />
           </div>
-      <div className="text-[#181818] text-[14px] font-[500] text-center">
-  {data?.address?.length > 20
-    ? `${data.address.slice(0, 20)}...`
-    : data?.address}
-</div>
-
+          <div className="text-[#181818] text-[14px] font-[500] text-center">
+            {data?.address?.length > 20
+              ? `${data.address.slice(0, 20)}...`
+              : data?.address}
+          </div>
         </div>
         <p className="text-[#565656] text-[14px] font-[500] mt-1">
           20Miles Away

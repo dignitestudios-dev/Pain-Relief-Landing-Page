@@ -4,17 +4,17 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-
 import Card from "./Cards";
 import { SkeletonProviderCard } from "../../../global/Sekelton";
-import { ArroCrousel } from "../../../../assets/export";
 
 const Carousel = ({ providerData, loading }) => {
   const swiperRef = useRef(null);
 
   return (
     <div className="w-full  px-4 py-10">
-      {loading ? (
+      {providerData.length === 0 && !loading ? (
+        <div className="text-center">No Data Found</div>
+      ) : loading ? (
         <SkeletonProviderCard />
       ) : (
         <>
