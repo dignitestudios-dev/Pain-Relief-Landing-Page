@@ -33,15 +33,12 @@ const EditLocationModal = ({
       newErrors.specialty = "Specialty is required";
       valid = false;
     }
-    console.log("🚀 ~ validateForm ~ newErrors:", newErrors);
 
     setErrors(newErrors);
     return valid;
   };
 
   const handleChange = (field, value) => {
-    console.log("🚀 ~ handleChange ~ value:", value);
-    console.log("🚀 ~ handleChange ~ field:", field);
     setForm((prev) => ({ ...prev, [field]: value }));
     setErrors({ address: "", specialty: [] });
   };
@@ -74,7 +71,6 @@ const EditLocationModal = ({
       _id: isLocationAdded[editIndex]?._id,
       services: form?.specialty.map((item) => item?.id),
     };
-    console.log("🚀 ~ handleEditAddress ~ location:", location);
 
     postEditAddress(
       "/provider/update-address",

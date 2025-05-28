@@ -126,7 +126,6 @@ const useProviderCreateProfile = () => {
   const { loginAuth } = useContext(AppContext);
 
   const postData = async (url, data = null, callback, formdata) => {
-    console.log("🚀 ~ postData ~ formdata:", formdata);
     try {
       setLoading(true);
       const response = await axios.post(url, formdata);

@@ -10,9 +10,9 @@ import { AppContext } from "../../../../context/AppContext";
 
 const Dashboard = () => {
   const { userData, loginAuth } = useContext(AppContext);
-  console.log(userData, "userData==>");
+
   const [requestModal, setRequestModal] = useState(false);
-  console.log("🚀 ~ Dashboard ~ requestModal:", requestModal);
+
   const { loading: requestloader, postData: postRequestData } =
     useSendRequest();
 

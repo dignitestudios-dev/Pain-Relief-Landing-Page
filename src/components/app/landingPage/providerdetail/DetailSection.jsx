@@ -4,7 +4,7 @@ import SubscriptionCards from "../herosection/SubscriptionCards";
 import CareCosts from "./CareCosts";
 import MapSection from "./MapSection";
 
-const DetailSection = ({providerDetail,loading}) => {
+const DetailSection = ({ providerDetail, loading, provider }) => {
   const [tabActive, setTabActive] = useState("Provider Detail");
   const tabs = [
     "Provider Detail",
@@ -32,14 +32,18 @@ const DetailSection = ({providerDetail,loading}) => {
           ))}
         </div>
       </div>
-      {tabActive === "Provider Detail" && <ClinicProfile providerDetail={providerDetail} loading={loading} />}
+      {tabActive === "Provider Detail" && (
+        <ClinicProfile providerDetail={providerDetail} loading={loading} />
+      )}
       {tabActive === "Membership Plans" && (
         <div className="xl:w-[90%] w-[100%] ">
           <SubscriptionCards />
         </div>
       )}
       {tabActive === "Care Costs" && <CareCosts />}
-      {tabActive === "Contact & Map" && <MapSection />}
+      {tabActive === "Contact & Map" && (
+        <MapSection provider={provider} providerDetail={providerDetail} />
+      )}
     </div>
   );
 };

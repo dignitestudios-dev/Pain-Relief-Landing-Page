@@ -71,7 +71,7 @@ const GoogleMapComponent = ({ onLocationSelect, editAddress }) => {
         coordinates: [lng, lat],
       },
     };
-    console.log(data, "data");
+
     setMapCenter({ lat, lng });
     setMarker({ lat, lng });
     setInputValue(place.formatted_address);

@@ -40,7 +40,6 @@ const EditProfile = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values) => {
-      console.log(values, "values");
       const formData = new FormData();
 
       // 👇 Append all form fields

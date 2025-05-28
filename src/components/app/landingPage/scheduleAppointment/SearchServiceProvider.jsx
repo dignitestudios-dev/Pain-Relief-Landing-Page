@@ -5,10 +5,8 @@ import FilterSection from "./FilterSection";
 const SearchServiceProvider = ({ setShowFilter, providerData, loading }) => {
   const [showDrawer, setShowDrawer] = useState(false);
   const [filterData, setFilterData] = useState([]);
-  console.log("providerData-->", providerData);
 
   const getproviderData = (data) => {
-    console.log(data, "Data==>");
     setFilterData(data);
   };
 

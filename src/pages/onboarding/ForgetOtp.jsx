@@ -28,20 +28,28 @@ const ForgetOtp = () => {
       newOtp[index] = value;
       setOtp(newOtp);
 
-      if (index < otp.length - 1) {
-        inputs.current[index + 1].focus();
+      // Move to next only if next is empty
+      const nextIndex = index + 1;
+      if (nextIndex < otp.length && !newOtp[nextIndex]) {
+        inputs.current[nextIndex].focus();
       }
     }
   };
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
+      e.preventDefault(); // prevent default backspace behavior
       const newOtp = [...otp];
-      newOtp[index] = "";
-      setOtp(newOtp);
 
-      if (index > 0) {
+      if (otp[index]) {
+        // Just clear current input if not already empty
+        newOtp[index] = "";
+        setOtp(newOtp);
+      } else if (index > 0) {
+        // Move focus back and clear previous
         inputs.current[index - 1].focus();
+        newOtp[index - 1] = "";
+        setOtp(newOtp);
       }
     }
   };
@@ -52,11 +60,14 @@ const ForgetOtp = () => {
     return parseInt(otp.join(""), 10);
   };
 
-  const isOtpFilled = otp.every((digit) => digit !== "");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isOtpFilled) return;
+    const isOtpFilled = otp.every((digit) => digit !== "");
+
+    if (!isOtpFilled) {
+      ErrorToast("Please enter all OTP digits");
+      return;
+    }
 
     setLoading(true);
     try {
@@ -70,11 +81,12 @@ const ForgetOtp = () => {
         // login(response?.data);
 
         SuccessToast(response?.data?.message);
-        Cookies.set('token',response?.data?.data?.token)
+        Cookies.set("token", response?.data?.data?.token);
         navigate("/auth/update-password");
       }
     } catch (err) {
       console.log("🚀 ~ createAccount ~ err:", err);
+      setOtp(Array(4).fill(""));
       ErrorToast(err?.response?.data?.message);
     } finally {
       setLoading(false);
@@ -100,8 +112,6 @@ const ForgetOtp = () => {
       setResendLoading(false);
     }
   };
-
- 
 
   const handleRestart = () => {
     setSeconds(30);

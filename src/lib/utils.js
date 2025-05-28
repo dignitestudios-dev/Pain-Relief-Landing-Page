@@ -45,7 +45,6 @@ export const processLogin = (
 };
 
 export const processProviderProfileCreate = (data, navigate, loginAuth) => {
-  console.log("🚀 ~ processProviderProfileCreate ~ data:", data);
   if (data?.success) {
     loginAuth({ data: { user: data?.data } });
     SuccessToast(data?.message);
@@ -102,7 +101,6 @@ export const processSendRequest = (
   loginAuth
 ) => {
   if (data?.success) {
-    console.log("🚀 ~ processSendRequest ~ data:", data);
     loginAuth({
       data: { user: data?.data },
     });

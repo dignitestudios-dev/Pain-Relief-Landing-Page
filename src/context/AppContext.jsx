@@ -16,7 +16,6 @@ export const AppContextProvider = ({ children }) => {
   const [role, setRole] = useState(() => Cookies.get("role"));
 
   const loginAuth = (data) => {
-    console.log("🚀 ~ loginAuth ~21~ data:", data?.data?.user);
     if (data) {
       if (data?.data?.token) {
         Cookies.set("token", data?.data?.token);

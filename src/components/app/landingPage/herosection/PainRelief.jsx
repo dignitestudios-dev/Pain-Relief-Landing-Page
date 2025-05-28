@@ -53,7 +53,6 @@ const PainRelief = () => {
   };
 
   const handleDistance = (option) => {
-    console.log("option 52=> ", option);
     setRadius((prev) => {
       const exists = prev.some((item) => item.id === option._id);
 

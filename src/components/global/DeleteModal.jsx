@@ -1,8 +1,6 @@
-import React from "react";
-import { SmallTick } from "../../../../../assets/export";
-import Button from "../../../landingPage/Inputs/Button";
+import { IoWarning } from "react-icons/io5";
 
-const RequestSendModal = ({ isOpen, onClick }) => {
+const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] h-[337px]">
@@ -30,14 +28,21 @@ const RequestSendModal = ({ isOpen, onClick }) => {
         <div className="flex flex-col justify-center items-center lg:h-auto md:h-screen ">
           <div className="pb-4 text-center w-[330px] flex flex-col justify-center items-center">
             <div className=" mb-8">
-              <img src={SmallTick} />
+              <IoWarning className="text-[90px] text-orange-400" />
             </div>
             <p className="text-[24px] font-semibold capitalize">
-              Request sent Successfully{" "}
+              Are you sure?
             </p>
             <p className="text-[16px] text-[#565656]">
-              Please wait for Admin Approval
+              This action cannot be undone.
             </p>
+            <button
+              disabled={deleteLoader}
+              onClick={handleDelete}
+              className="bg-red-500  text-white rounded-[12px] w-[120px] h-[38px] mt-4 hover:bg-red-400"
+            >
+              {deleteLoader ? "Deleting..." : "Delete"}
+            </button>
           </div>
         </div>
       </div>
@@ -45,4 +50,4 @@ const RequestSendModal = ({ isOpen, onClick }) => {
   );
 };
 
-export default RequestSendModal;
+export default DeleteModal;

@@ -18,7 +18,6 @@ const CreateProviderProfile = () => {
 
   const { loading, postData } = useProviderCreateProfile();
   const { userData } = useContext(AppContext);
-  console.log("🚀 ~ CreateProviderProfile ~ userData:", userData);
 
   const {
     values,

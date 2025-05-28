@@ -99,6 +99,7 @@ const Profile = () => {
         setVoucherModal={setVoucherModal}
         loader={loader}
         handleRequestSend={handleRequestSend}
+        setUpdate={setUpdate}
       />
 
       {isModal && (

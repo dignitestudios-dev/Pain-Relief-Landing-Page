@@ -32,7 +32,6 @@ const AccountSelection = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values, action) => {
-      console.log("🚀 ~ onSubmit: ~ action:", action);
       let routeName = "/auth/sign-up";
 
       // navigate(routeName);

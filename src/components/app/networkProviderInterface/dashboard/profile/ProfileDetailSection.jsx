@@ -14,7 +14,8 @@ const ProfileDetailSection = ({
   setVoucherModal,
   loader,
   handleRequestSend,
-  setIsEditModall
+  setIsEditModall,
+  setUpdate,
 }) => {
   const [tabActive, setTabActive] = useState("Provider Details");
   const tabs = ["Provider Details", "Medical License", "Referral Friends"];
@@ -47,6 +48,7 @@ const ProfileDetailSection = ({
           setEditIndex={setEditIndex}
           handleRequestSend={handleRequestSend}
           loader={loader}
+          setUpdate={setUpdate}
         />
       )}
       {tabActive === "Medical License" && (

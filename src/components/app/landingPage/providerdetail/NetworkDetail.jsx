@@ -8,6 +8,8 @@ const NetworkDetail = ({
   editIcon,
   onClickEdit,
   onClickRequest,
+  deleteIcon,
+  onClickDelete,
 }) => {
   return (
     <div className="border-b border-[#EAEAEA] px-4 py-4">
@@ -16,6 +18,7 @@ const NetworkDetail = ({
 
         <div className="flex gap-3 items-center cursor-pointer">
           {editIcon && <span onClick={onClickEdit}>{editIcon}</span>}
+          {deleteIcon && <span onClick={onClickDelete}>{deleteIcon}</span>}
 
           {request && (
             <button

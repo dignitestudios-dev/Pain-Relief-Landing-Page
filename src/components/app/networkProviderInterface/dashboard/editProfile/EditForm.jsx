@@ -17,7 +17,6 @@ const EditForm = ({
   handleChange,
   loading,
 }) => {
-  console.log(editProfile, "editProfile");
   return (
     <div className="flex flex-col items-center justify-center p-4 md:p-8">
       <div className="w-full md:w-[50%]">
