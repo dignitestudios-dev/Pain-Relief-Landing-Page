@@ -42,7 +42,7 @@ const About = () => {
             to make quality chiropractic services convenient, affordable, and
             accessible to all.
           </p>
-          <div className="w-[181px] mt-4">
+          <div className="w-[181px] mt-12">
             <Button
               text={"Join Now"}
               onClick={() => navigate("/auth/account-selection")}
