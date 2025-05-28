@@ -45,7 +45,7 @@ const Footer = () => {
               className="w-[150px] md:w-[200px] lg:w-[262px] object-contain"
               alt="logo"
             />
-            <p className="text-[14px] text-[#212121] mt-3">
+            <p className="text-[14px] text-[#855b5b] mt-3">
               Pain Relief USA® does not offer medical advice, diagnosis, or
               treatment, and is not a replacement for a chiropractor, physical
               therapist, or doctor. Please consult with your doctor if you have
@@ -71,7 +71,7 @@ const Footer = () => {
                     className="w-[10px] h-[5.71px]"
                     alt=""
                   />
-                  <Link to={item.url}>{item.label}</Link>
+                  <Link target="blank" to={item.url}>{item.label}</Link>
                 </li>
               ))}
             </ul>
@@ -90,7 +90,7 @@ const Footer = () => {
                     className="w-[10px] h-[5.71px]"
                     alt=""
                   />
-                  <Link to={item.url}>{item.label}</Link>
+                  <Link target="blank" to={item.url}>{item.label}</Link>
                 </li>
               ))}
             </ul>
