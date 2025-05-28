@@ -180,13 +180,14 @@ const useSendRequest = () => {
     data = null,
     callback,
     modal = false,
-    setUpdate
+    setUpdate,
+    loginAuth
   ) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data);
       if (typeof callback === "function") {
-        callback(response?.data, modal, setUpdate);
+        callback(response?.data, modal, setUpdate, loginAuth);
       }
       return response?.data;
     } catch (error) {
@@ -207,13 +208,13 @@ const useAddAddresss = () => {
     data = null,
     callback,
     modal = false,
-    setUpdate
+    loginAuth
   ) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data);
       if (typeof callback === "function") {
-        callback(response?.data, modal, setUpdate);
+        callback(response?.data, modal, loginAuth);
       }
       return response?.data;
     } catch (error) {

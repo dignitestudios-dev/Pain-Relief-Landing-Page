@@ -1,6 +1,4 @@
-import React from "react";
 import { SmallTick } from "../../../../../assets/export";
-import Button from "../../../landingPage/Inputs/Button";
 
 const RequestSendModal = ({ isOpen, onClick }) => {
   return (

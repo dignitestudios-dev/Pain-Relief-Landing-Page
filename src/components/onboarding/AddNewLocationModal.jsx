@@ -20,10 +20,9 @@ const AddNewLocationModal = ({
   setFormErrors,
 }) => {
   const [form, setForm] = useState({ address: "", specialty: [] });
-  console.log("🚀 ~ form:", form);
 
   const [errors, setErrors] = useState({ address: "", specialty: [] });
-  console.log("🚀 ~ errors:", errors);
+
   const [isSelectField, setIsSelectField] = useState(false);
 
   const validateForm = () => {
@@ -45,7 +44,6 @@ const AddNewLocationModal = ({
   };
 
   const handleChange = (field, value) => {
-    console.log("🚀 ~ handleChange ~ field:", field);
     setForm((prev) => ({ ...prev, [field]: value }));
     setErrors({ address: "", specialty: [] });
   };
@@ -66,28 +64,28 @@ const AddNewLocationModal = ({
     }
 
     setEditIndex(null);
-    setForm({ address: "", specialty: "" });
+    setForm({ address: "", specialty: [] });
     setIsModal(false);
   };
 
-  useEffect(() => {
-    if (editIndex !== null && isLocationAdded[editIndex]) {
-      if (isEditMode) {
-        setForm(() => ({
-          address: isLocationAdded[editIndex],
-          specialty: isLocationAdded[editIndex].services,
-        }));
-      } else {
-        setForm(isLocationAdded[editIndex]);
-      }
-    }
-  }, [editIndex]);
+  // useEffect(() => {
+  //   if (editIndex !== null && isLocationAdded[editIndex]) {
+  //     if (isEditMode) {
+  //       setForm(() => ({
+  //         address: isLocationAdded[editIndex],
+  //         specialty: isLocationAdded[editIndex].services,
+  //       }));
+  //     } else {
+  //       setForm(isLocationAdded[editIndex]);
+  //     }
+  //   }
+  // }, [editIndex]);
 
   const onLocationSelect = (data) => {
-    setForm({
+    setForm((prev) => ({
+      ...prev,
       address: data,
-      specialty: [],
-    });
+    }));
     setErrors({ address: "", specialty: [] });
   };
 
@@ -114,7 +112,7 @@ const AddNewLocationModal = ({
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
       <div
         className={`bg-white  overflow-y-auto overflow-x-hidden  rounded-[18px] shadow-md p-6 
-       ${isSelectField ? "lg:h-[660px]" : "lg:h-[460px]"} h-[482px]`}
+       ${isSelectField ? "lg:h-[644px]" : "lg:h-[460px]"} h-[482px]`}
       >
         <div className="flex  justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
           <p className="text-[24px] font-semibold">Add New Location</p>

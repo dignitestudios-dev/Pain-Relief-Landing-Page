@@ -1,26 +1,24 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { MapImg } from "../../assets/export";
-import InputField from "./InputField";
+
 import SelectableField from "./SelectableField";
 import Button from "../app/landingPage/Inputs/Button";
 import GoogleMapComponent from "../global/GoogleMap";
-import { useAddAddresss, useEditAddresss } from "../../hooks/api/Post";
+import { useEditAddresss } from "../../hooks/api/Post";
 import { processAddAddress } from "../../lib/utils";
 
 const EditLocationModal = ({
   setIsModal,
-  setIsLocationAdded,
   editIndex,
-  setEditIndex,
   isLocationAdded,
   therapyTypesOption,
-  isEditMode = false,
   setUpdate,
 }) => {
   const [form, setForm] = useState({ address: "", specialty: [] });
 
   const [errors, setErrors] = useState({ address: "", specialty: [] });
+
+  const [isSelectField, setIsSelectField] = useState(false);
 
   const validateForm = () => {
     const newErrors = { address: "", specialty: [] };
@@ -35,14 +33,17 @@ const EditLocationModal = ({
       newErrors.specialty = "Specialty is required";
       valid = false;
     }
+    console.log("🚀 ~ validateForm ~ newErrors:", newErrors);
 
     setErrors(newErrors);
     return valid;
   };
 
   const handleChange = (field, value) => {
+    console.log("🚀 ~ handleChange ~ value:", value);
+    console.log("🚀 ~ handleChange ~ field:", field);
     setForm((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: "" }));
+    setErrors({ address: "", specialty: [] });
   };
 
   useEffect(() => {
@@ -55,11 +56,11 @@ const EditLocationModal = ({
   }, [editIndex]);
 
   const onLocationSelect = (data) => {
-    console.log(data);
-    setForm({
+    setForm((prev) => ({
+      ...prev,
       address: data,
-    });
-    setErrors("");
+    }));
+    setErrors({ address: "", specialty: [] });
   };
 
   const { loading: addressLoader, postData: postEditAddress } =
@@ -73,6 +74,7 @@ const EditLocationModal = ({
       _id: isLocationAdded[editIndex]?._id,
       services: form?.specialty.map((item) => item?.id),
     };
+    console.log("🚀 ~ handleEditAddress ~ location:", location);
 
     postEditAddress(
       "/provider/update-address",
@@ -86,11 +88,11 @@ const EditLocationModal = ({
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
       <div
-        className="bg-white  overflow-y-auto overflow-x-hidden  rounded-[18px] shadow-md p-6 
-      lg:h-[466px] h-[482px]"
+        className={`bg-white  overflow-y-auto overflow-x-hidden  rounded-[18px] shadow-md p-6 
+       ${isSelectField ? "lg:h-[644px]" : "lg:h-[460px]"} h-[482px]`}
       >
         <div className="flex  justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
-          <p className="text-[24px] font-semibold">Add New Location</p>
+          <p className="text-[24px] font-semibold">Edit Location</p>
           <span
             onClick={() => setIsModal(false)}
             className="cursor-pointer border-[1px] border-gray-300 rounded-sm p-[2px]"
@@ -116,7 +118,6 @@ const EditLocationModal = ({
               <GoogleMapComponent
                 onLocationSelect={onLocationSelect}
                 editAddress={form.address}
-                isEditMode={isEditMode}
               />
             </div>
           </div>
@@ -132,10 +133,11 @@ const EditLocationModal = ({
               onChange={(value) => handleChange("specialty", value)}
               error={errors.specialty}
               isMulti={true}
+              setIsSelectField={setIsSelectField}
             />
           </div>
 
-          <div>
+          <div className={`${isSelectField ? "pt-44" : "pt-0"}`}>
             <Button
               text="Add Location"
               onClick={handleEditAddress}

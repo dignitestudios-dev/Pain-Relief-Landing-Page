@@ -115,7 +115,6 @@ const Profile = () => {
       )}
       {isEditModal && (
         <EditLocationModal
-          isEditMode={true}
           setIsModal={setIsEditModall}
           setIsLocationAdded={setIsLocationAdded}
           editIndex={editIndex}

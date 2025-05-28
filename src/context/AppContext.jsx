@@ -8,9 +8,7 @@ export const AppContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
-
   const [token, setToken] = useState(() => Cookies.get("token"));
-  console.log("🚀 ~ AppContextProvider ~ token:", token);
   const [userData, setUserData] = useState(() => {
     const cookieData = Cookies.get("user");
     return cookieData ? JSON.parse(cookieData) : null;
@@ -18,19 +16,20 @@ export const AppContextProvider = ({ children }) => {
   const [role, setRole] = useState(() => Cookies.get("role"));
 
   const loginAuth = (data) => {
+    console.log("🚀 ~ loginAuth ~21~ data:", data?.data?.user);
     if (data) {
       if (data?.data?.token) {
-        console.log("🚀 ~ loginAuth ~ token:", data);
         Cookies.set("token", data?.data?.token);
         setToken(data?.data?.token);
       }
       if (data?.data?.user) {
-        console.log("🚀 ~ loginAuth ~ user:", data);
         setUserData(data?.data?.user);
         Cookies.set("user", JSON.stringify(data?.data?.user));
       }
-      Cookies.set("role", data?.data?.user?.role);
-      setRole(data?.data?.user?.role);
+      if (data?.data?.user?.role) {
+        Cookies.set("role", data?.data?.user?.role);
+        setRole(data?.data?.user?.role);
+      }
     }
   };
 
@@ -51,6 +50,7 @@ export const AppContextProvider = ({ children }) => {
         logoutAuth,
         token,
         userData,
+        setUserData,
         role,
       }}
     >

@@ -3,7 +3,7 @@ import { ErrorToast, SuccessToast } from "../components/global/Toaster";
 export const processSignup = (data, navigate, userData, loginAuth) => {
   if (data?.success) {
     loginAuth({
-      data: { user: userData },
+      data: { user: data?.data },
     });
     SuccessToast(data?.message);
     navigate("/auth/verify-otp", {
@@ -95,8 +95,17 @@ export const processUploadLicese = (
     return;
   }
 };
-export const processSendRequest = (data, setLicenseModal, setUpdate) => {
+export const processSendRequest = (
+  data,
+  setLicenseModal,
+  setUpdate,
+  loginAuth
+) => {
   if (data?.success) {
+    console.log("🚀 ~ processSendRequest ~ data:", data);
+    loginAuth({
+      data: { user: data?.data },
+    });
     SuccessToast(data?.message);
     setLicenseModal(true);
     setUpdate((prev) => !prev);

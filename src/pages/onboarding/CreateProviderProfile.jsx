@@ -5,8 +5,8 @@ import { providerInitialValues } from "../../init/app/userInformation";
 import { providerSchema } from "../../schema/app/userInfoSchema";
 import Button from "./../../components/app/landingPage/Inputs/Button";
 import { useContext, useEffect, useState } from "react";
-import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
-import { phoneFormatter } from "../../lib/helpers";
+// import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
+// import { phoneFormatter } from "../../lib/helpers";
 import { useProviderCreateProfile } from "../../hooks/api/Post";
 import { processProviderProfileCreate } from "../../lib/utils";
 import { AppContext } from "../../context/AppContext";
@@ -18,6 +18,7 @@ const CreateProviderProfile = () => {
 
   const { loading, postData } = useProviderCreateProfile();
   const { userData } = useContext(AppContext);
+  console.log("🚀 ~ CreateProviderProfile ~ userData:", userData);
 
   const {
     values,
@@ -63,17 +64,15 @@ const CreateProviderProfile = () => {
     // const nameParts = userData?.name;
     // const firstName = nameParts[0] || "";
     // const lastName = nameParts.slice(1).join(" ") || "";
-    const nameParts = `${userData?.firstName ?? ""} ${
-      userData?.lastName ?? ""
-    }`.trim();
+    // const nameParts = `${userData?.firstName ?? ""} ${
+    //   userData?.lastName ?? ""
+    // }`.trim();
 
-    if (nameParts) {
-      setFieldValue("name", nameParts);
-    }
-
-    if (nameParts) {
-      setFieldValue("name", nameParts);
-    }
+    // if (nameParts) {
+    //   setFieldValue("name", nameParts);
+    // }
+    const nameParts = userData?.name;
+    if (nameParts) setFieldValue("name", nameParts);
 
     if (phone) setFieldValue("number", phone);
     if (email) setFieldValue("email", email);

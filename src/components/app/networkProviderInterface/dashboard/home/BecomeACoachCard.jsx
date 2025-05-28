@@ -1,7 +1,5 @@
-import React, { useState } from "react";
 import Button from "../../../landingPage/Inputs/Button";
 import { BecomeCoach } from "../../../../../assets/export";
-import RequestSendModal from "./RequestSendModal";
 
 const BecomeACoachCard = ({ handleRequestSend, requestloader, userData }) => {
   return (

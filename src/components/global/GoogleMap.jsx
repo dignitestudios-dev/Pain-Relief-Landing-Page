@@ -19,7 +19,7 @@ const defaultCenter = {
 
 const libraries = ["places"];
 
-const GoogleMapComponent = ({ onLocationSelect, editAddress, isEditMode }) => {
+const GoogleMapComponent = ({ onLocationSelect, editAddress }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,

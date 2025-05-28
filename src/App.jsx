@@ -17,7 +17,6 @@ import CreateAccountRequest from "./pages/onboarding/CreateAccountRequest";
 
 function App() {
   const { token, role, userData } = useContext(AppContext);
-  console.log("🚀 ~ App ~ token, role:", token, role);
 
   return (
     <Routes>
