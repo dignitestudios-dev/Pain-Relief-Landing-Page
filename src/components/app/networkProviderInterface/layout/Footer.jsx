@@ -11,22 +11,31 @@ import { Link, useLocation } from "react-router";
 
 const Footer = () => {
   const SupportLinks = [
-    { label: "Service Provider", url: "home" },
-    { label: "More Than Insurance", url: "more-insurance" },
-    { label: "Immediate Options", url: "immediate-options" },
-    { label: "Schedule Appointment", url: "schedule-appointment" },
+    { label: "Service Provider", url: "/app/home" },
+    { label: "More Than Insurance", url: "/app/more-insurance" },
+    { label: "Immediate Options", url: "/app/immediate-options" },
+    { label: "Schedule Appointment", url: "/app/schedule-appointment" },
   ];
 
   const SupportLinksTwo = [
-    { label: "Membership", url: "membership" },
-    { label: "Multiple Levels", url: "schedule-appointment" },
-    { label: "Pain Relief Coach", url: "pain-relief-coach" },
+    { label: "Membership", url: "/app/membership" },
+    { label: "Multiple Levels", url: "/app/schedule-appointment" },
+    { label: "Pain Relief Coach", url: "/app/pain-relief-coach" },
   ];
 
-  const location =useLocation()
+  const pagesLinks = [
+    { label: "Terms of use", url: "terms-of-use" },
+    { label: "Privacy Policy", url: "privacy-policy" },
+    { label: "Member Agreement", url: "membership-agreement" },
+  ];
+  const location = useLocation();
 
   return (
-    <div className={`bg-[#EAF7FB] flex justify-center items-center p-4  ${location.pathname === '/app/home' ? "xl:h-[550px] h-auto " : "h-auto"} `}>
+    <div
+      className={`bg-[#EAF7FB] flex justify-center items-center p-4  ${
+        location.pathname === "/app/home" ? "xl:h-[550px] h-auto " : "h-auto"
+      } `}
+    >
       <div className="w-full max-w-7xl px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Logo & Description */}
@@ -62,9 +71,7 @@ const Footer = () => {
                     className="w-[10px] h-[5.71px]"
                     alt=""
                   />
-                  <Link to={item.url} >
-                    {item.label}
-                  </Link>
+                  <Link to={item.url}>{item.label}</Link>
                 </li>
               ))}
             </ul>
@@ -115,13 +122,11 @@ const Footer = () => {
             © 2025 Pain Relief USA. All rights reserved.
           </p>
           <div className="flex flex-col md:flex-row gap-4 text-center md:text-right">
-            {["Terms of use", "Privacy Policy", "Member Agreement"].map(
-              (item, index) => (
-                <p key={index} className="text-[14px] text-[#212121]">
-                  {item}
-                </p>
-              )
-            )}
+            {pagesLinks.map((item, index) => (
+              <p key={index} className="text-[14px] text-[#212121]">
+                <Link to={item.url}>{item.label}</Link>
+              </p>
+            ))}
           </div>
         </div>
       </div>

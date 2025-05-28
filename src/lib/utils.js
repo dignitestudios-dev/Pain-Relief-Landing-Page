@@ -104,12 +104,12 @@ export const processSendRequest = (data, setLicenseModal, setUpdate) => {
     return;
   }
 };
+
 export const processEditProviderProfile = (data, navigate, setUpdate) => {
   if (data?.success) {
     SuccessToast(data?.message);
     navigate("/provider/profile-netwrok-provider");
     setUpdate((prev) => !prev);
-
     return;
   }
 };

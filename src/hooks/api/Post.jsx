@@ -174,7 +174,6 @@ const useAccountRequest = () => {
 
 const useSendRequest = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const postData = async (
     url,

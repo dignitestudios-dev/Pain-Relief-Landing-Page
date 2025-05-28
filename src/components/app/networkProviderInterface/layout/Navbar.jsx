@@ -12,12 +12,12 @@ const Navbar = () => {
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const profileRef = useRef(null); // NEW ref
-  const notiRef = useRef(null); // NEW ref
+  const profileRef = useRef(null);
+  const notiRef = useRef(null);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMenus = () => {
-    setIsDropdownOpen(false);
-    setIsMobileMenuOpen(false);
+    setOpenProfile(false);
+    setIsNotiOpen(false);
   };
   const LinksPage = [
     { url: "profile-netwrok-provider", name: "Profile" },
@@ -94,7 +94,10 @@ const Navbar = () => {
                 {LinksPage.map((item, index) => (
                   <li
                     key={index}
-                    onClick={() => navigate(item?.url)}
+                    onClick={() => {
+                      navigate(item?.url);
+                      closeMenus();
+                    }}
                     className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
                   >
                     {item.name}
@@ -124,7 +127,10 @@ const Navbar = () => {
                     (item, index) => (
                       <li
                         key={index}
-                        onClick={() => navigate(item?.url)}
+                        onClick={() => {
+                          navigate(item?.url);
+                          closeMenus();
+                        }}
                         className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
                       >
                         <h2 className="flex justify-between ">

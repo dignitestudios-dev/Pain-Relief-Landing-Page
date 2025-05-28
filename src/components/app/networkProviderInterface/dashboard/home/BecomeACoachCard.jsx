@@ -3,8 +3,7 @@ import Button from "../../../landingPage/Inputs/Button";
 import { BecomeCoach } from "../../../../../assets/export";
 import RequestSendModal from "./RequestSendModal";
 
-const BecomeACoachCard = () => {
-  const [isModal, setIsModal] = useState(false);
+const BecomeACoachCard = ({ handleRequestSend, requestloader, userData }) => {
   return (
     <div className="w-full flex justify-center my-6 ">
       <div className="bg-white  lg:w-[90%] md:w-[90%] w-[90%] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 items-center gap-6 rounded-[12px] p-6 shadow-sm">
@@ -18,9 +17,15 @@ const BecomeACoachCard = () => {
             the right care, answer queries, and ensure a seamless experience —
             all while expanding your impact as a provider.
           </p>
-          <div className="w-[239px]">
-            <Button text={"Send Request"} onClick={() => setIsModal(true)} />
-          </div>
+          {userData.painReliefCoachRequested ? null : (
+            <div className="w-[239px]">
+              <Button
+                text={"Send Request"}
+                onClick={handleRequestSend}
+                loading={requestloader}
+              />
+            </div>
+          )}
         </div>
         <div className="flex justify-center">
           <img
@@ -30,9 +35,6 @@ const BecomeACoachCard = () => {
           />
         </div>
       </div>
-      {isModal && (
-        <RequestSendModal isOpen={isModal} onClick={() => setIsModal(false)} />
-      )}
     </div>
   );
 };

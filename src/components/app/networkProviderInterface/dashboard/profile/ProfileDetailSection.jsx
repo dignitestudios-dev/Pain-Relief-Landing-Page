@@ -16,8 +16,8 @@ const ProfileDetailSection = ({
   handleRequestSend,
   setIsEditModall
 }) => {
-  const [tabActive, setTabActive] = useState("Provider Detail");
-  const tabs = ["Provider Detail", "Medical License", "Referral Friends"];
+  const [tabActive, setTabActive] = useState("Provider Details");
+  const tabs = ["Provider Details", "Medical License", "Referral Friends"];
 
   return (
     <div className="flex flex-col xl:px-20 lg:px-14  md:px-10 px-8 mb-10">
@@ -38,7 +38,7 @@ const ProfileDetailSection = ({
           ))}
         </div>
       </div>
-      {tabActive === "Provider Detail" && (
+      {tabActive === "Provider Details" && (
         <ClinicProvider
           profileData={profileData}
           setIsModal={setIsModal}
