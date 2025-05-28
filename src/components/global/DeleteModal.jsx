@@ -1,51 +1,65 @@
 import { IoWarning } from "react-icons/io5";
 
 const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
+  if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
-      <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] h-[337px]">
-        <div>
-          <div
-            className="flex justify-end items-center pb-4 "
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+      <div className="bg-white rounded-2xl shadow-lg w-[90%] max-w-md p-6 animate-fadeIn">
+        {/* Close Button */}
+        <div className="flex justify-end">
+          <button
             onClick={onClick}
+            className="text-gray-400 hover:text-gray-600 transition"
           >
-            <span className="cursor-pointer border-[1px]  rounded-sm p-[2px]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 font-light text-gray-400 "
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 8.586l4.95-4.95a1 1 0 111.414 1.414L11.414 10l4.95 4.95a1 1 0 01-1.414 1.414L10 11.414l-4.95 4.95a1 1 0 01-1.414-1.414L8.586 10 3.636 5.05A1 1 0 015.05 3.636L10 8.586z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 8.586l4.95-4.95a1 1 0 111.414 1.414L11.414 10l4.95 4.95a1 1 0 01-1.414 1.414L10 11.414l-4.95 4.95a1 1 0 01-1.414-1.414L8.586 10 3.636 5.05A1 1 0 015.05 3.636L10 8.586z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
         </div>
-        <div className="flex flex-col justify-center items-center lg:h-auto md:h-screen ">
-          <div className="pb-4 text-center w-[330px] flex flex-col justify-center items-center">
-            <div className=" mb-8">
-              <IoWarning className="text-[90px] text-orange-400" />
-            </div>
-            <p className="text-[24px] font-semibold capitalize">
-              Are you sure?
-            </p>
-            <p className="text-[16px] text-[#565656]">
-              This action cannot be undone.
-            </p>
+
+        {/* Icon */}
+        <div className="flex flex-col items-center text-center">
+          <IoWarning className="text-orange-400 text-[60px] mb-4" />
+
+          <h2 className="text-xl font-semibold mb-2">Are you sure?</h2>
+          <p className="text-gray-600 mb-6 text-sm">
+            This action cannot be undone.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex space-x-4 w-full">
+            <button
+              onClick={onClick}
+              className="w-1/2 h-11 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+            >
+              Cancel
+            </button>
             <button
               disabled={deleteLoader}
               onClick={handleDelete}
-              className="bg-red-500  text-white rounded-[12px] w-[120px] h-[38px] mt-4 hover:bg-red-400"
+              className={`w-1/2 h-11 rounded-lg text-white transition ${
+                deleteLoader
+                  ? "bg-red-300 cursor-not-allowed"
+                  : "bg-red-500 hover:bg-red-600"
+              }`}
             >
               {deleteLoader ? "Deleting..." : "Delete"}
             </button>
           </div>
         </div>
       </div>
+
+    
     </div>
   );
 };
