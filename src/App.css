@@ -32,6 +32,9 @@
 
 
 }
+.swiper-wrapper{
+height: 374px !important;
+}
 
 .bg-cards {
     background: url('../src/assets/LandingPage/bg-cards.png');

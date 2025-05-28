@@ -5,6 +5,8 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router";
 import { ToasterContainer } from "./components/global/Toaster.jsx";
 import { AppContextProvider } from "./context/AppContext.jsx";
+import "swiper/css";
+import "swiper/css/navigation";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
