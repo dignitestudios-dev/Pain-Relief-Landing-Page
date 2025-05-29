@@ -1,7 +1,8 @@
 import React from "react";
-import { UserProfile } from "../../../../painRelief/src/assets/export";
+
 import InputField from "./InputField";
 import SelectableField from "./SelectableField";
+import { UserProfile } from "../../assets/export";
 
 const AddFamilyMemberModal = ({ setIsModal, setIsMemberAdded }) => {
   const subjectOptions = ["Brother", "Sister", "Father"];

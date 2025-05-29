@@ -131,7 +131,7 @@ const VerifyOtp = () => {
     if (userType === "provider") {
       navigate("/provider/create-provider-profile");
     } else {
-      navigate("/user/create-profile");
+      navigate("/user/subscription-plans");
     }
   };
 

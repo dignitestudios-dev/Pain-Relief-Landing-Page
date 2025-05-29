@@ -199,6 +199,31 @@ const useReferralCodeProvider = (url) => {
   return { loading, data, pagination };
 };
 
+const useSubscriptions = (url) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
+
+  const getSubscription = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${url}`);
+      setData(data?.data);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getSubscription();
+  }, []);
+
+  return { loading, data, pagination };
+};
+
 export {
   useUsers,
   useDashboardProvider,
@@ -207,4 +232,5 @@ export {
   useProviderProfile,
   useReferralFriendsProvider,
   useReferralCodeProvider,
+  useSubscriptions,
 };

@@ -1,13 +1,7 @@
 import { Fragment, useState } from "react";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import {
-  AccountLogo,
-  EditIcon,
-  RedBin,
-  SideImg,
-} from "../../../../painRelief/src/assets/export";
-import AddFamilyMemberModal from "../../components/app/userInterface/onboarding/AddFamilyMemberModal";
-
+import { AccountLogo, EditIcon, RedBin, SideImg } from "../../assets/export";
+import AddFamilyMemberModal from "../../components/onboarding/AddFamilyMemberModal";
 const CreateFamilyMember = () => {
   const [isModal, setIsModal] = useState(false);
   const [isMemberAdded, setIsMemberAdded] = useState(false);

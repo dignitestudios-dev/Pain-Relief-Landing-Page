@@ -35,4 +35,5 @@ export const AuthRoutes = [
     url: "update-password",
     page: <UpdatePassword />,
   },
+ 
 ];

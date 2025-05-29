@@ -81,8 +81,6 @@ height: 374px !important;
   background-position: center;
   height: 350px;
   border-radius: 20px;
-
-  /* Optional for better layout behavior */
   display: flex;
   justify-content: center;
   align-items: center;

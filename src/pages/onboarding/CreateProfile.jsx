@@ -3,15 +3,17 @@ import { MapImg, SideImg, UserProfile } from "../../assets/export";
 import InputField from "../../components/onboarding/InputField";
 import { userInfoInitialValues } from "../../init/app/userInformation";
 import { userInfoValidationSchema } from "../../schema/app/userInfoSchema";
+import { useNavigate } from "react-router";
 
 const CreateProfile = () => {
+  const navigate = useNavigate();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: userInfoInitialValues,
       validationSchema: userInfoValidationSchema,
       onSubmit: (values) => {
         console.log("Form values:", values);
-        // Send to backend or process
+        navigate('/user/create-family-member')
       },
     });
 
