@@ -1,4 +1,3 @@
-import React from "react";
 import { DesktopLogo } from "../../../../assets/export";
 
 const HeroSection = () => {
