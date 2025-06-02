@@ -12,7 +12,8 @@ const PhoneInput = ({
   error,
   touched,
   label,
-  isLight,
+  isLight=false,
+  isLightTwo=false,
 }) => {
   // const handlePhoneChange = (e) => {
   //   const formattedValue = e.target.value.replace(/[^0-9]/g, "");
@@ -37,7 +38,7 @@ const PhoneInput = ({
       </label>
       <div
         className={`flex  items-center p-0 w-full pl-2 outline-none font-[500] focus-within:border-[#0E73D0] 
-      border border-[#9A9A9A] ${isLight ? "rounded-[8px]" : "rounded-[15px]"}  placeholder:text-[16px] placeholder:font-[400]
+      border border-[#9A9A9A] ${isLight ? "rounded-[8px]" : "rounded-[15px]"} ${isLightTwo ? "border-gray-300" :" "}   placeholder:text-[16px] placeholder:font-[400]
       placeholder:text-[#181818] text-[#181818] ${
         (isAuth ? "bg-transparent" : "bg-white",
         isDisabled

@@ -68,6 +68,17 @@ import ErrorIcon from "./UserInterFace/errorIcon.png";
 import Brochure from "./UserInterFace/Brochure.png";
 import QrBg from "./UserInterFace/qrBg.png";
 import CalenderIcon from "./UserInterFace/calenderIcon.png";
+import Appoitment from "./UserInterFace/appointment.png";
+import MemberShip from "./UserInterFace/memberShip.png";
+import IdCard from "./UserInterFace/idCard.png";
+import MemberGuide from "./UserInterFace/memberGuide.png";
+import Referfriend from "./UserInterFace/referfriend.png";
+import Memberagreement from "./UserInterFace/memberagreement.png";
+import CancelIcon from "./UserInterFace/cancelIcon.png";
+import Scanner from "./UserInterFace/scanner.png";
+import BgIdCard from "./UserInterFace/bgidCard.png";
+import InfoCircle from "./UserInterFace/InfoCircle.png";
+import StripeIcon from "./UserInterFace/stripeIcon.png";
 
 export {
   NoInternetImage,
@@ -139,5 +150,16 @@ export {
   QrBg,
   CalenderIcon,
   Arrodropnav,
-  ArroCrousel
+  ArroCrousel,
+  Appoitment,
+  MemberShip,
+  IdCard,
+  MemberGuide,
+  Referfriend,
+  Memberagreement,
+  CancelIcon,
+  Scanner,
+  BgIdCard,
+  InfoCircle,
+  StripeIcon,
 };

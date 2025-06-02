@@ -347,6 +347,27 @@ const useDeleteAccountProvider = () => {
 
   return { loading, postData };
 };
+const useCreateFamilyMember = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const postData = async (url, data = null, callback, setDeleteModal) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, data);
+      if (typeof callback === "function") {
+        callback(response?.data, setDeleteModal);
+      }
+      return response?.data;
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
 
 export {
   useLogin,
@@ -362,4 +383,5 @@ export {
   useChangePasswordProvider,
   useReportIssueProvider,
   useDeleteAccountProvider,
+  useCreateFamilyMember,
 };

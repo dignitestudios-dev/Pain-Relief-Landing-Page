@@ -52,14 +52,14 @@ const SelectableField = ({
   return (
     <div className="flex flex-col gap-1 justify-start items-start">
       <label className="text-[12px] text-[#121516] font-medium">{label}</label>
-      <div className="cursor-pointer relative w-full h-[48px]   border-[1px] border-[#D9D9D9] focus-within:border-[#55C9FA] flex justify-between items-center rounded-[8px] md:pl-3 pl-1.5">
+      <div className="cursor-pointer relative w-auto h-[48px]   border-[1px] border-[#D9D9D9] focus-within:border-[#55C9FA] flex justify-between items-center rounded-[8px] md:pl-3 pl-1.5">
         <div
           type="button"
           onClick={() => {
             setDropdownVisible(!dropdownVisible);
             setIsSelectField((prev) => !prev);
           }}
-          className="flex items-center"
+          className="flex items-center "
         >
           <button
             type="button"
@@ -86,7 +86,7 @@ const SelectableField = ({
                 <div
                   key={index}
                   onClick={() => handleOptionClick(option)}
-                  className="px-4 py-2  cursor-pointer hover:bg-gray-100 flex justify-between items-center"
+                  className="px-4 py-2 text-black   cursor-pointer  flex justify-between items-center"
                 >
                   <span>{option.label}</span>
                   <img

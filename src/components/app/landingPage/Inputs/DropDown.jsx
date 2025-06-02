@@ -39,7 +39,9 @@ export const DropDown = ({
       >
         <div className="flex-1 overflow-hidden">
           {value.length === 0 ? (
-            <span className="text-white flex items-center pt-1">{placeholder}</span>
+            <span className="text-white flex items-center pt-1">
+              {placeholder}
+            </span>
           ) : (
             <div
               className="text-white text-[14px] font-[500] px-3 py-1 rounded-[10px] whitespace-nowrap overflow-hidden text-ellipsis"
@@ -111,6 +113,7 @@ export const DropDownDark = ({
   value = [],
   onChange,
   loader,
+  iscolor = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   // const [selected, setSelected] = useState([]);
@@ -136,17 +139,29 @@ export const DropDownDark = ({
   return (
     <div ref={dropdownRef} className="relative w-full">
       {label && (
-        <label className="block mb-1 text-[16px] text-[#212121] font-[500]">
+        <label
+          className={`block mb-1 ${
+            iscolor ? "text-[12px] " : "text-[16px] "
+          }text-[#212121] font-[500]`}
+        >
           {label}
         </label>
       )}
       <div
         onClick={toggleDropdown}
-        className="border border-black px-4 py-2 rounded-[8px] overflow-auto h-[49px] flex flex-wrap  gap-2 cursor-pointer bg-transparent text-black"
+        className={` ${
+          iscolor ? "border-[1px] border-[#D9D9D9]  " : "border border-black"
+        }  px-4 py-2 rounded-[8px] overflow-auto h-[49px] flex flex-wrap  gap-2 cursor-pointer bg-transparent text-black`}
       >
         <div className="flex-1 overflow-hidden">
           {value.length === 0 ? (
-            <span className="text-black flex items-center pt-1">{placeholder}</span>
+            <span
+              className={`${
+                iscolor ? "text-gray-500  " : "text-black"
+              } flex items-center pt-1`}
+            >
+              {placeholder}
+            </span>
           ) : (
             <div
               className="text-black text-[14px] font-[500] px-3 py-1 rounded-[10px] whitespace-nowrap overflow-hidden text-ellipsis"
@@ -160,7 +175,11 @@ export const DropDownDark = ({
             </div>
           )}
         </div>
-        <MdArrowDropDown size={26} color="black" className="shrink-0 pt-1" />
+        <MdArrowDropDown
+          size={26}
+          color={iscolor ? "gray" : "black"}
+          className="shrink-0 pt-1"
+        />
       </div>
 
       {isOpen &&
