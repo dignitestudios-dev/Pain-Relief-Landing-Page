@@ -1,30 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 
 import InputField from "./InputField";
 import SelectableField from "./SelectableField";
 import { UserProfile } from "../../assets/export";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router";
+import { userInfoInitialValues } from "../../init/app/userInformation";
+import { userInfoValidationSchema } from "../../schema/app/userInfoSchema";
+import Button from "../app/landingPage/Inputs/Button";
+import { DropDownDark } from "../app/landingPage/Inputs/DropDown";
+import { addFamilMemberValues } from "../../init/app/userInterface";
+import { addFamilMemberSchema } from "../../schema/app/userInterface";
+import Calender from "../global/DatePicker";
+import PhoneInput from "../app/landingPage/Inputs/PhoneInput";
+import { phoneFormatter } from "../../lib/helpers";
 
-const AddFamilyMemberModal = ({ setIsModal, setIsMemberAdded }) => {
-  const subjectOptions = ["Brother", "Sister", "Father"];
+const AddFamilyMemberModal = ({
+  setIsModal,
+  setIsMemberAdded,
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  setFieldValue,
+  loading
+}) => {
+  const navigate = useNavigate();
+  const [userImage, setUserImage] = useState("");
+
+  const subjectOptions = [
+    { _id: "1", name: "Brother" },
+    { _id: "2", name: "Sister" },
+    { _id: "3", name: "Father" },
+  ];
   const genderOptions = [
-    "Male",
-    "Female",
-    "Non-binary",
-    "Transgender",
-    "Genderqueer",
-    "Agender",
-    "Two-Spirit",
-    "Prefer not to say",
-    "Other",
+    { _id: "1", name: "Male" },
+    { _id: "2", name: "Female" },
+    { _id: "3", name: "Non-binary" },
+    { _id: "4", name: "Transgender" },
+    { _id: "5", name: "Genderqueer" },
+    { _id: "6", name: "Agender" },
+    { _id: "7", name: "Two-Spirit" },
+    { _id: "8", name: "Prefer not to say" },
+    { _id: "9", name: "Other" },
   ];
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUserImage(file);
+      setFieldValue("userImage", file);
+    }
+  };
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
       <div
-        className="bg-white overflow-y-auto overflow-x-hidden bg-opacity-10 rounded-[18px] shadow-md p-6 
+        className="bg-white overflow-y-auto overflow-x-hidden rounded-[18px] shadow-md p-6 
       lg:w-[900px] md:w-[600px] w-full lg:h-[625px] h-[725px]"
       >
-        <div className="flex justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
+        <div className="flex  justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
           <p className="text-[24px] font-semibold">Add New Family Members</p>
           <span
             onClick={() => setIsModal(false)}
@@ -44,82 +80,156 @@ const AddFamilyMemberModal = ({ setIsModal, setIsMemberAdded }) => {
             </svg>
           </span>
         </div>
-        <div className="flex items-center w-[500px] pt-4">
-          <div className="w-[80px] h-[80px]">
-            <img src={UserProfile} />
+        <form action="" onSubmit={handleSubmit}>
+          <div className="flex mt-3 items-center xl:w-[500px] lg:w-[400px] md:w-[500px] w-[320px]">
+            <div className="md:w-[80px] w-[60px] md:h-[80px] h-[60px] rounded-full  overflow-hidden">
+              <img
+                className="object-cover md:w-[80px] w-[60px] md:h-[80px] h-[60px] "
+                src={
+                  values.userImage
+                    ? URL.createObjectURL(values.userImage)
+                    : UserProfile
+                }
+              />
+            </div>
+            <div className="pl-2 ">
+              <p className="text-[#BEC2C9]">
+                <span className="relative bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">
+                  Upload a file
+                  <input
+                    type="file"
+                    accept=".jpg,.jpeg,.png"
+                    onChange={(e) => handleFileChange(e)}
+                    className="absolute inset-0 opacity-0 cursor-pointer -left-24"
+                  />
+                </span>{" "}
+                or drag and drop PNG, JPG up to 10mb
+              </p>
+              {touched.userImage && errors.userImage && (
+                <p className="text-red-600 text-xs mt-1">{errors.userImage}</p>
+              )}
+            </div>
           </div>
-          <div className="pl-3">
-            <p className="text-[#55C9FA] underline">Upload Picture</p>
+          <div className="flex flex-col md:flex-row gap-4 pt-4">
+            {/* Left Side */}
+            <div className="md:w-1/2 space-y-3">
+              <InputField
+                text={"Full Name (required)"}
+                placeholder={"First Name"}
+                type={"text"}
+                id={"fullname"}
+                name={"fullname"}
+                maxLength={50}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.fullname}
+                touched={touched.fullname}
+              />
+              <InputField
+                text={"Email Address"}
+                placeholder={"Email Address"}
+                type={"email"}
+                id={"email"}
+                name={"email"}
+                maxLength={50}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.email}
+                touched={touched.email}
+              />
+              <PhoneInput
+                value={phoneFormatter(values.phone)}
+                id={"phone"}
+                name={"phone"}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.phone}
+                touched={touched.phone}
+                autoComplete="off"
+              />
+
+              <DropDownDark
+                label={"Relation (required)"}
+                placeholder={"Select "}
+                options={subjectOptions}
+                iscolor={true}
+                value={values.relation}
+                onChange={(selected) =>
+                  setFieldValue("relation", [
+                    { id: selected._id, name: selected.name },
+                  ])
+                }
+              />
+              {touched.relation && errors.relation && (
+                <p className="text-red-600 text-xs mt-1">{errors.relation}</p>
+              )}
+            </div>
+
+            {/* Right Side */}
+            <div className="md:w-1/2 space-y-3">
+              <div>
+                <Calender
+                  startDate={values.db}
+                  setStartDate={(date) => setFieldValue("db", date)}
+                  text={"DD/MM/YY"}
+                  isStyle={true}
+                  label={"Date of Birth (required)"}
+                />
+                {touched.db && errors.db && (
+                  <p className="text-red-600 text-xs mt-1">{errors.db}</p>
+                )}
+              </div>
+
+              <DropDownDark
+                label={"Gender (required)"}
+                placeholder={"Select "}
+                options={genderOptions}
+                iscolor={true}
+                value={values.gender}
+                onChange={(selected) =>
+                  setFieldValue("gender", [
+                    { id: selected._id, name: selected.name },
+                  ])
+                }
+              />
+              {touched.db && errors.db && (
+                <p className="text-red-600 text-xs mt-1">{errors.gender}</p>
+              )}
+              <div>
+                <textarea
+                  placeholder="Description"
+                  className="border border-[#D9D9D9] focus:outline-none focus:ring-2 placeholder:text-[#565656]
+                  focus:ring-blue-300 w-full rounded-[12px] p-4 text-[16px] h-[150px]"
+                  id="descriptions"
+                  value={values.descriptions}
+                  rows={6}
+                  name="descriptions"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                ></textarea>
+                {touched.descriptions && errors.descriptions && (
+                  <p className="text-red-600 text-xs mt-1">
+                    {errors.descriptions}
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-3 pt-4 space-y-3">
-          <InputField
-            text={"Full Name (required)"}
-            placeholder={"First Name"}
-            type={"text"}
-            id={"fname"}
-            name={"fname"}
-            maxLength={50}
-          />
-          <InputField
-            text={"Date of Birth (required)"}
-            placeholder={"Last Name"}
-            type={"text"}
-            id={"lname"}
-            name={"lname"}
-            maxLength={50}
-          />
 
-          <InputField
-            text={"Email Address"}
-            placeholder={"Email Address"}
-            type={"email"}
-            id={"email"}
-            name={"email"}
-            maxLength={50}
-          />
-          <SelectableField
-            label="Gender (required)"
-            placeholder="Select"
-            options={genderOptions}
-          />
-          <InputField
-            text={"Phone Number"}
-            placeholder={"Mobile Number"}
-            type={"text"}
-            id={"number"}
-            name={"number"}
-            maxLength={50}
-          />
-
-          <div>
-            <textarea
-              placeholder="Description"
-              className="border border-[#D9D9D9] focus:outline-none focus:ring-2 placeholder:text-[#565656]
-               focus:ring-blue-300 w-full rounded-[12px] p-4 text-[16px]"
-              id=""
-              rows={10}
-            ></textarea>
+          <div className="flex justify-end mt-3">
+            <div className="w-[228px] ">
+              <Button
+                text={"Add Member"}
+                // onClick={() => {
+                //   setIsMemberAdded(true);
+                //   setIsModal(false);
+                // }}
+                loading={loading}
+                type={"submit"}
+              />
+            </div>
           </div>
-
-          <SelectableField
-            label="Relation (required)"
-            placeholder="Select"
-            options={subjectOptions}
-          />
-        </div>
-        <div className="flex justify-end">
-          <button
-            type="button"
-            onClick={() => {
-              setIsMemberAdded(true);
-              setIsModal(false);
-            }}
-            className="cursor-pointer bg-[#29ABE2] text-white w-[228px] h-[48px] rounded-[8px] mt-2 "
-          >
-            Add Member
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   );

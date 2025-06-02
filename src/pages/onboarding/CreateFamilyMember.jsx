@@ -1,10 +1,88 @@
 import { Fragment, useState } from "react";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import { AccountLogo, EditIcon, RedBin, SideImg } from "../../assets/export";
+import {
+  AccountLogo,
+  EditIcon,
+  RedBin,
+  SideImg,
+  UserProfile,
+} from "../../assets/export";
 import AddFamilyMemberModal from "../../components/onboarding/AddFamilyMemberModal";
+import Button from "../../components/app/landingPage/Inputs/Button";
+import { useFormik } from "formik";
+import { addFamilMemberValues } from "../../init/app/userInterface";
+import { addFamilMemberSchema } from "../../schema/app/userInterface";
+import {
+  getAgeFromDate,
+  getDateFormat,
+  phoneFormatter,
+} from "../../lib/helpers";
+import EditFamilyMemberModal from "../../components/onboarding/EditFamilyMemberModal";
+import { useCreateFamilyMember } from "../../hooks/api/Post";
+
 const CreateFamilyMember = () => {
+  const { postData, loading } = useCreateFamilyMember();
   const [isModal, setIsModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [isMemberAdded, setIsMemberAdded] = useState(false);
+
+  const [editIndex, setEditIndex] = useState(null);
+  const [members, setMembers] = useState([]);
+
+  console.log(members, "members==>");
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: addFamilMemberValues,
+    validationSchema: addFamilMemberSchema,
+    onSubmit: (values, action) => {
+      console.log("Form values:", values);
+      const formattedDate = new Date(values.db).toISOString();
+
+      // Update local state if needed
+      setMembers((prev) => [values, ...prev]);
+      const formData = new FormData();
+
+      formData.append("name", values.fullname);
+      formData.append("email", values.email);
+      formData.append("phone", values.phone);
+      formData.append("dateOfBirth", formattedDate);
+      formData.append(
+        "gender",
+        values.gender?.map((item) => item.name).join(", ") || ""
+      );
+      formData.append(
+        "relationship",
+        values.relation?.map((item) => item.name).join(", ") || ""
+      );
+
+      // Handle file upload
+      if (values.userImage) {
+        formData.append("profilePicture", values.userImage);
+      }
+
+      // Relationship (array → send only names or ids as needed)
+
+      // Gender (assuming it’s an array or single value — adjust as needed)
+
+      // Example: add description if needed
+      formData.append("description", values.descriptions || "");
+
+      // Now send formData via POST
+      postData("/user/create-family-member", formData);
+      setIsMemberAdded(true);
+      // setIsModal(false);
+      action.resetForm();
+    },
+  });
+
+  const handleCreateFamily = () => {};
 
   return (
     <Fragment>
@@ -30,7 +108,6 @@ const CreateFamilyMember = () => {
               <p
                 onClick={() => {
                   setIsModal(true);
-                  setIsMemberAdded(true);
                 }}
                 className="underline text-[#212121] cursor-pointer"
               >
@@ -39,9 +116,10 @@ const CreateFamilyMember = () => {
             </div>
             {!isMemberAdded ? (
               <div>
-                <button className="bg-[#29ABE2] text-white lg:w-[350px] md:w-[500px] w-[320px] h-[48px] rounded-[8px] mt-6">
-                  Send
-                </button>
+                <div className=" lg:w-[350px] md:w-[500px] w-[320px] ">
+                  <Button text={"Send"} />
+                </div>
+
                 <button
                   type="button"
                   className="w-full flex justify-center items-center gap-1 cursor-pointer mt-6"
@@ -53,61 +131,80 @@ const CreateFamilyMember = () => {
                 </button>
               </div>
             ) : (
-              <div className="lg:w-[350px] md:w-[500px] w-[320px]">
-                <div className=" rounded-[12px] h-[194px] p-4 shadow-[0_0_16px_rgba(17,17,26,0.1)] ">
-                  <div className="grid grid-cols-6 justify-between items-center gap-2 border-b-[1px] border-b-[#D9D9D9] pb-2">
-                    <div className="col-span-5 flex items-center gap-2">
-                      <div>
-                        <img
-                          src="https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png"
-                          alt="Profile"
-                          className="w-10 h-10 rounded-full border-2 border-blue-600"
-                        />
-                      </div>
+              <>
+                <div className="lg:w-[350px] md:w-[500px] w-[320px] max-h-[250px] overflow-y-auto overflow-x-hidden p-3 space-y-4">
+                  {members?.map((values, index) => (
+                    <div key={index}>
+                      <div className=" rounded-[12px] h-[194px] p-4 shadow-[0_0_16px_rgba(17,17,26,0.1)] ">
+                        <div className="grid grid-cols-6 justify-between items-center gap-2 border-b-[1px] border-b-[#D9D9D9] pb-2">
+                          <div className="col-span-5 flex items-center gap-2">
+                            <div>
+                              <img
+                                src={
+                                  values.userImage
+                                    ? URL.createObjectURL(values.userImage)
+                                    : UserProfile
+                                }
+                                alt="Profile"
+                                className="w-10 h-10 rounded-full border-2 border-blue-600"
+                              />
+                            </div>
 
-                      <div>
-                        <p className="capitalize text-[16px] font-medium">
-                          {" "}
-                          john Doe
-                        </p>
-                        <div className="flex">
-                          <p className="text-[12px] text-[#565656]">
-                            john.alex@gmail.com
-                          </p>
-                          <p className="text-[12px] text-[#565656] pl-1">
-                            +000 0000 00
+                            <div className="min-w-0">
+                              {" "}
+                              {/* important: restrict shrinking */}
+                              <p className="capitalize text-[16px] font-medium truncate">
+                                {values.fullname || "John Alex"}
+                              </p>
+                              <p className="text-[12px] text-[#565656] truncate max-w-[200px]">
+                                {values.email || ""}
+                              </p>
+                              <p className="text-nowrap text-[12px] text-[#565656]">
+                                +1 {phoneFormatter(values.phone) || ""}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2 cursor-pointer">
+                            <span
+                              onClick={() => {
+                                setEditIndex(index);
+                                setEditModal(true);
+                              }}
+                            >
+                              <img src={EditIcon} />
+                            </span>
+                            <span>
+                              <img src={RedBin} />
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-4 text-[rgb(33,33,33)] text-[14px] border-b-[1px] border-b-[#D9D9D9] py-3">
+                          <div className="col-span-1 ">
+                            {getAgeFromDate(values.db)}
+                          </div>
+                          <div className="col-span-3 border-l-[1px] border-l-[#D9D9D9] pl-6">
+                            {values?.gender?.map((item) => item?.name) || ""}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-[#565656] text-[14px] py-3">
+                            {values.descriptions || ""}
                           </p>
                         </div>
                       </div>
                     </div>
-
-                    <div className="flex items-center gap-3">
-                      <span>
-                        <img src={EditIcon} />
-                      </span>
-                      <span>
-                        <img src={RedBin} />
-                      </span>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-4 text-[#212121] text-[14px] border-b-[1px] border-b-[#D9D9D9] py-3">
-                    <div className="col-span-1 ">25yrs old</div>
-                    <div className="col-span-3 border-l-[1px] border-l-[#D9D9D9] pl-6">
-                      Male
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[#565656] text-[14px] py-3">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                  </div>
+                  ))}
                 </div>
-                <button className="bg-[#29ABE2] text-white lg:w-[350px] md:w-[500px] w-[320px] h-[48px] rounded-[8px] mt-6">
-                  Next
-                </button>
-              </div>
+                <div className=" mt-4 lg:w-[350px] md:w-[500px] w-[320px] ">
+                  <Button
+                    text={"Next"}
+                    onClick={handleCreateFamily}
+                    loading={loading}
+                  />
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -116,6 +213,22 @@ const CreateFamilyMember = () => {
         <AddFamilyMemberModal
           setIsModal={setIsModal}
           setIsMemberAdded={setIsMemberAdded}
+          values={values}
+          errors={errors}
+          touched={touched}
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          handleSubmit={handleSubmit}
+          setFieldValue={setFieldValue}
+          loading={loading}
+        />
+      )}
+      {editModal && (
+        <EditFamilyMemberModal
+          editIndex={editIndex}
+          members={members}
+          setMembers={setMembers}
+          setEditModal={setEditModal} // <-- you should add this if you want to close the modal
         />
       )}
     </Fragment>

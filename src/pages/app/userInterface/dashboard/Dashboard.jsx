@@ -1,5 +1,13 @@
+import CardsSection from "../../../../components/app/userInterface/dashboard/home/CardsSection";
+import HeroSection from "../../../../components/app/userInterface/dashboard/home/HeroSection";
+
 const Dashboard = () => {
-  return <div>User Interface Dashboard</div>;
+  return (
+    <>
+      <HeroSection />
+      <CardsSection />
+    </>
+  );
 };
 
 export default Dashboard;

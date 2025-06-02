@@ -14,6 +14,7 @@ import { AppContext } from "./context/AppContext";
 // import CreateProfile from "./pages/onboarding/CreateProfile";
 import CreateProviderProfile from "./pages/onboarding/CreateProviderProfile";
 import CreateAccountRequest from "./pages/onboarding/CreateAccountRequest";
+import UserLayout from "./components/app/userInterface/layout/UserLayout";
 
 function App() {
   const { token, role, userData } = useContext(AppContext);
@@ -44,7 +45,7 @@ function App() {
         ))}
       </Route>
 
-      <Route path="user">
+      <Route path="user" element={<UserLayout />}>
         {UserRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}

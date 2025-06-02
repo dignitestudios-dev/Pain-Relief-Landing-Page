@@ -13,8 +13,6 @@ import { AppContext } from "../../context/AppContext";
 
 const CreateProviderProfile = () => {
   const [userImage, setUserImage] = useState("");
-  console.log("🚀 ~ CreateProviderProfile ~ userImage:", userImage);
-  // const [userImageError, setUserImageError] = useState("");
 
   const { loading, postData } = useProviderCreateProfile();
   const { userData } = useContext(AppContext);

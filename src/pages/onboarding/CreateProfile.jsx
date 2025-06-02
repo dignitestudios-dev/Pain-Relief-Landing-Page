@@ -4,19 +4,41 @@ import InputField from "../../components/onboarding/InputField";
 import { userInfoInitialValues } from "../../init/app/userInformation";
 import { userInfoValidationSchema } from "../../schema/app/userInfoSchema";
 import { useNavigate } from "react-router";
-
+import Button from "../../components/app/landingPage/Inputs/Button";
+import { useState } from "react";
+import GoogleMapComponent from "../../components/global/GoogleMap";
+import { userProfileSchema } from "../../schema/app/userInterface";
+import { userProfileValues } from "../../init/app/userInterface";
+import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
+import { phoneFormatter } from "../../lib/helpers";
 const CreateProfile = () => {
   const navigate = useNavigate();
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: userInfoInitialValues,
-      validationSchema: userInfoValidationSchema,
-      onSubmit: (values) => {
-        console.log("Form values:", values);
-        navigate('/user/create-family-member')
-      },
-    });
+  const [userImage, setUserImage] = useState("");
 
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: userProfileValues,
+    validationSchema: userProfileSchema,
+    onSubmit: (values) => {
+      console.log("Form values:", values);
+      navigate("/user/create-family-member");
+    },
+  });
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUserImage(file);
+      setFieldValue("userImage", file);
+    }
+  };
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
@@ -32,14 +54,32 @@ const CreateProfile = () => {
           </p>
         </div>
         <div className="flex items-center xl:w-[500px] lg:w-[400px] md:w-[500px] w-[320px]">
-          <div className="md:w-[80px] w-[60px] md:h-[80px] h-[60px]">
-            <img src={UserProfile} />
+          <div className="md:w-[80px] w-[60px] md:h-[80px] h-[60px] rounded-full  overflow-hidden">
+            <img
+              className="object-cover md:w-[80px] w-[60px] md:h-[80px] h-[60px] "
+              src={
+                values.userImage
+                  ? URL.createObjectURL(values.userImage)
+                  : UserProfile
+              }
+            />
           </div>
-          <div className="pl-2">
+          <div className="pl-2 ">
             <p className="text-[#BEC2C9]">
-              <span className="text-[#55C9FA]">Upload a file</span> or drag and
-              drop PNG, JPG up to 10mb
+              <span className="relative bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">
+                Upload a file
+                <input
+                  type="file"
+                  accept=".jpg,.jpeg,.png"
+                  onChange={(e) => handleFileChange(e)}
+                  className="absolute inset-0 opacity-0 cursor-pointer -left-24"
+                />
+              </span>{" "}
+              or drag and drop PNG, JPG up to 10mb
             </p>
+            {touched.userImage && errors.userImage && (
+              <p className="text-red-600 text-xs mt-1">{errors.userImage}</p>
+            )}
           </div>
         </div>
 
@@ -89,22 +129,24 @@ const CreateProfile = () => {
                 error={errors.email}
                 touched={touched.email}
               />
-              <InputField
-                text={"Mobile Number"}
-                placeholder={"Mobile Number"}
-                type={"text"}
-                id={"number"}
-                name={"number"}
-                maxLength={50}
-                value={values.number}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.number}
-                touched={touched.number}
-              />
+              <div>
+                <PhoneInput
+                label={'Phone Number (required)'}
+                isLight={true}
+                isLightTwo={true}
+                  value={phoneFormatter(values.phone)}
+                  id={"phone"}
+                  name={"phone"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={errors.phone}
+                  touched={touched.phone}
+                  autoComplete="off"
+                />
+              </div>
             </div>
 
-            <InputField
+            {/* <InputField
               text={"Home address (required)"}
               placeholder={"Enter your street, city, state, zip?"}
               type={"text"}
@@ -116,19 +158,16 @@ const CreateProfile = () => {
               onBlur={handleBlur}
               error={errors.address}
               touched={touched.address}
-            />
+            /> */}
 
-            <div>
-              <img src={MapImg} className="rounded-md" />
+            <div className="mt-4">
+              <GoogleMapComponent />
             </div>
 
-            <div className="flex justify-end">
-              <button
-                type="submit"
-                className="bg-[#29ABE2] text-white w-[128px] h-[48px] rounded-xl mt-2"
-              >
-                Save
-              </button>
+            <div className="flex justify-end mt-3">
+              <div className="w-[128px] ">
+                <Button text={"Save"} type={"submit"} />
+              </div>
             </div>
           </form>
         </div>
