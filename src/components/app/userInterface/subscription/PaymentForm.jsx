@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   useElements,
-  CardElement,
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
@@ -10,7 +9,8 @@ import {
 import axios from "../../../../axios";
 import { useNavigate } from "react-router";
 import Button from "../../landingPage/Inputs/Button";
-import { ErrorToast, SuccessToast } from "../../../global/Toaster";
+import { ErrorToast } from "../../../global/Toaster";
+import { AppContext } from "../../../../context/AppContext";
 
 const ELEMENT_OPTIONS = {
   style: {
@@ -29,9 +29,10 @@ const ELEMENT_OPTIONS = {
   },
 };
 
-const PaymentForm = ({ subscriptionData, planData, setIsSubscription }) => {
+const PaymentForm = ({ planData, setIsSubscription }) => {
   const { planType } = planData;
-  console.log("🚀 ~ PaymentForm ~ planType:", planType);
+  const { loginAuth } = useContext(AppContext);
+
   const navigate = useNavigate();
 
   const stripe = useStripe();
@@ -50,7 +51,6 @@ const PaymentForm = ({ subscriptionData, planData, setIsSubscription }) => {
       type: "card",
       card: cardNumberElement,
     });
-    console.log("🚀 ~ handleSubmit ~ paymentMethod:", paymentMethod);
 
     if (error) {
       console.log("🚀 ~ 52 ~ error:", error);
@@ -66,10 +66,11 @@ const PaymentForm = ({ subscriptionData, planData, setIsSubscription }) => {
           const response = await axios.post(
             "/payment/create-subscriptionplan",
             {
-              subscriptionPlanId: planType?._id,
+              priceId: planType?._id,
             }
           );
           if (response.status === 200) {
+            loginAuth(response?.data);
             setIsSubscription(true);
           }
         }

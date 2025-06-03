@@ -1,10 +1,38 @@
-import Signup from "../../pages/onboarding/Signup";
+import AccountSelection from "./../../pages/onboarding/AccountSelection";
+import SignUp from "./../../pages/onboarding/Signup";
+import Login from "./../../pages/onboarding/Login";
+import ForgetOtp from "./../../pages/onboarding/ForgetOtp";
+import ForgotPassword from "./../../pages/onboarding/ForgotPassword";
+import VerifyOtp from "./../../pages/onboarding/VerifyOtp";
+import UpdatePassword from "./../../pages/onboarding/UpdatePassword";
 
 export const AuthRoutes = [
   {
+    url: "account-selection",
+    page: <AccountSelection />,
+  },
+  {
     url: "sign-up",
-    title: "Signup",
-    page: <Signup />,
-    isPublic: true,
+    page: <SignUp />,
+  },
+  {
+    url: "sign-in",
+    page: <Login />,
+  },
+  {
+    url: "forget-otp",
+    page: <ForgetOtp />,
+  },
+  {
+    url: "forget-password",
+    page: <ForgotPassword />,
+  },
+  {
+    url: "verify-otp",
+    page: <VerifyOtp />,
+  },
+  {
+    url: "update-password",
+    page: <UpdatePassword />,
   },
 ];

@@ -34,7 +34,10 @@ const Calender = ({
       </label>
       <div
         onClick={toggleCalendar}
-        className="relative w-full h-[44px] p-2 rounded-[8px] border border-[#D9D9D9] bg-white text-[11.63px] font-[500] text-gray-400 cursor-pointer flex items-center"
+        className={`relative w-full h-[44px] p-2 rounded-[8px] border border-[#D9D9D9] bg-white text-[11.63px]
+         font-[500] ${
+           startDate ? "text-gray-700" : "text-gray-400"
+         } cursor-pointer flex items-center`}
       >
         {startDate
           ? startDate.toLocaleDateString("en-US", {
@@ -51,7 +54,11 @@ const Calender = ({
       </div>
 
       {isOpen && (
-        <div className={`${isStyle ? "absolute  " : "absolute"}  z-50 mt-2 ${position}`}>
+        <div
+          className={`${
+            isStyle ? "absolute  " : "absolute"
+          }  z-50 mt-2 ${position}`}
+        >
           <DatePicker
             selected={startDate}
             onChange={handleChange}

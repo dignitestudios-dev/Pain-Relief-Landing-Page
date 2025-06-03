@@ -6,9 +6,11 @@ import { Elements } from "@stripe/react-stripe-js";
 import PaymentForm from "./PaymentForm";
 import { loadStripe } from "@stripe/stripe-js";
 import SubscriptionSuccessModal from "./SubscriptionSuccessModal";
+import { useNavigate } from "react-router";
 
 const PaymentDetails = ({ planData, subscriptionData }) => {
   const { planType } = planData;
+  const navigate = useNavigate();
 
   const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
   const [billingPeriod, setBillingPeriod] = useState("yearly");
@@ -150,7 +152,6 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
 
           <Elements stripe={stripePromise}>
             <PaymentForm
-              subscriptionData={subscriptionData}
               planData={planData}
               setIsSubscription={setIsSubscription}
             />
@@ -160,7 +161,10 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
 
       {isSubscription && (
         <SubscriptionSuccessModal
-          onClick={() => setIsSubscription(!isSubscription)}
+          onClick={() => {
+            setIsSubscription(!isSubscription);
+            navigate("/onboard/create-profile");
+          }}
         />
       )}
     </div>

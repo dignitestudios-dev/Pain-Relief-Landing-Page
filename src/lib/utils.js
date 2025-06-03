@@ -24,12 +24,12 @@ export const processLogin = (
     loginAuth(data);
     const user = data?.data?.user;
     if (!user?.isProfileCompleted) {
-      navigate("/provider/create-provider-profile");
+      navigate("/onboard/create-provider-profile");
       return;
     }
 
     if (!user?.isDocumentsSubmitted || !user?.isAddressCompleted) {
-      navigate("/provider/create-account-request");
+      navigate("/onboard/create-account-request");
       return;
     }
 
@@ -48,7 +48,24 @@ export const processProviderProfileCreate = (data, navigate, loginAuth) => {
   if (data?.success) {
     loginAuth({ data: { user: data?.data } });
     SuccessToast(data?.message);
-    navigate("/provider/create-account-request");
+    navigate("/onboard/create-account-request");
+    return;
+  }
+};
+
+export const processUserProfileCreate = (data, navigate, loginAuth) => {
+  if (data?.success) {
+    loginAuth({ data: { user: data?.data } });
+    SuccessToast(data?.message);
+    navigate("/onboard/create-family-member");
+    return;
+  }
+};
+
+export const processUserFamilyMember = (data) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+
     return;
   }
 };
@@ -71,8 +88,10 @@ export const processUpdatePassword = (data, setIsModal) => {
     return;
   }
 };
-export const processAccountRequest = (data, setRequestModal) => {
+export const processAccountRequest = (data, setRequestModal, loginAuth) => {
   if (data?.success) {
+    loginAuth({ data: { user: data?.data } });
+
     SuccessToast(data?.message);
     setRequestModal(true);
 
