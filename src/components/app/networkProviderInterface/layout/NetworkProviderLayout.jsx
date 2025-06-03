@@ -7,9 +7,9 @@ const NetworkProviderLayout = ({ page, token, role, user }) => {
   if (!token || role !== "provider") {
     return <Navigate to="/auth/sign-in" replace />;
   } else if (!user?.isProfileCompleted) {
-    return <Navigate to="/provider/create-provider-profile" replace />;
+    return <Navigate to="/onboard/create-provider-profile" replace />;
   } else if (!user?.isDocumentsSubmitted) {
-    return <Navigate to="/provider/create-account-request" replace />;
+    return <Navigate to="/onboard/create-account-request" replace />;
   }
   return (
     <div className="relative bg-[#f5f5f5]">

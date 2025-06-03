@@ -1,20 +1,21 @@
-import { Navigate, Outlet, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import "./App.css";
 // import DashboardLayout from "./layouts/DashboardLayout";
-// import AuthLayout from "./layouts/AuthLayout";
 
 import { PublicRoutes } from "./routes/app/landingPage/PublicRoutes";
 import AppLayout from "./components/app/landingPage/layout/AppLayout";
-import { AuthRoutes } from "./routes/app/userInterface/AuthRoutes";
+import { AuthRoutes } from "./routes/authentication/AuthRoutes";
 import { ProviderRoutes } from "./routes/app/networkProviderInterface/ProviderRoutes";
 import { UserRoutes } from "./routes/app/userInterface/UserRoutes";
 import NetworkProviderLayout from "./components/app/networkProviderInterface/layout/NetworkProviderLayout";
 import { useContext } from "react";
 import { AppContext } from "./context/AppContext";
-// import CreateProfile from "./pages/onboarding/CreateProfile";
-import CreateProviderProfile from "./pages/onboarding/CreateProviderProfile";
-import CreateAccountRequest from "./pages/onboarding/CreateAccountRequest";
+
 import UserLayout from "./components/app/userInterface/layout/UserLayout";
+
+import OnboardLayout from "./layouts/OnboardLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import { OnboardingRoutes } from "./routes/onboarding/OnboardingRoutes";
 
 function App() {
   const { token, role, userData } = useContext(AppContext);
@@ -29,47 +30,28 @@ function App() {
         ))}
       </Route>
 
-      {/* element={
-          token && role === "provider" ? (
-            <Navigate to="/network/dashboard" />
-          ) : token && role === "user" ? (
-            <Navigate to="/user/dashboard" />
-          ) : (
-            <Outlet />
-          )
-        } */}
-
-      <Route path="auth">
+      <Route path="auth" element={<AuthLayout token={token} role={role} />}>
         {AuthRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}
       </Route>
 
-      <Route path="user" element={<UserLayout />}>
-        {UserRoutes?.map((Link, i) => (
+      <Route
+        path="onboard"
+        element={<OnboardLayout token={token} role={role} user={userData} />}
+      >
+        {OnboardingRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}
       </Route>
 
       <Route
-        path="provider"
-        element={token && role ? <Outlet /> : <Navigate to="/auth/sign-in" />}
+        path="user"
+        element={<UserLayout token={token} role={role} user={userData} />}
       >
-        {!userData?.isProfileCompleted && (
-          <Route
-            path="create-provider-profile"
-            element={<CreateProviderProfile />}
-          />
-        )}
-        {userData?.isProfileCompleted ? (
-          <Route
-            path="create-account-request"
-            element={<CreateAccountRequest />}
-          />
-        ) : (
-          <Route element={<Navigate to="/auth/sign-in" />} />
-        )}
-        {/* <Route path="create-profile" element={<CreateProfile />} /> */}
+        {UserRoutes?.map((Link, i) => (
+          <Route path={Link.url} key={i} element={Link.page} />
+        ))}
       </Route>
 
       <Route

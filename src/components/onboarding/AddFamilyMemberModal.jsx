@@ -1,23 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import InputField from "./InputField";
-import SelectableField from "./SelectableField";
 import { UserProfile } from "../../assets/export";
-import { useFormik } from "formik";
-import { useNavigate } from "react-router";
-import { userInfoInitialValues } from "../../init/app/userInformation";
-import { userInfoValidationSchema } from "../../schema/app/userInfoSchema";
+
 import Button from "../app/landingPage/Inputs/Button";
 import { DropDownDark } from "../app/landingPage/Inputs/DropDown";
-import { addFamilMemberValues } from "../../init/app/userInterface";
-import { addFamilMemberSchema } from "../../schema/app/userInterface";
+
 import Calender from "../global/DatePicker";
 import PhoneInput from "../app/landingPage/Inputs/PhoneInput";
 import { phoneFormatter } from "../../lib/helpers";
 
 const AddFamilyMemberModal = ({
   setIsModal,
-  setIsMemberAdded,
   values,
   errors,
   touched,
@@ -25,10 +19,10 @@ const AddFamilyMemberModal = ({
   handleBlur,
   handleSubmit,
   setFieldValue,
-  loading
+  loading,
 }) => {
-  const navigate = useNavigate();
   const [userImage, setUserImage] = useState("");
+  console.log("🚀 ~ userImage:", userImage);
 
   const subjectOptions = [
     { _id: "1", name: "Brother" },

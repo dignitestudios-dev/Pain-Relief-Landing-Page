@@ -129,7 +129,7 @@ const SubscriptionCards = ({
                 <Button
                   text={"Buy Now"}
                   onClick={() =>
-                    navigate("/user/subscription-payment-detail", {
+                    navigate("/onboard/subscription-payment-detail", {
                       state: {
                         subscriptionData: data,
                         planType: selectedPlanData,

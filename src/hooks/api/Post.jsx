@@ -145,20 +145,15 @@ const useProviderCreateProfile = () => {
 const useAccountRequest = () => {
   const [loading, setLoading] = useState(false);
   // const navigate = useNavigate();
+  const { loginAuth } = useContext(AppContext);
 
-  const postData = async (
-    url,
-    data = null,
-    callback,
-    modal = false,
-    setPendingModal,
-    setUpdate
-  ) => {
+  const postData = async (url, data = null, callback, setPendingModal) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data);
+
       if (typeof callback === "function") {
-        callback(response?.data, modal, setPendingModal, setUpdate);
+        callback(response?.data, setPendingModal, loginAuth);
       }
       return response?.data;
     } catch (error) {

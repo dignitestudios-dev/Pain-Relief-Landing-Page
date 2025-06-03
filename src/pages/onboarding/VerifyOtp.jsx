@@ -129,9 +129,9 @@ const VerifyOtp = () => {
 
   const handleContinue = () => {
     if (userType === "provider") {
-      navigate("/provider/create-provider-profile");
+      navigate("/onboard/create-provider-profile");
     } else {
-      navigate("/user/subscription-plans");
+      navigate("/onboard/subscription-plans");
     }
   };
 

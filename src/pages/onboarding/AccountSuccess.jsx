@@ -1,6 +1,6 @@
-import { SideImg, SmallTick } from "../../../../painRelief/src/assets/export";
+import { SideImg, SmallTick } from "../../assets/export";
 
-const AccountSuccess = () => {
+const AccountSuccess = ({ onClick }) => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
@@ -16,7 +16,11 @@ const AccountSuccess = () => {
           </p>
         </div>
 
-        <button className="bg-[#29ABE2] text-white w-[350px] h-[48px] rounded-[8px] mt-6">
+        <button
+          type="button"
+          onClick={onClick}
+          className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white w-[350px] h-[48px] rounded-[8px] mt-6"
+        >
           Continue
         </button>
       </div>

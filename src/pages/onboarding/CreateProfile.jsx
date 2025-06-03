@@ -1,19 +1,39 @@
 import { useFormik } from "formik";
-import { MapImg, SideImg, UserProfile } from "../../assets/export";
+import { SideImg, UserProfile } from "../../assets/export";
 import InputField from "../../components/onboarding/InputField";
-import { userInfoInitialValues } from "../../init/app/userInformation";
-import { userInfoValidationSchema } from "../../schema/app/userInfoSchema";
-import { useNavigate } from "react-router";
+
 import Button from "../../components/app/landingPage/Inputs/Button";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GoogleMapComponent from "../../components/global/GoogleMap";
 import { userProfileSchema } from "../../schema/app/userInterface";
 import { userProfileValues } from "../../init/app/userInterface";
 import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
 import { phoneFormatter } from "../../lib/helpers";
+import { DropDownDark } from "../../components/app/landingPage/Inputs/DropDown";
+import Calender from "../../components/global/DatePicker";
+import { AppContext } from "../../context/AppContext";
+import { useProviderCreateProfile } from "../../hooks/api/Post";
+import { processUserProfileCreate } from "../../lib/utils";
+
+const genderOptions = [
+  { _id: "1", name: "Male" },
+  { _id: "2", name: "Female" },
+  { _id: "3", name: "Non-binary" },
+  { _id: "4", name: "Transgender" },
+  { _id: "5", name: "Genderqueer" },
+  { _id: "6", name: "Agender" },
+  { _id: "7", name: "Two-Spirit" },
+  { _id: "8", name: "Prefer not to say" },
+  { _id: "9", name: "Other" },
+];
+
 const CreateProfile = () => {
-  const navigate = useNavigate();
+  const { userData } = useContext(AppContext);
+
   const [userImage, setUserImage] = useState("");
+  console.log("🚀 ~ CreateProfile ~ userImage:", userImage);
+
+  const { loading, postData } = useProviderCreateProfile();
 
   const {
     values,
@@ -28,7 +48,28 @@ const CreateProfile = () => {
     validationSchema: userProfileSchema,
     onSubmit: (values) => {
       console.log("Form values:", values);
-      navigate("/user/create-family-member");
+      const isoDate = new Date(values.db).toISOString().split("T")[0];
+
+      const formData = new FormData();
+
+      formData.append("firstName", values.fname);
+      formData.append("lastName", values.lname);
+      formData.append("phone", values.phone);
+      formData.append("country", values.country);
+      formData.append("address", values.address);
+      formData.append("city", values.city);
+      formData.append("state", values.state);
+      formData.append("dateOfBirth", isoDate);
+      formData.append("profilePicture", values.userImage);
+
+      postData(
+        "/user/complete-profile",
+        null,
+        processUserProfileCreate,
+        formData
+      );
+
+      // navigate("/onboard/create-family-member");
     },
   });
 
@@ -38,6 +79,31 @@ const CreateProfile = () => {
       setUserImage(file);
       setFieldValue("userImage", file);
     }
+  };
+
+  useEffect(() => {
+    const email = userData?.email;
+    const phone = userData?.phone;
+
+    const firstName = userData?.firstName;
+    const lastName = userData?.lastName;
+
+    if (firstName) setFieldValue("fname", firstName);
+    if (lastName) setFieldValue("lname", lastName);
+
+    if (phone) setFieldValue("phone", phone);
+    if (email) setFieldValue("email", email);
+  }, [userData, setFieldValue]);
+
+  const onLocationSelect = (data) => {
+    setFieldValue("country", data.country);
+    setFieldValue("address", data.address);
+    setFieldValue("city", data.city);
+    setFieldValue("state", data.state);
+    setFieldValue("zipCode", data.zipCode);
+
+    // If location object is needed for backend (e.g., coordinates)
+    setFieldValue("location", data.location);
   };
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
@@ -131,9 +197,9 @@ const CreateProfile = () => {
               />
               <div>
                 <PhoneInput
-                label={'Phone Number (required)'}
-                isLight={true}
-                isLightTwo={true}
+                  label={"Phone Number (required)"}
+                  isLight={true}
+                  isLightTwo={true}
                   value={phoneFormatter(values.phone)}
                   id={"phone"}
                   name={"phone"}
@@ -144,6 +210,33 @@ const CreateProfile = () => {
                   autoComplete="off"
                 />
               </div>
+              <div>
+                <Calender
+                  startDate={values.db}
+                  setStartDate={(date) => setFieldValue("db", date)}
+                  text={"DD/MM/YY"}
+                  isStyle={true}
+                  label={"Date of Birth (required)"}
+                />
+                {touched.db && errors.db && (
+                  <p className="text-red-600 text-xs mt-1">{errors.db}</p>
+                )}
+              </div>
+              <DropDownDark
+                label={"Gender (required)"}
+                placeholder={"Select "}
+                options={genderOptions}
+                iscolor={true}
+                value={values.gender}
+                onChange={(selected) =>
+                  setFieldValue("gender", [
+                    { id: selected._id, name: selected.name },
+                  ])
+                }
+              />
+              {errors.gender && errors.gender && (
+                <p className="text-red-600 text-xs mt-1">{errors.gender}</p>
+              )}
             </div>
 
             {/* <InputField
@@ -161,12 +254,12 @@ const CreateProfile = () => {
             /> */}
 
             <div className="mt-4">
-              <GoogleMapComponent />
+              <GoogleMapComponent onLocationSelect={onLocationSelect} />
             </div>
 
             <div className="flex justify-end mt-3">
               <div className="w-[128px] ">
-                <Button text={"Save"} type={"submit"} />
+                <Button text={"Save"} type={"submit"} loading={loading} />
               </div>
             </div>
           </form>
