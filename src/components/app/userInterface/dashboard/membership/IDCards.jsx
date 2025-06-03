@@ -122,15 +122,15 @@ const IDCards = () => {
             </p>
           </div>
 
-         <div className="bg-gradient-to-l flex items-center flex-col justify-center to-[#63CFAC] from-[#29ABE2] rounded-b-md text-white text-center p-2 mt-3 min-h-[77.19px] sm:h-[77.19px]">
-  <p className="uppercase font-semibold text-sm sm:text-sm text-xs">
-    This is not health insurance
-  </p>
-  <p className="text-xs sm:text-xs text-[10px]">
-    Cardholder is responsible for all applicable payments at point of service.
-  </p>
-</div>
-
+          <div className="bg-gradient-to-l flex items-center flex-col justify-center to-[#63CFAC] from-[#29ABE2] rounded-b-md text-white text-center p-2 mt-3 min-h-[77.19px] sm:h-[77.19px]">
+            <p className="uppercase font-semibold text-sm sm:text-sm ">
+              This is not health insurance
+            </p>
+            <p className="text-xs sm:text-xs text-[10px]">
+              Cardholder is responsible for all applicable payments at point of
+              service.
+            </p>
+          </div>
         </div>
       </div>
     </div>
