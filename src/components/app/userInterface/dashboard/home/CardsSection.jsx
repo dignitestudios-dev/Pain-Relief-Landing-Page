@@ -7,13 +7,15 @@ import {
   MemberShip,
   Referfriend,
 } from "../../../../../assets/export";
+import { useNavigate } from "react-router";
 
 const CardsSection = () => {
+  const navigate = useNavigate();
   const cardData = [
     {
       img: Appoitment,
       title: "Schedule an Appointment",
-      url: "",
+      url: "/user/questions",
     },
     {
       img: MemberShip,
@@ -46,6 +48,7 @@ const CardsSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 w-[80%] max-w-[1440px]">
         {cardData?.map((card, index) => (
           <div
+            onClick={() => navigate(card.url)}
             key={index}
             className="bg-white hover:bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] cursor-pointer p-8 w-full flex flex-col justify-center items-center rounded-[11.08px] transition duration-300 transform hover:scale-105 group"
           >

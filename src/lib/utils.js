@@ -172,6 +172,13 @@ export const processDeleteAccount = (data, setDeleteModal) => {
     return;
   }
 };
+export const processQuestionCreate = (data) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+
+    return;
+  }
+};
 
 export const processError = (error) => {
   console.log(error);

@@ -194,6 +194,7 @@ const CreateProfile = () => {
                 onBlur={handleBlur}
                 error={errors.email}
                 touched={touched.email}
+                disabled={true}
               />
               <div>
                 <PhoneInput
@@ -205,9 +206,8 @@ const CreateProfile = () => {
                   name={"phone"}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={errors.phone}
-                  touched={touched.phone}
                   autoComplete="off"
+                  isDisabled={true}
                 />
               </div>
               <div>

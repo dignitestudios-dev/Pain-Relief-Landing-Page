@@ -1,6 +1,6 @@
 import { RiLoader5Line } from "react-icons/ri";
 
-const Button = ({ text, onClick, loading, type }) => {
+const Button = ({ text, onClick, loading, type, }) => {
   return (
     <div>
       <button

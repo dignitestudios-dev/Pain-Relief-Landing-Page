@@ -20,10 +20,15 @@ const OnboardLayout = ({ token, role, user }) => {
     } else if (
       user?.isSubscribed &&
       !user?.isProfileCompleted &&
-      !path.startsWith("/onboard/create-profile")
+      !path.startsWith("/onboard/create-profile") &&
+      !path.startsWith("/onboard/create-family-member")
     ) {
       return <Navigate to="/onboard/create-profile" replace />;
-    } else if (user?.isSubscribed && user?.isProfileCompleted) {
+    } else if (
+      user?.isSubscribed &&
+      user?.isProfileCompleted &&
+      user?.isAddressCompleted
+    ) {
       return <Navigate to="/user/dashboard" replace />;
     }
   }

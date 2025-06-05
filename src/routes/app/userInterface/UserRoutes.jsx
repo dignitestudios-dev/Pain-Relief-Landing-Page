@@ -7,6 +7,8 @@ import NetworkProfile from "../../../pages/app/userInterface/dashboard/NetworkPr
 import Refferal from "../../../pages/app/userInterface/dashboard/Refferal";
 import UpgradePlan from "../../../pages/app/userInterface/dashboard/UpgradePlan";
 import UserDetails from "../../../pages/app/userInterface/dashboard/UserDetails";
+import UserProfile from "../../../pages/app/userInterface/dashboard/UserProfile";
+import AppointmentQuestions from "../../../pages/app/userInterface/dashboard/AppointmentQuestions";
 
 export const UserRoutes = [
   {
@@ -17,6 +19,11 @@ export const UserRoutes = [
   {
     url: "appointment",
     page: <Appoitment />,
+    isPublic: true,
+  },
+  {
+    url: "questions",
+    page: <AppointmentQuestions />,
     isPublic: true,
   },
   {
@@ -50,6 +57,11 @@ export const UserRoutes = [
   {
     url: "refferal",
     page: <Refferal />,
+    isPublic: true,
+  },
+  {
+    url: "user-profile",
+    page: <UserProfile />,
     isPublic: true,
   },
   // {

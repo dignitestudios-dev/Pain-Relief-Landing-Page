@@ -154,6 +154,7 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
             <PaymentForm
               planData={planData}
               setIsSubscription={setIsSubscription}
+              selectedPlanData={selectedPlanData?.price}
             />
           </Elements>
         </div>

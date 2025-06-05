@@ -43,15 +43,6 @@ export const userProfileSchema = Yup.object({
     .required("Last name is required.") // <-- fix here
     .matches(/^[A-Za-z ]+$/, "Last name must only contain letters and spaces"),
 
-  email: Yup.string()
-    .email("Please enter a valid email address.")
-    .required("Email is required."),
-
-  phone: Yup.string()
-    .transform((value) => value.replace(/\D/g, ""))
-    .matches(/^\d{10}$/, "Phone number must be exactly 10 digits.")
-    .required("Please enter your phone number"),
-
   userImage: Yup.mixed()
     .required("Image is required")
     .test(

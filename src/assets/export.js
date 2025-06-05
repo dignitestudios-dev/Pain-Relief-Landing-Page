@@ -84,7 +84,7 @@ export {
   NoInternetImage,
   HeroSection,
   Logo,
-  Tick,
+  Tick, 
   DesktopLogo,
   LogoFooter,
   FooterTick,
