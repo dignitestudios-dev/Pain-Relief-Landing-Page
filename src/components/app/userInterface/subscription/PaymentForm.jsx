@@ -29,7 +29,8 @@ const ELEMENT_OPTIONS = {
   },
 };
 
-const PaymentForm = ({ planData, setIsSubscription }) => {
+const PaymentForm = ({ planData, setIsSubscription, selectedPlanData }) => {
+  
   const { planType } = planData;
   const { loginAuth } = useContext(AppContext);
 
@@ -102,7 +103,7 @@ const PaymentForm = ({ planData, setIsSubscription }) => {
       </div>
       <div className="flex justify-between items-center   pb-4 my-5">
         <h2 className="text-[14px] font-[500]  ">Total Amount </h2>
-        <p className="text-[14px] font-[500] ">$79.00</p>
+        <p className="text-[14px] font-[500] ">${selectedPlanData}</p>
       </div>
 
       <form>

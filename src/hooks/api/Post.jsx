@@ -363,6 +363,26 @@ const useCreateFamilyMember = () => {
 
   return { loading, postData };
 };
+const useCreateQuestion = () => {
+  const [loading, setLoading] = useState(false);
+
+  const postData = async (url, data = null, callback) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, { response: data });
+      if (typeof callback === "function") {
+        callback(response?.data); 
+      }
+      return response?.data;
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
 
 export {
   useLogin,
@@ -379,4 +399,5 @@ export {
   useReportIssueProvider,
   useDeleteAccountProvider,
   useCreateFamilyMember,
+  useCreateQuestion,
 };

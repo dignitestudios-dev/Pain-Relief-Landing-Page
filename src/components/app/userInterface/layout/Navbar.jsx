@@ -20,7 +20,7 @@ const Navbar = () => {
     setIsNotiOpen(false);
   };
   const LinksPage = [
-    { url: "profile-netwrok-provider", name: "Profile" },
+    { url: "user-profile", name: "Profile" },
     { url: "privacy-policy", name: "Privacy Policy" },
     { url: "terms-of-use", name: "Terms of use" },
     { url: "membership-agreement", name: "Membership Agreement" },

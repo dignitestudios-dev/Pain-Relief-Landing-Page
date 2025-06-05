@@ -198,3 +198,33 @@ h2.react-datepicker__current-month {
     transform: translateY(-50%);
     pointer-events: none;
 }
+
+
+
+@keyframes spin-slow {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin-reverse {
+    0% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 2s linear infinite;
+}
+
+.animate-spin-reverse {
+    animation: spin-reverse 2s linear infinite;
+}

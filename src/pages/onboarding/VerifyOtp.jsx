@@ -87,12 +87,13 @@ const VerifyOtp = () => {
       const response = await axios.post("/auth/verify-otp", obj);
 
       if (response.status === 200) {
+        console.log("response?.data", response?.data);
         // login(response?.data);
         // Cookies.set("token", response?.data?.data?.token);
         loginAuth({
           data: {
             token: response?.data?.data?.token,
-            user: { ...userData, role: userType },
+            user: { ...response?.data?.data?.user, role: userType },
           },
         });
         SuccessToast(response?.data?.message);
