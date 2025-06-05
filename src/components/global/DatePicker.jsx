@@ -1,14 +1,14 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CalenderIcon } from "../../assets/export";
 
 const Calender = ({
   startDate,
-  setStartDate,
+  setStartDate = () => {},
   position = "right-0",
   text,
-  setUpdate,
+  setEndData = () => {},
   endDate,
   isStyle = false,
   label,
@@ -22,13 +22,13 @@ const Calender = ({
   const handleChange = (date) => {
     setStartDate(date);
     if (endDate) {
-      setUpdate((prev) => !prev);
+      setEndData(date);
     }
     setIsOpen(false);
   };
 
   return (
-    <div className="relative  ">
+    <div className="relative w-full ">
       <label htmlFor="" className="text-[12px] text-[#121516] font-medium">
         {label}
       </label>

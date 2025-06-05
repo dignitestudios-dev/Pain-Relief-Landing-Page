@@ -1,3 +1,5 @@
+import BookAppointment from "../../../pages/app/userInterface/bookAppointment/BookAppointment";
+import BookAppointmentDetails from "../../../pages/app/userInterface/bookAppointment/BookAppointmentDetails";
 import Appoitment from "../../../pages/app/userInterface/dashboard/Appoitment";
 import Dashboard from "../../../pages/app/userInterface/dashboard/Dashboard";
 import MemberShip from "../../../pages/app/userInterface/dashboard/MemberShip";
@@ -13,9 +15,17 @@ export const UserRoutes = [
     isPublic: true,
   },
   {
-    url: "appoitment",
+    url: "appointment",
     page: <Appoitment />,
     isPublic: true,
+  },
+  {
+    url: "bookAppointment",
+    page: <BookAppointment />,
+  },
+  {
+    url: "appointmentDetailSection/:id",
+    page: <BookAppointmentDetails />,
   },
   {
     url: "user-details",

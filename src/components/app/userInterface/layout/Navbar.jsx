@@ -59,7 +59,7 @@ const Navbar = () => {
             <hr className="w-[35px]" />
           </li>
           <li className="cursor-pointer ">
-            <Link to={"appoitment"}>My Appointments</Link>
+            <Link to={"appointment"}>My Appointments</Link>
           </li>
           <li className="cursor-pointer ">
             <Link to={"membership"}>My Membership</Link>

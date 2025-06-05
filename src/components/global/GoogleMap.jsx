@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   GoogleMap,
   Marker,
+  Circle,
   useLoadScript,
   Autocomplete,
 } from "@react-google-maps/api";
@@ -19,7 +20,14 @@ const defaultCenter = {
 
 const libraries = ["places"];
 
-const GoogleMapComponent = ({ onLocationSelect, editAddress }) => {
+const GoogleMapComponent = ({
+  onLocationSelect,
+  editAddress,
+  distance = 1,
+  showRadius = false,
+}) => {
+  const radiusInMeters = distance * 1609.34;
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -96,9 +104,23 @@ const GoogleMapComponent = ({ onLocationSelect, editAddress }) => {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={mapCenter}
-        zoom={14}
+        zoom={showRadius ? 8 : 14}
       >
-        <Marker position={marker} />
+        {showRadius ? (
+          <Circle
+            center={mapCenter}
+            radius={radiusInMeters}
+            options={{
+              fillColor: "#29ABE2",
+              fillOpacity: 0.2,
+              strokeColor: "#29ABE2",
+              strokeOpacity: 0.5,
+              strokeWeight: 1,
+            }}
+          />
+        ) : (
+          <Marker position={marker} />
+        )}
       </GoogleMap>
     </div>
   );

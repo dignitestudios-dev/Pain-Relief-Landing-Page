@@ -28,6 +28,31 @@ const useUsers = (url, currentPage = 1) => {
   return { loading, data, pagination };
 };
 
+const useSchedules = (url) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
+
+  const getUsers = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${url}`);
+      setData(data?.data);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  return { loading, data, pagination };
+};
+
 const useDashboardProvider = (
   url,
   filters = {},
@@ -100,6 +125,60 @@ const useDetailProvider = (url, id) => {
   return { loading, data, pagination };
 };
 
+const useAppointmentProvider = (url, filters = {}) => {
+  console.log("🚀 ~ useAppointmentProvider ~ filters:", filters);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
+
+  const getProvider = async () => {
+    try {
+      setLoading(true);
+
+      const params = new URLSearchParams();
+
+      const lat = filters?.address?.coordinates?.[1];
+      console.log("🚀 ~ getProvider ~ lat:", lat);
+      const lng = filters?.address?.coordinates?.[0];
+      console.log("🚀 ~ getProvider ~ lng:", lng);
+      if (lat && lng) {
+        params.append("latitude", lat);
+        params.append("longitude", lng);
+      }
+
+      // 2. Distance (radius)
+      if (filters.distance) {
+        params.append("radius", filters.distance);
+      }
+
+      // 3. Services (convert array of objects to comma-separated string of IDs)
+      if (filters.services?.length > 0) {
+        const serviceIds = filters.services.map((s) => s.id).join(",");
+        params.append("services", serviceIds);
+      }
+
+      // 4. Optional searchPainRelief (example default false)
+      params.append("searchPainRelief", false);
+
+      const requestUrl = `${url}?${params.toString()}`;
+      const { data } = await axios.get(requestUrl);
+
+      setData(data?.data);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getProvider();
+  }, [filters]);
+
+  return { loading, data, pagination };
+};
+
 const useTherapyType = (url) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -124,6 +203,7 @@ const useTherapyType = (url) => {
 
   return { loading, data, pagination };
 };
+
 const useProviderProfile = (url, update, setIsLocationAdded) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -149,6 +229,7 @@ const useProviderProfile = (url, update, setIsLocationAdded) => {
 
   return { loading, data, pagination };
 };
+
 const useReferralFriendsProvider = (url) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -226,6 +307,7 @@ const useSubscriptions = (url) => {
 
 export {
   useUsers,
+  useSchedules,
   useDashboardProvider,
   useDetailProvider,
   useTherapyType,
@@ -233,4 +315,5 @@ export {
   useReferralFriendsProvider,
   useReferralCodeProvider,
   useSubscriptions,
+  useAppointmentProvider,
 };
