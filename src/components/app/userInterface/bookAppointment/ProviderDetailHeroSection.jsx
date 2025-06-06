@@ -3,11 +3,11 @@ import { useNavigate } from "react-router";
 import { SkeletonProviderDetail } from "../../../global/Sekelton";
 import Button from "../../landingPage/Inputs/Button";
 
-const ProviderDetailHeroSection = ({ providerDetail, loading }) => {
-  console.log(
-    "🚀 ~ ProviderDetailHeroSection ~ providerDetail:",
-    providerDetail
-  );
+const ProviderDetailHeroSection = ({
+  providerDetail,
+  loading,
+  setBookModal,
+}) => {
   const navigate = useNavigate("");
   return (
     <div className="min-h-[550px]">
@@ -48,7 +48,11 @@ const ProviderDetailHeroSection = ({ providerDetail, loading }) => {
               </div>
 
               <div className="w-[214px] ">
-                <Button text={"Book Now"} type="button" />
+                <Button
+                  text={"Book Now"}
+                  type="button"
+                  onClick={() => setBookModal(true)}
+                />
               </div>
             </div>
           )}

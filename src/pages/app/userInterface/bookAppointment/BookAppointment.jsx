@@ -20,12 +20,14 @@ const BookAppointment = () => {
   return (
     <div>
       <HeroSection />
-      <ServiceProviders
-        providerData={data}
-        loading={loading}
-        filterData={filterData}
-        setFilterData={setFilterData}
-      />
+      <div className="relative bottom-40 ">
+        <ServiceProviders
+          providerData={data}
+          loading={loading}
+          filterData={filterData}
+          setFilterData={setFilterData}
+        />
+      </div>
     </div>
   );
 };
