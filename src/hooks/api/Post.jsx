@@ -364,14 +364,15 @@ const useCreateFamilyMember = () => {
   return { loading, postData };
 };
 const useCreateQuestion = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const postData = async (url, data = null, callback) => {
+  const postData = async (url, data = null, callback, route) => {
     try {
       setLoading(true);
       const response = await axios.post(url, { response: data });
       if (typeof callback === "function") {
-        callback(response?.data); 
+        callback(response?.data, navigate, route);
       }
       return response?.data;
     } catch (error) {

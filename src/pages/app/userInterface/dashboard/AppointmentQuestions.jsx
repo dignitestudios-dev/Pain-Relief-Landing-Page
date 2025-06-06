@@ -38,12 +38,11 @@ const AppointmentQuestions = () => {
   });
 
   const handleCreateQuestion = () => {
-    
     postData(
       "/booking/create-question",
       formData,
       processQuestionCreate,
-    
+      "/user/bookAppointment"
     );
   };
 

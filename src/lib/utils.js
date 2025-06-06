@@ -172,9 +172,10 @@ export const processDeleteAccount = (data, setDeleteModal) => {
     return;
   }
 };
-export const processQuestionCreate = (data) => {
+export const processQuestionCreate = (data, navigate, route) => {
   if (data?.success) {
     SuccessToast(data?.message);
+    navigate(route);
 
     return;
   }
