@@ -139,7 +139,7 @@ const CreateFamilyMember = () => {
                   + Add New Family Member{" "}
                 </p>
               </div>
-              {!storedMembers.length > 0 ? (
+              {!storedMembers?.length > 0 ? (
                 <div>
                   <div className=" lg:w-[350px] md:w-[500px] w-[320px] ">
                     <Button text={"Send"} />

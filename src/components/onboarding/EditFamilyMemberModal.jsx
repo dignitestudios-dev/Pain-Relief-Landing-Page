@@ -21,7 +21,7 @@ const EditFamilyMemberModal = ({
 }) => {
   const { loading, postData } = useEditFamilyMember();
   const memberToEdit = members[editIndex];
-  console.log(memberToEdit, "members");
+ 
   const subjectOptions = [
     { _id: "1", name: "Brother" },
     { _id: "2", name: "Sister" },
@@ -52,15 +52,14 @@ const EditFamilyMemberModal = ({
       descriptions: memberToEdit.description || "",
       userImage: memberToEdit.profilePicture || null,
     },
-
     validationSchema: addFamilMemberSchema,
     onSubmit: (updatedValues) => {
       const updatedMembers = [...members];
-      console.log(updatedMembers, "updatedMembers");
-      console.log(updatedValues.userImage, "updatedValues.userImage");
+
       const formattedDate = new Date(
         updatedValues.db ? updatedValues.db : values.db
       ).toISOString();
+
       const updatedPayload = {
         _id: memberToEdit._id,
         name: updatedValues.fullname,
@@ -70,8 +69,9 @@ const EditFamilyMemberModal = ({
         dateOfBirth: formattedDate,
         gender: updatedValues.gender?.[0]?.name || "",
         description: updatedValues.descriptions,
-        profilePicture: updatedValues.userImage, // handle file condition below
+        profilePicture: updatedValues.userImage,
       };
+
       updatedMembers[editIndex] = updatedValues;
       const isFile = updatedValues.userImage instanceof File;
 
@@ -93,6 +93,7 @@ const EditFamilyMemberModal = ({
           updatedPayload,
           processUpdateFamily,
           setEditModal,
+          setMembers,
           setUpdate
         );
       }
