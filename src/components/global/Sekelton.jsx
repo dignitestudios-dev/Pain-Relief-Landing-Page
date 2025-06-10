@@ -86,3 +86,53 @@ export const OptionSekelton = () => {
     ))}
   </div>;
 };
+
+export const FamilyMemberSkeleton = () => {
+  return (
+    <div className="bg-white rounded-[8px] my-6   animate-pulse">
+      <div className="flex justify-between border-b items-center mb-4">
+        <div className="h-6 bg-gray-300 rounded w-48 m-4"></div>
+        <div className="h-4 bg-gray-300 rounded w-32 m-4"></div>
+      </div>
+
+      {[...Array(2)].map((_, index) => (
+        <div key={index} className="bg-white border-b p-10 sm:p-6 mb-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-24">
+            <div className="flex items-center gap-4">
+              <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] bg-gray-300 rounded-full"></div>
+              <div>
+                <div className="h-5 bg-gray-300 rounded w-40 mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-32"></div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 flex-1">
+              <div>
+                <div className="h-4 bg-gray-300 w-20 mb-2 rounded"></div>
+                <div className="h-4 bg-gray-200 w-24 rounded"></div>
+              </div>
+              <div>
+                <div className="h-4 bg-gray-300 w-16 mb-2 rounded"></div>
+                <div className="h-4 bg-gray-200 w-12 rounded"></div>
+              </div>
+              <div>
+                <div className="h-4 bg-gray-300 w-20 mb-2 rounded"></div>
+                <div className="h-4 bg-gray-200 w-16 rounded"></div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-10">
+              <div className="w-4 h-4 bg-gray-300 rounded"></div>
+              <div className="w-4 h-4 bg-gray-300 rounded"></div>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <div className="h-5 bg-gray-300 w-32 rounded mb-2"></div>
+            <div className="h-4 bg-gray-200 w-full rounded"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};

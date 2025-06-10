@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 export const baseUrl = "https://api.painreliefusa.com";
-// export const baseUrl = "http://192.168.8.125:3050";
 
 async function getDeviceFingerprint() {
   const fp = await FingerprintJS.load();

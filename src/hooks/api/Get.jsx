@@ -305,6 +305,31 @@ const useSubscriptions = (url) => {
   return { loading, data, pagination };
 };
 
+const useUserProfile = (url, update) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
+
+  const getUserProfile = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${url}`);
+      setData(data?.data);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getUserProfile();
+  }, [update]);
+
+  return { loading, data, pagination };
+};
+
 export {
   useUsers,
   useSchedules,
@@ -316,4 +341,5 @@ export {
   useReferralCodeProvider,
   useSubscriptions,
   useAppointmentProvider,
+  useUserProfile,
 };

@@ -22,23 +22,17 @@ const AddFamilyMemberModal = ({
   loading,
 }) => {
   const [userImage, setUserImage] = useState("");
-  console.log("🚀 ~ userImage:", userImage);
 
   const subjectOptions = [
     { _id: "1", name: "Brother" },
     { _id: "2", name: "Sister" },
     { _id: "3", name: "Father" },
+    { _id: "4", name: "Mother" },
   ];
   const genderOptions = [
     { _id: "1", name: "Male" },
     { _id: "2", name: "Female" },
-    { _id: "3", name: "Non-binary" },
-    { _id: "4", name: "Transgender" },
-    { _id: "5", name: "Genderqueer" },
-    { _id: "6", name: "Agender" },
-    { _id: "7", name: "Two-Spirit" },
-    { _id: "8", name: "Prefer not to say" },
-    { _id: "9", name: "Other" },
+    { _id: "3", name: "Other" },
   ];
 
   const handleFileChange = (e) => {
@@ -212,15 +206,7 @@ const AddFamilyMemberModal = ({
 
           <div className="flex justify-end mt-3">
             <div className="w-[228px] ">
-              <Button
-                text={"Add Member"}
-                // onClick={() => {
-                //   setIsMemberAdded(true);
-                //   setIsModal(false);
-                // }}
-                loading={loading}
-                type={"submit"}
-              />
+              <Button text={"Add Member"} loading={loading} type={"submit"} />
             </div>
           </div>
         </form>

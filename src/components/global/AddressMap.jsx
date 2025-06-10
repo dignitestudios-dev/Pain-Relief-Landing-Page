@@ -14,7 +14,7 @@ const containerStyle = {
 };
 
 const defaultCenter = {
-  lat: 40.7128, // New York City
+  lat: 40.7128, 
   lng: -74.006,
 };
 

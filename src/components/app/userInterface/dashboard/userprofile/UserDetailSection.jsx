@@ -8,15 +8,15 @@ import { addFamilMemberValues } from "../../../../../init/app/userInterface";
 import { useFormik } from "formik";
 import { useCreateFamilyMember } from "../../../../../hooks/api/Post";
 import { useNavigate } from "react-router";
+import { processUserFamilyMember } from "../../../../../lib/utils";
+import EditFamilyMemberModal from "../../../../onboarding/EditFamilyMemberModal";
 
-const UserDetailSection = () => {
+const UserDetailSection = ({ userData, tableData, setUpdate, loader }) => {
   const { postData, loading } = useCreateFamilyMember();
   const navigate = useNavigate();
 
   const [editModal, setEditModal] = useState(false);
   const [isMemberAdded, setIsMemberAdded] = useState(false);
-  const [isCreated, setIsCreated] = useState(false);
-
   const [editIndex, setEditIndex] = useState(null);
   const [members, setMembers] = useState([]);
 
@@ -35,10 +35,8 @@ const UserDetailSection = () => {
     initialValues: addFamilMemberValues,
     validationSchema: addFamilMemberSchema,
     onSubmit: (values, action) => {
-      console.log("Form values:", values);
       const formattedDate = new Date(values.db).toISOString();
 
-      // Update local state if needed
       setMembers((prev) => [values, ...prev]);
       const formData = new FormData();
 
@@ -55,26 +53,26 @@ const UserDetailSection = () => {
         values.relation?.map((item) => item.name).join(", ") || ""
       );
 
-      // Handle file upload
       if (values.userImage) {
         formData.append("profilePicture", values.userImage);
       }
 
-      // Relationship (array → send only names or ids as needed)
-
-      // Gender (assuming it’s an array or single value — adjust as needed)
-
-      // Example: add description if needed
       formData.append("description", values.descriptions || "");
 
-      // Now send formData via POST
-      postData("/user/create-family-member", formData, processUserFamilyMember);
+      postData(
+        "/user/create-family-member",
+        formData,
+        processUserFamilyMember,
+        setIsModal,
+        setUpdate
+      );
 
       setIsMemberAdded(true);
-      // setIsModal(false);
+
       action.resetForm();
     },
   });
+
   return (
     <div className="flex flex-col mt-4 xl:px-20 lg:px-14  md:px-10 px-8 mb-10 ">
       <div className="w-[85%]">
@@ -96,11 +94,22 @@ const UserDetailSection = () => {
           </div>
         </div>
       </div>
-      {tabActive === "Membership Details" && <UserMemberDetail />}
-      {tabActive === "Family Members" && (
-        <FamilyMembers setIsModal={setIsModal} />
+      {tabActive === "Membership Details" && (
+        <UserMemberDetail userData={userData} loading={loader} />
       )}
-      {tabActive === "Referral Friends" && <ReferralTable />}
+      {tabActive === "Family Members" && (
+        <FamilyMembers
+          setIsModal={setIsModal}
+          userData={userData}
+          setUpdate={setUpdate}
+          loader={loader}
+          setEditIndex={setEditIndex}
+          setEditModal={setEditModal}
+        />
+      )}
+      {tabActive === "Referral Friends" && (
+        <ReferralTable tableData={tableData} />
+      )}
       {isModal && (
         <AddFamilyMemberModal
           setIsModal={setIsModal}
@@ -113,6 +122,15 @@ const UserDetailSection = () => {
           handleSubmit={handleSubmit}
           setFieldValue={setFieldValue}
           loading={loading}
+        />
+      )}
+      {editModal && (
+        <EditFamilyMemberModal
+          editIndex={editIndex}
+          members={userData?.familyMembers}
+          setMembers={setMembers}
+          setEditModal={setEditModal}
+          setUpdate={setUpdate}
         />
       )}
     </div>

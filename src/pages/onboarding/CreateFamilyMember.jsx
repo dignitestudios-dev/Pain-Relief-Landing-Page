@@ -14,22 +14,31 @@ import { addFamilMemberValues } from "../../init/app/userInterface";
 import { addFamilMemberSchema } from "../../schema/app/userInterface";
 import { getAgeFromDate, phoneFormatter } from "../../lib/helpers";
 import EditFamilyMemberModal from "../../components/onboarding/EditFamilyMemberModal";
-import { useCreateFamilyMember } from "../../hooks/api/Post";
-import { processUserFamilyMember } from "../../lib/utils";
+import {
+  useCreateFamilyMember,
+  useDeleteFamilyMember,
+} from "../../hooks/api/Post";
+import {
+  processDeleteFamilyMember,
+  processUserFamilyMember,
+} from "../../lib/utils";
 import { useNavigate } from "react-router";
 import AccountSuccess from "./AccountSuccess";
+import DeleteFamilyModal from "../../components/app/userInterface/dashboard/userprofile/DeleteFamilyModal";
 
 const CreateFamilyMember = () => {
   const { postData, loading } = useCreateFamilyMember();
+  const { postData: deleteData, loading: deleteLoader } =
+    useDeleteFamilyMember();
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [isMemberAdded, setIsMemberAdded] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
-
+  const [deleteModal, setDeleteModal] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [members, setMembers] = useState([]);
-
+  const [selectedMemberId, setSelectedMemberId] = useState(null);
   const {
     values,
     errors,
@@ -42,11 +51,9 @@ const CreateFamilyMember = () => {
     initialValues: addFamilMemberValues,
     validationSchema: addFamilMemberSchema,
     onSubmit: (values, action) => {
-      console.log("Form values:", values);
       const formattedDate = new Date(values.db).toISOString();
 
-      // Update local state if needed
-      setMembers((prev) => [values, ...prev]);
+      // setMembers((prev) => [values, ...prev]);
       const formData = new FormData();
 
       formData.append("name", values.fullname);
@@ -62,31 +69,43 @@ const CreateFamilyMember = () => {
         values.relation?.map((item) => item.name).join(", ") || ""
       );
 
-      // Handle file upload
       if (values.userImage) {
         formData.append("profilePicture", values.userImage);
       }
 
-      // Relationship (array → send only names or ids as needed)
-
-      // Gender (assuming it’s an array or single value — adjust as needed)
-
-      // Example: add description if needed
       formData.append("description", values.descriptions || "");
 
-      // Now send formData via POST
-      postData("/user/create-family-member", formData, processUserFamilyMember);
-
-      setIsMemberAdded(true);
-      // setIsModal(false);
+      postData(
+        "/user/create-family-member",
+        formData,
+        processUserFamilyMember,
+        setIsModal,
+        () => {},
+        setMembers
+      );
       action.resetForm();
+      setIsMemberAdded(true);
     },
   });
+  const storedMembers = JSON.parse(sessionStorage.getItem("familyMembers"));
 
   const handleCreateFamily = () => {
     setIsCreated(true);
   };
 
+  const handleDeleteMember = () => {
+    deleteData(
+      "/user/delete-family-member",
+      selectedMemberId,
+      processDeleteFamilyMember,
+      setDeleteModal,
+      () => {}
+    );
+  };
+  const openDeleteModal = (id) => {
+    setSelectedMemberId(id);
+    setDeleteModal(true);
+  };
   return (
     <Fragment>
       {isCreated ? (
@@ -120,7 +139,7 @@ const CreateFamilyMember = () => {
                   + Add New Family Member{" "}
                 </p>
               </div>
-              {!isMemberAdded ? (
+              {!storedMembers?.length > 0 ? (
                 <div>
                   <div className=" lg:w-[350px] md:w-[500px] w-[320px] ">
                     <Button text={"Send"} />
@@ -139,18 +158,14 @@ const CreateFamilyMember = () => {
               ) : (
                 <>
                   <div className="lg:w-[350px] md:w-[500px] w-[320px] max-h-[250px] overflow-y-auto overflow-x-hidden p-3 space-y-4">
-                    {members?.map((values, index) => (
+                    {storedMembers?.map((values, index) => (
                       <div key={index}>
                         <div className=" rounded-[12px] h-[194px] p-4 shadow-[0_0_16px_rgba(17,17,26,0.1)] ">
                           <div className="grid grid-cols-6 justify-between items-center gap-2 border-b-[1px] border-b-[#D9D9D9] pb-2">
                             <div className="col-span-5 flex items-center gap-2">
                               <div>
                                 <img
-                                  src={
-                                    values.userImage
-                                      ? URL.createObjectURL(values.userImage)
-                                      : UserProfile
-                                  }
+                                  src={values?.profilePicture}
                                   alt="Profile"
                                   className="w-10 h-10 rounded-full border-2 border-blue-600"
                                 />
@@ -160,7 +175,7 @@ const CreateFamilyMember = () => {
                                 {" "}
                                 {/* important: restrict shrinking */}
                                 <p className="capitalize text-[16px] font-medium truncate">
-                                  {values.fullname || "John Alex"}
+                                  {values.name}
                                 </p>
                                 <p className="text-[12px] text-[#565656] truncate max-w-[200px]">
                                   {values.email || ""}
@@ -180,23 +195,29 @@ const CreateFamilyMember = () => {
                               >
                                 <img src={EditIcon} />
                               </span>
-                              <span>
-                                <img src={RedBin} />
-                              </span>
+                              <button
+                                onClick={() => openDeleteModal(values._id)}
+                              >
+                                <img
+                                  src={RedBin}
+                                  className="h-[17px] w-[17px]"
+                                  alt="Delete"
+                                />
+                              </button>
                             </div>
                           </div>
 
                           <div className="grid grid-cols-4 text-[rgb(33,33,33)] text-[14px] border-b-[1px] border-b-[#D9D9D9] py-3">
                             <div className="col-span-1 ">
-                              {getAgeFromDate(values.db)}
+                              {getAgeFromDate(values.dateOfBirth)}
                             </div>
                             <div className="col-span-3 border-l-[1px] border-l-[#D9D9D9] pl-6">
-                              {values?.gender?.map((item) => item?.name) || ""}
+                              {values?.gender}
                             </div>
                           </div>
                           <div>
                             <p className="text-[#565656] text-[14px] py-3">
-                              {values.descriptions || ""}
+                              {values.description || ""}
                             </p>
                           </div>
                         </div>
@@ -234,9 +255,16 @@ const CreateFamilyMember = () => {
       {editModal && (
         <EditFamilyMemberModal
           editIndex={editIndex}
-          members={members}
+          members={storedMembers}
           setMembers={setMembers}
-          setEditModal={setEditModal} // <-- you should add this if you want to close the modal
+          setEditModal={setEditModal}
+        />
+      )}
+      {deleteModal && (
+        <DeleteFamilyModal
+          onClick={handleDeleteMember}
+          onClose={() => setDeleteModal(false)}
+          loading={deleteLoader}
         />
       )}
     </Fragment>

@@ -79,12 +79,13 @@ import Scanner from "./UserInterFace/scanner.png";
 import BgIdCard from "./UserInterFace/bgidCard.png";
 import InfoCircle from "./UserInterFace/InfoCircle.png";
 import StripeIcon from "./UserInterFace/stripeIcon.png";
+import DustbinIcon from "./UserInterFace/dustbinIcon.png";
 
 export {
   NoInternetImage,
   HeroSection,
   Logo,
-  Tick, 
+  Tick,
   DesktopLogo,
   LogoFooter,
   FooterTick,
@@ -162,4 +163,5 @@ export {
   BgIdCard,
   InfoCircle,
   StripeIcon,
+  DustbinIcon,
 };

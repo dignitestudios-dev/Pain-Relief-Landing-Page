@@ -18,20 +18,13 @@ import { processUserProfileCreate } from "../../lib/utils";
 const genderOptions = [
   { _id: "1", name: "Male" },
   { _id: "2", name: "Female" },
-  { _id: "3", name: "Non-binary" },
-  { _id: "4", name: "Transgender" },
-  { _id: "5", name: "Genderqueer" },
-  { _id: "6", name: "Agender" },
-  { _id: "7", name: "Two-Spirit" },
-  { _id: "8", name: "Prefer not to say" },
-  { _id: "9", name: "Other" },
+  { _id: "3", name: "Other" },
 ];
 
 const CreateProfile = () => {
   const { userData } = useContext(AppContext);
 
   const [userImage, setUserImage] = useState("");
-  console.log("🚀 ~ CreateProfile ~ userImage:", userImage);
 
   const { loading, postData } = useProviderCreateProfile();
 
@@ -49,7 +42,7 @@ const CreateProfile = () => {
     onSubmit: (values) => {
       console.log("Form values:", values);
       const isoDate = new Date(values.db).toISOString().split("T")[0];
-
+      const gender = values.gender.map((item) => item.name);
       const formData = new FormData();
 
       formData.append("firstName", values.fname);
@@ -60,6 +53,7 @@ const CreateProfile = () => {
       formData.append("city", values.city);
       formData.append("state", values.state);
       formData.append("dateOfBirth", isoDate);
+      formData.append("gender", gender);
       formData.append("profilePicture", values.userImage);
 
       postData(
@@ -105,6 +99,7 @@ const CreateProfile = () => {
     // If location object is needed for backend (e.g., coordinates)
     setFieldValue("location", data.location);
   };
+  console.log(values.gender, "values.gender");
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">

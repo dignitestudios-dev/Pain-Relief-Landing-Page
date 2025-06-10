@@ -20,27 +20,27 @@ const CardsSection = () => {
     {
       img: MemberShip,
       title: "My Membership",
-      url: "",
+      url: "/user/membership",
     },
     {
       img: IdCard,
       title: "View ID Card",
-      url: "",
+      url: "/user/user-id-card",
     },
     {
       img: MemberGuide,
       title: "View Member Guide",
-      url: "",
+      url: "/user/membership-guide",
     },
     {
       img: Memberagreement,
       title: "View Member Agreement",
-      url: "",
+      url: "/user/membershipagreement",
     },
     {
       img: Referfriend,
       title: "Refer a Friend",
-      url: "",
+      url: "/user/refferal",
     },
   ];
   return (

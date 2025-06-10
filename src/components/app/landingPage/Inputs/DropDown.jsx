@@ -116,13 +116,15 @@ export const DropDownDark = ({
   iscolor = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [selected, setSelected] = useState([]);
+  
+  {
+    console.log(options, "genderOptions");
+  }
 
   const dropdownRef = useRef();
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -135,7 +137,7 @@ export const DropDownDark = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  console.log(value, "value");
   return (
     <div ref={dropdownRef} className="relative w-full">
       {label && (
@@ -165,12 +167,18 @@ export const DropDownDark = ({
           ) : (
             <div
               className="text-black text-[14px] font-[500] px-3 py-1 rounded-[10px] whitespace-nowrap overflow-hidden text-ellipsis"
-              title={value.map((item) => item?.name).join(", ")} // show full list on hover
+              title={
+                Array.isArray(value)
+                  ? value?.map((item) => item?.name).join(", ")
+                  : value
+              }
             >
-              {value
-                .map((item) => item?.name)
-                .slice(0, 2) // show only first 2 names
-                .join(", ")}
+              {Array.isArray(value)
+                ? value
+                    ?.map((item) => item?.name)
+                    .slice(0, 2)
+                    .join(", ")
+                : value}
               {value.length > 2 && "..."}
             </div>
           )}
@@ -188,7 +196,10 @@ export const DropDownDark = ({
         ) : (
           <div className="absolute top-full left-0 w-full border rounded-[8px] mt-1 shadow-md z-10 max-h-60 overflow-y-auto bg-white text-black">
             {options?.map((option) => {
-              const isChecked = value?.some((item) => item.id === option._id);
+            const isChecked = Array.isArray(value)
+  ? value.some((item) => item.id === option._id || item._id === option._id)
+  : value === option._id;
+
               return (
                 <label
                   key={option?._id}

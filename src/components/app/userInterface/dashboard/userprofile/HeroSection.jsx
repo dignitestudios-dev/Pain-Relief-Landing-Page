@@ -1,15 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { IoIosArrowBack } from "react-icons/io"; // ✅ MISSING IMPORT FIXED
+import { IoIosArrowBack } from "react-icons/io";
 
 import { ProfileImg } from "../../../../../assets/export";
 import { SkeletonProviderDetail } from "../../../../global/Sekelton";
 import Button from "../../../landingPage/Inputs/Button";
 
-const HeroSection = () => {
+const HeroSection = ({ userData, loading }) => {
   const navigate = useNavigate();
 
-  const isLoading = false; // ✅ Use variable for condition
+  const isLoading = false;
 
   return (
     <div className="min-h-[250px]">
@@ -36,7 +36,11 @@ const HeroSection = () => {
                 <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[130px] h-[130px]">
                   <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
                     <img
-                      src={ProfileImg}
+                      src={
+                        userData?.profilePicture
+                          ? userData?.profilePicture
+                          : ProfileImg
+                      }
                       className="w-[120px] h-[120px] rounded-full object-cover"
                       alt="Profile"
                     />
@@ -44,9 +48,12 @@ const HeroSection = () => {
                 </div>
 
                 <div className="text-center sm:text-left">
-                  <h2 className="text-[28px] font-semibold text-black">Jhon</h2>
+                  <h2 className="text-[28px] font-semibold text-black">
+                    {" "}
+                    {userData?.firstName} {userData?.lastName}
+                  </h2>
                   <p className="text-[16px] text-[#565656] break-all">
-                    Jhon@gmail.com
+                    {userData?.email}
                   </p>
                 </div>
               </div>
@@ -54,7 +61,11 @@ const HeroSection = () => {
               <div className="w-full sm:w-[160px] md:w-[180px] lg:w-[214px]">
                 <Button
                   text={"Edit Profile"}
-                  onClick={() => navigate("/user/upgrade-plan")}
+                  onClick={() =>
+                    navigate("/user/user-edit-profile", {
+                      state: userData,
+                    })
+                  }
                 />
               </div>
             </div>
