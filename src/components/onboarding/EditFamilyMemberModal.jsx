@@ -9,15 +9,19 @@ import Calender from "../global/DatePicker";
 import PhoneInput from "../app/landingPage/Inputs/PhoneInput";
 import { phoneFormatter } from "../../lib/helpers";
 import { addFamilMemberSchema } from "../../schema/app/userInterface";
+import { useEditFamilyMember } from "../../hooks/api/Post";
+import { processUpdateFamily } from "../../lib/utils";
 
 const EditFamilyMemberModal = ({
   editIndex,
   members,
   setMembers,
   setEditModal,
+  setUpdate,
 }) => {
+  const { loading, postData } = useEditFamilyMember();
   const memberToEdit = members[editIndex];
-
+  console.log(memberToEdit, "members");
   const subjectOptions = [
     { _id: "1", name: "Brother" },
     { _id: "2", name: "Sister" },
@@ -26,12 +30,6 @@ const EditFamilyMemberModal = ({
   const genderOptions = [
     { _id: "1", name: "Male" },
     { _id: "2", name: "Female" },
-    { _id: "3", name: "Non-binary" },
-    { _id: "4", name: "Transgender" },
-    { _id: "5", name: "Genderqueer" },
-    { _id: "6", name: "Agender" },
-    { _id: "7", name: "Two-Spirit" },
-    { _id: "8", name: "Prefer not to say" },
     { _id: "9", name: "Other" },
   ];
 
@@ -45,21 +43,62 @@ const EditFamilyMemberModal = ({
     touched,
   } = useFormik({
     initialValues: {
-      fullname: memberToEdit.fullname || "",
+      fullname: memberToEdit.name || "",
       email: memberToEdit.email || "",
       phone: memberToEdit.phone || "",
-      relation: memberToEdit.relation || [],
-      db: memberToEdit.db || "",
+      relation: memberToEdit.relationship || [],
+      db: memberToEdit.dateOfBirth || "",
       gender: memberToEdit.gender || [],
-      descriptions: memberToEdit.descriptions || "",
-      userImage: memberToEdit.userImage || null,
+      descriptions: memberToEdit.description || "",
+      userImage: memberToEdit.profilePicture || null,
     },
+
     validationSchema: addFamilMemberSchema,
     onSubmit: (updatedValues) => {
       const updatedMembers = [...members];
+      console.log(updatedMembers, "updatedMembers");
+      console.log(updatedValues.userImage, "updatedValues.userImage");
+      const formattedDate = new Date(
+        updatedValues.db ? updatedValues.db : values.db
+      ).toISOString();
+      const updatedPayload = {
+        _id: memberToEdit._id,
+        name: updatedValues.fullname,
+        email: updatedValues.email,
+        phone: updatedValues.phone,
+        relationship: updatedValues.relation?.[0]?.name || "",
+        dateOfBirth: formattedDate,
+        gender: updatedValues.gender?.[0]?.name || "",
+        description: updatedValues.descriptions,
+        profilePicture: updatedValues.userImage, // handle file condition below
+      };
       updatedMembers[editIndex] = updatedValues;
-      setMembers(updatedMembers);
-      setEditModal(false);
+      const isFile = updatedValues.userImage instanceof File;
+
+      if (isFile) {
+        const formData = new FormData();
+        for (const key in updatedPayload) {
+          formData.append(key, updatedPayload[key]);
+        }
+        postData(
+          "/user/update-family-member",
+          formData,
+          processUpdateFamily,
+          setEditModal,
+          setUpdate
+        );
+      } else {
+        postData(
+          "/user/update-family-member",
+          updatedPayload,
+          processUpdateFamily,
+          setEditModal,
+          setUpdate
+        );
+      }
+
+      // setMembers(updatedMembers);
+      // setEditModal(false);
     },
   });
 
@@ -72,8 +111,10 @@ const EditFamilyMemberModal = ({
 
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
-      <div className="bg-white overflow-y-auto overflow-x-hidden rounded-[18px] shadow-md p-6 
-        lg:w-[900px] md:w-[600px] w-full lg:h-[625px] h-[725px]">
+      <div
+        className="bg-white overflow-y-auto overflow-x-hidden rounded-[18px] shadow-md p-6 
+        lg:w-[900px] md:w-[600px] w-full lg:h-[625px] h-[725px]"
+      >
         <div className="flex justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
           <p className="text-[24px] font-semibold">Edit Family Member</p>
           <span
@@ -103,8 +144,8 @@ const EditFamilyMemberModal = ({
                 src={
                   values.userImage
                     ? typeof values.userImage === "string"
-                      ? values.userImage // existing image URL
-                      : URL.createObjectURL(values.userImage) // new uploaded file
+                      ? values.userImage
+                      : URL.createObjectURL(values.userImage)
                     : UserProfile
                 }
                 alt="User"
@@ -236,7 +277,7 @@ const EditFamilyMemberModal = ({
 
           <div className="flex justify-end mt-3">
             <div className="w-[228px]">
-              <Button text="Save Changes" type="submit" />
+              <Button text="Save Changes" type="submit" loading={loading} />
             </div>
           </div>
         </form>

@@ -342,16 +342,24 @@ const useDeleteAccountProvider = () => {
 
   return { loading, postData };
 };
+
 const useCreateFamilyMember = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const postData = async (url, data = null, callback, setDeleteModal) => {
+  const postData = async (
+    url,
+    data = null,
+    callback,
+    setIsModal,
+    setUpdate,
+    setMembers
+  ) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data);
       if (typeof callback === "function") {
-        callback(response?.data, setDeleteModal);
+        callback(response?.data, setIsModal, setUpdate, setMembers);
       }
       return response?.data;
     } catch (error) {
@@ -384,6 +392,63 @@ const useCreateQuestion = () => {
 
   return { loading, postData };
 };
+const useDeleteFamilyMember = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const postData = async (
+    url,
+    data = null,
+    callback,
+    setDeleteModal,
+    setUpdate
+  ) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, {
+        familyMemberId: data,
+      });
+      if (typeof callback === "function") {
+        callback(response?.data, setDeleteModal, setUpdate, data);
+      }
+      return response?.data;
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
+const useEditFamilyMember = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const postData = async (
+    url,
+    data = null,
+    callback,
+    setEditModal,
+    setMembers,
+    setUpdate
+  ) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, data);
+      if (typeof callback === "function") {
+        callback(response?.data, setEditModal, setMembers, setUpdate);
+      }
+      return response?.data;
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
 
 export {
   useLogin,
@@ -401,4 +466,6 @@ export {
   useDeleteAccountProvider,
   useCreateFamilyMember,
   useCreateQuestion,
+  useDeleteFamilyMember,
+  useEditFamilyMember,
 };

@@ -62,10 +62,18 @@ export const processUserProfileCreate = (data, navigate, loginAuth) => {
   }
 };
 
-export const processUserFamilyMember = (data) => {
+export const processUserFamilyMember = (
+  data,
+  setIsModal,
+  setUpdate,
+  setMembers
+) => {
   if (data?.success) {
     SuccessToast(data?.message);
-
+    setIsModal(false);
+    setUpdate((prev) => !prev);
+    setMembers(data?.data);
+    sessionStorage.setItem("familyMembers", JSON.stringify(data?.data));
     return;
   }
 };
@@ -176,6 +184,36 @@ export const processQuestionCreate = (data, navigate, route) => {
   if (data?.success) {
     SuccessToast(data?.message);
     navigate(route);
+    return;
+  }
+};
+
+export const processDeleteFamilyMember = (
+  data,
+  setDeleteModal,
+  setUpdate,
+  selectedMemberId
+) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    setDeleteModal(false);
+    setUpdate((prev) => !prev);
+    const storedMembers =
+      JSON.parse(sessionStorage.getItem("familyMembers")) || [];
+    const updatedMembers = storedMembers.filter(
+      (member) => member._id != selectedMemberId
+    );
+    sessionStorage.setItem("familyMembers", JSON.stringify(updatedMembers));
+    return;
+  }
+};
+
+export const processUpdateFamily = (data, setEditModal, setUpdate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    setEditModal(false);
+    setUpdate((prev) => !prev);
+    sessionStorage.setItem("familyMembers", JSON.stringify(data?.data));
 
     return;
   }

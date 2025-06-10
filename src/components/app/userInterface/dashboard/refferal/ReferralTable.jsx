@@ -10,7 +10,8 @@ const referralData = Array(7).fill({
   status: "Subscribes",
 });
 
-const ReferralTable = () => {
+const ReferralTable = ({tableData}) => {
+  
   return (
     <div className="bg-white rounded-lg shadow-md  mt-4">
       <div className="flex justify-between items-center mb-4 border-b border-b-[#EAEAEA] pb-4  p-4">
@@ -35,7 +36,7 @@ const ReferralTable = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {referralData?.map((item, index) => (
+            {tableData?.map((item, index) => (
               <tr key={index} className="text-sm text-[#212121]">
                 <td className="py-3 px-4">{index + 1}</td>
                 <td className="py-3 px-4">ID54154</td>

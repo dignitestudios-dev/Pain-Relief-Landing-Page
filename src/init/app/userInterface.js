@@ -13,5 +13,6 @@ export const userProfileValues = {
   lname: "",
   email: "",
   phone: "",
+  gender: "",
   userImage: null,
 };
