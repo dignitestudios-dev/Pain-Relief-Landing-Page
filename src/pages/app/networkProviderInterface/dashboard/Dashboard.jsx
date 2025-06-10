@@ -7,6 +7,7 @@ import { useSendRequest } from "../../../../hooks/api/Post";
 import RequestSendModal from "../../../../components/app/networkProviderInterface/dashboard/home/RequestSendModal";
 import { processSendRequest } from "../../../../lib/utils";
 import { AppContext } from "../../../../context/AppContext";
+import { useSchedules } from "../../../../hooks/api/Get";
 
 const Dashboard = () => {
   const { userData, loginAuth } = useContext(AppContext);
@@ -26,11 +27,17 @@ const Dashboard = () => {
       loginAuth
     );
   };
+
+  const { data, loading, pagination } = useSchedules(
+    `/booking/get-appointments-provider`
+  );
+  console.log("🚀 ~ Dashboard ~ pagination:", pagination);
+
   return (
     <div>
       <HeroSection />
       <AppointmentCard />
-      <AppoitmentTable />
+      <AppoitmentTable appointmentData={data} loading={loading} />
       <BecomeACoachCard
         requestModal={requestModal}
         handleRequestSend={handleRequestSend}

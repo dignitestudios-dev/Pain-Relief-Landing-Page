@@ -1,12 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
 import HeroSection from "../../../../components/app/networkProviderInterface/dashboard/networkProviderDetail/HeroSection";
 import ClinicSection from "../../../../components/app/networkProviderInterface/dashboard/networkProviderDetail/ClinicSection";
+import AppointmentQuestionSection from "../../../../components/app/networkProviderInterface/dashboard/networkProviderDetail/AppointmentQuestionSection";
+import CancelModal from "../../../../components/app/userInterface/dashboard/userDetails/CancelModal";
+import CancelReasonModal from "../../../../components/app/userInterface/dashboard/userDetails/CancelReasonModal";
+import CancelRequestSuccess from "../../../../components/app/userInterface/dashboard/userDetails/CancelRequestSuccess";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useLocation } from "react-router";
 
 const NetworkProviderDetail = () => {
+  const [description, setDescription] = useState("");
+  const [cancelModal, setCancelModal] = useState(false);
+  const [cancelReasonModal, setCancelReasonModal] = useState(false);
+  const [cancelRequestModal, setCancelRequestModal] = useState(false);
+
+  const { state } = useLocation();
+  console.log("this is state===> ", state);
+
+  // /booking/get-appointment/681cc5d4cd6ed5dfb66431d6
+
+  const validationSchema = Yup.object().shape({
+    description: Yup.string()
+      .required("Description is required")
+      .min(5, "Description must be at least 5 characters")
+      .max(500, "Description cannot exceed 500 characters"),
+  });
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    setValues,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      description: "",
+    },
+    validationSchema: validationSchema,
+    enableReinitialize: true,
+
+    onSubmit: (values) => {
+      setDescription(values.description);
+      setCancelReasonModal(false);
+      setCancelRequestModal(true);
+    },
+  });
+
   return (
     <div>
       <HeroSection />
-      <ClinicSection />
+      {/* <ClinicSection /> */}
+      <AppointmentQuestionSection
+        setCancelModal={setCancelModal}
+        description={description}
+        AppointmentData={state}
+      />
+      {cancelModal && (
+        <CancelModal
+          onClick={() => {
+            setCancelModal(false);
+            setCancelReasonModal(true);
+          }}
+        />
+      )}
+      {cancelReasonModal && (
+        <CancelReasonModal
+          values={values}
+          errors={errors}
+          touched={touched}
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          handleSubmit={handleSubmit}
+          onCLose={() => setCancelReasonModal(false)}
+        />
+      )}
+      {cancelRequestModal && (
+        <CancelRequestSuccess onClick={() => setCancelRequestModal(false)} />
+      )}
     </div>
   );
 };
