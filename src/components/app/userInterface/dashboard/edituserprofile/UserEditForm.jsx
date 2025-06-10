@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { userProfileSchema } from "../../../../../schema/app/userInterface";
 import { useState } from "react";
 import AddressMap from "../../../../global/AddressMap";
+import GoogleMapComponent from "../../../../global/GoogleMap";
 
 const UserEditForm = ({ genderOptions, editProfile }) => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -65,6 +66,10 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       setFieldValue("profilePicture", file);
     }
   };
+  const onLocationSelect = (data) => {
+    
+  };
+
   return (
     <div className="flex flex-col items-center justify-center p-4 md:p-8">
       <div className="w-full md:w-[50%]">
@@ -173,7 +178,12 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
             }
           />
         </div>
-        <AddressMap location={editProfile?.location?.coordinates} />
+        <div className="w-[421px] h-[194px] mt-3 rounded-md overflow-hidden">
+          <GoogleMapComponent
+          onLocationSelect={onLocationSelect}
+          // editProfile={}
+          />
+        </div>
 
         <div className="my-5">
           <Button text="Save" type={"submit"} />
