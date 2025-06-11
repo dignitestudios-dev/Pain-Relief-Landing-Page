@@ -66,7 +66,12 @@ const UserDetails = () => {
         />
       )}
       {cancelRequestModal && (
-        <CancelRequestSuccess onClick={() => setCancelRequestModal(false)} />
+        <CancelRequestSuccess
+          onClick={() => setCancelRequestModal(false)}
+          heading="Cancelled Booking"
+          content="You have Reject the user request. Thank you for taking action
+              promptly!"
+        />
       )}
     </div>
   );

@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "../../../landingPage/Inputs/Button";
 
 const CancelReasonModal = ({
@@ -9,7 +8,8 @@ const CancelReasonModal = ({
   handleChange,
   touched,
   values,
-  onCLose
+  loading,
+  onCLose,
 }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
@@ -17,7 +17,7 @@ const CancelReasonModal = ({
         <div className="flex flex-col justify-center items-center lg:h-auto md:h-screen ">
           <div className="text-center w-[330px] flex flex-col justify-center items-center">
             <p className="text-[24px] font-[600] capitalize">
-              Cancelation Reason
+              Cancellation Reason
             </p>
           </div>
         </div>
@@ -39,12 +39,16 @@ const CancelReasonModal = ({
           </div>
 
           <div className="flex justify-between gap-4 mt-4">
-            <button onClick={onCLose} type="button" className="w-[205px] h-[49px] rounded-[8px] bg-[#E0E0E0] text-[#565656] ">
+            <button
+              onClick={onCLose}
+              type="button"
+              className="w-[205px] h-[49px] rounded-[8px] bg-[#E0E0E0] text-[#565656] "
+            >
               {" "}
               Not Now
             </button>
             <div className="w-[205px] ">
-              <Button text={"Submit"} onClick={onClick} />
+              <Button text={"Submit"} onClick={onClick} loading={loading} />
             </div>
           </div>
         </form>

@@ -25,6 +25,7 @@ const GoogleMapComponent = ({
   editAddress,
   distance = 1,
   showRadius = false,
+  isDisabled = false,
 }) => {
   const radiusInMeters = distance * 1609.34;
 
@@ -43,7 +44,7 @@ const GoogleMapComponent = ({
       const [lng, lat] = editAddress.location.coordinates;
       setMapCenter({ lat, lng });
       setMarker({ lat, lng });
-      setInputValue(editAddress.address || "");
+      setInputValue(editAddress.address || editAddress.clinicAddress);
     } else if (editAddress?.location?.length) {
       const [lng, lat] = editAddress?.location;
       setMapCenter({ lat, lng });
@@ -96,6 +97,7 @@ const GoogleMapComponent = ({
         <input
           type="text"
           value={inputValue}
+          disabled={isDisabled}
           placeholder="Enter your street, city, state, zip?"
           className="w-full p-2 rounded-md border border-gray-300 mb-2"
           onChange={(e) => setInputValue(e.target.value)} // controlled input

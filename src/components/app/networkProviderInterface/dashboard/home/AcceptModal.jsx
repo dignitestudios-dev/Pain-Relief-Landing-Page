@@ -2,7 +2,7 @@ import React from "react";
 import { ErrorIcon } from "../../../../../assets/export";
 import Button from "../../../landingPage/Inputs/Button";
 
-const AcceptModal = ({ onClick }) => {
+const AcceptModal = ({ onClick, type, loading, onClose }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] ">
@@ -18,12 +18,21 @@ const AcceptModal = ({ onClick }) => {
           </div>
         </div>
         <div className="flex justify-between gap-4 mt-4">
-          <button className="w-[205px] h-[49px] rounded-[8px] bg-[#E0E0E0] text-[#565656] ">
+          <button
+            onClick={onClose}
+            type="button"
+            className="w-[205px] h-[49px] rounded-[8px] bg-[#E0E0E0] text-[#565656] "
+          >
             {" "}
             Cancel
           </button>
           <div className="w-[205px] ">
-            <Button text={"Accept"} onClick={onClick} />
+            <Button
+              text={"Accept"}
+              onClick={onClick}
+              type={type}
+              loading={loading}
+            />
           </div>
         </div>
       </div>

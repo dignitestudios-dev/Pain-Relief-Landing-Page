@@ -193,6 +193,7 @@ const useSendRequest = () => {
 
   return { loading, postData };
 };
+
 const useAddAddresss = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -342,7 +343,6 @@ const useDeleteAccountProvider = () => {
 
   return { loading, postData };
 };
-
 const useCreateFamilyMember = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -450,6 +450,32 @@ const useEditFamilyMember = () => {
   return { loading, postData };
 };
 
+const useAppointmentRequest = () => {
+  const [loading, setLoading] = useState(false);
+
+  const postData = async (
+    url,
+    data = null,
+    callback,
+    modal = () => {},
+    setUpdate
+  ) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, data);
+      if (typeof callback === "function") {
+        callback(response?.data, modal, setUpdate);
+      }
+      return response?.data;
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return { loading, postData };
+};
+
 export {
   useLogin,
   useSignUp,
@@ -468,4 +494,5 @@ export {
   useCreateQuestion,
   useDeleteFamilyMember,
   useEditFamilyMember,
+  useAppointmentRequest,
 };

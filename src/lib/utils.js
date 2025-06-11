@@ -176,7 +176,6 @@ export const processDeleteAccount = (data, setDeleteModal) => {
   if (data?.success) {
     SuccessToast(data?.message);
     setDeleteModal(true);
-
     return;
   }
 };
@@ -214,6 +213,16 @@ export const processUpdateFamily = (data, setEditModal, setUpdate) => {
     setEditModal(false);
     setUpdate((prev) => !prev);
     sessionStorage.setItem("familyMembers", JSON.stringify(data?.data));
+
+    return;
+  }
+};
+
+export const processAppointmentRequest = (data, modal, setUpdate) => {
+  if (data?.success) {
+    modal("", "");
+    setUpdate((prev) => !prev);
+    SuccessToast(data?.message);
 
     return;
   }

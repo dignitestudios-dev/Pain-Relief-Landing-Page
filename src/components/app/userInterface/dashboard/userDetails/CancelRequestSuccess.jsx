@@ -1,7 +1,7 @@
 import React from "react";
 import { SmallTick } from "../../../../../assets/export";
 
-const CancelRequestSuccess = ({ onClick }) => {
+const CancelRequestSuccess = ({ onClick, heading, content }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] h-[337px]">
@@ -31,13 +31,8 @@ const CancelRequestSuccess = ({ onClick }) => {
             <div className=" mb-8">
               <img src={SmallTick} />
             </div>
-            <p className="text-[24px] font-semibold capitalize">
-              Cancelled Booking
-            </p>
-            <p className="text-[16px] text-[#565656]">
-              You have Reject the user request. Thank you for taking action
-              promptly!
-            </p>
+            <p className="text-[24px] font-semibold capitalize">{heading}</p>
+            <p className="text-[16px] text-[#565656]">{content}</p>
           </div>
         </div>
       </div>
