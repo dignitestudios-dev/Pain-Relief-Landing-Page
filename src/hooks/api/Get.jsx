@@ -329,6 +329,30 @@ const useUserProfile = (url, update) => {
 
   return { loading, data, pagination };
 };
+const useGetCards = (url, update) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
+
+  const getGetCards = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${url}`);
+      setData(data?.data);
+      setPagination(data?.pagination);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getGetCards();
+  }, [update]);
+
+  return { loading, data, pagination };
+};
 
 export {
   useUsers,
@@ -342,4 +366,5 @@ export {
   useSubscriptions,
   useAppointmentProvider,
   useUserProfile,
+  useGetCards,
 };

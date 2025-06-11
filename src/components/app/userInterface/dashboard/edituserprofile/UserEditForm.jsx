@@ -4,13 +4,20 @@ import Button from "../../../landingPage/Inputs/Button";
 import Calender from "../../../../global/DatePicker";
 import { DropDownDark } from "../../../landingPage/Inputs/DropDown";
 import { useFormik } from "formik";
-import { userProfileSchema } from "../../../../../schema/app/userInterface";
+import {
+  userEditProfileSchema,
+  userProfileSchema,
+} from "../../../../../schema/app/userInterface";
 import { useState } from "react";
 import AddressMap from "../../../../global/AddressMap";
 import GoogleMapComponent from "../../../../global/GoogleMap";
+import { processEditUserProfile } from "../../../../../lib/utils";
+import { useEditUserProfile } from "../../../../../hooks/api/Post";
 
 const UserEditForm = ({ genderOptions, editProfile }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+  console.log(editProfile?.addresses[0], "addresses");
+  const { loading, postData } = useEditUserProfile();
 
   const {
     values,
@@ -28,46 +35,48 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       phone: editProfile.phone || "",
       dateOfBirth: editProfile.dateOfBirth || "",
       gender: editProfile.gender || "",
-      location: editProfile.location || "",
+      address: editProfile?.addresses[0] || "",
       profilePicture: editProfile.profilePicture,
     },
-    validationSchema: userProfileSchema,
+    validationSchema: userEditProfileSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      const formattedDate = new Date(values.dateOfBirth).toISOString();
       const formData = new FormData();
 
       // 👇 Append all form fields
-      formData.append("name", values.fname || "");
-      formData.append("lname", values.lname || "");
+      formData.append("firstName", values.fname || "");
+      formData.append("lastName", values.lname || "");
       formData.append("email", values.email || "");
       formData.append("phone", values.phone || "");
-      formData.append("npi", values.npi || "");
-      formData.append("website", values.website || "");
-      formData.append("description", values.description || "");
-
+      formData.append("country", values.address.country || "");
+      formData.append("address", values.address.address || "");
+      formData.append("city", values.address.city || "");
+      formData.append("state", values.address.state || "");
+      formData.append("dateOfBirth", formattedDate || "");
       // 👇 Append image file
       if (selectedImage) {
         formData.append("profilePicture", selectedImage);
       }
 
-      //   postData(
-      //     "/provider/update-profile",
-      //     formData,
-      //     // processEditProviderProfile,
-      //     setUpdate
-      //   );
+      postData("/user/update-profile", formData, processEditUserProfile);
     },
   });
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log("Image selected:", file);
       setSelectedImage(file);
       setFieldValue("profilePicture", file);
     }
   };
-  const onLocationSelect = (data) => {
-    
+
+  const onLocationSelect = (location) => {
+    setFieldValue("address", {
+      country: location.country || "",
+      address: location.address || "",
+      city: location.city || "",
+      state: location.state || "",
+    });
   };
 
   return (
@@ -91,7 +100,7 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
               src={
                 selectedImage
                   ? URL.createObjectURL(selectedImage)
-                  : editProfile?.profilePicture || ProfileImg
+                  : values?.profilePicture || ProfileImg
               }
               alt="Avatar"
               className="w-16 h-16 rounded-full bg-white object-cover"
@@ -178,15 +187,15 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
             }
           />
         </div>
-        <div className="w-[421px] h-[194px] mt-3 rounded-md overflow-hidden">
+        <div className="mt-3">
           <GoogleMapComponent
-          onLocationSelect={onLocationSelect}
-          // editProfile={}
+            onLocationSelect={onLocationSelect}
+            editAddress={values?.address}
           />
         </div>
 
         <div className="my-5">
-          <Button text="Save" type={"submit"} />
+          <Button text="Save" type={"submit"} loading={loading} />
         </div>
       </form>
     </div>

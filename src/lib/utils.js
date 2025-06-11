@@ -219,6 +219,23 @@ export const processUpdateFamily = (data, setEditModal, setUpdate) => {
   }
 };
 
+export const processEditUserProfile = (data, navigate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    navigate("/user/user-profile");
+
+    return;
+  }
+};
+export const processCancelSubscription = (data, navigate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    navigate("/user/upgrade-plan");
+
+    return;
+  }
+};
+
 export const processError = (error) => {
   console.log(error);
   if (error?.response?.data?.message) {

@@ -31,7 +31,14 @@ const UserMemberDetail = ({ userData, loading }) => {
             title="Gender"
             detail={userData?.gender || "Not Found"}
           />
-          <NetworkDetail title="Location" detail={userData?.address} />
+          <NetworkDetail
+            title="Location"
+            detail={
+              userData?.addresses?.length
+                ? userData.addresses[0].address
+                : "N/A"
+            }
+          />
         </>
       )}
     </div>

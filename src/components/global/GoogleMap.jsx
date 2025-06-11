@@ -38,6 +38,7 @@ const GoogleMapComponent = ({
   const [inputValue, setInputValue] = useState("");
 
   const autocompleteRef = useRef(null);
+
   useEffect(() => {
     if (editAddress?.location?.coordinates?.length) {
       const [lng, lat] = editAddress.location.coordinates;
@@ -84,7 +85,7 @@ const GoogleMapComponent = ({
     setMarker({ lat, lng });
     setInputValue(place.formatted_address);
 
-    onLocationSelect(data); // send back to parent
+    onLocationSelect(data); 
   };
 
   return (

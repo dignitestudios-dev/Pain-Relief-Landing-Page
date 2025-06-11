@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { SkeletonProviderDetail } from "../../../../global/Sekelton";
 import Button from "../../../landingPage/Inputs/Button";
 
-const HeroSection = () => {
+const HeroSection = ({userData}) => {
   const navigate = useNavigate();
 
   return (
@@ -22,7 +22,7 @@ const HeroSection = () => {
                 <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[100px] h-[100px] sm:w-[110px] sm:h-[110px] md:w-[120px] md:h-[120px] lg:w-[130px] lg:h-[130px]">
                   <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
                     <img
-                      src={ProfileImg}
+                      src={userData?.profilePicture || ProfileImg}
                       className="w-[90px] h-[90px] sm:w-[100px] sm:h-[100px] md:w-[110px] md:h-[110px] lg:w-[120px] lg:h-[120px] rounded-full object-cover"
                       alt="Profile"
                     />
@@ -31,10 +31,10 @@ const HeroSection = () => {
 
                 <div className="text-center sm:text-left">
                   <h2 className="text-[20px] sm:text-[24px] lg:text-[28px] xl:text-[32px] font-semibold text-black">
-                    Jhon
+                    {userData?.firstName} {userData?.lastName}
                   </h2>
                   <p className="text-[14px] sm:text-[16px] lg:text-[18px] text-[#565656] break-all">
-                    Jhon@gmail.com
+                   {userData?.email}
                   </p>
                 </div>
               </div>
