@@ -7,7 +7,7 @@ import { AppContext } from "../../../../context/AppContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { logoutAuth } = useContext(AppContext);
+  const { logoutAuth,userData } = useContext(AppContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -86,7 +86,7 @@ const Navbar = () => {
             >
               <div className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] rounded-full relative  p-[1.5px] ">
                 <img
-                  src={ProfileImg}
+                  src={userData?.profilePicture || ProfileImg}
                   alt="Avatar"
                   className="w-16 h-16 rounded-full bg-white"
                 />

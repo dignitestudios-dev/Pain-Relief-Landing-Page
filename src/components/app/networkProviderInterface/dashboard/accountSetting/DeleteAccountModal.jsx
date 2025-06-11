@@ -3,13 +3,12 @@ import { RxCross2 } from "react-icons/rx";
 import Button from "../../../landingPage/Inputs/Button";
 import { ErrorToast, SuccessToast } from "../../../../global/Toaster";
 import axios from "../../../../../axios";
-
 import { AppContext } from "../../../../../context/AppContext";
 
 const DeleteAccountModal = ({ onClick }) => {
   const [otp, setOtp] = useState(Array(4).fill(""));
-  const [otpError, setOtpError] = useState(""); // ⬅️ NEW
-  const [loading, setLoading] = useState(false); // ⬅️ Add loading
+  const [otpError, setOtpError] = useState("");
+  const [loading, setLoading] = useState(false);
   const inputs = useRef([]);
   const { userData, logoutAuth } = useContext(AppContext);
 
@@ -22,7 +21,7 @@ const DeleteAccountModal = ({ onClick }) => {
       newOtp[index] = value;
       setOtp(newOtp);
 
-      setOtpError(""); // ⬅️ clear error when typing
+      setOtpError("");
 
       if (index < otp.length - 1) {
         inputs.current[index + 1].focus();

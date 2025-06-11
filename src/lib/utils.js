@@ -223,6 +223,21 @@ export const processAppointmentRequest = (data, modal, setUpdate) => {
     modal("", "");
     setUpdate((prev) => !prev);
     SuccessToast(data?.message);
+    return;
+  }
+};
+export const processEditUserProfile = (data, navigate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    navigate("/user/user-profile");
+
+    return;
+  }
+};
+export const processCancelSubscription = (data, navigate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    navigate("/user/upgrade-plan");
 
     return;
   }

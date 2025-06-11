@@ -449,6 +449,50 @@ const useEditFamilyMember = () => {
 
   return { loading, postData };
 };
+const useEditUserProfile = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const postData = async (url, data = null, callback) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, data);
+      if (typeof callback === "function") {
+        callback(response?.data, navigate);
+      }
+      return response?.data;
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
+const useCancelSubscription = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const postData = async (url, data = null, callback) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, {
+        subscriptionId: data,
+      });
+      if (typeof callback === "function") {
+        callback(response?.data, navigate);
+      }
+      return response?.data;
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
 
 const useAppointmentRequest = () => {
   const [loading, setLoading] = useState(false);
@@ -495,4 +539,6 @@ export {
   useDeleteFamilyMember,
   useEditFamilyMember,
   useAppointmentRequest,
+  useEditUserProfile,
+  useCancelSubscription,
 };

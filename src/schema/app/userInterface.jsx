@@ -64,3 +64,15 @@ export const userProfileSchema = Yup.object({
         (value && ["image/jpeg", "image/jpg", "image/png"].includes(value.type))
     ),
 });
+
+export const userEditProfileSchema = Yup.object().shape({
+  fname: Yup.string().required("First name is required"),
+  lname: Yup.string().required("Last name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  phone: Yup.string().required("Phone number is required"),
+  dateOfBirth: Yup.string().required("Date of birth is required"),
+ 
+
+});

@@ -136,3 +136,45 @@ export const FamilyMemberSkeleton = () => {
     </div>
   );
 };
+
+export const SubscriptionSkeleton = () => {
+  return (
+    <div>
+      <div className="w-full xl:w-[50%] mt-4 bg-white rounded-[22px] p-6 lg:h-[752px] h-full flex flex-col justify-between animate-pulse">
+        <div>
+          <div className="h-6 bg-gray-300 rounded w-1/2 mb-4"></div>
+
+          <div className="mt-4 flex justify-between gap-2 xl:items-center lg:items-start border-b border-[#e8e8e8] pb-2">
+            <div>
+              <div className="h-5 bg-gray-300 rounded w-32 mb-4"></div>
+
+              <div className="flex flex-col md:flex-col items-center gap-3 lg:flex-col xl:flex-row xl:space-x-4">
+                <div className="w-[17px] h-[17px] bg-gray-300 rounded-full"></div>
+                <div className="h-4 bg-gray-300 rounded w-20"></div>
+              </div>
+            </div>
+            <div className="flex flex-col items-end">
+              <div className="h-8 bg-gray-300 rounded w-24 mb-2"></div>
+              <div className="h-4 bg-gray-300 rounded w-16"></div>
+            </div>
+          </div>
+
+          <div className="mt-6 mb-3 h-6 bg-gray-300 rounded w-40"></div>
+          <ul className="space-y-3">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <li key={index} className="flex items-center gap-2">
+                <div className="w-[18px] h-[18px] bg-gray-300 rounded-full"></div>
+                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-6 flex items-center gap-3">
+          <div className="w-[249px] h-[49px] bg-gray-300 rounded-[8px]"></div>
+          <div className="h-10 bg-gray-300 rounded w-40"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
