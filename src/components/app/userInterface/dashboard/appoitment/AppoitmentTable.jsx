@@ -3,56 +3,82 @@ import { CancelIcon, ProfileImg } from "../../../../../assets/export";
 import Pagination from "../../../../global/Pagination";
 import { useNavigate } from "react-router";
 import { useSchedules } from "../../../../../hooks/api/Get";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Calender from "../../../../global/DatePicker";
 import Button from "../../../landingPage/Inputs/Button";
 
 const AppoitmentTable = () => {
   const navigate = useNavigate();
-  const [selectedStatus, setSelectedStatus] = useState("All");
-  const [filteredAppointments, setFilteredAppointments] = useState([]);
-  const [dateRange, setDateRange] = useState({
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [filterDate, setFilterDate] = useState({ startDate: "", endDate: "" });
+
+  const [filters, setFilters] = useState({
+    status: "",
     startDate: "",
     endDate: "",
+    page: 1,
   });
 
+  const handleFilter = (status) => {
+    let newStatus;
+    if (status === "All") {
+      newStatus = "";
+    } else {
+      newStatus = status;
+    }
+
+    setFilters((prev) => ({
+      ...prev,
+      status: newStatus,
+      page: 1,
+    }));
+  };
+
   const handleStartDateChange = (date) => {
-    setDateRange((prev) => ({ ...prev, startDate: date }));
+    setFilterDate((prev) => ({
+      ...prev,
+      startDate: new Date(date).toISOString().split("T")[0],
+    }));
   };
 
   const handleEndDateChange = (date) => {
-    setDateRange((prev) => ({ ...prev, endDate: date }));
+    setFilterDate((prev) => ({
+      ...prev,
+      endDate: new Date(date).toISOString().split("T")[0],
+    }));
   };
 
-  console.log(
-    "🚀 ~ AppoitmentTable ~ filteredAppointments:",
-    filteredAppointments
-  );
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const { data, loading, pagination } = useSchedules(
-    `/booking/get-appointments`,
-    { startDate: dateRange.startDate, endDate: dateRange.endDate }
-  );
-  console.log("🚀 ~ ~ pagination:", pagination);
-  console.log("🚀 ~  loading:", loading);
-
-  const handleFilter = (status) => {
-    setSelectedStatus(status);
-    const appointments =
-      status === "All" ? data : data.filter((a) => a.status === status);
-
-    setFilteredAppointments(appointments);
+  const handlePageChange = (page) => {
+    setFilters((prev) => ({
+      ...prev,
+      page,
+    }));
   };
 
-  useEffect(() => {
-    handleFilter("All");
-  }, [data]);
+  const handleApplyFilter = () => {
+    setFilters((prev) => ({
+      ...prev,
+      startDate: filterDate?.startDate,
+      endDate: filterDate?.endDate,
+      page: 1,
+    }));
+  };
 
   const toggleCalendar = () => {
     setIsOpen((prev) => !prev);
   };
+
+  const handleClearFilters = () => {
+    setFilters({ startDate: "", endDate: "" });
+    toggleCalendar();
+  };
+
+  const { data, loading, pagination } = useSchedules(
+    `/booking/get-appointments`,
+    filters
+  );
+  console.log("🚀 ~ AppoitmentTable ~ data:", data);
 
   return (
     <div className=" flex justify-center my-6">
@@ -86,7 +112,7 @@ const AppoitmentTable = () => {
                 <div className="flex  items-center gap-2 px-4">
                   <Calender
                     endDate={false}
-                    startDate={dateRange.startDate}
+                    startDate={filterDate.startDate}
                     setStartDate={handleStartDateChange}
                     text={"DD/MM/YY"}
                     isStyle={true}
@@ -94,7 +120,7 @@ const AppoitmentTable = () => {
                   />
                   <Calender
                     endDate={true}
-                    startDate={dateRange.endDate}
+                    startDate={filterDate.endDate}
                     setStartDate={handleEndDateChange}
                     text={"DD/MM/YY"}
                     isStyle={true}
@@ -105,13 +131,20 @@ const AppoitmentTable = () => {
                   <div className="w-full">
                     <Button
                       text="Apply"
-                      onClick=""
+                      onClick={() => {
+                        handleApplyFilter();
+                        toggleCalendar();
+                      }}
                       loading={""}
                       type="button"
                     />
                   </div>
                   <div className="w-full">
-                    <button className="w-full h-[49px] rounded-[8px] bg-[#E0E0E0] text-[#565656] ">
+                    <button
+                      type="button"
+                      onClick={handleClearFilters}
+                      className="w-full h-[49px] rounded-[8px] bg-[#E0E0E0] text-[#565656] "
+                    >
                       Cancel
                     </button>
                   </div>
@@ -137,7 +170,7 @@ const AppoitmentTable = () => {
                   key={tab}
                   onClick={() => handleFilter(tab)}
                   className={`text-sm font-medium ${
-                    selectedStatus === tab
+                    filters?.status === tab
                       ? "text-cyan-600 font-semibold"
                       : "text-gray-600 hover:text-cyan-600"
                   }`}
@@ -199,7 +232,7 @@ const AppoitmentTable = () => {
               </tbody>
             ) : (
               <tbody>
-                {filteredAppointments.map((a, index) => (
+                {data?.map((a, index) => (
                   <tr
                     key={a._id || index}
                     className="border-t border-gray-100 hover:bg-gray-50"
@@ -243,14 +276,20 @@ const AppoitmentTable = () => {
                         <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
                           <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
                             <img
-                              src={a.provider?.profilePicture || ProfileImg}
+                              src={
+                                a.familyMember !== null
+                                  ? a.familyMember.profilePicture
+                                  : ProfileImg
+                              }
                               className="w-[39px] h-[39px] rounded-full object-cover"
                               alt="Provider"
                             />
                           </div>
                         </div>
                         <h2 className="text-[14px] font-[400] ">
-                          {a.provider?.name || "Unknown"}
+                          {a.familyMember !== null
+                            ? a.familyMember.name
+                            : "Self"}
                         </h2>
                       </div>
                     </td>
@@ -274,7 +313,12 @@ const AppoitmentTable = () => {
           </table>
         </div>
         <div className="flex justify-end">
-          <Pagination />
+          <Pagination
+            currentPage={pagination?.currentPage}
+            totalPages={pagination?.totalPages}
+            onPageChange={handlePageChange}
+            setCurrentPage={setFilters.page}
+          />
         </div>
       </div>
     </div>

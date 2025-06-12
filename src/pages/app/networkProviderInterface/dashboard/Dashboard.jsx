@@ -7,12 +7,10 @@ import { useSendRequest } from "../../../../hooks/api/Post";
 import RequestSendModal from "../../../../components/app/networkProviderInterface/dashboard/home/RequestSendModal";
 import { processSendRequest } from "../../../../lib/utils";
 import { AppContext } from "../../../../context/AppContext";
-import { useSchedules } from "../../../../hooks/api/Get";
 
 const Dashboard = () => {
   const { userData, loginAuth } = useContext(AppContext);
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [requestModal, setRequestModal] = useState(false);
 
   const { loading: requestloader, postData: postRequestData } =
@@ -29,22 +27,11 @@ const Dashboard = () => {
     );
   };
 
-  const { data, loading, pagination } = useSchedules(
-    `/booking/get-appointments-provider`,
-    currentPage
-  );
-
   return (
     <div>
       <HeroSection />
       <AppointmentCard />
-      <AppoitmentTable
-        appointmentData={data}
-        loading={loading}
-        pagination={pagination}
-        currentPage={pagination.currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <AppoitmentTable />
       <BecomeACoachCard
         requestModal={requestModal}
         handleRequestSend={handleRequestSend}

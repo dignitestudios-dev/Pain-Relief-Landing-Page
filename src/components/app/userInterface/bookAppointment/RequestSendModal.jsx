@@ -2,7 +2,7 @@ import React from "react";
 import { SmallTick } from "../../../../assets/export";
 import Button from "../../landingPage/Inputs/Button";
 
-const RequestSendModal = ({ isOpen, onClose,onClick }) => {
+const RequestSendModal = ({ isOpen, onClose, onClick }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] ">

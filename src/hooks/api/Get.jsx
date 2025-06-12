@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "../../axios";
-import { ErrorToast } from "../../components/global/Toaster";
+
 import { processError } from "../../lib/utils";
 
 const useUsers = (url, currentPage = 1) => {
@@ -28,7 +28,7 @@ const useUsers = (url, currentPage = 1) => {
   return { loading, data, pagination };
 };
 
-const useSchedules = (url, currentPage = 1) => {
+const useSchedules = (url, filters = {}) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -36,7 +36,20 @@ const useSchedules = (url, currentPage = 1) => {
   const getUsers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${url}?page=${currentPage}`);
+
+      const params = new URLSearchParams();
+
+      // Loop through all filter keys
+      for (const key in filters) {
+        if (filters[key]) {
+          params.append(key, filters[key]);
+        }
+      }
+
+      const requestUrl = `${url}?${params.toString()}`;
+
+      // const { data } = await axios.get(requestUrl);
+      const { data } = await axios.get(`${requestUrl}`);
       setData(data?.data);
       setPagination(data?.pagination);
     } catch (error) {
@@ -48,7 +61,7 @@ const useSchedules = (url, currentPage = 1) => {
 
   useEffect(() => {
     getUsers();
-  }, [currentPage]);
+  }, [filters]);
 
   return { loading, data, pagination };
 };
@@ -71,7 +84,7 @@ const useDashboardProvider = (
 
       const filterParams = new URLSearchParams({
         ...filters,
-        page: currentPage, // 🔁 add currentPage to params
+        page: currentPage,
       }).toString();
 
       const serviceParams = services
@@ -153,12 +166,15 @@ const useAppointmentProvider = (url, filters = {}) => {
 
       // 3. Services (convert array of objects to comma-separated string of IDs)
       if (filters.services?.length > 0) {
-        const serviceIds = filters.services.map((s) => s.id).join(",");
-        params.append("services", serviceIds);
+        filters.services.forEach((s) => {
+          params.append("services", s.id);
+        });
       }
 
       // 4. Optional searchPainRelief (example default false)
       params.append("searchPainRelief", false);
+
+      params.append("page", filters.page);
 
       const requestUrl = `${url}?${params.toString()}`;
       const { data } = await axios.get(requestUrl);

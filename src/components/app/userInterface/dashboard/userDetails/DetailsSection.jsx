@@ -124,8 +124,12 @@ const DetailsSection = ({ setCancelModal, appointmentData }) => {
                   </div>
                 </div>
                 <h2 className="text-[14px] font-[600]">
-                  {appointmentData?.user?.firstName}{" "}
-                  {appointmentData?.user?.lastName}
+                  {appointmentData?.familyMember !== null
+                    ? appointmentData?.familyMember?.name
+                    : appointmentData?.user?.firstName}{" "}
+                  {appointmentData?.familyMember !== null
+                    ? ""
+                    : appointmentData?.user?.firstName}
                 </h2>
               </div>
               <div>
@@ -151,7 +155,7 @@ const DetailsSection = ({ setCancelModal, appointmentData }) => {
         </div>
 
         {/* Right Section */}
-        <div className="bg-white h-[380px] rounded-[8px] p-4 sm:p-6 w-full xl:col-span-2 lg:col-span-4">
+        <div className="bg-white min-h-[320px] max-h-[450px] rounded-[8px] p-4 sm:p-6 w-full xl:col-span-2 lg:col-span-4">
           {appointmentData?.status === "Rejected" ? (
             <div className="space-y-4 border-b border-[#1010101A] pb-4">
               <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#FF67671C] text-[#FF6767] text-center text-[16px] font-[500]">
@@ -163,13 +167,13 @@ const DetailsSection = ({ setCancelModal, appointmentData }) => {
               <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#17C35133] text-[#17C351] text-center text-[16px] font-[500]">
                 Approved
               </div>
-              <div className="w-full ">
+              {/* <div className="w-full ">
                 <Button
                   text="Mark As Completed"
                   type="button"
                   onClick={() => "Completed"}
                 />
-              </div>
+              </div> */}
             </div>
           ) : appointmentData?.status === "Completed" ? (
             <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#17C35133] text-[#17C351] text-center text-[16px] font-[500]">
@@ -215,6 +219,8 @@ const DetailsSection = ({ setCancelModal, appointmentData }) => {
                 Cancel Appointment
               </button>
             </>
+          ) : appointmentData.status === "Completed" ? (
+            ""
           ) : (
             <button
               onClick={() => ""}

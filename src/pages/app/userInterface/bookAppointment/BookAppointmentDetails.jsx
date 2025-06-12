@@ -1,6 +1,6 @@
 import BookProviderDetailSection from "../../../../components/app/userInterface/bookAppointment/BookProviderDetailSection";
 import ProviderDetailHeroSection from "../../../../components/app/userInterface/bookAppointment/ProviderDetailHeroSection";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useDetailProvider, useUserProfile } from "../../../../hooks/api/Get";
 import BookChiropractorModal from "../../../../components/app/userInterface/dashboard/netwrokProfile/BookChiropractorModal";
 import { useState } from "react";
@@ -18,12 +18,14 @@ const BookAppointmentDetails = () => {
 
   const [dateTime, setDateTime] = useState({ date: "", time: "" });
   const [appointmentId, setAppointmentId] = useState("");
-  console.log("🚀 ~ BookAppointmentDetails ~ appointmentId:", appointmentId);
 
   const [activeMember, setActiveMember] = useState(null);
+  console.log("🚀 ~ BookAppointmentDetails ~ activeMember:", activeMember);
 
   const { data: profile, loading: loader } =
     useUserProfile("/user/get-profile");
+  console.log("🚀 ~ BookAppointmentDetails ~ profile:", profile);
+  console.log("🚀 ~ BookAppointmentDetails ~ loader:", loader);
 
   const { data, loading } = useDetailProvider(
     `/provider/details`,
@@ -46,6 +48,10 @@ const BookAppointmentDetails = () => {
       },
       description: "",
       addressId: data?.addresses[0]?._id,
+      ...(profile?._id !== activeMember &&
+        activeMember && {
+          familyMemberId: activeMember,
+        }),
     };
     console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
 
@@ -95,6 +101,7 @@ const BookAppointmentDetails = () => {
       )}
       {requestSendModal && (
         <RequestSendModal
+          onClose={() => navigate(`/user/user-details/${appointmentId}`)}
           onClick={() => navigate(`/user/user-details/${appointmentId}`)}
         />
       )}

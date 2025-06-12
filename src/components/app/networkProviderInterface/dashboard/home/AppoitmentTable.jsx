@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { CiFilter } from "react-icons/ci";
 import { ProfileImg, CancelIcon } from "../../../../../assets/export";
@@ -6,43 +6,79 @@ import Pagination from "../../../../global/Pagination";
 import { useNavigate } from "react-router";
 import Button from "./../../../landingPage/Inputs/Button";
 import Calender from "./../../../../global/DatePicker";
+import { useSchedules } from "../../../../../hooks/api/Get";
 
-const AppoitmentTable = ({
-  appointmentData,
-  loading,
-  pagination,
-  setCurrentPage,
-  currentPage,
-}) => {
+const AppoitmentTable = () => {
   const navigate = useNavigate();
-  const [selectedStatus, setSelectedStatus] = useState("All");
-  const [filteredAppointments, setFilteredAppointments] = useState([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [filterDate, setFilterDate] = useState({ startDate: "", endDate: "" });
+
+  const [filters, setFilters] = useState({
+    status: "",
+    startDate: "",
+    endDate: "",
+    page: 1,
+  });
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleFilter = (status) => {
-    setSelectedStatus(status);
-    const appointments =
-      status === "All"
-        ? appointmentData
-        : appointmentData?.filter((a) => a.status === status);
-
-    setFilteredAppointments(appointments);
-  };
-
-  useEffect(() => {
-    handleFilter("All");
-  }, [appointmentData]);
 
   const toggleCalendar = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+  const handleFilter = (status) => {
+    let newStatus;
+    if (status === "All") {
+      newStatus = "";
+    } else {
+      newStatus = status;
+    }
+
+    setFilters((prev) => ({
+      ...prev,
+      status: newStatus,
+      page: 1,
+    }));
   };
+
+  const handleStartDateChange = (date) => {
+    setFilterDate((prev) => ({
+      ...prev,
+      startDate: new Date(date).toISOString().split("T")[0],
+    }));
+  };
+
+  const handleEndDateChange = (date) => {
+    setFilterDate((prev) => ({
+      ...prev,
+      endDate: new Date(date).toISOString().split("T")[0],
+    }));
+  };
+
+  const handlePageChange = (page) => {
+    setFilters((prev) => ({
+      ...prev,
+      page,
+    }));
+  };
+
+  const handleApplyFilter = () => {
+    setFilters((prev) => ({
+      ...prev,
+      startDate: filterDate?.startDate,
+      endDate: filterDate?.endDate,
+      page: 1,
+    }));
+  };
+
+  const handleClearFilters = () => {
+    setFilters({ startDate: "", endDate: "" });
+    toggleCalendar();
+  };
+
+  const { data, loading, pagination } = useSchedules(
+    `/booking/get-appointments-provider`,
+    filters
+  );
 
   return (
     <div className=" flex justify-center my-6">
@@ -73,16 +109,16 @@ const AppoitmentTable = ({
                 <div className="flex  items-center gap-2 px-4">
                   <Calender
                     endDate={false}
-                    startDate={startDate}
-                    setStartDate={(date) => setStartDate(date)}
+                    startDate={filterDate.startDate}
+                    setStartDate={handleStartDateChange}
                     text={"DD/MM/YY"}
                     isStyle={true}
                     label={"Start Date"}
                   />
                   <Calender
                     endDate={true}
-                    startDate={endDate}
-                    setEndData={(date) => setEndDate(date)}
+                    startDate={filterDate.endDate}
+                    setStartDate={handleEndDateChange}
                     text={"DD/MM/YY"}
                     isStyle={true}
                     label={"End Date"}
@@ -92,13 +128,20 @@ const AppoitmentTable = ({
                   <div className="w-full">
                     <Button
                       text="Apply"
-                      onClick=""
+                      onClick={() => {
+                        handleApplyFilter();
+                        toggleCalendar();
+                      }}
                       loading={""}
                       type="button"
                     />
                   </div>
                   <div className="w-full">
-                    <button className="w-full h-[49px] rounded-[8px] bg-[#E0E0E0] text-[#565656] ">
+                    <button
+                      type="button"
+                      onClick={handleClearFilters}
+                      className="w-full h-[49px] rounded-[8px] bg-[#E0E0E0] text-[#565656] "
+                    >
                       Cancel
                     </button>
                   </div>
@@ -124,7 +167,7 @@ const AppoitmentTable = ({
                   key={tab}
                   onClick={() => handleFilter(tab)}
                   className={`text-sm font-medium ${
-                    selectedStatus === tab
+                    filters?.status === tab
                       ? "text-cyan-600 font-semibold"
                       : "text-gray-600 hover:text-cyan-600"
                   }`}
@@ -186,7 +229,7 @@ const AppoitmentTable = ({
               </tbody>
             ) : (
               <tbody>
-                {filteredAppointments?.map((a, index) => (
+                {data?.map((a, index) => (
                   <tr
                     key={a._id || index}
                     className="border-t border-gray-100 hover:bg-gray-50"
@@ -255,10 +298,10 @@ const AppoitmentTable = ({
         </div>
         <div className="flex justify-end">
           <Pagination
-            currentPage={currentPage}
+            currentPage={pagination?.currentPage}
             totalPages={pagination?.totalPages}
             onPageChange={handlePageChange}
-            setCurrentPage={setCurrentPage}
+            setCurrentPage={setFilters.page}
           />
         </div>
       </div>

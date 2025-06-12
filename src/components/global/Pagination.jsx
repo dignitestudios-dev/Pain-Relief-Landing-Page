@@ -1,4 +1,3 @@
-import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Pagination = ({
@@ -8,7 +7,7 @@ const Pagination = ({
   setCurrentPage,
 }) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-console.log(currentPage,"currentPage==>pappap")
+  console.log(currentPage, "currentPage==>pappap");
   const handlePrev = () => {
     setCurrentPage(currentPage - 1);
   };
