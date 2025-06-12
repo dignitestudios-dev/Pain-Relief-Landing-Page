@@ -44,18 +44,20 @@ const CreateProfile = () => {
       const isoDate = new Date(values.db).toISOString().split("T")[0];
       const gender = values.gender.map((item) => item.name);
       const formData = new FormData();
-
       formData.append("firstName", values.fname);
       formData.append("lastName", values.lname);
       formData.append("phone", values.phone);
       formData.append("country", values.country);
       formData.append("address", values.address);
       formData.append("city", values.city);
-      formData.append("state", values.state);
+      formData.append("state", values.state); 
       formData.append("dateOfBirth", isoDate);
       formData.append("gender", gender);
       formData.append("profilePicture", values.userImage);
+     formData.append("location[coordinates][]", values?.location?.coordinates?.[0]);
+formData.append("location[coordinates][]", values?.location?.coordinates?.[1]);
 
+      formData.append("location[type]", "Point");
       postData(
         "/user/complete-profile",
         null,
@@ -66,6 +68,7 @@ const CreateProfile = () => {
       // navigate("/onboard/create-family-member");
     },
   });
+
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

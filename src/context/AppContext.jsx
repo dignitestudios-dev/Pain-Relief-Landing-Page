@@ -13,10 +13,11 @@ export const AppContextProvider = ({ children }) => {
     const cookieData = Cookies.get("user");
     return cookieData ? JSON.parse(cookieData) : null;
   });
-  const [role, setRole] = useState(() => Cookies.get("role"));
+  
 
   const loginAuth = (data) => {
-  
+    console.log(data, "userDayaAPp");
+
     if (data) {
       if (data?.data?.token) {
         Cookies.set("token", data?.data?.token);
@@ -26,20 +27,15 @@ export const AppContextProvider = ({ children }) => {
         setUserData(data?.data?.user);
         Cookies.set("user", JSON.stringify(data?.data?.user));
       }
-      if (data?.data?.user?.role) {
-        Cookies.set("role", data?.data?.user?.role);
-        setRole(data?.data?.user?.role);
-      }
+      
     }
   };
 
   const logoutAuth = () => {
     Cookies.remove("token");
     Cookies.remove("user");
-    Cookies.remove("role");
     setToken(null);
     setUserData(null);
-    setRole(null);
     navigate("/auth/sign-in");
   };
 
@@ -51,7 +47,6 @@ export const AppContextProvider = ({ children }) => {
         token,
         userData,
         setUserData,
-        role,
       }}
     >
       {children}

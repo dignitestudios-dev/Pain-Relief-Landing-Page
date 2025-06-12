@@ -93,8 +93,8 @@ const VerifyOtp = () => {
         loginAuth({
           data: {
             token: response?.data?.data?.token,
-            user: { ...response?.data?.data?.user, role: userType },
           },
+          // user: { ...response?.data?.data?.user, role: userType },
         });
         SuccessToast(response?.data?.message);
         setIsOtpSuccess(true);

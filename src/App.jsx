@@ -30,7 +30,7 @@ function App() {
         ))}
       </Route>
 
-      <Route path="auth" element={<AuthLayout token={token} role={role} />}>
+      <Route path="auth" element={<AuthLayout token={token} role={userData?.role} />}>
         {AuthRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}
@@ -38,7 +38,7 @@ function App() {
 
       <Route
         path="onboard"
-        element={<OnboardLayout token={token} role={role} user={userData} />}
+        element={<OnboardLayout token={token} role={userData?.role} user={userData} />}
       >
         {OnboardingRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
@@ -47,7 +47,7 @@ function App() {
 
       <Route
         path="user"
-        element={<UserLayout token={token} role={role} user={userData} />}
+        element={<UserLayout token={token} role={userData?.role} user={userData} />}
       >
         {UserRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
@@ -57,7 +57,7 @@ function App() {
       <Route
         path="provider"
         element={
-          <NetworkProviderLayout token={token} role={role} user={userData} />
+          <NetworkProviderLayout token={token} role={userData?.role} user={userData} />
         }
       >
         {ProviderRoutes?.map((Link, i) => (

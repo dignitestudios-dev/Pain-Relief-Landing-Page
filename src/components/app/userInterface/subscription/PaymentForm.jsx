@@ -30,7 +30,7 @@ const ELEMENT_OPTIONS = {
 };
 
 const PaymentForm = ({ planData, setIsSubscription, selectedPlanData }) => {
-  
+  console.log(selectedPlanData,"selectedPlanData")
   const { planType } = planData;
   const { loginAuth } = useContext(AppContext);
 
@@ -39,7 +39,7 @@ const PaymentForm = ({ planData, setIsSubscription, selectedPlanData }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
-  console.log("🚀 ~ PaymentForm ~ error:", error);
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {

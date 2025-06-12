@@ -80,19 +80,23 @@ const EditProfile = () => {
   return (
     <div>
       <HeroSection />
-      <EditForm
-        editProfile={editProfile}
-        selectedImage={selectedImage}
-        handleFileChange={handleFileChange}
-        fileInputRef={fileInputRef}
-        values={values}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        handleBlur={handleBlur}
-        touched={touched}
-        errors={errors}
-        loading={loading}
-      />
+      <div className="flex justify-center">
+        <div className="w-[70%]">
+        <EditForm
+          editProfile={editProfile}
+          selectedImage={selectedImage}
+          handleFileChange={handleFileChange}
+          fileInputRef={fileInputRef}
+          values={values}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          handleBlur={handleBlur}
+          touched={touched}
+          errors={errors}
+          loading={loading}
+        />
+      </div>
+      </div>
     </div>
   );
 };

@@ -45,6 +45,7 @@ export const processLogin = (
 };
 
 export const processProviderProfileCreate = (data, navigate, loginAuth) => {
+  console.log(data, "data==>");
   if (data?.success) {
     loginAuth({ data: { user: data?.data } });
     SuccessToast(data?.message);
@@ -96,21 +97,29 @@ export const processUpdatePassword = (data, setIsModal) => {
     return;
   }
 };
-export const processAccountRequest = (data, setRequestModal, loginAuth) => {
+
+export const processAccountRequest = (
+  data,
+  setRequestModal,
+  reqModal =false,
+  stateModal=false,
+  loginAuth
+) => {
   if (data?.success) {
     loginAuth({ data: { user: data?.data } });
-
     SuccessToast(data?.message);
     setRequestModal(true);
 
     return;
   }
 };
+
 export const processUploadLicese = (
   data,
   setLicenseModal,
   setPendingModal,
-  setUpdate
+  setUpdate,
+  loginAuth = false
 ) => {
   if (data?.success) {
     SuccessToast(data?.message);

@@ -16,7 +16,7 @@ import { useEditUserProfile } from "../../../../../hooks/api/Post";
 
 const UserEditForm = ({ genderOptions, editProfile }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-  console.log(editProfile?.addresses[0], "addresses");
+
   const { loading, postData } = useEditUserProfile();
 
   const {
@@ -35,7 +35,7 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       phone: editProfile.phone || "",
       dateOfBirth: editProfile.dateOfBirth || "",
       gender: editProfile.gender || "",
-      address: editProfile?.addresses[0] || "",
+      address: editProfile?.addresses[0] || {},
       profilePicture: editProfile.profilePicture,
     },
     validationSchema: userEditProfileSchema,
@@ -54,6 +54,16 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       formData.append("city", values.address.city || "");
       formData.append("state", values.address.state || "");
       formData.append("dateOfBirth", formattedDate || "");
+      formData.append(
+        "location[coordinates][]",
+        values?.address?.location?.coordinates?.[0]
+      );
+      formData.append(
+        "location[coordinates][]",
+        values?.address?.location?.coordinates?.[1]
+      );
+
+      formData.append("location[type]", "Point");
       // 👇 Append image file
       if (selectedImage) {
         formData.append("profilePicture", selectedImage);
@@ -62,6 +72,9 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       postData("/user/update-profile", formData, processEditUserProfile);
     },
   });
+  console.log("Location =>", values?.address?.location);
+  console.log("Coordinates =>", values?.address?.location?.coordinates);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -69,13 +82,16 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       setFieldValue("profilePicture", file);
     }
   };
-
   const onLocationSelect = (location) => {
     setFieldValue("address", {
       country: location.country || "",
       address: location.address || "",
       city: location.city || "",
       state: location.state || "",
+      location: location.location || {
+        type: "Point",
+        coordinates: [],
+      },
     });
   };
 

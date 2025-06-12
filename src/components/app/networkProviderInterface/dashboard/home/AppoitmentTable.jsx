@@ -7,8 +7,13 @@ import { useNavigate } from "react-router";
 import Button from "./../../../landingPage/Inputs/Button";
 import Calender from "./../../../../global/DatePicker";
 
-const AppoitmentTable = ({ appointmentData, loading }) => {
-  console.log("🚀 ~ AppoitmentTable ~ appointmentData:", appointmentData);
+const AppoitmentTable = ({
+  appointmentData,
+  loading,
+  pagination,
+  setCurrentPage,
+  currentPage,
+}) => {
   const navigate = useNavigate();
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [filteredAppointments, setFilteredAppointments] = useState([]);
@@ -34,6 +39,11 @@ const AppoitmentTable = ({ appointmentData, loading }) => {
   const toggleCalendar = () => {
     setIsOpen((prev) => !prev);
   };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className=" flex justify-center my-6">
       <div className="w-[90%]  b min-h-screen">
@@ -244,7 +254,12 @@ const AppoitmentTable = ({ appointmentData, loading }) => {
           </table>
         </div>
         <div className="flex justify-end">
-          <Pagination />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pagination?.totalPages}
+            onPageChange={handlePageChange}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
     </div>

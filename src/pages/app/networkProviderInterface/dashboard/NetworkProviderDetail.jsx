@@ -51,8 +51,7 @@ const NetworkProviderDetail = () => {
 
   useEffect(() => {
     appointmentDetail();
-  }, []);
-  // /booking/get-appointment/681cc5d4cd6ed5dfb66431d6
+  }, [update]);
 
   const validationSchema = Yup.object().shape({
     description: Yup.string()
@@ -117,7 +116,7 @@ const NetworkProviderDetail = () => {
   return (
     <div>
       <HeroSection />
-      {/* <ClinicSection /> */}
+
       {detailLoading ? (
         <AppointmentDetailLoader />
       ) : (

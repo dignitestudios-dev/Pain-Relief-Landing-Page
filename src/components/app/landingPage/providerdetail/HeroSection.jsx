@@ -45,7 +45,10 @@ const HeroSection = ({ providerDetail, loading }) => {
               </div>
 
               <div className="w-[214px] ">
-                <Button text={"Book Now"} />
+                <Button
+                  text={"Book Now"}
+                  onClick={() => navigate("/auth/sign-up")}
+                />
               </div>
             </div>
           )}

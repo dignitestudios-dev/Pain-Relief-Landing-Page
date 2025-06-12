@@ -131,7 +131,7 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
               <div>
                 <p className="text-[12px] text-[#00000080]">Phone Number</p>
                 <p className="text-[14px] font-[500]">
-                  +{AppointmentData?.user?.phone}
+                  {AppointmentData?.user?.phone}
                 </p>
               </div>
               {/* <div className="w-full sm:w-[150px]">
