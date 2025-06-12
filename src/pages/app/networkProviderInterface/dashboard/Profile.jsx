@@ -65,7 +65,6 @@ const Profile = () => {
       processUploadLicese,
       setLicenseModal,
       setPendingModal,
-
       setUpdate
     );
   };

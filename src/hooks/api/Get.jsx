@@ -28,7 +28,7 @@ const useUsers = (url, currentPage = 1) => {
   return { loading, data, pagination };
 };
 
-const useSchedules = (url) => {
+const useSchedules = (url, currentPage = 1) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -36,7 +36,7 @@ const useSchedules = (url) => {
   const getUsers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${url}`);
+  const { data } = await axios.get(`${url}?page=${currentPage}`);
       setData(data?.data);
       setPagination(data?.pagination);
     } catch (error) {
@@ -48,7 +48,7 @@ const useSchedules = (url) => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [currentPage]);
 
   return { loading, data, pagination };
 };

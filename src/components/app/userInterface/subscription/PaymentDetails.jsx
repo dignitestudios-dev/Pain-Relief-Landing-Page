@@ -9,11 +9,11 @@ import SubscriptionSuccessModal from "./SubscriptionSuccessModal";
 import { useNavigate } from "react-router";
 
 const PaymentDetails = ({ planData, subscriptionData }) => {
-  const { planType } = planData;
+  const { planType, billingPeriod: billing } = planData;
   const navigate = useNavigate();
 
   const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
-  const [billingPeriod, setBillingPeriod] = useState("yearly");
+  const [billingPeriod, setBillingPeriod] = useState(billing);
   const [selectedPlan, setSelectedPlan] = useState(planType?.planType);
   const [isSubscription, setIsSubscription] = useState(false);
 

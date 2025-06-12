@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ClinicProfile from "./ClinicProfile";
-import SubscriptionCards from "../herosection/SubscriptionCards";
 import CareCosts from "./CareCosts";
 import MapSection from "./MapSection";
+import { useSubscriptions } from "../../../../hooks/api/Get";
+import SubscriptionCards from "../../userInterface/subscription/SubscriptionsCards";
 
 const DetailSection = ({ providerDetail, loading, provider }) => {
   const [tabActive, setTabActive] = useState("Provider Detail");
@@ -12,6 +13,23 @@ const DetailSection = ({ providerDetail, loading, provider }) => {
     "Care Costs",
     "Contact & Map",
   ];
+  const { data, loadingLloader } = useSubscriptions("/payment/get-subscriptions");
+
+  const [selectedPlans, setSelectedPlans] = useState({});
+  const [billingPeriods, setBillingPeriods] = useState({});
+  const handlePlanChange = (cardId, planType) => {
+    setSelectedPlans((prev) => ({
+      ...prev,
+      [cardId]: planType,
+    }));
+  };
+
+  const handleBillingPeriodChange = (cardId, period) => {
+    setBillingPeriods((prev) => ({
+      ...prev,
+      [cardId]: period,
+    }));
+  };
 
   return (
     <div className="flex flex-col xl:px-20 lg:px-14  md:px-10 px-8 mb-10">
@@ -37,7 +55,13 @@ const DetailSection = ({ providerDetail, loading, provider }) => {
       )}
       {tabActive === "Membership Plans" && (
         <div className="xl:w-[90%] w-[100%] ">
-          <SubscriptionCards />
+          <SubscriptionCards
+            subscriptionsData={data}
+            handleBillingPeriodChange={handleBillingPeriodChange}
+            selectedPlans={selectedPlans}
+            handlePlanChange={handlePlanChange}
+            billingPeriods={billingPeriods}
+          />
         </div>
       )}
       {tabActive === "Care Costs" && <CareCosts />}

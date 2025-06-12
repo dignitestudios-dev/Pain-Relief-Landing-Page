@@ -1,7 +1,26 @@
-import React from "react";
-import SubscriptionCards from "./SubscriptionCards";
+import React, { useState } from "react";
+import SubscriptionCards from "../../userInterface/subscription/SubscriptionsCards";
+import { useSubscriptions } from "../../../../hooks/api/Get";
 
 const SubscriptionSection = () => {
+  const { data, loading } = useSubscriptions("/payment/get-subscriptions");
+
+  const [selectedPlans, setSelectedPlans] = useState({});
+  const [billingPeriods, setBillingPeriods] = useState({});
+  const handlePlanChange = (cardId, planType) => {
+    setSelectedPlans((prev) => ({
+      ...prev,
+      [cardId]: planType,
+    }));
+  };
+
+  const handleBillingPeriodChange = (cardId, period) => {
+    setBillingPeriods((prev) => ({
+      ...prev,
+      [cardId]: period,
+    }));
+  };
+
   return (
     <div className="bg-subscription text-white xl:mt-0 mt-10 p-16">
       <div className="flex flex-col  justify-center py-20 lg:items-center w-[90%] mx-auto">
@@ -13,8 +32,14 @@ const SubscriptionSection = () => {
             Choose a plan that fits your needs and get started today.
           </p>
         </div>
-        <div className="xl:w-[90%]">
-          <SubscriptionCards />
+        <div className="xl:w-[95%]">
+          <SubscriptionCards
+            subscriptionsData={data}
+            handleBillingPeriodChange={handleBillingPeriodChange}
+            selectedPlans={selectedPlans}
+            handlePlanChange={handlePlanChange}
+            billingPeriods={billingPeriods}
+          />
         </div>
       </div>
     </div>

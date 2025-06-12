@@ -12,6 +12,7 @@ import { useSchedules } from "../../../../hooks/api/Get";
 const Dashboard = () => {
   const { userData, loginAuth } = useContext(AppContext);
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [requestModal, setRequestModal] = useState(false);
 
   const { loading: requestloader, postData: postRequestData } =
@@ -29,15 +30,21 @@ const Dashboard = () => {
   };
 
   const { data, loading, pagination } = useSchedules(
-    `/booking/get-appointments-provider`
+    `/booking/get-appointments-provider`,
+    currentPage
   );
-  console.log("🚀 ~ Dashboard ~ pagination:", pagination);
 
   return (
     <div>
       <HeroSection />
       <AppointmentCard />
-      <AppoitmentTable appointmentData={data} loading={loading} />
+      <AppoitmentTable
+        appointmentData={data}
+        loading={loading}
+        pagination={pagination}
+        currentPage={pagination.currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       <BecomeACoachCard
         requestModal={requestModal}
         handleRequestSend={handleRequestSend}

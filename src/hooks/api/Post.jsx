@@ -147,13 +147,26 @@ const useAccountRequest = () => {
   // const navigate = useNavigate();
   const { loginAuth } = useContext(AppContext);
 
-  const postData = async (url, data = null, callback, setPendingModal) => {
+  const postData = async (
+    url,
+    data = null,
+    callback,
+    setLicenseModal,
+    setPendingModal,
+    setUpdate
+  ) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data);
 
       if (typeof callback === "function") {
-        callback(response?.data, setPendingModal, loginAuth);
+        callback(
+          response?.data,
+          setLicenseModal,
+          setPendingModal,
+          setUpdate,
+          loginAuth
+        );
       }
       return response?.data;
     } catch (error) {
