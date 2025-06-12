@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 const Card = ({ data }) => {
   const navigate = useNavigate();
   return (
-    <div className="min-w-[250px] bg-white p-2 rounded-[14px] mx-2 w-[279px] flex flex-col justify-between min-h-[310px]">
+    <div className="min-w-[250px] bg-white p-2 rounded-[14px] mx-2 w-[279px] h-[350px] flex flex-col justify-between">
       <div className="bg-cards  h-24 flex items-center justify-center rounded-md">
         <div className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] p-[3px] rounded-full relative top-6  ">
           <img

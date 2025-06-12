@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import QuestionDropDown from "../appoitment/QuestionDropDown";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
@@ -18,7 +17,7 @@ const StepThree = ({
     "Elbow, wrist, knee, or hip",
     "Other",
   ];
-  console.log("first");
+
   return (
     <div className="py-2 space-y-4">
       <p className="font-[500] w-[350px] text-[16px] tracking-[1]">{label}</p>
@@ -30,7 +29,6 @@ const StepThree = ({
           handleSelection={handleSelection}
         />
 
-        {/* Show textarea only when "Other" is selected */}
         {isSelectedVal === "Other" && (
           <textarea
             className="border border-gray-300 h-[104px] focus:outline-none rounded-md p-2 text-sm"

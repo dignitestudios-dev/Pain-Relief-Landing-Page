@@ -1,13 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { DesktopLogo, ProfileImg } from "../../../../assets/export";
 import { HiMenu, HiX } from "react-icons/hi";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { AppContext } from "../../../../context/AppContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { logoutAuth,userData } = useContext(AppContext);
+  const location = useLocation();
+
+  const { logoutAuth, userData } = useContext(AppContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -54,16 +56,34 @@ const Navbar = () => {
         </div>
 
         <ul className="hidden md:flex items-center font-[500] text-white gap-10 text-sm lg:text-base">
-          <li className="cursor-pointer  ">
-            <Link to={"dashboard"}>Dasboard</Link>
-            <hr className="w-[35px]" />
+          <li
+            className={`cursor-pointer ${
+              location.pathname.includes("dashboard")
+                ? "border-b-2 border-white"
+                : ""
+            }`}
+          >
+            <Link to="dashboard">Dashboard</Link>
           </li>
-          <li className="cursor-pointer ">
-            <Link to={"appointment"}>My Appointments</Link>
+          <li
+            className={`cursor-pointer ${
+              location.pathname.includes("appointment")
+                ? "border-b-2 border-white"
+                : ""
+            }`}
+          >
+            <Link to="appointment">My Appointments</Link>
           </li>
-          <li className="cursor-pointer ">
-            <Link to={"membership"}>My Membership</Link>
+          <li
+            className={`cursor-pointer ${
+              location.pathname.includes("membership")
+                ? "border-b-2 border-white"
+                : ""
+            }`}
+          >
+            <Link to="membership">My Membership</Link>
           </li>
+
           <div
             className="flex justify-center items-center gap-10"
             ref={profileRef}

@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LuPhone } from "react-icons/lu";
 import { TbWorld } from "react-icons/tb";
 import { BgIdCard, DesktopLogo, Scanner } from "../../../../../assets/export";
+import { getDateFormat } from "../../../../../lib/helpers";
+import { AppContext } from "../../../../../context/AppContext";
 
-const IDCards = () => {
+const IDCards = ({ data }) => {
+  const { userData } = useContext(AppContext);
   const cardData = [
-    { title: "Plan:", para: "Individual - Pain Relief Coach" },
-    { title: "Member ID:", para: "P300026255" },
-    { title: "Effective:", para: "1/30/2025" },
+    { title: "Plan:", para: `${data?.userSubscription?.name}` },
+    { title: "Member ID:", para: `${userData?.memberId}` },
+    {
+      title: "Effective:",
+      para: `${getDateFormat(data?.userSubscription?.endDate)}`,
+    },
   ];
 
   return (
@@ -33,7 +39,7 @@ const IDCards = () => {
                       <p className="text-sm font-medium">{item.para}</p>
                     </div>
                   ))}
-                  <p className="text-sm font-semibold mt-2">01 Bob Corjulo</p>
+                  <p className="text-sm font-semibold mt-2">{userData?.firstName}</p>
                   <p className="text-[10px] text-[#565656] mt-4">
                     C-212-02152022
                   </p>

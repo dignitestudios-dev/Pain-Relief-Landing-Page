@@ -254,19 +254,17 @@ const AppoitmentTable = () => {
                     </td>
 
                     <td className="px-4 py-3">
-                      {new Date(a.appointmentDate).toLocaleDateString("en-US", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                      })}
+                      {new Date(a?.appointmentDate).toLocaleDateString(
+                        "en-US",
+                        {
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                        }
+                      )}
                     </td>
 
-                    <td className="px-4 py-3">
-                      {new Date(a.appointmentTime).toLocaleTimeString("en-US", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </td>
+                    <td className="px-4 py-3">{a?.appointmentTime}</td>
 
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-4">

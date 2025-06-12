@@ -12,7 +12,9 @@ import StepSix from "../../../../components/app/userInterface/dashboard/appoitme
 import StepSeven from "../../../../components/app/userInterface/dashboard/appoitmentSteps/StepSeven";
 import { useCreateQuestion } from "../../../../hooks/api/Post";
 import { processQuestionCreate } from "../../../../lib/utils";
+import { useNavigate } from "react-router";
 const AppointmentQuestions = () => {
+  const navigate = useNavigate();
   const { loading: loader, postData } = useCreateQuestion();
 
   const [step, setStep] = useState(1);
@@ -24,7 +26,6 @@ const AppointmentQuestions = () => {
   const [typeStep6, setTypeStep6] = useState("");
   const [typeStep7, setTypeStep7] = useState("");
   const [otherText, setOtherText] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -63,10 +64,16 @@ const AppointmentQuestions = () => {
       setErrorMessage("Please select an option before proceeding.");
       return;
     }
+    if (step === 3) {
+      if (!jointTypeStep3) {
+        setErrorMessage("Please select an option before proceeding.");
+        return;
+      }
 
-    if (step === 3 && !jointTypeStep3) {
-      setErrorMessage("Please select an option before proceeding.");
-      return;
+      if (jointTypeStep3 === "Other" && otherText.trim() === "") {
+        setErrorMessage("Please provide a description for 'Other'.");
+        return;
+      }
     }
 
     if (step === 4 && !typeStep4) {
@@ -89,9 +96,11 @@ const AppointmentQuestions = () => {
       return;
     }
 
-    setErrorMessage(""); // clear error
+    setErrorMessage("");
 
-    if (step === 1) {
+    if (step === 1 && typeStep1 === "provider") {
+      handleCreateQuestion();
+    } else if (step === 1) {
       setStep(2);
     } else if (step === 2 && typeStep2 === "I am having constant headaches?") {
       setStep(6);
@@ -109,9 +118,8 @@ const AppointmentQuestions = () => {
     } else if (step === 6 && (typeStep6 === "Yes" || typeStep6 === "No")) {
       setStep(5);
     } else if (step === 5 && (typeStep6 === "Yes" || typeStep6 === "No")) {
-      setStep(7); // 🟢 This must come before the submitting condition
+      setStep(7);
     } else if (step === 5 && (typeStep4 === "Yes" || typeStep4 === "No")) {
-      // Only submit if not going to step 7
       handleCreateQuestion();
     } else if (
       typeStep2 ===
@@ -126,7 +134,9 @@ const AppointmentQuestions = () => {
   };
 
   const handleBack = () => {
-    if (step === 6 && typeStep2 === "I am having constant headaches?") {
+    if (step === 1) {
+      navigate("/user/dashboard");
+    } else if (step === 6 && typeStep2 === "I am having constant headaches?") {
       setStep(2);
     } else if (step === 3 && jointTypeStep3 === "Neck/Shoulders") {
       setStep(4);

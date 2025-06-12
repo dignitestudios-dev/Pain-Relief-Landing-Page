@@ -101,8 +101,8 @@ export const processUpdatePassword = (data, setIsModal) => {
 export const processAccountRequest = (
   data,
   setRequestModal,
-  reqModal =false,
-  stateModal=false,
+  reqModal = false,
+  stateModal = false,
   loginAuth
 ) => {
   if (data?.success) {
