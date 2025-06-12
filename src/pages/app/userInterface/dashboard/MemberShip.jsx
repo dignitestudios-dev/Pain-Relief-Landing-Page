@@ -8,7 +8,7 @@ const MemberShip = () => {
   return (
     <div>
       <HeroSection userData={userData} />
-      <DetailsSection />
+      <DetailsSection userData={userData} />
     </div>
   );
 };

@@ -40,7 +40,7 @@ const Carousel = ({ providerData, loading }) => {
             ))}
           </Swiper>
 
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-2 mt-6">
             <button
               onClick={() => swiperRef.current.slidePrev()}
               className="group bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] hover:bg-none hover:bg-white p-2 rounded-full shadow flex justify-center items-center h-[36px] w-[36px] transition-colors duration-300"

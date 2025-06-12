@@ -208,7 +208,7 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
             {[
               ["ID", AppointmentData?._id ?? "-"],
               ["Date", formatDate(AppointmentData?.appointmentDate)],
-              ["Time", formatTime(AppointmentData?.appointmentTime)],
+              ["Time", AppointmentData?.appointmentTime],
             ].map(([label, value]) => (
               <div
                 key={label}

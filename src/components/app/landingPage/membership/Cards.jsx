@@ -22,7 +22,7 @@ const Cards = () => {
         Adjustable Tiers
       </h2>
       <div className="grid xl:grid-cols-3 lg:grid-cols-2 xl:justify-center lg:justify-start gap-10 items-center my-8">
-        {CardsData.map((item, index) => (
+        {CardsData?.map((item, index) => (
           <div
             key={index}
             className="relative group xl:w-[400px] xl:h-[358px] rounded-[12px] overflow-hidden"
@@ -42,7 +42,7 @@ const Cards = () => {
                 <h2 className="text-white text-[24px] font-[600]">
                   {item.title}
                 </h2>
-                <p className="text-white text-[16px]  my-2">{item.para}</p>
+                <p className="text-white text-[16px]  my-2">{item?.para}</p>
                 <button  onClick={() => navigate("/auth/account-selection")} className="bg-white text-[#29ABE2]  w-[249px] py-3 rounded-[8px] text-[16px] font-[500] mt-2">
                   <span className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">
                     Sign Up Now

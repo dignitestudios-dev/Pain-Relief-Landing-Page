@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import {
   AccountLogo,
@@ -25,9 +25,15 @@ import {
 import { useNavigate } from "react-router";
 import AccountSuccess from "./AccountSuccess";
 import DeleteFamilyModal from "../../components/app/userInterface/dashboard/userprofile/DeleteFamilyModal";
+import { useGetCards } from "../../hooks/api/Get";
+import { ErrorToast } from "../../components/global/Toaster";
 
 const CreateFamilyMember = () => {
   const { postData, loading } = useCreateFamilyMember();
+  const { data, loading: loader } = useGetCards(
+    "/payment/get-subscription-user"
+  );
+
   const { postData: deleteData, loading: deleteLoader } =
     useDeleteFamilyMember();
   const navigate = useNavigate();
@@ -39,6 +45,8 @@ const CreateFamilyMember = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [members, setMembers] = useState([]);
   const [selectedMemberId, setSelectedMemberId] = useState(null);
+  const [familyError, setFamilyError] = useState("");
+
   const {
     values,
     errors,
@@ -106,6 +114,26 @@ const CreateFamilyMember = () => {
     setSelectedMemberId(id);
     setDeleteModal(true);
   };
+
+  const planType = data?.userSubscription?.priceDetails?.planType;
+
+  const maxFamilyMembers =
+    planType === "individual"
+      ? 1
+      : planType === "couples"
+      ? 2
+      : planType === "family"
+      ? 4
+      : 5;
+  const isDisabled = storedMembers?.length >= maxFamilyMembers;
+  useEffect(() => {
+    if (isDisabled) {
+      setFamilyError("You’ve reached your family member limit.");
+    } else {
+      setFamilyError("");
+    }
+  }, [isDisabled]);
+
   return (
     <Fragment>
       {isCreated ? (
@@ -129,16 +157,24 @@ const CreateFamilyMember = () => {
             </div>
 
             <div className="space-y-4 lg:w-[350px] md:w-[500px] w-[320px]">
-              <div className="border border-dashed border-[rgba(85,85,85,0.2)] bg-[#EAEAEA50] rounded-2xl flex justify-center items-center h-[142px]">
+              <div className="border border-dashed border-[rgba(85,85,85,0.2)] bg-[#EAEAEA50] rounded-2xl flex justify-center items-center h-[142px] flex-col">
                 <p
                   onClick={() => {
                     setIsModal(true);
                   }}
-                  className="underline text-[#212121] cursor-pointer"
+                  className={`underline text-[#212121] cursor-pointer ${
+                    isDisabled ? "opacity-50 pointer-events-none" : ""
+                  }`}
                 >
-                  + Add New Family Member{" "}
+                  + Add New Family Member
                 </p>
+                {familyError && (
+                  <p className="text-red-600 text-[13px] text-center mt-2">
+                    {familyError}
+                  </p>
+                )}
               </div>
+
               {!storedMembers?.length > 0 ? (
                 <div>
                   <div className=" lg:w-[350px] md:w-[500px] w-[320px] ">

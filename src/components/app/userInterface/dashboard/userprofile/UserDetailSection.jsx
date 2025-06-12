@@ -64,6 +64,7 @@ const UserDetailSection = ({ userData, tableData, setUpdate, loader }) => {
         formData,
         processUserFamilyMember,
         setIsModal,
+        setMembers,
         setUpdate
       );
 

@@ -2,12 +2,16 @@ import React from "react";
 import { BgIdCard, DesktopLogo, Scanner } from "../../../../../assets/export";
 import { LuPhone } from "react-icons/lu";
 import { TbWorld } from "react-icons/tb";
+import { getDateFormat } from "../../../../../lib/helpers";
 
-const IDCards = () => {
+const IDCards = ({ IdCardData, userData }) => {
   const cardData = [
-    { title: "Plan:", para: "Individual - Pain Relief Coach" },
-    { title: "Member ID:", para: "P300026255" },
-    { title: "Effective:", para: "1/30/2025" },
+    { title: "Plan:", para: `${IdCardData?.userSubscription?.name}` },
+    { title: "Member ID:", para: `${userData?.memberId}` },
+    {
+      title: "Effective:",
+      para: `${getDateFormat(IdCardData?.userSubscription?.endDate)}`,
+    },
   ];
 
   return (
@@ -30,7 +34,9 @@ const IDCards = () => {
                   <p className="text-sm font-medium">{item.para}</p>
                 </div>
               ))}
-              <p className="text-sm font-semibold mt-2">01 Bob Corjulo</p>
+              <p className="text-sm font-semibold mt-2">
+                {userData?.firstName}
+              </p>
               <p className="text-[10px] text-[#565656] mt-4">C-212-02152022</p>
             </div>
             <div className="w-full sm:w-1/3 flex justify-center items-center mt-4 sm:mt-0">

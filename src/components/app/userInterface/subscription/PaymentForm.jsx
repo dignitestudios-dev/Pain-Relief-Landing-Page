@@ -30,7 +30,7 @@ const ELEMENT_OPTIONS = {
 };
 
 const PaymentForm = ({ planData, setIsSubscription, selectedPlanData }) => {
-  console.log(selectedPlanData,"selectedPlanData")
+  console.log(selectedPlanData, "selectedPlanData");
   const { planType } = planData;
   const { loginAuth } = useContext(AppContext);
 
@@ -92,7 +92,8 @@ const PaymentForm = ({ planData, setIsSubscription, selectedPlanData }) => {
           Standard Plan (Individual)
         </h2>
         <p className="text-[20px] text-white font-[600] ">
-          $59 <span className="text-[16px] font-[400] ">/year</span>{" "}
+          ${selectedPlanData}{" "}
+          <span className="text-[16px] font-[400] ">/year</span>{" "}
         </p>
       </div>
       <div className="flex justify-between items-center border-b border-b-[#D9D9D9]  pb-4 my-5">

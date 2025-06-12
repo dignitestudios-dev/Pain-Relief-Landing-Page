@@ -182,7 +182,7 @@ const Login = () => {
         <button
           type="button"
           className="w-full flex justify-center  items-center gap-1 cursor-pointer"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/app/home")}
         >
           <IoIosArrowDropleftCircle className="text-lg text-[#212121]" />
           <p className="text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
