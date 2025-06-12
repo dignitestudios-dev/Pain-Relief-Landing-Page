@@ -5,15 +5,24 @@ import { useNavigate } from "react-router";
 import { useSchedules } from "../../../../../hooks/api/Get";
 import { useEffect, useState } from "react";
 import Calender from "../../../../global/DatePicker";
-import DatePicker from "react-datepicker";
 import Button from "../../../landingPage/Inputs/Button";
 
 const AppoitmentTable = () => {
   const navigate = useNavigate();
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [filteredAppointments, setFilteredAppointments] = useState([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [dateRange, setDateRange] = useState({
+    startDate: "",
+    endDate: "",
+  });
+
+  const handleStartDateChange = (date) => {
+    setDateRange((prev) => ({ ...prev, startDate: date }));
+  };
+
+  const handleEndDateChange = (date) => {
+    setDateRange((prev) => ({ ...prev, endDate: date }));
+  };
 
   console.log(
     "🚀 ~ AppoitmentTable ~ filteredAppointments:",
@@ -23,7 +32,8 @@ const AppoitmentTable = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { data, loading, pagination } = useSchedules(
-    `/booking/get-appointments`
+    `/booking/get-appointments`,
+    { startDate: dateRange.startDate, endDate: dateRange.endDate }
   );
   console.log("🚀 ~ ~ pagination:", pagination);
   console.log("🚀 ~  loading:", loading);
@@ -76,16 +86,16 @@ const AppoitmentTable = () => {
                 <div className="flex  items-center gap-2 px-4">
                   <Calender
                     endDate={false}
-                    startDate={startDate}
-                    setStartDate={(date) => setStartDate(date)}
+                    startDate={dateRange.startDate}
+                    setStartDate={handleStartDateChange}
                     text={"DD/MM/YY"}
                     isStyle={true}
                     label={"Start Date"}
                   />
                   <Calender
                     endDate={true}
-                    startDate={endDate}
-                    setEndData={(date) => setEndDate(date)}
+                    startDate={dateRange.endDate}
+                    setStartDate={handleEndDateChange}
                     text={"DD/MM/YY"}
                     isStyle={true}
                     label={"End Date"}
@@ -251,7 +261,7 @@ const AppoitmentTable = () => {
 
                     <td
                       onClick={() =>
-                        navigate("/user/user-details", { state: a })
+                        navigate(`/user/user-details/${a?._id}`, { state: a })
                       }
                       className="px-4 py-3 text-black underline font-medium cursor-pointer"
                     >

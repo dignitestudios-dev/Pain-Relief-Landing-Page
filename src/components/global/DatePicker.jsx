@@ -12,6 +12,8 @@ const Calender = ({
   endDate,
   isStyle = false,
   label,
+  max,
+  min,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -64,7 +66,8 @@ const Calender = ({
             selected={startDate}
             onChange={handleChange}
             inline
-            maxDate={new Date()}
+            maxDate={max}
+            minDate={min}
             calendarClassName="shadow-lg border rounded-md"
             wrapperClassName="w-[300px]"
             onClickOutside={() => setIsOpen(false)}

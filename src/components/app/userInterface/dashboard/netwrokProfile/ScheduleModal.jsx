@@ -5,7 +5,14 @@ import Button from "../../../landingPage/Inputs/Button";
 import { CalenderIcon, CancelIcon } from "../../../../../assets/export";
 import Calender from "../../../../global/DatePicker";
 
-const ScheduleModal = ({ onClick, onClose }) => {
+const ScheduleModal = ({
+  onClick,
+  onClose,
+  setDateTime,
+  dateTime,
+  data,
+  isLoader,
+}) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] p-6 w-[90%] max-w-md">
@@ -22,11 +29,15 @@ const ScheduleModal = ({ onClick, onClose }) => {
         </div>
         <div>
           <Calender
-            // startDate={values.db}
-            // setStartDate={(date) => setFieldValue("db", date)}
+            startDate={dateTime.date}
+            setStartDate={(date) =>
+              setDateTime((prev) => ({ ...prev, date: date }))
+            }
             text="DD/MM/YY"
             isStyle={true}
             label="Select Date"
+            max={null}
+            min={new Date()}
           />
         </div>
         {/* Select Date */}
@@ -41,23 +52,31 @@ const ScheduleModal = ({ onClick, onClose }) => {
               "8:00 AM",
               "9:00 AM",
               "10:00 AM",
-              "10:00 AM",
-              "8:00 AM",
-              "9:00 AM",
-              "10:00 AM",
-              "10:00 AM",
-              "8:00 AM",
-              "9:00 AM",
-              "10:00 AM",
-              "10:00 AM",
-            ].map((time, index) => (
-              <button
-                key={index}
-                className="border border-gray-300 rounded-md px-2 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                {time}
-              </button>
-            ))}
+              "11:00 AM",
+              "12:00 AM",
+              "1:00 PM",
+              "2:00 PM",
+              "3:00 PM",
+              "4:00 PM",
+              "5:00 PM",
+              "6:00 PM",
+              "7:00 PM",
+            ].map((time, index) => {
+              const isSelected = dateTime.time === time;
+              return (
+                <button
+                  onClick={() => setDateTime((prev) => ({ ...prev, time }))}
+                  key={index}
+                  className={`border rounded-md px-2 py-2 text-sm ${
+                    isSelected
+                      ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white border-blue-500"
+                      : "text-gray-700 border-gray-300 hover:bg-gray-100"
+                  }`}
+                >
+                  {time}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -65,7 +84,11 @@ const ScheduleModal = ({ onClick, onClose }) => {
 
         {/* Buttons */}
 
-        <Button text={"Send Request "} onClick={onClick} />
+        <Button
+          text={"Send Request "}
+          onClick={() => onClick(data)}
+          loading={isLoader}
+        />
       </div>
     </div>
   );

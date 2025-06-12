@@ -221,11 +221,17 @@ export const processUpdateFamily = (data, setEditModal, setUpdate) => {
 export const processAppointmentRequest = (data, modal, setUpdate) => {
   if (data?.success) {
     modal("", "");
-    setUpdate((prev) => !prev);
+    console.log("data id ===> ", data?.data?._id);
+    if (data?.data?._id) {
+      setUpdate(data?.data?._id);
+    } else {
+      setUpdate((prev) => !prev);
+    }
     SuccessToast(data?.message);
     return;
   }
 };
+
 export const processEditUserProfile = (data, navigate) => {
   if (data?.success) {
     SuccessToast(data?.message);

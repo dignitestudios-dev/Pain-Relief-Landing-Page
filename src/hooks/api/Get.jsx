@@ -28,7 +28,7 @@ const useUsers = (url, currentPage = 1) => {
   return { loading, data, pagination };
 };
 
-const useSchedules = (url) => {
+const useSchedules = (url, filters = {}) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -36,7 +36,32 @@ const useSchedules = (url) => {
   const getUsers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${url}`);
+      const params = new URLSearchParams();
+
+      // Add filters to query params
+      if (filters.status) {
+        params.append("status", filters.status);
+      }
+
+      if (filters.page) {
+        params.append("page", filters.page);
+      }
+
+      if (filters.limit) {
+        params.append("limit", filters.limit);
+      }
+
+      if (filters.startDate) {
+        params.append("startDate", filters.startDate);
+      }
+
+      if (filters.endDate) {
+        params.append("endDate", filters.endDate);
+      }
+
+      const requestUrl = `${url}?${params.toString()}`;
+
+      const { data } = await axios.get(requestUrl);
       setData(data?.data);
       setPagination(data?.pagination);
     } catch (error) {

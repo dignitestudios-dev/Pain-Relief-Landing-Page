@@ -7,9 +7,13 @@ import {
 } from "../../../../../assets/export";
 import Button from "../../../landingPage/Inputs/Button";
 
-const BookChiropractorModal = ({ onClick,onClose }) => {
-  const [activeMember, setActiveMember] = useState(null);
-
+const BookChiropractorModal = ({
+  onClick,
+  onClose,
+  profile,
+  activeMember,
+  setActiveMember,
+}) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-md p-4 h-[560px] overflow-y-auto w-[470px] ">
@@ -34,84 +38,84 @@ const BookChiropractorModal = ({ onClick,onClose }) => {
             Select member to continue
           </p>
         </div>
-
         <div
-          className={` border rounded-[8px] p-[2px] my-5 cursor-pointer ${
-            activeMember === "self"
+          className={`border rounded-[8px] p-[3px]  my-5 cursor-pointer ${
+            activeMember === "family"
               ? "bg-gradient-to-r from-[#63CFAC] to-[#29ABE2]"
               : "border border-gray-300"
           }`}
-          onClick={() => setActiveMember("self")}
+          onClick={() => setActiveMember("family")}
         >
           <div className="bg-white  rounded-[8px] p-3 flex items-center justify-between">
             <div className="flex gap-4 items-center">
               <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[81px] h-[81px]">
                 <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
                   <img
-                    src={ProfileImg}
+                    src={profile?.profilePicture || ProfileImg}
                     className="w-full h-full rounded-full object-cover"
                     alt="Profile"
                   />
                 </div>
               </div>
               <div>
-                <h2 className="text-[16px] font-[600] ">Your Name</h2>
-                <p className="text-[12px] text-[#565656] ">
-                  yourname@gmail.com
-                </p>
+                <h2 className="text-[16px] font-[600] ">
+                  {profile?.firstName}
+                </h2>
+                <p className="text-[12px] text-[#565656] ">{profile?.email}</p>
               </div>
             </div>
 
             <div>
               <img
-                src={activeMember === "self" ? RadioBtnActive : RadioBtn}
+                src={activeMember === "family" ? RadioBtnActive : RadioBtn}
                 alt=""
                 className="w-[18px] h-[18px]"
               />
             </div>
           </div>
         </div>
-
         <h2 className="text-[18px] font-[600] capitalize">
           Family Member Profile
         </h2>
-      
-          <div
-            className={`border rounded-[8px] p-[3px]  my-5 cursor-pointer ${
-              activeMember === "family"
-                ? "bg-gradient-to-r from-[#63CFAC] to-[#29ABE2]"
-                : "border border-gray-300"
-            }`}
-            onClick={() => setActiveMember("family")}
-          >
-            <div className="bg-white  rounded-[8px] p-3 flex items-center justify-between">
-              <div className="flex gap-4 items-center">
-                <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[81px] h-[81px]">
-                  <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
-                    <img
-                      src={ProfileImg}
-                      className="w-full h-full rounded-full object-cover"
-                      alt="Profile"
-                    />
+        {profile?.familyMembers?.map((item) => (
+          <>
+            <div
+              key={item._id}
+              className={` border rounded-[8px] p-[2px] my-5 cursor-pointer ${
+                activeMember == item?._id
+                  ? "bg-gradient-to-r from-[#63CFAC] to-[#29ABE2]"
+                  : "border border-gray-300"
+              }`}
+              onClick={() => setActiveMember(item._id)}
+            >
+              <div className="bg-white  rounded-[8px] p-3 flex items-center justify-between">
+                <div className="flex gap-4 items-center">
+                  <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[81px] h-[81px]">
+                    <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+                      <img
+                        src={item?.profilePicture || ProfileImg}
+                        className="w-full h-full rounded-full object-cover"
+                        alt="Profile"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <h2 className="text-[16px] font-[600] ">{item?.name}</h2>
+                    <p className="text-[12px] text-[#565656] ">{item?.email}</p>
                   </div>
                 </div>
+
                 <div>
-                  <h2 className="text-[16px] font-[600] ">Family Member</h2>
-                  <p className="text-[12px] text-[#565656] ">
-                    familymember@gmail.com
-                  </p>
+                  <img
+                    src={activeMember === item?._id ? RadioBtnActive : RadioBtn}
+                    alt=""
+                    className="w-[18px] h-[18px]"
+                  />
                 </div>
               </div>
-
-              <div>
-                <img
-                  src={activeMember === "family" ? RadioBtnActive : RadioBtn}
-                  alt=""
-                  className="w-[18px] h-[18px]"
-                />
-              </div>
             </div>
-          </div>
+          </>
+        ))}
 
         <div className="relative bottom-0">
           <Button text={"Next"} onClick={onClick} />

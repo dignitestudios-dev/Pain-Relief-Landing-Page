@@ -42,7 +42,7 @@ export const UserRoutes = [
     page: <BookAppointmentDetails />,
   },
   {
-    url: "user-details",
+    url: "user-details/:id",
     page: <UserDetails />,
     isPublic: true,
   },
