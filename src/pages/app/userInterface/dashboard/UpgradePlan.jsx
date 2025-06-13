@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import HeroSection from "../../../../components/app/userInterface/dashboard/upgradeplan/HeroSection";
 import PlansSection from "../../../../components/app/userInterface/dashboard/upgradeplan/PlansSection";
 import CancelSubscriptionModal from "../../../../components/app/userInterface/dashboard/upgradeplan/CancelSubscriptionModal";
 import SubscriptionStatusModal from "../../../../components/app/userInterface/dashboard/upgradeplan/SubscriptionStatusModal";
-import PaymentMethodModal from "../../../../components/app/userInterface/dashboard/upgradeplan/PaymentMethodModal";
+
+import { useSubscriptions } from "../../../../hooks/api/Get";
 
 const UpgradePlan = () => {
   const [cancelModal, setCancelModal] = useState(false);
   const [subscriptionStatusModal, setSubscriptionStatusModal] = useState(false);
   const [subscriptionActiveModal, setSubscriptionActiveModal] = useState(false);
-  const [paymentMethodModal, setpaymentMethodModal] = useState(false);
-  const [isactive, setIsActive] = useState(false);
+
+  const { data, loading } = useSubscriptions("/payment/get-subscriptions");
+  console.log("🚀 ~ UpgradePlan ~ data:", data);
+
   return (
     <div>
       <HeroSection />
       <div className="flex justify-center">
-        <PlansSection
-          setCancelModal={setCancelModal}
-          setpaymentMethodModal={setpaymentMethodModal}
-        />
+        <PlansSection subscriptionsData={data} loader={loading} />
       </div>
       {cancelModal && (
         <CancelSubscriptionModal
@@ -40,19 +40,7 @@ const UpgradePlan = () => {
           }
         />
       )}
-      {paymentMethodModal && (
-        <PaymentMethodModal
-          setIsActive={setIsActive}
-          isactive={isactive}
-          onClose={() => {
-            setpaymentMethodModal(false);
-          }}
-          onClick={() => {
-            setpaymentMethodModal(false);
-            setSubscriptionActiveModal(true);
-          }}
-        />
-      )}
+
       {subscriptionActiveModal && (
         <SubscriptionStatusModal
           onClick={() => setSubscriptionActiveModal(false)}

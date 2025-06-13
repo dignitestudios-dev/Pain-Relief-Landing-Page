@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../../../landingPage/Inputs/Button";
 // import NotificationToogle from "./NotificationToogle";
 import { AppContext } from "../../../../../context/AppContext";
@@ -8,7 +8,7 @@ import UserReportIssue from "./UserReportIssue";
 import NotificationToogle from "../../../networkProviderInterface/dashboard/accountSetting/NotificationToogle";
 import UserPaymentMethod from "./UserPaymentMethod";
 
-const UserSettingsDetails = ({}) => {
+const UserSettingsDetails = () => {
   const tabs = [
     "Notification",
     "Change Password",

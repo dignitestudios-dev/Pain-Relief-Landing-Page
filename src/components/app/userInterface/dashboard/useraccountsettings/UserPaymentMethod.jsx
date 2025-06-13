@@ -1,23 +1,61 @@
-import React, { useContext } from "react";
-import {
-  EditIcon,
-  RedBin,
-  SmallTick,
-  StripeIcon,
-} from "../../../../../assets/export";
+import { useContext, useState } from "react";
+import { RedBin, SmallTick, StripeIcon } from "../../../../../assets/export";
 import { useGetCards } from "../../../../../hooks/api/Get";
 import { AppContext } from "../../../../../context/AppContext";
+import axios from "../../../../../axios";
+import { ErrorToast } from "../../../../global/Toaster";
+import DeleteModal from "../../../../global/DeleteModal";
+import PaymentMethodModal from "../upgradeplan/PaymentMethodModal";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 const UserPaymentMethod = () => {
   const { userData } = useContext(AppContext);
-  const { data, loading } = useGetCards("/payment/cards");
+  const [update, setUpdate] = useState(false);
+  const { data, loading } = useGetCards("/payment/cards", update);
+  console.log("🚀 ~ UserPaymentMethod ~ data:", data);
+  const [deleteId, setDeleteId] = useState(false);
+
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteLoader, setDeleteLoader] = useState(false);
+
+  const [paymentMethodModal, setPaymentMethodModal] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
+  const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
+
   console.log(data, "data");
+
+  const handleDeleteModal = (id) => {
+    setDeleteId(id);
+    setDeleteModal(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      setDeleteLoader(true);
+      const response = await axios.post("/payment/card/delete", {
+        cardId: deleteId,
+      });
+      if (response?.status === 200) {
+        setUpdate((prev) => !prev);
+        setDeleteModal(false);
+      }
+    } catch (error) {
+      ErrorToast(error.response.data.message);
+    } finally {
+      setDeleteLoader(false);
+    }
+  };
   return (
     <div>
       <div className="bg-white rounded-[26px]  p-8 ">
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-[32px] font-[600]">Payment Method</h2>
-          <p className="text-[20px] font-[500] underline cursor-pointer">
+          <p
+            onClick={() => setPaymentMethodModal(true)}
+            className="text-[20px] font-[500] underline cursor-pointer"
+          >
             Add New
           </p>
         </div>
@@ -38,7 +76,7 @@ const UserPaymentMethod = () => {
           data?.map((item, index) => (
             <div
               key={index}
-              className={`rounded-[8px] ${
+              className={`rounded-[8px] my-2 ${
                 true
                   ? "bg-gradient-to-l p-[1px] to-[#63CFAC] from-[#29ABE2]"
                   : "border"
@@ -57,8 +95,26 @@ const UserPaymentMethod = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <img src={EditIcon} alt="Edit" />
-                  <img src={RedBin} alt="Delete" />
+                  {/* <button type="button" onClick={()=>handleEdit()}>
+                    <img src={EditIcon} alt="Edit" />
+                  </button> */}
+                  {data.length > 1 ? (
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteModal(item?._id)}
+                    >
+                      <img src={RedBin} alt="Delete" />
+                    </button>
+                  ) : (
+                    <button
+                      disabled
+                      type="button"
+                      onClick={() => handleDeleteModal(item?._id)}
+                    >
+                      <img src={RedBin} alt="Delete" />
+                    </button>
+                  )}
+
                   <div>
                     <img
                       src={SmallTick}
@@ -72,6 +128,24 @@ const UserPaymentMethod = () => {
           ))
         )}
       </div>
+      {deleteModal && (
+        <DeleteModal
+          isOpen={deleteModal}
+          onClick={() => setDeleteModal(false)}
+          handleDelete={handleDelete}
+          deleteLoader={deleteLoader}
+        />
+      )}
+      {paymentMethodModal && (
+        <Elements stripe={stripePromise}>
+          <PaymentMethodModal
+            setUpdate={setUpdate}
+            onClose={() => {
+              setPaymentMethodModal(false);
+            }}
+          />
+        </Elements>
+      )}
     </div>
   );
 };

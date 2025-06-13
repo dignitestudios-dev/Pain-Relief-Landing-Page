@@ -20,6 +20,7 @@ const AppoitmentTable = () => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
+  console.log("🚀 ~ AppoitmentTable ~ isOpen:", isOpen);
 
   const toggleCalendar = () => {
     setIsOpen((prev) => !prev);
@@ -85,13 +86,16 @@ const AppoitmentTable = () => {
       <div className="w-[90%]  b min-h-screen">
         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
           <h1 className="text-[32px] font-[600]">Appointments</h1>
-          <div className="flex gap-2 mt-4 md:mt-0">
+          <div className="flex gap-2 mt-4 md:mt-0 relative">
             <input
               type="text"
               placeholder="Search"
               className="border px-4 py-2 rounded-md shadow-sm w-full md:w-64"
             />
-            <div className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] p-2 rounded-[12px] h-[49px] w-[49px] flex items-center justify-center">
+            <div
+              onClick={toggleCalendar}
+              className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] p-2 rounded-[12px] h-[49px] w-[49px] flex items-center justify-center"
+            >
               <CiFilter size={24} className="text-white" />
             </div>
             {isOpen && (
