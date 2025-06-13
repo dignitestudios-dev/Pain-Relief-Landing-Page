@@ -10,6 +10,7 @@ const CancelReasonModal = ({
   values,
   loading,
   onCLose,
+  heading
 }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
@@ -17,7 +18,7 @@ const CancelReasonModal = ({
         <div className="flex flex-col justify-center items-center lg:h-auto md:h-screen ">
           <div className="text-center w-[330px] flex flex-col justify-center items-center">
             <p className="text-[24px] font-[600] capitalize">
-              Cancellation Reason
+              {heading}
             </p>
           </div>
         </div>

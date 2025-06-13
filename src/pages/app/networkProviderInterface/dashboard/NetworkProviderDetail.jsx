@@ -72,7 +72,7 @@ const NetworkProviderDetail = () => {
     initialValues: {
       description: "",
     },
-    validationSchema: cancelModal ? validationSchema : false,
+    validationSchema: validationSchema,
     enableReinitialize: true,
 
     onSubmit: async (values) => {
@@ -127,6 +127,7 @@ const NetworkProviderDetail = () => {
       )}
       {cancelModal && (
         <CancelModal
+          heading={"Reject Reason"}
           onClick={() => {
             setCancelModal(false);
             setCancelReasonModal(true);
@@ -136,6 +137,7 @@ const NetworkProviderDetail = () => {
       )}
       {cancelReasonModal && (
         <CancelReasonModal
+          heading={"Reject Request"}
           values={values}
           errors={errors}
           touched={touched}

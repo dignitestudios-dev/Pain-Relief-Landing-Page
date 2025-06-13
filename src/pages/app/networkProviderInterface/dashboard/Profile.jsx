@@ -27,7 +27,7 @@ const Profile = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [pendingModal, setPendingModal] = useState(false);
-
+  const [error, setError] = useState("");
   const { data: therapyTypes, loading: loading } =
     useTherapyType(`/booking/services`);
 
@@ -51,7 +51,10 @@ const Profile = () => {
   const { loading: licenseloader, postData } = useAccountRequest();
 
   const handleUploadLicense = () => {
-    if (!selectedFile) return;
+    if (!selectedFile) {
+      setError("Please add a document before submitting."); // 🆕 Set error
+      return;
+    }
 
     const formData = new FormData();
 
@@ -131,6 +134,8 @@ const Profile = () => {
           setFile={setSelectedFile}
           handleUploadLicense={handleUploadLicense}
           licenseloader={licenseloader}
+          error={error}
+          setError={setError}
         />
       )}
       {voucherModal && (

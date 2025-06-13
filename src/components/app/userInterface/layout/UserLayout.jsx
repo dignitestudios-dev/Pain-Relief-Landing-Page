@@ -4,6 +4,9 @@ import Footer from "./Footer";
 
 // eslint-disable-next-line react/prop-types
 const UserLayout = ({ page, token, role, user }) => {
+  console.log(token,"tokenConsole")
+  console.log(role,"roleConsole")
+  console.log(user,"userConsole")
   const location = useLocation();
   const path = location.pathname;
 

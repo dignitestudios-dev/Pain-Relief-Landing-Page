@@ -265,12 +265,12 @@ const useEditProfileProvider = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const postData = async (url, data = null, callback, setUpdate) => {
+  const postData = async (url, data = null, callback, setUpdate, loginAuth) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data);
       if (typeof callback === "function") {
-        callback(response?.data, navigate, setUpdate);
+        callback(response?.data, navigate, setUpdate, loginAuth);
       }
       return response?.data;
     } catch (error) {
@@ -466,12 +466,12 @@ const useEditUserProfile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const postData = async (url, data = null, callback) => {
+  const postData = async (url, data = null, callback, loginAuth) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data);
       if (typeof callback === "function") {
-        callback(response?.data, navigate);
+        callback(response?.data, navigate, loginAuth);
       }
       return response?.data;
     } catch (error) {

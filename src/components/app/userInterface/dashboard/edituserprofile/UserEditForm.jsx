@@ -8,15 +8,16 @@ import {
   userEditProfileSchema,
   userProfileSchema,
 } from "../../../../../schema/app/userInterface";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AddressMap from "../../../../global/AddressMap";
 import GoogleMapComponent from "../../../../global/GoogleMap";
 import { processEditUserProfile } from "../../../../../lib/utils";
 import { useEditUserProfile } from "../../../../../hooks/api/Post";
+import { AppContext } from "../../../../../context/AppContext";
 
 const UserEditForm = ({ genderOptions, editProfile }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const { loginAuth } = useContext(AppContext);
   const { loading, postData } = useEditUserProfile();
 
   const {
@@ -43,8 +44,6 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
     onSubmit: (values) => {
       const formattedDate = new Date(values.dateOfBirth).toISOString();
       const formData = new FormData();
-
-      // 👇 Append all form fields
       formData.append("firstName", values.fname || "");
       formData.append("lastName", values.lname || "");
       formData.append("email", values.email || "");
@@ -53,6 +52,7 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       formData.append("address", values.address.address || "");
       formData.append("city", values.address.city || "");
       formData.append("state", values.address.state || "");
+      formData.append("gender", values.gender || "");
       formData.append("dateOfBirth", formattedDate || "");
       formData.append(
         "location[coordinates][]",
@@ -64,17 +64,20 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       );
 
       formData.append("location[type]", "Point");
-      // 👇 Append image file
+
       if (selectedImage) {
         formData.append("profilePicture", selectedImage);
       }
 
-      postData("/user/update-profile", formData, processEditUserProfile);
+      postData(
+        "/user/update-profile",
+        formData,
+        processEditUserProfile,
+        loginAuth
+      );
     },
   });
-  console.log("Location =>", values?.address?.location);
-  console.log("Coordinates =>", values?.address?.location?.coordinates);
-
+  console.log(values.address);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -208,6 +211,11 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
             onLocationSelect={onLocationSelect}
             editAddress={values?.address}
           />
+          {touched.address?.address && errors.address?.address && (
+            <p className="text-red-600 text-[12px]">{errors.address.address}</p>
+          )}
+
+          {console.log(errors.address?.address, "errors.address?.address==>")}
         </div>
 
         <div className="my-5">

@@ -74,7 +74,7 @@ const AddNewLocation = ({
           isLocationAdded={isLocationAdded}
           therapyTypesOption={therapyTypesOption}
           setFormErrors={setFormErrors}
-        />
+          />
       )}
     </div>
   );

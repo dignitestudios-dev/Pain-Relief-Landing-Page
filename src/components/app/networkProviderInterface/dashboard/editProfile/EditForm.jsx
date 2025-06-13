@@ -4,6 +4,7 @@ import Button from "../../../landingPage/Inputs/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import PhoneInput from "../../../landingPage/Inputs/PhoneInput";
 import { phoneFormatter } from "../../../../../lib/helpers";
+import { useNavigate } from "react-router";
 
 const EditForm = ({
   editProfile,
@@ -17,6 +18,7 @@ const EditForm = ({
   handleChange,
   loading,
 }) => {
+  const navigate =useNavigate()
   return (
     <div className="flex flex-col items-center justify-center p-4 md:p-8">
       <div className="w-full md:w-[50%]">
@@ -70,6 +72,7 @@ const EditForm = ({
             error={errors.name}
             touched={touched.name}
             text="Name of Chiropractor"
+            maxLength={50}
           />
           <InputField
             id={"clinicName"}
@@ -81,6 +84,7 @@ const EditForm = ({
             value={values.clinicName}
             placeholder="Doe"
             text="Name of Clinic/Practice (required)"
+            maxLength={50}
           />
           <InputField
             id={"email"}
@@ -93,6 +97,7 @@ const EditForm = ({
             placeholder="olivia.james@gmail.com"
             text="Email Address (required)"
             disabled={true}
+            maxLength={250}
           />
           <InputField
             id={"phone"}
@@ -106,6 +111,7 @@ const EditForm = ({
             text="Mobile Number"
             disabled={true}
           />
+
           {/* <div className="h-[20px]">
             <PhoneInput
               label={"Mobile Number (required)"}
@@ -163,11 +169,14 @@ const EditForm = ({
             className="w-full rounded-[8px] bg-transparent border border-[#BEC2C9] p-2 mt-1"
             placeholder="Describe yourself"
           ></textarea>
+          {touched.description && errors.description && (
+            <p className="text-red-600 text-xs mt-1">{errors.description}</p>
+          )}
         </div>
 
         <div className="my-5">
           <Button text="Save" type={"submit"} loading={loading} />
-          <div className="flex items-center justify-center mt-4">
+          <div onClick={()=>navigate(-1)} className="flex items-center justify-center mt-4">
             <IoIosArrowBack />
             <button className="text-[16px] font-[600] ml-2" type="button">
               Back

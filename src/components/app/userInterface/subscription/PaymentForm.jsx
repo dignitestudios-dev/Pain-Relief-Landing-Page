@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import Button from "../../landingPage/Inputs/Button";
 import { ErrorToast } from "../../../global/Toaster";
 import { AppContext } from "../../../../context/AppContext";
+import SubscriptionSuccessModal from "./SubscriptionSuccessModal";
 
 const ELEMENT_OPTIONS = {
   style: {
@@ -29,12 +30,13 @@ const ELEMENT_OPTIONS = {
   },
 };
 
-const PaymentForm = ({ planData, setIsSubscription, selectedPlanData }) => {
-  console.log(selectedPlanData, "selectedPlanData");
+const PaymentForm = ({ planData, selectedPlanData }) => {
+  const navigate = useNavigate();
+
+  const [isSubscription, setIsSubscription] = useState(false);
+  const [subscription, setSubscription] = useState(null);
   const { planType } = planData;
   const { loginAuth } = useContext(AppContext);
-
-  const navigate = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -70,8 +72,9 @@ const PaymentForm = ({ planData, setIsSubscription, selectedPlanData }) => {
               priceId: planType?._id,
             }
           );
+
           if (response.status === 200) {
-            loginAuth(response?.data);
+            setSubscription(response?.data);
             setIsSubscription(true);
           }
         }
@@ -151,6 +154,14 @@ const PaymentForm = ({ planData, setIsSubscription, selectedPlanData }) => {
           </div>
         </div>
       </form>
+      {isSubscription && (
+        <SubscriptionSuccessModal
+          onClick={() => {
+            loginAuth(subscription);
+            navigate("/onboard/create-profile");
+          }}
+        />
+      )}
     </div>
   );
 };

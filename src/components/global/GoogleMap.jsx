@@ -28,7 +28,7 @@ const GoogleMapComponent = ({
   isDisabled = false,
 }) => {
   const radiusInMeters = distance * 1609.34;
-
+console.log(editAddress,"+==>editAddress")
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -86,7 +86,7 @@ const GoogleMapComponent = ({
     setMarker({ lat, lng });
     setInputValue(place.formatted_address);
 
-    onLocationSelect(data); 
+    onLocationSelect(data);
   };
 
   return (
@@ -101,7 +101,24 @@ const GoogleMapComponent = ({
           disabled={isDisabled}
           placeholder="Enter your street, city, state, zip?"
           className="w-full p-2 rounded-md border border-gray-300 mb-2"
-          onChange={(e) => setInputValue(e.target.value)} // controlled input
+          onChange={(e) => {
+            const value = e.target.value;
+            setInputValue(value);
+
+            if (value === "") {
+              onLocationSelect({
+                address: "",
+                city: "",
+                country: "",
+                state: "",
+                zipCode: "",
+                location: {
+                  type: "Point",
+                  coordinates: [],
+                },
+              });
+            }
+          }}
         />
       </Autocomplete>
       <GoogleMap

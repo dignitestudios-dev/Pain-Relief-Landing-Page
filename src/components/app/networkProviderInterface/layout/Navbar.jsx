@@ -1,12 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { DesktopLogo, ProfileImg } from "../../../../assets/export";
 import { HiMenu, HiX } from "react-icons/hi";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { AppContext } from "../../../../context/AppContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
+    const location = useLocation();
   const { logoutAuth,userData } = useContext(AppContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [notiOpen, setIsNotiOpen] = useState(false);
@@ -56,10 +57,17 @@ const Navbar = () => {
         <ul className="hidden md:flex items-center font-[500] text-white gap-14 text-sm lg:text-base">
           <li className="cursor-pointer  ">
             <Link to={"dashboard"}>Dasboard</Link>
+             { location.pathname.includes("dashboard")  && (
+
             <hr className="w-[35px]" />
+            )}
           </li>
           <li className="cursor-pointer ">
             <Link to={"pain-relief-coach"}>Pain Relief Coach</Link>
+             { location.pathname.includes("pain-relief-coach")  && (
+
+            <hr className="w-[95px]" />
+            )}
           </li>
           <div
             className="flex justify-center items-center gap-10"

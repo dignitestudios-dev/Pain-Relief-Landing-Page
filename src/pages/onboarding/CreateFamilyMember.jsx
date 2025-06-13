@@ -1,12 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import {
-  AccountLogo,
-  EditIcon,
-  RedBin,
-  SideImg,
-  UserProfile,
-} from "../../assets/export";
+import { AccountLogo, EditIcon, RedBin, SideImg } from "../../assets/export";
 import AddFamilyMemberModal from "../../components/onboarding/AddFamilyMemberModal";
 import Button from "../../components/app/landingPage/Inputs/Button";
 import { useFormik } from "formik";
@@ -26,7 +20,6 @@ import { useNavigate } from "react-router";
 import AccountSuccess from "./AccountSuccess";
 import DeleteFamilyModal from "../../components/app/userInterface/dashboard/userprofile/DeleteFamilyModal";
 import { useGetCards } from "../../hooks/api/Get";
-import { ErrorToast } from "../../components/global/Toaster";
 
 const CreateFamilyMember = () => {
   const { postData, loading } = useCreateFamilyMember();
@@ -36,6 +29,7 @@ const CreateFamilyMember = () => {
 
   const { postData: deleteData, loading: deleteLoader } =
     useDeleteFamilyMember();
+
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -46,6 +40,7 @@ const CreateFamilyMember = () => {
   const [members, setMembers] = useState([]);
   const [selectedMemberId, setSelectedMemberId] = useState(null);
   const [familyError, setFamilyError] = useState("");
+  const [error, setErrors] = useState("");
 
   const {
     values,
@@ -60,8 +55,6 @@ const CreateFamilyMember = () => {
     validationSchema: addFamilMemberSchema,
     onSubmit: (values, action) => {
       const formattedDate = new Date(values.db).toISOString();
-
-      // setMembers((prev) => [values, ...prev]);
       const formData = new FormData();
 
       formData.append("name", values.fullname);
@@ -109,6 +102,7 @@ const CreateFamilyMember = () => {
       setDeleteModal,
       () => {}
     );
+    setMembers("")
   };
   const openDeleteModal = (id) => {
     setSelectedMemberId(id);
@@ -126,6 +120,7 @@ const CreateFamilyMember = () => {
       ? 4
       : 5;
   const isDisabled = storedMembers?.length >= maxFamilyMembers;
+
   useEffect(() => {
     if (isDisabled) {
       setFamilyError("You’ve reached your family member limit.");
@@ -133,6 +128,14 @@ const CreateFamilyMember = () => {
       setFamilyError("");
     }
   }, [isDisabled]);
+
+  const handleValidate = () => {
+    if (members?.length === 0) {
+      setErrors("Please Add family members before sending");
+    } else {
+      setErrors("");
+    }
+  };
 
   return (
     <Fragment>
@@ -174,11 +177,14 @@ const CreateFamilyMember = () => {
                   </p>
                 )}
               </div>
+              {members?.length === 0 && error && (
+                <div className="text-red-500 mb-2">{error}</div>
+              )}
 
               {!storedMembers?.length > 0 ? (
                 <div>
                   <div className=" lg:w-[350px] md:w-[500px] w-[320px] ">
-                    <Button text={"Send"} />
+                    <Button text={"Send"} onClick={handleValidate} />
                   </div>
 
                   <button
