@@ -72,8 +72,7 @@ const NetworkProviderDetail = () => {
     initialValues: {
       description: "",
     },
-    validationSchema: validationSchema,
-    enableReinitialize: true,
+    validationSchema: cancelReasonModal ? validationSchema : false,
 
     onSubmit: async (values) => {
       const payLoad = {
@@ -109,7 +108,9 @@ const NetworkProviderDetail = () => {
       console.log("🚀 ~ else run:", status);
       setCancelReasonModal(false);
       setAcceptModal(false);
-      setCancelRequestModal(true);
+      if (status === "IsReject") {
+        setCancelRequestModal(true);
+      }
     }
   };
 

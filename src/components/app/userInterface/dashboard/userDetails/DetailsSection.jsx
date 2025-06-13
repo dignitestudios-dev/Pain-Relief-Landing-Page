@@ -3,7 +3,7 @@ import GoogleMapComponent from "../../../../global/GoogleMap";
 import Button from "../../../landingPage/Inputs/Button";
 import { useNavigate } from "react-router";
 
-const DetailsSection = ({ setCancelModal, appointmentData }) => {
+const DetailsSection = ({ setCancelModal, appointmentData, handleModal }) => {
   console.log("🚀 ~ DetailsSection ~ appointmentData:", appointmentData);
   const navigate = useNavigate();
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString("en-US") : "-");
@@ -179,6 +179,12 @@ const DetailsSection = ({ setCancelModal, appointmentData }) => {
             <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#17C35133] text-[#17C351] text-center text-[16px] font-[500]">
               Completed
             </div>
+          ) : appointmentData?.status === "Cancelled" ? (
+            <div className="space-y-4 border-b border-[#1010101A] pb-4">
+              <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#FF67671C] text-[#FF6767] text-center text-[16px] font-[500]">
+                Rejected
+              </div>
+            </div>
           ) : (
             <div className="space-y-4 border-b border-[#1010101A] pb-4">
               <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#7B93DE33] text-[#7B93DE] text-center text-[16px] font-[500]">
@@ -205,7 +211,8 @@ const DetailsSection = ({ setCancelModal, appointmentData }) => {
               </div>
             ))}
           </div>
-          {appointmentData.status === "Rejected" ? (
+          {appointmentData.status === "Rejected" ||
+          appointmentData.status === "Cancelled" ? (
             <div>
               <h2 className="text-[20px] font-[500] mt-3 ">Rejection Reason</h2>
               <p>{appointmentData?.rejectedReason}</p>
@@ -223,7 +230,7 @@ const DetailsSection = ({ setCancelModal, appointmentData }) => {
             ""
           ) : (
             <button
-              onClick={() => ""}
+              onClick={() => handleModal("Rejected")}
               className="w-full h-[44px] rounded-[4px] border-red-400 border-[1px] text-red-400 mt-4 text-[16px] font-[500]"
             >
               Cancel Appointment
