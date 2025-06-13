@@ -15,7 +15,6 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
   const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
   const [billingPeriod, setBillingPeriod] = useState(billing);
   const [selectedPlan, setSelectedPlan] = useState(planType?.planType);
-  const [isSubscription, setIsSubscription] = useState(false);
 
   const plans =
     billingPeriod === "yearly"
@@ -153,21 +152,13 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
           <Elements stripe={stripePromise}>
             <PaymentForm
               planData={planData}
-              setIsSubscription={setIsSubscription}
               selectedPlanData={selectedPlanData?.price}
             />
           </Elements>
         </div>
       </div>
 
-      {isSubscription && (
-        <SubscriptionSuccessModal
-          onClick={() => {
-            setIsSubscription(!isSubscription);
-            navigate("/onboard/create-profile");
-          }}
-        />
-      )}
+    
     </div>
   );
 };

@@ -25,9 +25,10 @@ const CreateProfile = () => {
   const { userData } = useContext(AppContext);
 
   const [userImage, setUserImage] = useState("");
-
+  const [addressError, setAddressErrors] = useState({ address: "" });
+  const [form, setForm] = useState({ address: "" });
   const { loading, postData } = useProviderCreateProfile();
-
+  console.log(addressError, "addressError");
   const {
     values,
     errors,
@@ -40,7 +41,6 @@ const CreateProfile = () => {
     initialValues: userProfileValues,
     validationSchema: userProfileSchema,
     onSubmit: (values) => {
-      console.log("Form values:", values);
       const isoDate = new Date(values.db).toISOString().split("T")[0];
       const gender = values.gender.map((item) => item.name);
       const formData = new FormData();
@@ -50,12 +50,18 @@ const CreateProfile = () => {
       formData.append("country", values.country);
       formData.append("address", values.address);
       formData.append("city", values.city);
-      formData.append("state", values.state); 
+      formData.append("state", values.state);
       formData.append("dateOfBirth", isoDate);
       formData.append("gender", gender);
       formData.append("profilePicture", values.userImage);
-     formData.append("location[coordinates][]", values?.location?.coordinates?.[0]);
-formData.append("location[coordinates][]", values?.location?.coordinates?.[1]);
+      formData.append(
+        "location[coordinates][]",
+        values?.location?.coordinates?.[0]
+      );
+      formData.append(
+        "location[coordinates][]",
+        values?.location?.coordinates?.[1]
+      );
 
       formData.append("location[type]", "Point");
       postData(
@@ -64,11 +70,8 @@ formData.append("location[coordinates][]", values?.location?.coordinates?.[1]);
         processUserProfileCreate,
         formData
       );
-
-      // navigate("/onboard/create-family-member");
     },
   });
-
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -98,11 +101,9 @@ formData.append("location[coordinates][]", values?.location?.coordinates?.[1]);
     setFieldValue("city", data.city);
     setFieldValue("state", data.state);
     setFieldValue("zipCode", data.zipCode);
-
-    // If location object is needed for backend (e.g., coordinates)
     setFieldValue("location", data.location);
   };
-  console.log(values.gender, "values.gender");
+
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
@@ -220,39 +221,32 @@ formData.append("location[coordinates][]", values?.location?.coordinates?.[1]);
                   <p className="text-red-600 text-xs mt-1">{errors.db}</p>
                 )}
               </div>
-              <DropDownDark
-                label={"Gender (required)"}
-                placeholder={"Select "}
-                options={genderOptions}
-                iscolor={true}
-                value={values.gender}
-                onChange={(selected) =>
-                  setFieldValue("gender", [
-                    { id: selected._id, name: selected.name },
-                  ])
-                }
-              />
-              {errors.gender && errors.gender && (
-                <p className="text-red-600 text-xs mt-1">{errors.gender}</p>
-              )}
+              <div>
+                <DropDownDark
+                  label={"Gender (required)"}
+                  placeholder={"Select "}
+                  options={genderOptions}
+                  iscolor={true}
+                  value={values.gender}
+                  onChange={(selected) =>
+                    setFieldValue("gender", [
+                      { id: selected._id, name: selected.name },
+                    ])
+                  }
+                />
+                {touched.gender && errors.gender && (
+                  <p className="text-red-600 text-xs mt-1">{errors.gender}</p>
+                )}
+              </div>
             </div>
-
-            {/* <InputField
-              text={"Home address (required)"}
-              placeholder={"Enter your street, city, state, zip?"}
-              type={"text"}
-              id={"address"}
-              name={"address"}
-              maxLength={50}
-              value={values.address}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.address}
-              touched={touched.address}
-            /> */}
-
             <div className="mt-4">
-              <GoogleMapComponent onLocationSelect={onLocationSelect} />
+              <GoogleMapComponent
+                onLocationSelect={onLocationSelect}
+                editAddress={values.address}
+              />
+              {touched.address && errors.address && (
+                <p className="text-red-600 text-[12px] ">{errors.address}</p>
+              )}
             </div>
 
             <div className="flex justify-end mt-3">

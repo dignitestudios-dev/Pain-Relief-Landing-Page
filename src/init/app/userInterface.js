@@ -14,5 +14,7 @@ export const userProfileValues = {
   email: "",
   phone: "",
   gender: "",
+  db:"",
+  address:"",
   userImage: null,
 };

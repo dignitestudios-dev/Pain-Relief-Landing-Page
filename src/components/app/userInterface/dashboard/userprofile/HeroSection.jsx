@@ -29,7 +29,7 @@ const HeroSection = ({ userData, loading }) => {
       <div className="flex justify-center -mt-40 sm:-mt-36 md:-mt-32 lg:-mt-28 xl:-mt-24">
         <div className="w-[90%] max-w-[1500px]">
           {isLoading ? (
-            <SkeletonProviderDetail />
+           <SkeletonProviderDetail />
           ) : (
             <div className="flex flex-col lg:flex-row items-center justify-between bg-white rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 gap-4 sm:gap-6">
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">

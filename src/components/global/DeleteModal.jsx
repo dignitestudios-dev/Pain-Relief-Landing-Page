@@ -1,4 +1,6 @@
 import { IoWarning } from "react-icons/io5";
+import Button from "../app/landingPage/Inputs/Button";
+import { ErrorIcon } from "../../assets/export";
 
 const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
   if (!isOpen) return null;
@@ -29,9 +31,9 @@ const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
 
         {/* Icon */}
         <div className="flex flex-col items-center text-center">
-          <IoWarning className="text-orange-400 text-[60px] mb-4" />
+       <img src={ErrorIcon} className="w-[100px] h-[100px] " alt="" />
 
-          <h2 className="text-xl font-semibold mb-2">Are you sure?</h2>
+          <h2 className="text-xl font-semibold mb-2 mt-3">Are you sure?</h2>
           <p className="text-gray-600 mb-6 text-sm">
             This action cannot be undone.
           </p>
@@ -44,7 +46,11 @@ const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
             >
               Cancel
             </button>
-            <button
+            <div className="w-1/2 h-11">
+            <Button text={"Delete"} onClick={handleDelete} loading={deleteLoader} />
+
+            </div>
+            {/* <button
               disabled={deleteLoader}
               onClick={handleDelete}
               className={`w-1/2 h-11 rounded-lg text-white transition ${
@@ -54,12 +60,10 @@ const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
               }`}
             >
               {deleteLoader ? "Deleting..." : "Delete"}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
-
-    
     </div>
   );
 };

@@ -13,11 +13,8 @@ export const AppContextProvider = ({ children }) => {
     const cookieData = Cookies.get("user");
     return cookieData ? JSON.parse(cookieData) : null;
   });
-  
 
   const loginAuth = (data) => {
-    console.log(data, "userDayaAPp");
-
     if (data) {
       if (data?.data?.token) {
         Cookies.set("token", data?.data?.token);
@@ -27,13 +24,14 @@ export const AppContextProvider = ({ children }) => {
         setUserData(data?.data?.user);
         Cookies.set("user", JSON.stringify(data?.data?.user));
       }
-      
     }
   };
 
   const logoutAuth = () => {
     Cookies.remove("token");
     Cookies.remove("user");
+    localStorage.clear();
+    sessionStorage.clear();
     setToken(null);
     setUserData(null);
     navigate("/auth/sign-in");

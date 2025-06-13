@@ -148,9 +148,16 @@ export const processSendRequest = (
   }
 };
 
-export const processEditProviderProfile = (data, navigate, setUpdate) => {
+export const processEditProviderProfile = (
+  data,
+  navigate,
+  setUpdate,
+  loginAuth
+) => {
   if (data?.success) {
+    console.log(data, "ProviderData");
     SuccessToast(data?.message);
+    loginAuth({ data: { user: data?.data } });
     navigate("/provider/profile-netwrok-provider");
     setUpdate((prev) => !prev);
     return;
@@ -241,9 +248,10 @@ export const processAppointmentRequest = (data, modal, setUpdate) => {
   }
 };
 
-export const processEditUserProfile = (data, navigate) => {
+export const processEditUserProfile = (data, navigate, loginAuth) => {
   if (data?.success) {
     SuccessToast(data?.message);
+    loginAuth({ data: { user: { ...data?.data } } });
     navigate("/user/user-profile");
 
     return;

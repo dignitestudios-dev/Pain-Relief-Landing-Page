@@ -63,6 +63,12 @@ export const userProfileSchema = Yup.object({
         !value ||
         (value && ["image/jpeg", "image/jpg", "image/png"].includes(value.type))
     ),
+
+  db: Yup.date().nullable().required("Date of birth is required."),
+  gender: Yup.array()
+    .min(1, "Gender is required")
+    .required("Gender is required"),
+  address: Yup.string().required("Address is required"),
 });
 
 export const userEditProfileSchema = Yup.object().shape({
@@ -73,6 +79,8 @@ export const userEditProfileSchema = Yup.object().shape({
     .required("Email is required"),
   phone: Yup.string().required("Phone number is required"),
   dateOfBirth: Yup.string().required("Date of birth is required"),
- 
 
+  address: Yup.object().shape({
+    address: Yup.string().required("Please fill in the address"),
+  }),
 });

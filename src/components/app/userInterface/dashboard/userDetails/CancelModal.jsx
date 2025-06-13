@@ -2,7 +2,7 @@ import React from "react";
 import { ErrorIcon } from "../../../../../assets/export";
 import Button from "../../../landingPage/Inputs/Button";
 
-const CancelModal = ({ onClick, onClose }) => {
+const CancelModal = ({ onClick, onClose,heading }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] ">
@@ -11,7 +11,7 @@ const CancelModal = ({ onClick, onClose }) => {
             <div className=" mb-8">
               <img src={ErrorIcon} className="w-[107px] " />
             </div>
-            <p className="text-[24px] font-[600] capitalize">Cancel Booking</p>
+            <p className="text-[24px] font-[600] capitalize">{heading}</p>
             <p className="text-[16px] text-[#565656]">
               Are you sure you want reject this request
             </p>

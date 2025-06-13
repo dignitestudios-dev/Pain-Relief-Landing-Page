@@ -17,7 +17,6 @@ export const userInfoValidationSchema = Yup.object({
     .matches(/^\d+$/, "Mobile number must be digits only.")
     .min(8, "Mobile number must be at least 8 digits.")
     .required("Mobile number is required."),
-  
 });
 
 export const providerSchema = Yup.object({

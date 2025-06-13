@@ -7,6 +7,8 @@ const LicenseApprovedModal = ({
   setFile,
   handleUploadLicense,
   licenseloader,
+  error,
+  setError
 }) => {
   const [isLicenseAdded, setIsLicenseAdded] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -17,9 +19,10 @@ const LicenseApprovedModal = ({
       setFileName(file.name);
       setFile(file);
       setIsLicenseAdded(true);
+       setError("");
     }
   };
-
+console.log(isLicenseAdded,"isLicenseAdded")
   return (
     <div className="fixed inset-0 bg-[#0A150F80] z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-lg p-6 w-full max-w-[470px] mx-4">
@@ -61,7 +64,7 @@ const LicenseApprovedModal = ({
               id="license-upload"
               className="hidden"
               onChange={handleFileChange}
-             accept=".jpg,.jpeg,.png" 
+              accept=".jpg,.jpeg,.png"
             />
             <p className="underline text-[#212121]">Upload “document name”</p>
             <p className="text-[12px] text-[#8F8F8F] mt-1">
@@ -81,6 +84,9 @@ const LicenseApprovedModal = ({
                 </div>
               </div>
             </div>
+          )}
+          {error && (
+            <p className="text-red-500 text-[14px] font-[500] "> {error}</p>
           )}
           {/* Uploaded File Info */}
         </div>

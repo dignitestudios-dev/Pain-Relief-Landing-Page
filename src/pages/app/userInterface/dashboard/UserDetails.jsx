@@ -79,6 +79,7 @@ const UserDetails = () => {
       )}
       {cancelModal && (
         <CancelModal
+          heading={"Cancel Booking"}
           onClick={() => {
             setCancelModal(false);
             setCancelReasonModal(true);
@@ -87,6 +88,7 @@ const UserDetails = () => {
       )}
       {cancelReasonModal && (
         <CancelReasonModal
+          heading={"Cancellation Reason"}
           values={values}
           errors={errors}
           touched={touched}
