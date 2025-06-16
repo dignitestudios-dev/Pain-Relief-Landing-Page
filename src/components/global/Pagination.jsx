@@ -9,11 +9,11 @@ const Pagination = ({
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   console.log(currentPage, "currentPage==>pappap");
   const handlePrev = () => {
-    setCurrentPage(currentPage - 1);
+    if (currentPage > 1) onPageChange(currentPage - 1);
   };
 
   const handleNext = () => {
-    setCurrentPage(currentPage + 1);
+    if (currentPage < totalPages) onPageChange(currentPage + 1);
   };
 
   return (
