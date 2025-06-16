@@ -18,14 +18,11 @@ const BookAppointmentDetails = () => {
 
   const [dateTime, setDateTime] = useState({ date: "", time: "" });
   const [appointmentId, setAppointmentId] = useState("");
+  const [dateTimeError, setDateTimeError] = useState(false);
 
   const [activeMember, setActiveMember] = useState(null);
-  console.log("🚀 ~ BookAppointmentDetails ~ activeMember:", activeMember);
 
-  const { data: profile, loading: loader } =
-    useUserProfile("/user/get-profile");
-  console.log("🚀 ~ BookAppointmentDetails ~ profile:", profile);
-  console.log("🚀 ~ BookAppointmentDetails ~ loader:", loader);
+  const { data: profile } = useUserProfile("/user/get-profile");
 
   const { data, loading } = useDetailProvider(
     `/provider/details`,
@@ -36,6 +33,10 @@ const BookAppointmentDetails = () => {
   console.log("🚀 ~ BookAppointmentDetails ~ isLoader:", isLoader);
 
   const appointmentBooking = async (data) => {
+    if (!dateTime.date || !dateTime.time) {
+      setDateTimeError("Please select both a date and a time before booking.");
+      return;
+    }
     const coordinates = data?.addresses[0]?.location;
     const payLoad = {
       appointmentDate: dateTime?.date
@@ -98,6 +99,8 @@ const BookAppointmentDetails = () => {
           dateTime={dateTime}
           data={data}
           isLoader={isLoader}
+          dateTimeError={dateTimeError}
+          setDateTimeError={setDateTimeError}
         />
       )}
       {requestSendModal && (

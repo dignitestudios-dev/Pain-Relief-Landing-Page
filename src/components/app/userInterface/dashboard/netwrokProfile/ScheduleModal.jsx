@@ -1,8 +1,5 @@
-import React from "react";
-import { IoMdClose } from "react-icons/io";
-import { FiCalendar } from "react-icons/fi";
 import Button from "../../../landingPage/Inputs/Button";
-import { CalenderIcon, CancelIcon } from "../../../../../assets/export";
+import { CancelIcon } from "../../../../../assets/export";
 import Calender from "../../../../global/DatePicker";
 
 const ScheduleModal = ({
@@ -12,6 +9,8 @@ const ScheduleModal = ({
   dateTime,
   data,
   isLoader,
+  dateTimeError = false,
+  setDateTimeError = () => {},
 }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
@@ -30,9 +29,10 @@ const ScheduleModal = ({
         <div>
           <Calender
             startDate={dateTime.date}
-            setStartDate={(date) =>
-              setDateTime((prev) => ({ ...prev, date: date }))
-            }
+            setStartDate={(date) => {
+              setDateTime((prev) => ({ ...prev, date: date }));
+              setDateTimeError(false);
+            }}
             text="DD/MM/YY"
             isStyle={true}
             label="Select Date"
@@ -65,7 +65,10 @@ const ScheduleModal = ({
               const isSelected = dateTime.time === time;
               return (
                 <button
-                  onClick={() => setDateTime((prev) => ({ ...prev, time }))}
+                  onClick={() => {
+                    setDateTime((prev) => ({ ...prev, time }));
+                    setDateTimeError(false);
+                  }}
                   key={index}
                   className={`border rounded-md px-2 py-2 text-sm ${
                     isSelected
@@ -83,7 +86,11 @@ const ScheduleModal = ({
         {/* Description */}
 
         {/* Buttons */}
-
+        {dateTimeError && (
+          <p className="text-red-500 text-sm pb-1">
+            Please select the Date/Time
+          </p>
+        )}
         <Button
           text={"Send Request "}
           onClick={() => onClick(data)}

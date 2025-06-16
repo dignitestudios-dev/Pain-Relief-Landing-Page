@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   CancelIcon,
   ProfileImg,
@@ -15,6 +15,15 @@ const BookChiropractorModal = ({
   setActiveMember,
   profileId,
 }) => {
+  const [memberMessage, setMemberMessage] = useState(false);
+  const handleSelection = () => {
+    if (!activeMember) {
+      setMemberMessage(true);
+      return;
+    } else {
+      onClick();
+    }
+  };
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-md p-4 h-[560px] overflow-y-auto w-[470px] ">
@@ -45,7 +54,10 @@ const BookChiropractorModal = ({
               ? "bg-gradient-to-r from-[#63CFAC] to-[#29ABE2]"
               : "border border-gray-300"
           }`}
-          onClick={() => setActiveMember(profileId)}
+          onClick={() => {
+            setActiveMember(profileId);
+            setMemberMessage(false);
+          }}
         >
           <div className="bg-white  rounded-[8px] p-3 flex items-center justify-between">
             <div className="flex gap-4 items-center">
@@ -87,7 +99,10 @@ const BookChiropractorModal = ({
                   ? "bg-gradient-to-r from-[#63CFAC] to-[#29ABE2]"
                   : "border border-gray-300"
               }`}
-              onClick={() => setActiveMember(item._id)}
+              onClick={() => {
+                setActiveMember(item._id);
+                setMemberMessage(false);
+              }}
             >
               <div className="bg-white  rounded-[8px] p-3 flex items-center justify-between">
                 <div className="flex gap-4 items-center">
@@ -118,8 +133,12 @@ const BookChiropractorModal = ({
           </>
         ))}
 
+        {memberMessage && (
+          <p className="text-red-500 text-sm pb-1">Please select the member</p>
+        )}
+
         <div className="relative bottom-0">
-          <Button text={"Next"} onClick={onClick} />
+          <Button text={"Next"} onClick={handleSelection} />
         </div>
       </div>
     </div>
