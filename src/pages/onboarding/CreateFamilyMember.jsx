@@ -54,6 +54,7 @@ const CreateFamilyMember = () => {
     initialValues: addFamilMemberValues,
     validationSchema: addFamilMemberSchema,
     onSubmit: (values, action) => {
+      console.log("🚀 ~ CreateFamilyMember ~ values:", values);
       const formattedDate = new Date(values.db).toISOString();
       const formData = new FormData();
 
@@ -61,14 +62,8 @@ const CreateFamilyMember = () => {
       formData.append("email", values.email);
       formData.append("phone", values.phone);
       formData.append("dateOfBirth", formattedDate);
-      formData.append(
-        "gender",
-        values.gender?.map((item) => item.name).join(", ") || ""
-      );
-      formData.append(
-        "relationship",
-        values.relation?.map((item) => item.name).join(", ") || ""
-      );
+      formData.append("gender", values.gender || "");
+      formData.append("relationship", values.relation || "");
 
       if (values.userImage) {
         formData.append("profilePicture", values.userImage);
@@ -102,7 +97,7 @@ const CreateFamilyMember = () => {
       setDeleteModal,
       () => {}
     );
-    setMembers("")
+    setMembers("");
   };
   const openDeleteModal = (id) => {
     setSelectedMemberId(id);

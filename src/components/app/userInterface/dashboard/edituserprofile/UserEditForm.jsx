@@ -193,18 +193,15 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
               <p className="text-red-600 text-xs mt-1">{errors.dateOfBirth}</p>
             )}
           </div>
-          <DropDownDark
-            label={"Gender (required)"}
-            placeholder={"Select "}
-            options={genderOptions}
-            iscolor={true}
-            value={values.gender}
-            onChange={(selected) =>
-              setFieldValue("gender", [
-                { id: selected._id, name: selected.name },
-              ])
-            }
-          />
+          <div>
+            <InputField
+              text={"Gender"}
+              disabled={true}
+              value={values.gender}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
         </div>
         <div className="mt-3">
           <GoogleMapComponent

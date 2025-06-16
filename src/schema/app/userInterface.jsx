@@ -34,8 +34,8 @@ export const addFamilMemberSchema = Yup.object({
     }),
 
   db: Yup.date().required("Date of birth is required"),
-  relation: Yup.array().min(1, "Relation is required"),
-  gender: Yup.array().min(1, "Gender is required"),
+  relation: Yup.string().trim().required("Relation is required."),
+  gender: Yup.string().trim().required("Gender is required."),
 });
 
 export const userProfileSchema = Yup.object({
@@ -83,4 +83,6 @@ export const userEditProfileSchema = Yup.object().shape({
   address: Yup.object().shape({
     address: Yup.string().required("Please fill in the address"),
   }),
+
+  gender: Yup.string().required("Gender is required"),
 });

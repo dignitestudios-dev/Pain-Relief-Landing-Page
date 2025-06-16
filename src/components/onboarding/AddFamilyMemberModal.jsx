@@ -21,6 +21,7 @@ const AddFamilyMemberModal = ({
   setFieldValue,
   loading,
 }) => {
+  console.log("🚀 ~ values:", values);
   const [userImage, setUserImage] = useState("");
 
   const subjectOptions = [
@@ -143,9 +144,7 @@ const AddFamilyMemberModal = ({
                 iscolor={true}
                 value={values.relation}
                 onChange={(selected) =>
-                  setFieldValue("relation", [
-                    { id: selected._id, name: selected.name },
-                  ])
+                  setFieldValue("relation", selected.name)
                 }
               />
               {touched.relation && errors.relation && (
@@ -174,11 +173,7 @@ const AddFamilyMemberModal = ({
                 options={genderOptions}
                 iscolor={true}
                 value={values.gender}
-                onChange={(selected) =>
-                  setFieldValue("gender", [
-                    { id: selected._id, name: selected.name },
-                  ])
-                }
+                onChange={(selected) => setFieldValue("gender", selected.name)}
               />
               {touched.db && errors.db && (
                 <p className="text-red-600 text-xs mt-1">{errors.gender}</p>

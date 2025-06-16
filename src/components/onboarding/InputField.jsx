@@ -23,7 +23,7 @@ const InputField = ({
         } w-full h-[48px] border-[1px]   
           ${
             error && touched
-              ? "border-red-600 focus-within:border-[1px] focus-within:border-red-600"
+              ? ""
               : "border-[#D9D9D9] focus-within:border-[1px]  focus-within:border-[#55C9FA]"
           } flex justify-between items-center rounded-[8px] md:pl-3 pl-1.5`}
       >

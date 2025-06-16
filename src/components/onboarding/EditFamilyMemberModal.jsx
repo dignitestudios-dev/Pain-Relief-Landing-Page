@@ -21,7 +21,7 @@ const EditFamilyMemberModal = ({
 }) => {
   const { loading, postData } = useEditFamilyMember();
   const memberToEdit = members[editIndex];
- 
+
   const subjectOptions = [
     { _id: "1", name: "Brother" },
     { _id: "2", name: "Sister" },
@@ -65,9 +65,9 @@ const EditFamilyMemberModal = ({
         name: updatedValues.fullname,
         email: updatedValues.email,
         phone: updatedValues.phone,
-        relationship: updatedValues.relation?.[0]?.name || "",
+        relationship: updatedValues.relation || "",
         dateOfBirth: formattedDate,
-        gender: updatedValues.gender?.[0]?.name || "",
+        gender: updatedValues.gender || "",
         description: updatedValues.descriptions,
         profilePicture: updatedValues.userImage,
       };
@@ -217,9 +217,7 @@ const EditFamilyMemberModal = ({
                 iscolor={true}
                 value={values.relation}
                 onChange={(selected) =>
-                  setFieldValue("relation", [
-                    { id: selected._id, name: selected.name },
-                  ])
+                  setFieldValue("relation", selected.name)
                 }
               />
               {touched.relation && errors.relation && (
@@ -247,11 +245,7 @@ const EditFamilyMemberModal = ({
                 options={genderOptions}
                 iscolor={true}
                 value={values.gender}
-                onChange={(selected) =>
-                  setFieldValue("gender", [
-                    { id: selected._id, name: selected.name },
-                  ])
-                }
+                onChange={(selected) => setFieldValue("gender", selected.name)}
               />
               {touched.gender && errors.gender && (
                 <p className="text-red-600 text-xs mt-1">{errors.gender}</p>

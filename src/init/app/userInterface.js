@@ -2,9 +2,9 @@ export const addFamilMemberValues = {
   fullname: "",
   db: "",
   email: "",
-  gender: [],
+  gender: "",
   phone: "",
-  relation: [],
+  relation: "",
   descriptions: "",
   userImage: null,
 };
@@ -14,7 +14,7 @@ export const userProfileValues = {
   email: "",
   phone: "",
   gender: "",
-  db:"",
-  address:"",
+  db: "",
+  address: "",
   userImage: null,
 };

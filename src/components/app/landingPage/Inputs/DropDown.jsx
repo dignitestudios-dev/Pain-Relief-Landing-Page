@@ -116,7 +116,7 @@ export const DropDownDark = ({
   iscolor = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   {
     console.log(options, "genderOptions");
   }
@@ -137,7 +137,7 @@ export const DropDownDark = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  console.log(value, "value");
+  console.log(value, " - - length");
   return (
     <div ref={dropdownRef} className="relative w-full">
       {label && (
@@ -196,9 +196,11 @@ export const DropDownDark = ({
         ) : (
           <div className="absolute top-full left-0 w-full border rounded-[8px] mt-1 shadow-md z-10 max-h-60 overflow-y-auto bg-white text-black">
             {options?.map((option) => {
-            const isChecked = Array.isArray(value)
-  ? value.some((item) => item.id === option._id || item._id === option._id)
-  : value === option._id;
+              const isChecked = Array.isArray(value)
+                ? value.some(
+                    (item) => item.id === option._id || item._id === option._id
+                  )
+                : value === option.name;
 
               return (
                 <label
