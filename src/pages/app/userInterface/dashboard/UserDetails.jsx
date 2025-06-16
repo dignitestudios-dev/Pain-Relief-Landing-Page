@@ -9,14 +9,21 @@ import * as Yup from "yup";
 import { useParams } from "react-router";
 import axios from "../../../../axios";
 import AppointmentDetailLoader from "../../../../components/app/networkProviderInterface/dashboard/networkProviderDetail/AppointmentDetailLoader";
+import { processAppointmentRequest } from "../../../../lib/utils";
+import { useAppointmentRequest } from "../../../../hooks/api/Post";
 const UserDetails = () => {
   const [cancelModal, setCancelModal] = useState(false);
   const [cancelReasonModal, setCancelReasonModal] = useState(false);
   const [cancelRequestModal, setCancelRequestModal] = useState(false);
   const [description, setDescription] = useState("");
   const [appointmentData, setAppointmentData] = useState("");
-
+  const { loading, postData } = useAppointmentRequest();
   const [detailLoading, setDetailLoading] = useState(true);
+  const [update, setUpdate] = useState(false);
+  const [appointmentState, setAppointmentState] = useState({
+    suggestedTime: "",
+    status: "",
+  });
 
   const { id } = useParams();
 
@@ -36,7 +43,7 @@ const UserDetails = () => {
 
   useEffect(() => {
     appointmentDetail();
-  }, []);
+  }, [update]);
 
   const validationSchema = Yup.object().shape({
     description: Yup.string()
@@ -44,6 +51,7 @@ const UserDetails = () => {
       .min(5, "Description must be at least 5 characters")
       .max(500, "Description cannot exceed 500 characters"),
   });
+
   const {
     values,
     errors,
@@ -58,14 +66,37 @@ const UserDetails = () => {
       description: "",
     },
     validationSchema: validationSchema,
-    enableReinitialize: true,
 
-    onSubmit: (values) => {
-      setDescription(values.description);
-      setCancelReasonModal(false);
-      setCancelRequestModal(true);
+    onSubmit: async (values) => {
+      const payLoad = {
+        _id: id,
+        rejectedReason: values?.description,
+        status: appointmentState.status,
+      };
+      console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
+
+      postData(
+        "/booking/accept-reject",
+        payLoad,
+        processAppointmentRequest,
+        handleModal,
+        setUpdate
+      );
     },
   });
+
+  const handleModal = (status, time) => {
+    if (status) setAppointmentState((prev) => ({ ...prev, status: status }));
+    if (status === "Rejected") {
+      setCancelModal(true);
+    } else {
+      setCancelReasonModal(false);
+
+      if (status === "IsReject") {
+        setCancelRequestModal(true);
+      }
+    }
+  };
   return (
     <div>
       <HeroSection />
@@ -75,6 +106,8 @@ const UserDetails = () => {
         <DetailsSection
           setCancelModal={setCancelModal}
           appointmentData={appointmentData}
+          handleModal={handleModal}
+          
         />
       )}
       {cancelModal && (
@@ -96,6 +129,7 @@ const UserDetails = () => {
           handleBlur={handleBlur}
           handleSubmit={handleSubmit}
           onCLose={() => setCancelReasonModal(false)}
+          loading={loading}
         />
       )}
       {cancelRequestModal && (

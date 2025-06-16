@@ -521,7 +521,7 @@ const useAppointmentRequest = () => {
       setLoading(true);
       const response = await axios.post(url, data);
       if (typeof callback === "function") {
-        callback(response?.data, modal, setUpdate);
+        callback(response?.data, modal, setUpdate, data?.status);
       }
       return response?.data;
     } catch (error) {

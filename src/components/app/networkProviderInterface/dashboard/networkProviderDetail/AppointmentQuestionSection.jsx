@@ -30,9 +30,9 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
                 key={index}
                 className="text-[14px] sm:text-[16px] border-b pb-4 font-[600] mb-2"
               >
-                {item.question || "What"}
+                {item.question || "Null"}
                 <p className="text-[#565656] font-[500] text-[14px] sm:text-[16px]">
-                  {item.answer || "This"}
+                  {item.answer }
                 </p>
               </li>
             ))}
@@ -227,7 +227,7 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
           ) : AppointmentData.status === "Approved" ? (
             <>
               <button
-                onClick={() => "Rejected"}
+                  onClick={() => handleModal("Rejected")}
                 className="w-full h-[44px] rounded-[4px] border-red-400 border-[1px] text-red-400 mt-4 text-[16px] font-[500]"
               >
                 Cancel Appointment

@@ -234,10 +234,13 @@ export const processUpdateFamily = (data, setEditModal, setUpdate) => {
   }
 };
 
-export const processAppointmentRequest = (data, modal, setUpdate) => {
+export const processAppointmentRequest = (data, modal, setUpdate, status) => {
   if (data?.success) {
-    modal("", "");
-    console.log("data id ===> ", data?.data?._id);
+    if (status === "Rejected") {
+      modal("IsReject", "");
+    } else {
+      modal("", "");
+    }
     if (data?.data?._id) {
       setUpdate(data?.data?._id);
     } else {
