@@ -184,11 +184,12 @@ const CreateFamilyMember = () => {
 
                   <button
                     type="button"
+                    onClick={() => setIsCreated(true)}
                     className="w-full flex justify-center items-center gap-1 cursor-pointer mt-6"
                   >
-                    <IoIosArrowDropleftCircle className="text-lg text-[#212121]" />
+                    {/* <IoIosArrowDropleftCircle className="text-lg text-[#212121]" /> */}
                     <p className="text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
-                      Back
+                      Skip
                     </p>
                   </button>
                 </div>

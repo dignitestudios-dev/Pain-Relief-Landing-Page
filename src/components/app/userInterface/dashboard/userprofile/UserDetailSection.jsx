@@ -44,14 +44,8 @@ const UserDetailSection = ({ userData, tableData, setUpdate, loader }) => {
       formData.append("email", values.email);
       formData.append("phone", values.phone);
       formData.append("dateOfBirth", formattedDate);
-      formData.append(
-        "gender",
-        values.gender?.map((item) => item.name).join(", ") || ""
-      );
-      formData.append(
-        "relationship",
-        values.relation?.map((item) => item.name).join(", ") || ""
-      );
+      formData.append("gender", values.gender || "");
+      formData.append("relationship", values.relation || "");
 
       if (values.userImage) {
         formData.append("profilePicture", values.userImage);
