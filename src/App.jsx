@@ -4,7 +4,7 @@ import "./App.css";
 
 import { PublicRoutes } from "./routes/app/landingPage/PublicRoutes";
 import AppLayout from "./components/app/landingPage/layout/AppLayout";
-import { AuthRoutes } from "./routes/authentication/AuthRoutes";
+
 import { ProviderRoutes } from "./routes/app/networkProviderInterface/ProviderRoutes";
 import { UserRoutes } from "./routes/app/userInterface/UserRoutes";
 import NetworkProviderLayout from "./components/app/networkProviderInterface/layout/NetworkProviderLayout";
@@ -16,6 +16,7 @@ import UserLayout from "./components/app/userInterface/layout/UserLayout";
 import OnboardLayout from "./layouts/OnboardLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import { OnboardingRoutes } from "./routes/onboarding/OnboardingRoutes";
+import { AuthRoutes } from "../src/routes/authentication/AuthRoutes";
 
 function App() {
   const { token, role, userData } = useContext(AppContext);
@@ -30,7 +31,10 @@ function App() {
         ))}
       </Route>
 
-      <Route path="auth" element={<AuthLayout token={token} role={userData?.role} />}>
+      <Route
+        path="auth"
+        element={<AuthLayout token={token} role={userData?.role} />}
+      >
         {AuthRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}
@@ -38,7 +42,9 @@ function App() {
 
       <Route
         path="onboard"
-        element={<OnboardLayout token={token} role={userData?.role} user={userData} />}
+        element={
+          <OnboardLayout token={token} role={userData?.role} user={userData} />
+        }
       >
         {OnboardingRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
@@ -47,7 +53,9 @@ function App() {
 
       <Route
         path="user"
-        element={<UserLayout token={token} role={userData?.role} user={userData} />}
+        element={
+          <UserLayout token={token} role={userData?.role} user={userData} />
+        }
       >
         {UserRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
@@ -57,7 +65,11 @@ function App() {
       <Route
         path="provider"
         element={
-          <NetworkProviderLayout token={token} role={userData?.role} user={userData} />
+          <NetworkProviderLayout
+            token={token}
+            role={userData?.role}
+            user={userData}
+          />
         }
       >
         {ProviderRoutes?.map((Link, i) => (
