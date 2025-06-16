@@ -6,7 +6,7 @@ import ForgotPassword from "./../../pages/onboarding/ForgotPassword";
 import VerifyOtp from "./../../pages/onboarding/VerifyOtp";
 import UpdatePassword from "./../../pages/onboarding/UpdatePassword";
 
-export const AuthRoutes = [
+export const AuthenticationRoutes = [
   {
     url: "account-selection",
     page: <AccountSelection />,

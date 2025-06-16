@@ -14,12 +14,12 @@ import { AppContext } from "./context/AppContext";
 import UserLayout from "./components/app/userInterface/layout/UserLayout";
 
 import OnboardLayout from "./layouts/OnboardLayout";
-// import AuthLayout from "./layouts/AuthLayout";
+import AuthLayout from "./layouts/AuthLayout";
 import { OnboardingRoutes } from "./routes/onboarding/OnboardingRoutes";
-// import { AuthRoutes } from "../src/routes/authentication/AuthRoutes";
+import { AuthenticationRoutes } from "./routes/authentication/AuthenticationRoutes";
 
 function App() {
-  const { token, role, userData } = useContext(AppContext);
+  const { token, userData } = useContext(AppContext);
 
   return (
     <Routes>
@@ -31,14 +31,14 @@ function App() {
         ))}
       </Route>
 
-      {/* <Route
+      <Route
         path="auth"
         element={<AuthLayout token={token} role={userData?.role} />}
       >
-        {AuthRoutes?.map((Link, i) => (
+        {AuthenticationRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}
-      </Route> */}
+      </Route>
 
       <Route
         path="onboard"
