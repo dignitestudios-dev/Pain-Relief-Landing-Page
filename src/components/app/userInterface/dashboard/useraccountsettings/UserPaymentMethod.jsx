@@ -8,6 +8,8 @@ import DeleteModal from "../../../../global/DeleteModal";
 import PaymentMethodModal from "../upgradeplan/PaymentMethodModal";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { IoIosRadioButtonOff } from "react-icons/io";
+import ChangePaymentCardModal from "./ChangePaymentCardModal";
 
 const UserPaymentMethod = () => {
   const { userData } = useContext(AppContext);
@@ -20,11 +22,12 @@ const UserPaymentMethod = () => {
   const [deleteLoader, setDeleteLoader] = useState(false);
 
   const [paymentMethodModal, setPaymentMethodModal] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [isCardChange, setIsCardChange] = useState(false);
+  const [cardId, setCardId] = useState("");
 
   const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
 
-  console.log(data, "data");
+  console.log(data, "33 -- data");
 
   const handleDeleteModal = (id) => {
     setDeleteId(id);
@@ -47,6 +50,24 @@ const UserPaymentMethod = () => {
       setDeleteLoader(false);
     }
   };
+
+  const handleUpdate = async () => {
+    try {
+      setDeleteLoader(true);
+      const response = await axios.post("/payment/card/set-default", {
+        cardId: cardId,
+      });
+      if (response?.status === 200) {
+        setUpdate((prev) => !prev);
+        setIsCardChange(false);
+      }
+    } catch (error) {
+      ErrorToast(error.response.data.message);
+    } finally {
+      setIsCardChange(false);
+    }
+  };
+
   return (
     <div>
       <div className="bg-white rounded-[26px]  p-8 ">
@@ -77,7 +98,7 @@ const UserPaymentMethod = () => {
             <div
               key={index}
               className={`rounded-[8px] my-2 ${
-                true
+                item?.default
                   ? "bg-gradient-to-l p-[1px] to-[#63CFAC] from-[#29ABE2]"
                   : "border"
               }`}
@@ -114,14 +135,25 @@ const UserPaymentMethod = () => {
                       <img src={RedBin} alt="Delete" />
                     </button>
                   )}
-
-                  <div>
-                    <img
-                      src={SmallTick}
-                      className="w-[23px] h-[23px] cursor-pointer"
-                      alt="Toggle"
-                    />
-                  </div>
+                  {item?.default ? (
+                    <div>
+                      <img
+                        src={SmallTick}
+                        className="w-[23px] h-[23px] cursor-pointer"
+                        alt="Toggle"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => {
+                        setIsCardChange(true);
+                        setCardId(item?._id);
+                      }}
+                      className="cursor-pointer"
+                    >
+                      <IoIosRadioButtonOff className="text-[24px] text-gray-400" />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -145,6 +177,13 @@ const UserPaymentMethod = () => {
             }}
           />
         </Elements>
+      )}
+      {isCardChange && (
+        <ChangePaymentCardModal
+          onClose={() => setIsCardChange(false)}
+          onClick={handleUpdate}
+          loading={deleteLoader}
+        />
       )}
     </div>
   );

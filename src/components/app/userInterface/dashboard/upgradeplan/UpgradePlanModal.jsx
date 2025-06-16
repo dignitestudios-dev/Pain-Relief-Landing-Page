@@ -12,7 +12,7 @@ import Button from "../../../landingPage/Inputs/Button";
 const UpgradePlanModal = ({ onClose, onClick, loader }) => {
   const { userData } = useContext(AppContext);
   const { data, loading } = useGetCards("/payment/cards");
-  console.log(data, "data");
+
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-md p-8 w-[960px] h-[537px] overflow-auto ">
@@ -38,41 +38,43 @@ const UpgradePlanModal = ({ onClose, onClick, loader }) => {
                 </div>
               </div>
             ) : (
-              data?.slice(0, 1)?.map((item, index) => (
-                <div
-                  key={index}
-                  className={`rounded-[8px] my-1
+              data
+                ?.filter((card) => card?.default)
+                ?.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`rounded-[8px] my-1
                             ${
                               true
                                 ? "bg-gradient-to-l p-[1px] to-[#63CFAC] from-[#29ABE2]"
                                 : "border"
                             }
                           `}
-                >
-                  <div className="bg-white flex justify-between rounded-[8px] p-3">
-                    <div>
-                      <p className="font-[600]">{userData?.firstName}</p>
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={StripeIcon}
-                          className="w-[22px] h-[22px]"
-                          alt="Stripe"
-                        />
-                        <p>**********{item?.last4}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
+                  >
+                    <div className="bg-white flex justify-between rounded-[8px] p-3">
                       <div>
-                        <img
-                          src={SmallTick}
-                          className="w-[23px] h-[23px] cursor-pointer"
-                          alt="Toggle"
-                        />
+                        <p className="font-[600]">{userData?.firstName}</p>
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={StripeIcon}
+                            className="w-[22px] h-[22px]"
+                            alt="Stripe"
+                          />
+                          <p>**********{item?.last4}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div>
+                          <img
+                            src={SmallTick}
+                            className="w-[23px] h-[23px] cursor-pointer"
+                            alt="Toggle"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))
+                ))
             )}
           </div>
         </div>

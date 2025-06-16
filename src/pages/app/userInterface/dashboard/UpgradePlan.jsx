@@ -12,7 +12,6 @@ const UpgradePlan = () => {
   const [subscriptionActiveModal, setSubscriptionActiveModal] = useState(false);
 
   const { data, loading } = useSubscriptions("/payment/get-subscriptions");
-  console.log("🚀 ~ UpgradePlan ~ data:", data);
 
   return (
     <div>
