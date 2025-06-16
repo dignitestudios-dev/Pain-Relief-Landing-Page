@@ -15,7 +15,7 @@ const PlansSection = ({ subscriptionsData, loader }) => {
   const navigate = useNavigate();
   const [Isactive, setIsActive] = useState("Year");
   const [paymentModal, setPaymentModal] = useState(false);
-  console.log("🚀 ~ PlansSection ~ paymentModal:", paymentModal);
+
   const [priceId, setPriceId] = useState(false);
   const [update, setUpdate] = useState(false);
 
@@ -132,17 +132,17 @@ const PlansSection = ({ subscriptionsData, loader }) => {
 
                   <div className="flex flex-col xl:flex-row xl:space-x-4">
                     {subscriptionsData[0]?.yearly
-                      ?.filter(
-                        (plan) =>
-                          !(
-                            plan.planType ===
-                              subData?.userSubscription?.priceDetails
-                                ?.planType &&
-                            plan.billingPeriod ===
-                              subData?.userSubscription?.priceDetails
-                                ?.billingPeriod
-                          )
-                      )
+                      ?.filter((plan) => {
+                        return !(
+                          plan.planType ===
+                            subData?.userSubscription?.priceDetails?.planType &&
+                          plan.billingPeriod ===
+                            subData?.userSubscription?.priceDetails
+                              ?.billingPeriod &&
+                          subscriptionsData[0]?.name ===
+                            subData?.userSubscription?.name
+                        );
+                      })
                       .map((plan) => (
                         <label
                           key={plan._id}
@@ -169,7 +169,7 @@ const PlansSection = ({ subscriptionsData, loader }) => {
                     bg-clip-text text-transparent xl:text-[45px] text-[25px] font-bold"
                 >
                   ${selectedPlans[0]?.price ?? "00"}
-                  <span className="text-[18px] font-normal">/mo</span>
+                  <span className="text-[18px] font-normal">/yr</span>
                 </div>
               </div>
 
@@ -235,30 +235,43 @@ const PlansSection = ({ subscriptionsData, loader }) => {
                       {(Isactive === "Monthly"
                         ? subscriptionsData[1]?.monthly
                         : subscriptionsData[1]?.yearly
-                      )?.map((plan, index) => (
-                        <label
-                          key={plan._id}
-                          className="flex items-center space-x-1 text-sm"
-                        >
-                          <img
-                            src={
-                              selectedPlans[1]?._id === plan._id
-                                ? RadioBtnActive
-                                : RadioBtn
-                            }
-                            onClick={() => handleSelectPlan(1, plan)}
-                            className="cursor-pointer w-[17px] h-[17px]"
-                            alt=""
-                          />
-                          <span>{plan.planType}</span>
-                        </label>
-                      ))}
+                      )
+                        ?.filter((plan) => {
+                          return !(
+                            plan.planType ===
+                              subData?.userSubscription?.priceDetails
+                                ?.planType &&
+                            plan.billingPeriod ===
+                              subData?.userSubscription?.priceDetails
+                                ?.billingPeriod &&
+                            subscriptionsData[1]?.name ===
+                              subData?.userSubscription?.name
+                          );
+                        })
+                        ?.map((plan, index) => (
+                          <label
+                            key={plan._id}
+                            className="flex items-center space-x-1 text-sm"
+                          >
+                            <img
+                              src={
+                                selectedPlans[1]?._id === plan._id
+                                  ? RadioBtnActive
+                                  : RadioBtn
+                              }
+                              onClick={() => handleSelectPlan(1, plan)}
+                              className="cursor-pointer w-[17px] h-[17px]"
+                              alt=""
+                            />
+                            <span>{plan.planType}</span>
+                          </label>
+                        ))}
                     </div>
                   </div>
                   <div className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent xl:text-[45px] text-[25px] font-bold">
                     ${selectedPlans[1]?.price ?? "00"}
                     <span className="text-[18px] font-normal">
-                      {subscriptionsData[1]?.yearly ? "/yr" : "/mo"}
+                      {Isactive === "Year" ? "/yr" : "/mo"}
                     </span>
                   </div>
                 </div>

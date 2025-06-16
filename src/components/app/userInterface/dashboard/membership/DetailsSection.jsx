@@ -9,7 +9,7 @@ import SubscriptionStatusModal from "../upgradeplan/SubscriptionStatusModal";
 import { useCancelSubscription } from "../../../../../hooks/api/Post";
 import { processCancelSubscription } from "../../../../../lib/utils";
 
-const DetailsSection = ({userData}) => {
+const DetailsSection = ({ userData }) => {
   const [cancelSubscriptionModal, setCancelSubscriptionModal] = useState(false);
   const [subscriptionActiveModal, setSubscriptionActiveModal] = useState(false);
   const [tabActive, setTabActive] = useState("Membership Details");
@@ -61,7 +61,9 @@ const DetailsSection = ({userData}) => {
       {tabActive === "Effective Date" && (
         <EffectiveDate subscriptiondata={data} />
       )}
-      {tabActive === "ID Card" && <IDCardsSection  IdCardData={data} userData={userData} />}
+      {tabActive === "ID Card" && (
+        <IDCardsSection IdCardData={data} userData={userData} />
+      )}
       {tabActive === "Member Agreement" && <MemberShipAgreement />}
       {cancelSubscriptionModal && (
         <CancelSubscriptionModal

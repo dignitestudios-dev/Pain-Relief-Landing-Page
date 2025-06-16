@@ -80,6 +80,7 @@ import BgIdCard from "./UserInterFace/bgidCard.png";
 import InfoCircle from "./UserInterFace/InfoCircle.png";
 import StripeIcon from "./UserInterFace/stripeIcon.png";
 import DustbinIcon from "./UserInterFace/dustbinIcon.png";
+import UnCheck from "./UserInterFace/UnCheck.png";
 
 export {
   NoInternetImage,
@@ -131,6 +132,7 @@ export {
   UserDark,
   UserProfile,
   SmallTick,
+  UnCheck,
   GoogleIcon,
   AppleIcon,
   MapImg,

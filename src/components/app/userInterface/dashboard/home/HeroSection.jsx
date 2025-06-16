@@ -3,6 +3,7 @@ import { AppContext } from "../../../../../context/AppContext";
 
 const HeroSection = () => {
   const { userData } = useContext(AppContext);
+  console.log("🚀 ~ HeroSection ~ userData:", userData);
   return (
     <div>
       <div className="min-h-[410px]">

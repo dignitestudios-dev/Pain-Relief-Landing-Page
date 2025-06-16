@@ -1,10 +1,7 @@
-import { IoWarning } from "react-icons/io5";
-import Button from "../app/landingPage/Inputs/Button";
-import { ErrorIcon } from "../../assets/export";
+import { ErrorIcon } from "../../../../../assets/export";
+import Button from "../../../landingPage/Inputs/Button";
 
-const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
-  if (!isOpen) return null;
-
+const ChangePaymentCardModal = ({ onClick, onClose, loading }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-2xl shadow-lg w-[90%] max-w-md p-6 animate-fadeIn">
@@ -35,35 +32,21 @@ const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
 
           <h2 className="text-xl font-semibold mb-2 mt-3">Are you sure?</h2>
           <p className="text-gray-600 mb-6 text-sm">
-            This action cannot be undone.
+            Please confirm if you’d like to change your payment card before
+            proceeding.
           </p>
 
           {/* Buttons */}
           <div className="flex space-x-4 w-full">
             <button
-              onClick={onClick}
+              onClick={onClose}
               className="w-1/2 h-11 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             >
               Cancel
             </button>
             <div className="w-1/2 h-11">
-              <Button
-                text={"Delete"}
-                onClick={handleDelete}
-                loading={deleteLoader}
-              />
+              <Button text={"Yes"} onClick={onClick} loading={loading} />
             </div>
-            {/* <button
-              disabled={deleteLoader}
-              onClick={handleDelete}
-              className={`w-1/2 h-11 rounded-lg text-white transition ${
-                deleteLoader
-                  ? "bg-red-300 cursor-not-allowed"
-                  : "bg-red-500 hover:bg-red-600"
-              }`}
-            >
-              {deleteLoader ? "Deleting..." : "Delete"}
-            </button> */}
           </div>
         </div>
       </div>
@@ -71,4 +54,4 @@ const DeleteModal = ({ isOpen, onClick, handleDelete, deleteLoader }) => {
   );
 };
 
-export default DeleteModal;
+export default ChangePaymentCardModal;
