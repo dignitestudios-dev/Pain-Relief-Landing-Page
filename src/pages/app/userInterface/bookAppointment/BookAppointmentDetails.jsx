@@ -87,6 +87,7 @@ const BookAppointmentDetails = () => {
           profile={profile}
           activeMember={activeMember}
           setActiveMember={setActiveMember}
+          profileId={profile?._id}
         />
       )}
       {scheduleModal && (

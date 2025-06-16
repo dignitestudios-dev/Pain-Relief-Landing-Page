@@ -13,6 +13,7 @@ const BookChiropractorModal = ({
   profile,
   activeMember,
   setActiveMember,
+  profileId,
 }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
@@ -40,11 +41,11 @@ const BookChiropractorModal = ({
         </div>
         <div
           className={`border rounded-[8px] p-[3px]  my-5 cursor-pointer ${
-            activeMember === "family"
+            activeMember === profileId
               ? "bg-gradient-to-r from-[#63CFAC] to-[#29ABE2]"
               : "border border-gray-300"
           }`}
-          onClick={() => setActiveMember("family")}
+          onClick={() => setActiveMember(profileId)}
         >
           <div className="bg-white  rounded-[8px] p-3 flex items-center justify-between">
             <div className="flex gap-4 items-center">
@@ -67,7 +68,7 @@ const BookChiropractorModal = ({
 
             <div>
               <img
-                src={activeMember === "family" ? RadioBtnActive : RadioBtn}
+                src={activeMember === profileId ? RadioBtnActive : RadioBtn}
                 alt=""
                 className="w-[18px] h-[18px]"
               />

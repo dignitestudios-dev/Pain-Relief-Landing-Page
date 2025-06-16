@@ -30,9 +30,9 @@ const DetailsSection = ({ setCancelModal, appointmentData }) => {
                 key={index}
                 className="text-[14px] sm:text-[16px] border-b pb-4 font-[600] mb-2"
               >
-                {item.question || "What"}
+                {item.question || null}
                 <p className="text-[#565656] font-[500] text-[14px] sm:text-[16px]">
-                  {item.answer || "This"}
+                  {item.answer || null}
                 </p>
               </li>
             ))}
