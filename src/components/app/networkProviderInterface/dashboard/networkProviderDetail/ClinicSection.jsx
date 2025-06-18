@@ -50,7 +50,7 @@ const ClinicSection = () => {
                   <Button
                     text="View Profile"
                     onClick={() =>
-                      navigate("/provider/view-profile-netwrok-provider")
+                      navigate("/provider/view-profile-network-provider")
                     }
                   />
                 </div>

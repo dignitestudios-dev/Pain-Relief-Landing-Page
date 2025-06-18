@@ -7,8 +7,8 @@ import { AppContext } from "../../../../context/AppContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
-    const location = useLocation();
-  const { logoutAuth,userData } = useContext(AppContext);
+  const location = useLocation();
+  const { logoutAuth, userData } = useContext(AppContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
     setIsNotiOpen(false);
   };
   const LinksPage = [
-    { url: "profile-netwrok-provider", name: "Profile" },
+    { url: "profile-network-provider", name: "Profile" },
     { url: "privacy-policy", name: "Privacy Policy" },
     { url: "terms-of-use", name: "Terms of use" },
     { url: "membership-agreement", name: "Membership Agreement" },
@@ -57,16 +57,14 @@ const Navbar = () => {
         <ul className="hidden md:flex items-center font-[500] text-white gap-14 text-sm lg:text-base">
           <li className="cursor-pointer  ">
             <Link to={"dashboard"}>Dasboard</Link>
-             { location.pathname.includes("dashboard")  && (
-
-            <hr className="w-[35px]" />
+            {location.pathname.includes("dashboard") && (
+              <hr className="w-[35px]" />
             )}
           </li>
           <li className="cursor-pointer ">
             <Link to={"pain-relief-coach"}>Pain Relief Coach</Link>
-             { location.pathname.includes("pain-relief-coach")  && (
-
-            <hr className="w-[95px]" />
+            {location.pathname.includes("pain-relief-coach") && (
+              <hr className="w-[95px]" />
             )}
           </li>
           <div
@@ -90,7 +88,7 @@ const Navbar = () => {
               }}
             >
               <div className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] rounded-full relative  p-[1.5px] ">
-                   <img
+                <img
                   src={userData?.profilePicture || ProfileImg}
                   alt="Avatar"
                   className="w-16 h-16 rounded-full bg-white"

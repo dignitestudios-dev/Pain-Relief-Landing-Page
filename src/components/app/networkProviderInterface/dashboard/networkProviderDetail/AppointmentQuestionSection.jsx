@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { LocationDark, MapImg, ProfileImg } from "../../../../../assets/export";
 import Button from "../../../landingPage/Inputs/Button";
 import GoogleMapComponent from "../../../../global/GoogleMap";
+import { getDateFormat } from "../../../../../lib/helpers";
 
 const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
   console.log("🚀 ~~ AppointmentData: ~~ ", AppointmentData);
@@ -25,17 +26,19 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
             Appointment Summary
           </h2>
           <ul className="list-disc pl-5">
-            {AppointmentData?.question?.response?.map((item, index) => (
-              <li
-                key={index}
-                className="text-[14px] sm:text-[16px] border-b pb-4 font-[600] mb-2"
-              >
-                {item.question || "Null"}
-                <p className="text-[#565656] font-[500] text-[14px] sm:text-[16px]">
-                  {item.answer }
-                </p>
-              </li>
-            ))}
+            {AppointmentData?.question?.response
+              ?.filter((item) => item?.question !== null)
+              ?.map((item, index) => (
+                <li
+                  key={index}
+                  className="text-[14px] sm:text-[16px] border-b pb-4 font-[600] mb-2"
+                >
+                  {item.question}
+                  <p className="text-[#565656] font-[500] text-[14px] sm:text-[16px]">
+                    {item.answer || "No answer provided"}
+                  </p>
+                </li>
+              ))}
           </ul>
 
           <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-[600] mb-3 mt-4">
@@ -169,6 +172,10 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
             <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#17C35133] text-[#17C351] text-center text-[16px] font-[500]">
               Completed
             </div>
+          ) : AppointmentData?.status === "Suggested" ? (
+            <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#7991DB33] text-[#7991DB] text-center text-[16px] font-[500]">
+              Suggested Time
+            </div>
           ) : (
             <>
               <div className="w-full grid grid-cols-2 gap-2 ">
@@ -227,12 +234,21 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
           ) : AppointmentData.status === "Approved" ? (
             <>
               <button
-                  onClick={() => handleModal("Rejected")}
+                onClick={() => handleModal("Rejected")}
                 className="w-full h-[44px] rounded-[4px] border-red-400 border-[1px] text-red-400 mt-4 text-[16px] font-[500]"
               >
                 Cancel Appointment
               </button>
             </>
+          ) : AppointmentData.status === "Suggested" ? (
+            <div>
+              <h2 className="text-[20px] font-[500] mt-3 ">Suggested Time</h2>
+              <p>{AppointmentData?.suggestedReason}</p>
+              <p className="pt-4 bg-gradient-to-r to-[#29ABE2] from-[#63CFAC] bg-clip-text text-transparent text-[18px] font-semibold">
+                {getDateFormat(AppointmentData?.appointmentDate)} -{" "}
+                {AppointmentData?.suggestedTime}
+              </p>
+            </div>
           ) : (
             ""
           )}

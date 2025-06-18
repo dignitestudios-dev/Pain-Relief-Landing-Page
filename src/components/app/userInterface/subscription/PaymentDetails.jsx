@@ -5,11 +5,11 @@ import { RadioBtn, RadioBtnActive, SubsTick } from "../../../../assets/export";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentForm from "./PaymentForm";
 import { loadStripe } from "@stripe/stripe-js";
-import SubscriptionSuccessModal from "./SubscriptionSuccessModal";
 import { useNavigate } from "react-router";
 
 const PaymentDetails = ({ planData, subscriptionData }) => {
   const { planType, billingPeriod: billing } = planData;
+  console.log("🚀 ~ PaymentDetails ~ planType:", planType);
   const navigate = useNavigate();
 
   const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
@@ -43,27 +43,32 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
                   {subscriptionData?.name}
                 </h2>
                 {subscriptionData?.monthly?.length > 0 && (
-                  <div className="flex gap-2 border h-[43px] border-[#63CFAC] p-[2px] w-[120px] md:w-[150px] xl:w-[180px] rounded-[6px]">
-                    <button
-                      className={`w-1/2 rounded-[6px] ${
-                        billingPeriod === "monthly"
-                          ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white"
-                          : "text-black"
-                      }`}
-                      onClick={() => setBillingPeriod("monthly")}
-                    >
-                      Month
-                    </button>
-                    <button
-                      className={`w-1/2 rounded-[6px] ${
-                        billingPeriod === "yearly"
-                          ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white"
-                          : "text-black"
-                      }`}
-                      onClick={() => setBillingPeriod("yearly")}
-                    >
-                      Year
-                    </button>
+                  // <div className="flex gap-2 border h-[43px] border-[#63CFAC] p-[2px] w-[120px] md:w-[150px] xl:w-[180px] rounded-[6px]">
+                  //   <button
+                  //     className={`w-1/2 rounded-[6px] ${
+                  //       billingPeriod === "monthly"
+                  //         ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white"
+                  //         : "text-black"
+                  //     }`}
+                  //     onClick={() => setBillingPeriod("monthly")}
+                  //   >
+                  //     Month
+                  //   </button>
+                  //   <button
+                  //     className={`w-1/2 rounded-[6px] ${
+                  //       billingPeriod === "yearly"
+                  //         ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white"
+                  //         : "text-black"
+                  //     }`}
+                  //     onClick={() => setBillingPeriod("yearly")}
+                  //   >
+                  //     Year
+                  //   </button>
+                  // </div>
+                  <div className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white px-4 rounded-md ">
+                    <p className="mt-1.5">
+                      {planType?.billingPeriod === "yearly" ? "Year" : "Month"}
+                    </p>
                   </div>
                 )}
               </div>
@@ -72,10 +77,10 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
               <div className="mt-4 flex justify-between gap-2 xl:items-center lg:items-start border-b border-[#e8e8e8] pb-2">
                 <div>
                   <h3 className="text-[18px] font-semibold text-[#181818] mb-2">
-                    Select Plan
+                    Selected Plan
                   </h3>
                   <div className="flex flex-col xl:flex-row xl:space-x-4">
-                    {plans?.map((plan) => (
+                    {/* {plans?.map((plan) => (
                       <label
                         key={plan?._id}
                         className="flex items-center space-x-1 text-sm cursor-pointer"
@@ -94,14 +99,26 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
                           {plan?.planType}
                         </span>
                       </label>
-                    ))}
+                    ))} */}
+                    <label className="flex items-center space-x-1 text-sm cursor-pointer">
+                      <img
+                        src={RadioBtnActive}
+                        alt=""
+                        className="cursor-pointer w-[17px] h-[17px]"
+                      />
+                      <span className="text-black capitalize">
+                        {planType?.planType}
+                      </span>
+                    </label>
                   </div>
                 </div>
 
                 {/* Price */}
                 <div className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent xl:text-[45px] text-[25px] font-bold">
                   ${selectedPlanData?.price?.toFixed(2) || "0.00"}
-                  <span className="text-[18px] font-normal">/mo</span>
+                  <span className="text-[18px] font-normal">
+                    {billingPeriod === "yearly" ? "/yr" : "/mo"}
+                  </span>
                 </div>
               </div>
 
@@ -157,8 +174,6 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
           </Elements>
         </div>
       </div>
-
-    
     </div>
   );
 };

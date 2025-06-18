@@ -28,7 +28,7 @@ const useUsers = (url, currentPage = 1) => {
   return { loading, data, pagination };
 };
 
-const useSchedules = (url, filters = {}) => {
+const useSchedules = (url, filters = {}, update) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -36,7 +36,6 @@ const useSchedules = (url, filters = {}) => {
   const getUsers = async () => {
     try {
       setLoading(true);
-
       const params = new URLSearchParams();
 
       // Loop through all filter keys
@@ -61,7 +60,7 @@ const useSchedules = (url, filters = {}) => {
 
   useEffect(() => {
     getUsers();
-  }, [filters]);
+  }, [filters, update]);
 
   return { loading, data, pagination };
 };

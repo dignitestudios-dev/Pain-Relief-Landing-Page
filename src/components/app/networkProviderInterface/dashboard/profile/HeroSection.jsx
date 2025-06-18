@@ -54,7 +54,7 @@ const HeroSection = ({ profileData, loader }) => {
                 <Button
                   text={"Edit Profile"}
                   onClick={() =>
-                    navigate("/provider/edit-profile-netwrok-provider", {
+                    navigate("/provider/edit-profile-network-provider", {
                       state: profileData,
                     })
                   }

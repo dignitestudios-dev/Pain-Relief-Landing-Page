@@ -178,3 +178,62 @@ export const SubscriptionSkeleton = () => {
     </div>
   );
 };
+
+export const SuggestedSkeleton = () => {
+  return (
+    <div className="flex flex-col justify-center items-center ">
+      <div className="bg-provider-detail w-[90%] p-8 rounded-[12px] animate-pulse">
+        <div className="flex justify-between items-center">
+          <div className="my-6 space-y-2">
+            <div className="h-6 w-60 bg-gray-300 rounded"></div>
+            <div className="h-4 w-[90%] bg-gray-300 rounded"></div>
+          </div>
+          <div className="pb-4">
+            <div className="h-6 w-6 bg-gray-300 rounded-sm"></div>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap lg:justify-between md:justify-center items-center xl:gap-0 lg:gap-5 md:gap-10 gap-3">
+          {[...Array(4)].map((_, index) => (
+            <div
+              key={index}
+              className="max-w-xs w-full bg-white rounded-xl shadow-md border p-4 space-y-4 text-gray-800"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 rounded-full bg-gray-300"></div>
+                <div className="space-y-2">
+                  <div className="h-4 w-32 bg-gray-300 rounded"></div>
+                  <div className="h-3 w-20 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+
+              <hr />
+
+              <div className="flex justify-between text-sm space-x-2">
+                <div className="space-y-1">
+                  <div className="h-3 w-24 bg-gray-200 rounded"></div>
+                  <div className="h-4 w-24 bg-gray-300 rounded"></div>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-3 w-24 bg-gray-200 rounded"></div>
+                  <div className="h-4 w-24 bg-gray-300 rounded"></div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="h-3 w-32 bg-gray-200 rounded"></div>
+                <div className="h-4 w-40 bg-gray-300 rounded"></div>
+                <div className="h-4 w-28 bg-gray-300 rounded"></div>
+              </div>
+
+              <div className="flex justify-between gap-2">
+                <div className="w-full h-10 bg-gray-300 rounded-md"></div>
+                <div className="w-full h-10 bg-gray-300 rounded-md"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};

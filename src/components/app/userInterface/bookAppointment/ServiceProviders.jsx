@@ -15,6 +15,7 @@ const ServiceProviders = ({ providerData, setFilterData, loading }) => {
       ...(distance !== "" && { distance }),
       ...(address !== "" && { address }),
       ...(services !== "" && { services }),
+      page: 1,
     }));
   };
 

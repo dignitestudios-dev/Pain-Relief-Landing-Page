@@ -1,9 +1,9 @@
-import { LocationDark, MapImg, ProfileImg } from "../../../../../assets/export";
+import { LocationDark, ProfileImg } from "../../../../../assets/export";
 import GoogleMapComponent from "../../../../global/GoogleMap";
 import Button from "../../../landingPage/Inputs/Button";
 import { useNavigate } from "react-router";
 
-const DetailsSection = ({ setCancelModal, appointmentData, handleModal }) => {
+const DetailsSection = ({ appointmentData, handleModal }) => {
   console.log("🚀 ~ DetailsSection ~ appointmentData:", appointmentData);
   const navigate = useNavigate();
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString("en-US") : "-");
@@ -25,17 +25,21 @@ const DetailsSection = ({ setCancelModal, appointmentData, handleModal }) => {
             Appointment Summary
           </h2>
           <ul className="list-disc pl-5">
-            {appointmentData?.question?.response?.map((item, index) => (
-              <li
-                key={index}
-                className="text-[14px] sm:text-[16px] border-b pb-4 font-[600] mb-2"
-              >
-                {item.question || null}
-                <p className="text-[#565656] font-[500] text-[14px] sm:text-[16px]">
-                  {item.answer || null}
-                </p>
-              </li>
-            ))}
+            {appointmentData?.question?.response
+              ?.filter(
+                (item) => item?.question !== null && item?.answer !== null
+              )
+              ?.map((item, index) => (
+                <li
+                  key={index}
+                  className="text-[14px] sm:text-[16px] border-b pb-4 font-[600] mb-2"
+                >
+                  {item.question}
+                  <p className="text-[#565656] font-[500] text-[14px] sm:text-[16px]">
+                    {item.answer || "No answer provided"}
+                  </p>
+                </li>
+              ))}
           </ul>
 
           <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-[600] mb-3 mt-4">
@@ -126,9 +130,6 @@ const DetailsSection = ({ setCancelModal, appointmentData, handleModal }) => {
                 <h2 className="text-[14px] font-[600]">
                   {appointmentData?.familyMember !== null
                     ? appointmentData?.familyMember?.name
-                    : appointmentData?.user?.firstName}{" "}
-                  {appointmentData?.familyMember !== null
-                    ? ""
                     : appointmentData?.user?.firstName}
                 </h2>
               </div>
@@ -141,7 +142,7 @@ const DetailsSection = ({ setCancelModal, appointmentData, handleModal }) => {
               <div>
                 <p className="text-[12px] text-[#00000080]">Phone Number</p>
                 <p className="text-[14px] font-[500]">
-                  +{appointmentData?.user?.phone}
+                  {appointmentData?.user?.phone}
                 </p>
               </div>
               {/* <div className="w-full sm:w-[150px]">

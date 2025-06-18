@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import HeroSection from "../../../../components/app/userInterface/dashboard/userDetails/HeroSection";
 import DetailsSection from "../../../../components/app/userInterface/dashboard/userDetails/DetailsSection";
 import CancelModal from "../../../../components/app/userInterface/dashboard/userDetails/CancelModal";
@@ -15,7 +15,7 @@ const UserDetails = () => {
   const [cancelModal, setCancelModal] = useState(false);
   const [cancelReasonModal, setCancelReasonModal] = useState(false);
   const [cancelRequestModal, setCancelRequestModal] = useState(false);
-  const [description, setDescription] = useState("");
+
   const [appointmentData, setAppointmentData] = useState("");
   const { loading, postData } = useAppointmentRequest();
   const [detailLoading, setDetailLoading] = useState(true);
@@ -52,40 +52,34 @@ const UserDetails = () => {
       .max(500, "Description cannot exceed 500 characters"),
   });
 
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    setValues,
-    setFieldValue,
-  } = useFormik({
-    initialValues: {
-      description: "",
-    },
-    validationSchema: validationSchema,
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        description: "",
+      },
+      validationSchema: validationSchema,
 
-    onSubmit: async (values) => {
-      const payLoad = {
-        _id: id,
-        rejectedReason: values?.description,
-        status: appointmentState.status,
-      };
-      console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
+      onSubmit: async (values) => {
+        const payLoad = {
+          _id: id,
+          rejectedReason: values?.description,
+          status: appointmentState.status,
+        };
+        console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
 
-      postData(
-        "/booking/accept-reject",
-        payLoad,
-        processAppointmentRequest,
-        handleModal,
-        setUpdate
-      );
-    },
-  });
+        postData(
+          "/booking/accept-reject",
+          payLoad,
+          processAppointmentRequest,
+          handleModal,
+          setUpdate
+        );
+      },
+    });
 
   const handleModal = (status, time) => {
+    console.log("🚀 ~ handleModal ~ time:", time);
+
     if (status) setAppointmentState((prev) => ({ ...prev, status: status }));
     if (status === "Rejected") {
       setCancelModal(true);
@@ -107,7 +101,6 @@ const UserDetails = () => {
           setCancelModal={setCancelModal}
           appointmentData={appointmentData}
           handleModal={handleModal}
-          
         />
       )}
       {cancelModal && (

@@ -1,25 +1,23 @@
 import { CiFilter } from "react-icons/ci";
 import { CancelIcon, ProfileImg } from "../../../../../assets/export";
 import Pagination from "../../../../global/Pagination";
-import { useNavigate } from "react-router";
-import { useSchedules } from "../../../../../hooks/api/Get";
-import { useState } from "react";
+
 import Calender from "../../../../global/DatePicker";
 import Button from "../../../landingPage/Inputs/Button";
+import { useNavigate } from "react-router";
 
-const AppoitmentTable = () => {
+const AppoitmentTable = ({
+  filterDate,
+  filters,
+  setIsOpen,
+  setFilters,
+  setFilterDate,
+  isOpen,
+  loading,
+  pagination,
+  data,
+}) => {
   const navigate = useNavigate();
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [filterDate, setFilterDate] = useState({ startDate: "", endDate: "" });
-
-  const [filters, setFilters] = useState({
-    status: "",
-    startDate: "",
-    endDate: "",
-    page: 1,
-  });
-
   const handleFilter = (status) => {
     let newStatus;
     if (status === "All") {
@@ -71,14 +69,9 @@ const AppoitmentTable = () => {
 
   const handleClearFilters = () => {
     setFilters({ startDate: "", endDate: "" });
+    setFilterDate({ startDate: "", endDate: "" });
     toggleCalendar();
   };
-
-  const { data, loading, pagination } = useSchedules(
-    `/booking/get-appointments`,
-    filters
-  );
-  console.log("🚀 ~ AppoitmentTable ~ data:", data);
 
   return (
     <div className=" flex justify-center my-6">
@@ -264,12 +257,7 @@ const AppoitmentTable = () => {
                       })}
                     </td>
 
-                    <td className="px-4 py-3">
-                      {new Date(a.appointmentTime).toLocaleTimeString("en-US", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </td>
+                    <td className="px-4 py-3">{a.appointmentTime}</td>
 
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-4">

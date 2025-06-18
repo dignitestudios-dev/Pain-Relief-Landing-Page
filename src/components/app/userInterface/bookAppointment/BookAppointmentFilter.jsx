@@ -43,6 +43,7 @@ const BookAppointmentFilter = ({ getproviderData }) => {
     setServices([]);
     setAddress({});
     setDistance(10);
+    getproviderData(null, null, null);
     // setRadius([]);
   };
 

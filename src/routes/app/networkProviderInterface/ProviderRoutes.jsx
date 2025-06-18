@@ -8,20 +8,9 @@ import PrivacyPolicy from "../../../pages/app/networkProviderInterface/dashboard
 import Profile from "../../../pages/app/networkProviderInterface/dashboard/Profile";
 import TermsOfUse from "../../../pages/app/networkProviderInterface/dashboard/TermsOfUse";
 import ViewProfile from "../../../pages/app/networkProviderInterface/dashboard/ViewProfile";
+import NetworkProviderAppointment from "../../../pages/app/networkProviderInterface/dashboard/NetworkProviderAppointment";
 
 export const ProviderRoutes = [
-  // {
-  //   url: "create-provider-profile",
-  //   page: <CreateProviderProfile />,
-  // },
-  // {
-  //   url: "create-account-request",
-  //   page: <CreateAccountRequest />,
-  // },
-  // {
-  //   url: "create-profile",
-  //   page: <CreateProfile />,
-  // },
   {
     url: "dashboard",
     page: <Dashboard />,
@@ -48,22 +37,22 @@ export const ProviderRoutes = [
     isPublic: true,
   },
   {
-    url: "network-provider-detail",
-    page: <NetworkProviderDetail />,
+    url: "network-provider-appointment",
+    page: <NetworkProviderAppointment />,
     isPublic: true,
   },
   {
-    url: "profile-netwrok-provider",
+    url: "profile-network-provider",
     page: <Profile />,
     isPublic: true,
   },
   {
-    url: "edit-profile-netwrok-provider",
+    url: "edit-profile-network-provider",
     page: <EditProfile />,
     isPublic: true,
   },
   {
-    url: "view-profile-netwrok-provider",
+    url: "view-profile-network-provider",
     page: <ViewProfile />,
     isPublic: true,
   },

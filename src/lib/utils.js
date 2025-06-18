@@ -158,7 +158,7 @@ export const processEditProviderProfile = (
     console.log(data, "ProviderData");
     SuccessToast(data?.message);
     loginAuth({ data: { user: data?.data } });
-    navigate("/provider/profile-netwrok-provider");
+    navigate("/provider/profile-network-provider");
     setUpdate((prev) => !prev);
     return;
   }
@@ -238,6 +238,8 @@ export const processAppointmentRequest = (data, modal, setUpdate, status) => {
   if (data?.success) {
     if (status === "Rejected") {
       modal("IsReject", "");
+    } else if (status === "Suggested") {
+      modal("IsSuggested", "");
     } else {
       modal("", "");
     }

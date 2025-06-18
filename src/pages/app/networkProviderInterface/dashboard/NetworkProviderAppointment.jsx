@@ -16,7 +16,7 @@ import SuggestTimeModal from "../../../../components/app/networkProviderInterfac
 import SuggestDeferentTimeModal from "../../../../components/app/networkProviderInterface/dashboard/home/SuggestDeferentTimeModal";
 import DiffrentTimeSuggestedModal from "../../../../components/app/networkProviderInterface/dashboard/home/DiffrentTimeSuggestedModal";
 
-const NetworkProviderDetail = () => {
+const NetworkProviderAppointment = () => {
   const [appointmentState, setAppointmentState] = useState({ status: "" });
 
   const [detailLoading, setDetailLoading] = useState(true);
@@ -219,4 +219,4 @@ const NetworkProviderDetail = () => {
   );
 };
 
-export default NetworkProviderDetail;
+export default NetworkProviderAppointment;

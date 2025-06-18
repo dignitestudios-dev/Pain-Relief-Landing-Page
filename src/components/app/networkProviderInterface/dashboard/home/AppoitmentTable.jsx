@@ -8,7 +8,7 @@ import Button from "./../../../landingPage/Inputs/Button";
 import Calender from "./../../../../global/DatePicker";
 import { useSchedules } from "../../../../../hooks/api/Get";
 
-const AppoitmentTable = () => {
+const AppoitmentTable = ({ update }) => {
   const navigate = useNavigate();
   const [filterDate, setFilterDate] = useState({ startDate: "", endDate: "" });
 
@@ -78,7 +78,8 @@ const AppoitmentTable = () => {
 
   const { data, loading, pagination } = useSchedules(
     `/booking/get-appointments-provider`,
-    filters
+    filters,
+    update
   );
 
   return (
@@ -284,7 +285,7 @@ const AppoitmentTable = () => {
 
                     <td
                       onClick={() =>
-                        navigate("/provider/network-provider-detail", {
+                        navigate("/provider/network-provider-appointment", {
                           state: a,
                         })
                       }
