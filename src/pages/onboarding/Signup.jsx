@@ -98,7 +98,7 @@ const SignUp = () => {
                 onBlur={handleBlur}
                 error={errors.fname}
                 touched={touched.fname}
-                maxLength={50}
+                maxLength={30}
               />
               <AuthInput
                 text="Last Name"
@@ -111,7 +111,7 @@ const SignUp = () => {
                 onBlur={handleBlur}
                 error={touched.lname && errors.lname}
                 touched={touched.lname}
-                maxLength={50}
+                maxLength={30}
               />
             </div>
 

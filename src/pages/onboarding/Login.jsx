@@ -124,7 +124,7 @@ const Login = () => {
               type={"email"}
               id={"email"}
               name={"email"}
-              maxLength={50}
+              maxLength={30}
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -137,7 +137,7 @@ const Login = () => {
               type={"password"}
               id={"password"}
               name={"password"}
-              maxLength={50}
+              maxLength={250}
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
