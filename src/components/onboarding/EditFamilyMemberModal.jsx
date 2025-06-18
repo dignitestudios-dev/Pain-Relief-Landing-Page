@@ -15,7 +15,6 @@ import { processUpdateFamily } from "../../lib/utils";
 const EditFamilyMemberModal = ({
   editIndex,
   members,
-  setMembers,
   setEditModal,
   setUpdate,
 }) => {
@@ -85,6 +84,7 @@ const EditFamilyMemberModal = ({
           formData,
           processUpdateFamily,
           setEditModal,
+          () => {},   
           setUpdate
         );
       } else {
@@ -93,13 +93,10 @@ const EditFamilyMemberModal = ({
           updatedPayload,
           processUpdateFamily,
           setEditModal,
-          setMembers,
+          () => {},
           setUpdate
         );
       }
-
-      // setMembers(updatedMembers);
-      // setEditModal(false);
     },
   });
 

@@ -125,7 +125,7 @@ const UserDetailSection = ({ userData, tableData, setUpdate, loader }) => {
           members={userData?.familyMembers}
           setMembers={setMembers}
           setEditModal={setEditModal}
-          setUpdate={setUpdate}
+         setUpdate={setUpdate}
         />
       )}
     </div>

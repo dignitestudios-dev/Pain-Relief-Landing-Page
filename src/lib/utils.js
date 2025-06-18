@@ -223,7 +223,7 @@ export const processDeleteFamilyMember = (
   }
 };
 
-export const processUpdateFamily = (data, setEditModal, setUpdate) => {
+export const processUpdateFamily = (data, setEditModal, stateModal = false, setUpdate) => {
   if (data?.success) {
     SuccessToast(data?.message);
     setEditModal(false);
