@@ -15,6 +15,7 @@ export const AppContextProvider = ({ children }) => {
   });
 
   const loginAuth = (data) => {
+    console.log(data,"data===Context")
     if (data) {
       if (data?.data?.token) {
         Cookies.set("token", data?.data?.token);

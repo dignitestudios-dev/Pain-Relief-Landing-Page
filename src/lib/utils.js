@@ -137,6 +137,7 @@ export const processSendRequest = (
   loginAuth
 ) => {
   if (data?.success) {
+    console.log(data,"data")
     loginAuth({
       data: { user: data?.data },
     });
