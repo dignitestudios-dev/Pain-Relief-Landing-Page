@@ -1,9 +1,14 @@
+import React from "react";
+import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router";
 
-const MembershipAgreementCard = () => {
+const MemberShipAgreementModal = ({ onClose }) => {
   return (
-    <div className="flex justify-center relative -mt-28 w-full mb-10">
-      <div className="bg-white  w-[90%] h-[762px] overflow-auto rounded-[8px] p-8">
+    <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
+      <div className="bg-white rounded-[26px] shadow-md p-8 w-[790px] h-[500px] overflow-auto ">
+        <div className="flex justify-end cursor-pointer " onClick={onClose}>
+          <RxCross1 />
+        </div>
         <div className="p-4 sm:p-6 md:p-8">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">
             Membership Agreement
@@ -840,21 +845,10 @@ const MembershipAgreementCard = () => {
               </p>
             </li>
           </ol>
-
-          <p className="text-sm sm:text-base text-gray-600 mt-6">
-            <Link
-              to="/user/privacy-policy"
-              className="underline bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent font-medium"
-            >
-              Privacy Policy.
-            </Link>{" "}
-            We have added a link to the Privacy Policy wherever the words
-            Privacy Policy appears in these Terms.
-          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default MembershipAgreementCard;
+export default MemberShipAgreementModal;

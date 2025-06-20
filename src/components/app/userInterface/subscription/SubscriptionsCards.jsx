@@ -28,7 +28,6 @@ const SubscriptionCards = ({
             className="w-full bg-white rounded-[22px] p-6 lg:h-[752px] h-full flex flex-col justify-between"
           >
             <div>
-              {/* Header with billing period toggle */}
               <div className="grid md:grid-cols-2 grid-cols-1 border-b border-[#e8e8e8] pb-2">
                 <h2 className="lg:text-[24px] text-[18px] text-center md:text-start text-[#000000] font-semibold">
                   {data?.name}
@@ -100,7 +99,7 @@ const SubscriptionCards = ({
                 {/* Price */}
                 <div className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent xl:text-[45px] text-[25px] font-bold">
                   ${selectedPlanData?.price?.toFixed(2) || "0.00"}
-                  <span className="text-[18px] font-normal">/mo</span>
+                  <span className="text-[18px] font-normal">{selectedPlanData?.billingPeriod == "monthly" ? "/mo" : "/yr" }</span>
                 </div>
               </div>
 

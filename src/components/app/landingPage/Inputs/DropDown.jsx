@@ -211,7 +211,10 @@ export const DropDownDark = ({
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      onChange={() => onChange(option)}
+                      onChange={() => {
+                        onChange(option);
+                        setIsOpen(false); // 👈 Close dropdown after selection
+                      }}
                       className="absolute opacity-0 w-0 h-0"
                     />
                     <div

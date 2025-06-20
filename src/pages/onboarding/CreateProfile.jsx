@@ -102,6 +102,7 @@ const CreateProfile = () => {
     setFieldValue("state", data.state);
     setFieldValue("zipCode", data.zipCode);
     setFieldValue("location", data.location);
+   setFieldValue("address", data.address || "");
   };
 
   return (
@@ -216,6 +217,11 @@ const CreateProfile = () => {
                   text={"DD/MM/YY"}
                   isStyle={true}
                   label={"Date of Birth (required)"}
+                  max={
+                    new Date(
+                      new Date().setFullYear(new Date().getFullYear() - 18)
+                    )
+                  }
                 />
                 {touched.db && errors.db && (
                   <p className="text-red-600 text-xs mt-1">{errors.db}</p>
@@ -243,15 +249,13 @@ const CreateProfile = () => {
               <GoogleMapComponent
                 onLocationSelect={onLocationSelect}
                 editAddress={values.address}
+                error={touched.address && errors.address}
               />
-              {touched.address && errors.address && (
-                <p className="text-red-600 text-[12px] ">{errors.address}</p>
-              )}
             </div>
 
             <div className="flex justify-end mt-3">
               <div className="w-[128px] ">
-                <Button text={"Save"} type={"submit"} loading={loading} />
+                <Button text={"Next"} type={"submit"} loading={loading} />
               </div>
             </div>
           </form>

@@ -53,10 +53,10 @@ const MemberDetails = ({
                 {subscriptiondata?.userSubscription?.priceDetails?.price}
                 <span className="text-[18px] font-normal">
                   /{" "}
-                  {
-                    subscriptiondata?.userSubscription?.priceDetails
-                      ?.billingPeriod
-                  }
+                  {subscriptiondata?.userSubscription?.priceDetails
+                    ?.billingPeriod == "monthly"
+                    ? "mo"
+                    : "yr"}
                 </span>
               </div>
             </div>
@@ -85,7 +85,12 @@ const MemberDetails = ({
             <div className="w-[249px]">
               <button
                 onClick={() => setCancelSubscriptionModal(true)}
-                className="bg-[#EE3131] text-white h-[49px] w-[249px] rounded-[8px]  "
+                  disabled={subscriptiondata?.userSubscription?.cancelAtPeriodEnd === true}
+                className={`h-[49px] w-[249px] rounded-[8px] text-white ${
+                  subscriptiondata?.userSubscription?.cancelAtPeriodEnd
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-[#EE3131]"
+                }`}
               >
                 Cancel Subscription
               </button>

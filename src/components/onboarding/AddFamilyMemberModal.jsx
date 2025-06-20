@@ -47,7 +47,7 @@ const AddFamilyMemberModal = ({
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
       <div
         className="bg-white overflow-y-auto overflow-x-hidden rounded-[18px] shadow-md p-6 
-      lg:w-[900px] md:w-[600px] w-full lg:h-[625px] h-[725px]"
+      lg:w-[900px] md:w-[600px] w-full lg:h-[685px] h-[725px]"
       >
         <div className="flex  justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
           <p className="text-[24px] font-semibold">Add New Family Members</p>
@@ -161,6 +161,11 @@ const AddFamilyMemberModal = ({
                   text={"DD/MM/YY"}
                   isStyle={true}
                   label={"Date of Birth (required)"}
+                  max={
+                    new Date(
+                      new Date().setFullYear(new Date().getFullYear() - 18)
+                    )
+                  }
                 />
                 {touched.db && errors.db && (
                   <p className="text-red-600 text-xs mt-1">{errors.db}</p>
@@ -189,6 +194,7 @@ const AddFamilyMemberModal = ({
                   name="descriptions"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  maxLength={250}
                 ></textarea>
                 {touched.descriptions && errors.descriptions && (
                   <p className="text-red-600 text-xs mt-1">

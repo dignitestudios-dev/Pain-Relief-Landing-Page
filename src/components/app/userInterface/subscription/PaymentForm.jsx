@@ -12,6 +12,7 @@ import Button from "../../landingPage/Inputs/Button";
 import { ErrorToast } from "../../../global/Toaster";
 import { AppContext } from "../../../../context/AppContext";
 import SubscriptionSuccessModal from "./SubscriptionSuccessModal";
+import MemberShipAgreementModal from "./MemberShipAgreementModal";
 
 const ELEMENT_OPTIONS = {
   style: {
@@ -32,6 +33,9 @@ const ELEMENT_OPTIONS = {
 
 const PaymentForm = ({ planData, selectedPlanData }) => {
   const navigate = useNavigate();
+  const [memeberModal, setMemberModal] = useState(false);
+  const [buttonDisabelMember, setButtonDisbaleMember] = useState(false);
+  const [buttonDisabelCard, setButtonDisbaleCard] = useState(false);
 
   const [isSubscription, setIsSubscription] = useState(false);
   const [subscription, setSubscription] = useState(null);
@@ -58,6 +62,7 @@ const PaymentForm = ({ planData, selectedPlanData }) => {
     if (error) {
       console.log("🚀 ~ 52 ~ error:", error);
       setError(error.message);
+      ErrorToast(error.message);
       setLoading(false);
     } else {
       try {
@@ -139,6 +144,27 @@ const PaymentForm = ({ planData, selectedPlanData }) => {
             </div>
           </div>
         </div>
+        <div className="flex gap-10 mt-3">
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              onClick={() => setButtonDisbaleCard((prev) => !prev)}
+            />
+            <p className="text-[12px] font-[500]">Save Credit Card</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              onClick={() => setButtonDisbaleMember((prev) => !prev)}
+            />
+            <p
+              className="text-[12px] underline cursor-pointer font-[500]"
+              onClick={() => setMemberModal(true)}
+            >
+              Membership Agreement <span className="text-red-500">*</span>
+            </p>
+          </div>
+        </div>
         <div className="grid grid-cols-2 mt-4 gap-4">
           <div>
             <button
@@ -152,10 +178,18 @@ const PaymentForm = ({ planData, selectedPlanData }) => {
             </button>
           </div>
           <div>
-            <Button loading={loading} text={"Buy Now"} onClick={handleSubmit} />
+            <Button
+              disabled={!buttonDisabelCard || !buttonDisabelMember}
+              loading={loading}
+              text={"Buy Now"}
+              onClick={handleSubmit}
+            />
           </div>
         </div>
       </form>
+      {memeberModal && (
+        <MemberShipAgreementModal onClose={() => setMemberModal(false)} />
+      )}
       {isSubscription && (
         <SubscriptionSuccessModal
           onClick={() => {

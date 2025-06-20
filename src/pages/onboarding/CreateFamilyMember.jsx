@@ -198,7 +198,7 @@ const CreateFamilyMember = () => {
                   <div className="lg:w-[350px] md:w-[500px] w-[320px] max-h-[250px] overflow-y-auto overflow-x-hidden p-3 space-y-4">
                     {storedMembers?.map((values, index) => (
                       <div key={index}>
-                        <div className=" rounded-[12px] h-[194px] p-4 shadow-[0_0_16px_rgba(17,17,26,0.1)] ">
+                        <div className=" rounded-[12px]  p-4 shadow-[0_0_16px_rgba(17,17,26,0.1)] ">
                           <div className="grid grid-cols-6 justify-between items-center gap-2 border-b-[1px] border-b-[#D9D9D9] pb-2">
                             <div className="col-span-5 flex items-center gap-2">
                               <div>
@@ -254,7 +254,7 @@ const CreateFamilyMember = () => {
                             </div>
                           </div>
                           <div>
-                            <p className="text-[#565656] text-[14px] py-3">
+                            <p className="text-[#565656] text-[14px] py-3 text-wrap break-words ">
                               {values.description || ""}
                             </p>
                           </div>

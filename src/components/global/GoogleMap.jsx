@@ -26,9 +26,10 @@ const GoogleMapComponent = ({
   distance = 1,
   showRadius = false,
   isDisabled = false,
+  error,
 }) => {
   const radiusInMeters = distance * 1609.34;
-console.log(editAddress,"+==>editAddress")
+  console.log(editAddress, "+==>editAddress");
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -121,6 +122,9 @@ console.log(editAddress,"+==>editAddress")
           }}
         />
       </Autocomplete>
+        <div>
+          <p className="text-red-500 text-[12px] font-[500]">{error}</p>
+        </div>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={mapCenter}
