@@ -1,10 +1,11 @@
-import React from "react";
-import { BgIdCard, DesktopLogo, Scanner } from "../../../../../assets/export";
+import { useEffect, useRef } from "react";
+import { BgIdCard, DesktopLogo } from "../../../../../assets/export";
 import { LuPhone } from "react-icons/lu";
 import { TbWorld } from "react-icons/tb";
 import { getDateFormat } from "../../../../../lib/helpers";
+import QRCode from "qrcode";
 
-const IDCards = ({ IdCardData, userData }) => {
+const IDCards = ({ IdCardData, userData, referralLink, referralLoading }) => {
   const cardData = [
     { title: "Plan:", para: `${IdCardData?.userSubscription?.name}` },
     { title: "Member ID:", para: `${userData?.memberId}` },
@@ -13,6 +14,21 @@ const IDCards = ({ IdCardData, userData }) => {
       para: `${getDateFormat(IdCardData?.userSubscription?.endDate)}`,
     },
   ];
+
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      QRCode.toCanvas(
+        canvasRef.current,
+        referralLink || "https://example.com",
+        { width: 150 },
+        function (error) {
+          if (error) console.error(error);
+        }
+      );
+    }
+  }, [referralLink]);
 
   return (
     <div className="p-6 flex flex-col lg:flex-row justify-between items-center">
@@ -40,11 +56,18 @@ const IDCards = ({ IdCardData, userData }) => {
               <p className="text-[10px] text-[#565656] mt-4">C-212-02152022</p>
             </div>
             <div className="w-full sm:w-1/3 flex justify-center items-center mt-4 sm:mt-0">
-              <img src={Scanner} className="w-24 h-24" alt="Scanner" />
+              {/* <img src={Scanner} className="w-24 h-24" alt="Scanner" /> */}
+              {referralLoading ? (
+                <div className="w-24 h-24">loading...</div>
+              ) : (
+                <div className="w-32 h-34">
+                  <canvas ref={canvasRef} />
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="bg-gradient-to-l p-4 w-full to-[#63CFAC] from-[#29ABE2] rounded-b-[20px] rounded-t-[5px] text-white text-center  ">
+          <div className="bg-gradient-to-l p-4 w-full to-[#63CFAC] from-[#29ABE2] rounded-b-[8px] rounded-t-[5px] text-white text-center  ">
             <p className="uppercase text-sm font-medium">
               This is not health insurance
             </p>

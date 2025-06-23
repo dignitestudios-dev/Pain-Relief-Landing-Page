@@ -13,7 +13,7 @@ const BrochureSection = ({ referralCode }) => {
       QRCode.toCanvas(
         canvasRef.current,
         referralCode?.referralLink || "https://example.com", // fallback
-        { width: 100 },
+        { width: 150 },
         function (error) {
           if (error) console.error(error);
         }
@@ -39,7 +39,7 @@ const BrochureSection = ({ referralCode }) => {
         <img src={Brochure} alt="Brochure" className="w-full" />
 
         {/* QR Code overlaid */}
-        <div className="absolute top-[302px] left-[265px]">
+        <div className="absolute top-[302px] left-[265px] w-36">
           <canvas ref={canvasRef} />
         </div>
       </div>

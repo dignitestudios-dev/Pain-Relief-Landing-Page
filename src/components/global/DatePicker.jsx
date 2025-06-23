@@ -2,6 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CalenderIcon } from "../../assets/export";
+import { getLongDateFormat } from "../../lib/helpers";
 
 const Calender = ({
   startDate,
@@ -28,7 +29,7 @@ const Calender = ({
     }
     setIsOpen(false);
   };
-  console.log(startDate, "startDate");
+
   return (
     <div className="relative w-full ">
       <label htmlFor="" className="text-[12px] text-[#121516] font-medium">
@@ -38,16 +39,10 @@ const Calender = ({
         onClick={toggleCalendar}
         className={`relative w-full h-[44px] p-2 rounded-[8px] border border-[#D9D9D9] bg-white text-[11.63px]
          font-[500] ${
-           startDate ? "text-gray-700" : "text-gray-400"
+           startDate ? "text-grey-700" : "text-gray-400"
          } cursor-pointer flex items-center`}
       >
-        {startDate
-          ? new Date(startDate).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })
-          : text}
+        {startDate ? getLongDateFormat(startDate) : "mm/dd/yy"}
 
         <img
           src={CalenderIcon}
@@ -63,7 +58,7 @@ const Calender = ({
           }  z-50 mt-2 ${position}`}
         >
           <DatePicker
-            selected={startDate}
+            selected={startDate ? new Date(`${startDate}T00:00:00`) : null}
             onChange={handleChange}
             inline
             maxDate={max}
