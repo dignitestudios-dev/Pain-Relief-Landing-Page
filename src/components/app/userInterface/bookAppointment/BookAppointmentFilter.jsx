@@ -10,11 +10,11 @@ const BookAppointmentFilter = ({ getproviderData, filterData }) => {
 
   const [distance, setDistance] = useState(10);
 
-  useEffect(() => {
-    setAddress({
-      location: { coordinates: [filterData?.latitude, filterData?.longitude] },
-    });
-  }, [filterData]);
+  // useEffect(() => {
+  //   setAddress({
+  //     location: { coordinates: [filterData?.latitude, filterData?.longitude] },
+  //   });
+  // }, [filterData]);
 
   const handleFetchProvider = () => {
     getproviderData(distance, address?.location, services);
