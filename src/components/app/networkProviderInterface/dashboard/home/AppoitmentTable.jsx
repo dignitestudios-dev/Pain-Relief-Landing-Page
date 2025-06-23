@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { CiFilter } from "react-icons/ci";
 import { ProfileImg, CancelIcon } from "../../../../../assets/export";
@@ -7,15 +7,19 @@ import { useNavigate } from "react-router";
 import Button from "./../../../landingPage/Inputs/Button";
 import Calender from "./../../../../global/DatePicker";
 import { useSchedules } from "../../../../../hooks/api/Get";
+import { getLongDateFormat } from "../../../../../lib/helpers";
 
 const AppoitmentTable = ({ update }) => {
   const navigate = useNavigate();
+  const debounceId = useRef(null);
+
   const [filterDate, setFilterDate] = useState({ startDate: "", endDate: "" });
 
   const [filters, setFilters] = useState({
     status: "",
     startDate: "",
     endDate: "",
+    search: "",
     page: 1,
   });
 
@@ -82,6 +86,18 @@ const AppoitmentTable = ({ update }) => {
     update
   );
 
+  const handleSearchChange = (value) => {
+    if (debounceId.current) clearTimeout(debounceId.current);
+
+    debounceId.current = setTimeout(() => {
+      setFilters((prev) => ({
+        ...prev,
+        search: value,
+        page: 1,
+      }));
+    }, 800);
+  };
+
   return (
     <div className=" flex justify-center my-6">
       <div className="w-[90%]  b min-h-screen">
@@ -92,6 +108,7 @@ const AppoitmentTable = ({ update }) => {
               type="text"
               placeholder="Search"
               className="border px-4 py-2 rounded-md shadow-sm w-full md:w-64"
+              onChange={(e) => handleSearchChange(e.target.value)}
             />
             <div
               onClick={toggleCalendar}
@@ -259,14 +276,7 @@ const AppoitmentTable = ({ update }) => {
                     </td>
 
                     <td className="px-4 py-3">
-                      {new Date(a?.appointmentDate).toLocaleDateString(
-                        "en-US",
-                        {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        }
-                      )}
+                      {getLongDateFormat(a.appointmentDate)}
                     </td>
 
                     <td className="px-4 py-3">{a?.appointmentTime}</td>

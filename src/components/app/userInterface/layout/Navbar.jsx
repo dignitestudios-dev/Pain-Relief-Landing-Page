@@ -21,6 +21,7 @@ const Navbar = () => {
     setOpenProfile(false);
     setIsNotiOpen(false);
   };
+
   const LinksPage = [
     { url: "user-profile", name: "Profile" },
     { url: "privacy-policy", name: "Privacy Policy" },
@@ -121,7 +122,7 @@ const Navbar = () => {
                       navigate(item?.url);
                       closeMenus();
                     }}
-                    className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
+                    className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 hover:bg-[#e8e8e8] rounded-md"
                   >
                     {item.name}
                   </li>

@@ -6,25 +6,15 @@ import { useSchedules } from "../../../../hooks/api/Get";
 import { SuggestedSkeleton } from "../../../../components/global/Sekelton";
 
 const Appoitment = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [update, setUpdate] = useState(false);
   const [isSuggestedView, setIsSuggestedView] = useState(true);
+  const [update, setUpdate] = useState(false);
 
-  const [filterDate, setFilterDate] = useState({ startDate: "", endDate: "" });
-
-  const [filters, setFilters] = useState({
-    status: "",
-    startDate: "",
-    endDate: "",
-    page: 1,
-  });
-
-  const { data, loading, pagination } = useSchedules(
+  const { data, loading } = useSchedules(
     `/booking/get-appointments`,
-    filters,
+    "",
     update
   );
-  console.log("🚀 ~ AppoitmentTable ~ data:", data);
+
   const hasPending = useMemo(
     () => data?.some((appt) => appt?.status === "Suggested"),
     [data]
@@ -43,16 +33,7 @@ const Appoitment = () => {
             setIsSuggestedView={setIsSuggestedView}
           />
         ))}
-      <AppoitmentTable
-        data={data}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        filterDate={filterDate}
-        setFilterDate={setFilterDate}
-        loading={loading}
-        pagination={pagination}
-        setFilters={setFilters}
-      />
+      <AppoitmentTable data={data} />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import {
   SubsTick,
 } from "../../../../../assets/export";
 import { useGetCards } from "../../../../../hooks/api/Get";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UpgradePlanModal from "./UpgradePlanModal";
 import { ErrorToast, SuccessToast } from "../../../../global/Toaster";
 import axios from "../../../../../axios";
@@ -71,6 +71,49 @@ const PlansSection = ({ subscriptionsData, loader }) => {
       setLoading(false);
     }
   };
+  // ───────────────────────────────────────────────────────────── helper
+  const getFirstEligiblePlan = (planArray = [], cardName) => {
+    console.log("🚀 ~ PlansSection ~ planArray:", planArray);
+    return (
+      planArray.find(
+        (p) =>
+          !(
+            p.planType === subData?.userSubscription?.priceDetails?.planType &&
+            p.billingPeriod ===
+              subData?.userSubscription?.priceDetails?.billingPeriod &&
+            cardName === subData?.userSubscription?.name
+          )
+      ) || null
+    );
+  };
+  // may return null if all are filtered out
+
+  useEffect(() => {
+    if (!subscriptionsData?.length) return;
+
+    // card‑0 (standard plan is always yearly)
+    const defaultPlan0 = getFirstEligiblePlan(
+      subscriptionsData[0]?.yearly,
+      subscriptionsData[0]?.name
+    );
+
+    // card‑1 (depends on current Month/Year toggle)
+    const periodArr =
+      Isactive === "Monthly"
+        ? subscriptionsData[1]?.monthly
+        : subscriptionsData[1]?.yearly;
+
+    const defaultPlan1 = getFirstEligiblePlan(
+      periodArr,
+      subscriptionsData[1]?.name
+    );
+
+    // set defaults only when not already chosen
+    setSelectedPlans((prev) => ({
+      0: prev[0] ?? defaultPlan0,
+      1: prev[1] ?? defaultPlan1,
+    }));
+  }, [subscriptionsData, Isactive, subData]);
 
   return (
     <div className=" w-[80%] ">
@@ -143,24 +186,26 @@ const PlansSection = ({ subscriptionsData, loader }) => {
                             subData?.userSubscription?.name
                         );
                       })
-                      .map((plan) => (
-                        <label
-                          key={plan._id}
-                          className="flex items-center space-x-1 text-sm"
-                        >
-                          <img
-                            src={
-                              selectedPlans[0]?._id === plan._id
-                                ? RadioBtnActive
-                                : RadioBtn
-                            }
-                            onClick={() => handleSelectPlan(0, plan)}
-                            className="cursor-pointer w-[17px] h-[17px]"
-                            alt=""
-                          />
-                          <span className="text-black">{plan.planType}</span>
-                        </label>
-                      ))}
+                      .map((plan) => {
+                        return (
+                          <label
+                            key={plan._id}
+                            className="flex items-center space-x-1 text-sm"
+                          >
+                            <img
+                              src={
+                                selectedPlans[0]?._id === plan._id
+                                  ? RadioBtnActive
+                                  : RadioBtn
+                              }
+                              onClick={() => handleSelectPlan(0, plan)}
+                              className="cursor-pointer w-[17px] h-[17px]"
+                              alt=""
+                            />
+                            <span className="text-black">{plan.planType}</span>
+                          </label>
+                        );
+                      })}
                   </div>
                 </div>
 

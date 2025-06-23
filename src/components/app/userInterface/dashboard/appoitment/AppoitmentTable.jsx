@@ -5,19 +5,33 @@ import Pagination from "../../../../global/Pagination";
 import Calender from "../../../../global/DatePicker";
 import Button from "../../../landingPage/Inputs/Button";
 import { useNavigate } from "react-router";
+import { useRef, useState } from "react";
+import { useSchedules } from "../../../../../hooks/api/Get";
+import { getLongDateFormat } from "../../../../../lib/helpers";
 
-const AppoitmentTable = ({
-  filterDate,
-  filters,
-  setIsOpen,
-  setFilters,
-  setFilterDate,
-  isOpen,
-  loading,
-  pagination,
-  data,
-}) => {
+const AppoitmentTable = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [filterDate, setFilterDate] = useState({ startDate: "", endDate: "" });
+  console.log("🚀 ~ AppoitmentTable ~ filterDate:", filterDate);
+
+  const [filters, setFilters] = useState({
+    status: "",
+    startDate: "",
+    endDate: "",
+    search: "",
+    page: 1,
+  });
+
+  console.log("🚀 ~ filters status:", filters?.status);
+
+  const { data, loading, pagination } = useSchedules(
+    `/booking/get-appointments`,
+    filters,
+    ""
+  );
   const navigate = useNavigate();
+  const debounceId = useRef(null);
   const handleFilter = (status) => {
     let newStatus;
     if (status === "All") {
@@ -73,6 +87,18 @@ const AppoitmentTable = ({
     toggleCalendar();
   };
 
+  const handleSearchChange = (value) => {
+    if (debounceId.current) clearTimeout(debounceId.current);
+
+    debounceId.current = setTimeout(() => {
+      setFilters((prev) => ({
+        ...prev,
+        search: value,
+        page: 1,
+      }));
+    }, 800);
+  };
+
   return (
     <div className=" flex justify-center my-6">
       <div className="w-[90%]  b min-h-screen">
@@ -83,6 +109,7 @@ const AppoitmentTable = ({
               type="text"
               placeholder="Search"
               className="border px-4 py-2 rounded-md shadow-sm w-full md:w-64"
+              onChange={(e) => handleSearchChange(e.target.value)}
             />
             <div
               onClick={toggleCalendar}
@@ -223,7 +250,7 @@ const AppoitmentTable = ({
                   </tr>
                 ))}
               </tbody>
-            ) : (
+            ) : data?.length > 0 ? (
               <tbody>
                 {data?.map((a, index) => (
                   <tr
@@ -250,11 +277,7 @@ const AppoitmentTable = ({
                     </td>
 
                     <td className="px-4 py-3">
-                      {new Date(a.appointmentDate).toLocaleDateString("en-US", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                      })}
+                      {getLongDateFormat(a.appointmentDate)}
                     </td>
 
                     <td className="px-4 py-3">{a.appointmentTime}</td>
@@ -288,7 +311,9 @@ const AppoitmentTable = ({
 
                     <td
                       onClick={() =>
-                        navigate(`/user/user-details/${a?._id}`, { state: a })
+                        navigate(`/user/user-details/${a?._id}`, {
+                          state: a,
+                        })
                       }
                       className="px-4 py-3 text-black underline font-medium cursor-pointer"
                     >
@@ -297,6 +322,12 @@ const AppoitmentTable = ({
                   </tr>
                 ))}
               </tbody>
+            ) : (
+              <div className="border-t border-gray-100 hover:bg-gray-50 p-4">
+                <div className="flex justify-between items-center">
+                  No Record Found
+                </div>
+              </div>
             )}
           </table>
         </div>

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
 import { ProfileImg } from "../../../../../assets/export";
 import { getDateFormat } from "../../../../../lib/helpers";
+import { ErrorToast, SuccessToast } from "../../../../global/Toaster";
+import axios from "../../../../../axios";
+import { useState } from "react";
+import ReferralUrlModal from "./ReferralUrlModal";
 
 const referralData = Array(7).fill({
   referralId: "ID54154",
@@ -10,16 +13,39 @@ const referralData = Array(7).fill({
   status: "Subscribes",
 });
 
-const ReferralTable = ({tableData}) => {
-  
+const ReferralTable = ({ tableData }) => {
+  const [referralModal, setReferralModal] = useState(false);
+  const [referralLoading, setReferralLoading] = useState(false);
+  const [referralLink, setReferralLink] = useState(false);
+
+  const handleGenerateReferral = async () => {
+    try {
+      setReferralLoading(true);
+      const response = await axios.get("/user/generate-refferal-link");
+      if (response.status === 200) {
+        console.log("first-- > ", response?.data?.data?.referralLink);
+        setReferralModal(true);
+        setReferralLink(response?.data?.data?.referralLink);
+      }
+    } catch (error) {
+      ErrorToast(error.response.data.message);
+    } finally {
+      setReferralLoading(false);
+    }
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md  mt-4">
       <div className="flex justify-between items-center mb-4 border-b border-b-[#EAEAEA] pb-4  p-4">
         <h2 className="xl:text-[24px]  lg:text-[20px] md:text-[18px] text-[16px]  font-[600]">
           Referral Friends
         </h2>
-        <button className=" xl:text-[14px]  lg:text-[14px] md:text-[12px] text-[12px] text-nowrap   border-b bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent font-[600] hover:underline">
-          Copy Referral Link
+        <button
+          disabled={referralLoading}
+          onClick={handleGenerateReferral}
+          className=" xl:text-[14px]  lg:text-[14px] md:text-[12px] text-[12px] text-nowrap   border-b bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent font-[600] hover:underline"
+        >
+          {referralLoading ? "Generating... " : "Copy Referral Link"}
         </button>
       </div>
       <div className="overflow-x-auto">
@@ -61,6 +87,12 @@ const ReferralTable = ({tableData}) => {
           </tbody>
         </table>
       </div>
+      {referralModal && (
+        <ReferralUrlModal
+          link={referralLink}
+          onClose={() => setReferralModal(false)}
+        />
+      )}
     </div>
   );
 };
