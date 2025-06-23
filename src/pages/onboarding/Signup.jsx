@@ -96,6 +96,20 @@ const SignUp = () => {
   //   }
   // }, [isSuccess]);
   console.log(values.email, "Email");
+  const handleCapitalizedChange = (e) => {
+    const { name, value } = e.target;
+
+    const formatted =
+      value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+
+    handleChange({
+      target: {
+        name,
+        value: formatted,
+      },
+    });
+  };
+
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc] ">
       <div className="p-4 lg:block  hidden">
@@ -124,7 +138,7 @@ const SignUp = () => {
                 id="fname"
                 name="fname"
                 value={values.fname}
-                onChange={handleChange}
+                onChange={handleCapitalizedChange}
                 onBlur={handleBlur}
                 error={errors.fname}
                 touched={touched.fname}
@@ -137,7 +151,7 @@ const SignUp = () => {
                 id="lname"
                 name="lname"
                 value={values.lname}
-                onChange={handleChange}
+                onChange={handleCapitalizedChange}
                 onBlur={handleBlur}
                 error={touched.lname && errors.lname}
                 touched={touched.lname}

@@ -20,8 +20,8 @@ const AddFamilyMemberModal = ({
   handleSubmit,
   setFieldValue,
   loading,
+  handleCapitalizedChange,
 }) => {
-  console.log("🚀 ~ values:", values);
   const [userImage, setUserImage] = useState("");
 
   const subjectOptions = [
@@ -109,7 +109,7 @@ const AddFamilyMemberModal = ({
                 id={"fullname"}
                 name={"fullname"}
                 maxLength={50}
-                onChange={handleChange}
+                onChange={handleCapitalizedChange}
                 onBlur={handleBlur}
                 error={errors.fullname}
                 touched={touched.fullname}

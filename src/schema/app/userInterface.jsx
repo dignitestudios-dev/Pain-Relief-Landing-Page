@@ -138,8 +138,54 @@ export const userProfileSchema = Yup.object({
 });
 
 export const userEditProfileSchema = Yup.object().shape({
-  fname: Yup.string().required("First name is required"),
-  lname: Yup.string().required("Last name is required"),
+  fname: Yup.string()
+    .required("First name is required.")
+    .test(
+      "not-empty-after-trim",
+      "First name cannot be empty or just spaces.",
+      (value) => value?.trim().length > 0
+    )
+    .test(
+      "no-leading-space",
+      "First name cannot start with a space.",
+      (value) => (value ? !value.startsWith(" ") : true)
+    )
+    .test(
+      "no-multiple-spaces",
+      "First name cannot contain multiple spaces.",
+      (value) => (value ? !/ {2,}/.test(value) : true)
+    )
+    .test("no-numbers", "First name cannot contain numbers.", (value) =>
+      value ? !/\d/.test(value) : true
+    )
+    .test(
+      "first-letter-uppercase",
+      "First letter must be uppercase.",
+      (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
+    ),
+  lname: Yup.string()
+    .required("Last name is required.")
+    .test(
+      "not-empty-after-trim",
+      "Last name cannot be empty or just spaces.",
+      (value) => value?.trim().length > 0
+    )
+    .test("no-leading-space", "Last name cannot start with a space.", (value) =>
+      value ? !value.startsWith(" ") : true
+    )
+    .test(
+      "no-multiple-spaces",
+      "Last name cannot contain multiple spaces.",
+      (value) => (value ? !/ {2,}/.test(value) : true)
+    )
+    .test("no-numbers", "Last name cannot contain numbers.", (value) =>
+      value ? !/\d/.test(value) : true
+    )
+    .test(
+      "first-letter-uppercase",
+      "First letter must be uppercase.",
+      (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
+    ),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),

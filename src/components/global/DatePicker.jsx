@@ -17,6 +17,7 @@ const Calender = ({
   min,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  console.log("startDate==> ", startDate);
 
   const toggleCalendar = () => {
     setIsOpen((prev) => !prev);

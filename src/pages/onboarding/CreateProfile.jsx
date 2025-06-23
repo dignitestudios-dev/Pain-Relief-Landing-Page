@@ -104,7 +104,19 @@ const CreateProfile = () => {
     setFieldValue("location", data.location);
    setFieldValue("address", data.address || "");
   };
+const handleCapitalizedChange = (e) => {
+    const { name, value } = e.target;
 
+    const formatted =
+      value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+
+    handleChange({
+      target: {
+        name,
+        value: formatted,
+      },
+    });
+  };
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
@@ -164,7 +176,7 @@ const CreateProfile = () => {
                 name={"fname"}
                 maxLength={50}
                 value={values.fname}
-                onChange={handleChange}
+                onChange={handleCapitalizedChange}
                 onBlur={handleBlur}
                 error={errors.fname}
                 touched={touched.fname}
@@ -177,7 +189,7 @@ const CreateProfile = () => {
                 name={"lname"}
                 maxLength={50}
                 value={values.lname}
-                onChange={handleChange}
+                onChange={handleCapitalizedChange}
                 onBlur={handleBlur}
                 error={errors.lname}
                 touched={touched.lname}

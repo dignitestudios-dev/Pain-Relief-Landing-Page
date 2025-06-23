@@ -46,29 +46,92 @@ export const providerSchema = Yup.object({
     .matches(/^[0-9]{10}$/, "NPI must be exactly 10 digits.")
     .required("Provider NPI is required"),
   website: Yup.string()
-    .url("Enter a valid URL")
-    .required("Website is required"),
+    .required("Website is required")
+    .test("is-valid-url", "Enter a valid URL", (value) => {
+      if (!value) return false;
+      // Accept URLs starting with http:// or https://
+      if (/^https?:\/\/.+/.test(value)) return true;
+      // Accept URLs starting with www.
+      if (/^www\..+\..+/.test(value)) return true;
+      return false;
+    }),
 
   description: Yup.string().required("Description is required"),
 });
 
 export const EditproviderSchema = Yup.object({
   // name: Yup.string().required("Name of service provider is required"),
-  name: Yup.string()
-    .required("Name of service provider is required")
-    .matches(/^[A-Za-z\s]+$/, "Name must only contain letters and spaces"),
-  clinicName: Yup.string().required("Clinic/practice name is required"),
+  name:Yup.string()
+      .required("Name of service provider is required.")
+      .test(
+        "not-empty-after-trim",
+        "Name of service provider cannot be empty or just spaces.",
+        (value) => value?.trim().length > 0
+      )
+      .test(
+        "no-leading-space",
+        "Name of service provider cannot start with a space.",
+        (value) => (value ? !value.startsWith(" ") : true)
+      )
+      .test(
+        "no-multiple-spaces",
+        "Name of service provider cannot contain multiple spaces.",
+        (value) => (value ? !/ {2,}/.test(value) : true)
+      )
+      .test("no-numbers", "Name of service provider cannot contain numbers.", (value) =>
+        value ? !/\d/.test(value) : true
+      )
+      .test(
+        "first-letter-uppercase",
+        "First letter must be uppercase.",
+        (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
+      ),
+  clinicName:Yup.string()
+    .required("Clinic/practice is required.")
+    .test(
+      "not-empty-after-trim",
+      "Clinic/practice cannot be empty or just spaces.",
+      (value) => value?.trim().length > 0
+    )
+    .test(
+      "no-leading-space",
+      "Clinic/practice cannot start with a space.",
+      (value) => (value ? !value.startsWith(" ") : true)
+    )
+    .test(
+      "no-multiple-spaces",
+      "Clinic/practice cannot contain multiple spaces.",
+      (value) => (value ? !/ {2,}/.test(value) : true)
+    )
+    .test("no-numbers", "Clinic/practice cannot contain numbers.", (value) =>
+      value ? !/\d/.test(value) : true
+    )
+    .test(
+      "first-letter-uppercase",
+      "First letter must be uppercase.",
+      (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
+    ),
 
   // phone: Yup.string()
   //   .transform((value) => value.replace(/\D/g, ""))
   //   .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
   //   .required("Please enter your phone number"),
 
-  npi: Yup.string().required("Provider NPI is required"),
+  npi: Yup.string()
+    .transform((value) => value.replace(/\D/g, ""))
+    .matches(/^[0-9]{10}$/, "NPI must be exactly 10 digits.")
+    .required("Provider NPI is required"),
 
   website: Yup.string()
-    .url("Enter a valid URL")
-    .required("Website is required"),
+    .required("Website is required")
+    .test("is-valid-url", "Enter a valid URL", (value) => {
+      if (!value) return false;
+      // Accept URLs starting with http:// or https://
+      if (/^https?:\/\/.+/.test(value)) return true;
+      // Accept URLs starting with www.
+      if (/^www\..+\..+/.test(value)) return true;
+      return false;
+    }),
 
   description: Yup.string().required("Description is required"),
 });

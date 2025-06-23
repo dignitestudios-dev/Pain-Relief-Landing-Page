@@ -131,7 +131,20 @@ const CreateFamilyMember = () => {
       setErrors("");
     }
   };
+  
+const handleCapitalizedChange = (e) => {
+    const { name, value } = e.target;
 
+    const formatted =
+      value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+
+    handleChange({
+      target: {
+        name,
+        value: formatted,
+      },
+    });
+  };
   return (
     <Fragment>
       {isCreated ? (
@@ -283,6 +296,7 @@ const CreateFamilyMember = () => {
           values={values}
           errors={errors}
           touched={touched}
+          handleCapitalizedChange={handleCapitalizedChange}
           handleChange={handleChange}
           handleBlur={handleBlur}
           handleSubmit={handleSubmit}

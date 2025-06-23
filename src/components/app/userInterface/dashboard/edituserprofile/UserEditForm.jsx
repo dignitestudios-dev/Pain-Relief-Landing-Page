@@ -183,7 +183,9 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
           />
           <div>
             <Calender
-              startDate={values.dateOfBirth}
+              startDate={
+                new Date(values.dateOfBirth).toISOString().split("T")[0]
+              }
               setStartDate={(date) => setFieldValue("dateOfBirth", date)}
               text={"DD/MM/YY"}
               isStyle={true}
