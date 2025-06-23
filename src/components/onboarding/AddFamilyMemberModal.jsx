@@ -108,6 +108,7 @@ const AddFamilyMemberModal = ({
                 type={"text"}
                 id={"fullname"}
                 name={"fullname"}
+                value={values.fullname}
                 maxLength={50}
                 onChange={handleCapitalizedChange}
                 onBlur={handleBlur}
