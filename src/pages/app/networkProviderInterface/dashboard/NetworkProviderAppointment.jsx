@@ -83,7 +83,7 @@ const NetworkProviderAppointment = () => {
           : false,
 
       onSubmit: async (values) => {
-        if (!dateTime.time) {
+        if (appointmentState.status === "Suggested" && !dateTime.time) {
           setDateTimeError("Suggestion time is required");
           return;
         }

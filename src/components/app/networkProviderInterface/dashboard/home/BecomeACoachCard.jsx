@@ -2,6 +2,7 @@ import Button from "../../../landingPage/Inputs/Button";
 import { BecomeCoach } from "../../../../../assets/export";
 
 const BecomeACoachCard = ({ handleRequestSend, requestloader, userData }) => {
+  console.log(userData,"userData==>")
   return (
     <div className="w-full flex justify-center my-6 ">
       <div className="bg-white  lg:w-[90%] md:w-[90%] w-[90%] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 items-center gap-6 rounded-[12px] p-6 shadow-sm">

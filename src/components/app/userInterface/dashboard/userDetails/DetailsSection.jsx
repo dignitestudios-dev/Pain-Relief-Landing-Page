@@ -201,7 +201,7 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
             {[
               ["ID", appointmentData?._id ?? "-"],
               ["Date", formatDate(appointmentData?.appointmentDate)],
-              ["Time", formatTime(appointmentData?.appointmentTime)],
+              ["Time", appointmentData?.appointmentTime],
             ].map(([label, value]) => (
               <div
                 key={label}
@@ -221,7 +221,7 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
           ) : appointmentData.status === "Approved" ? (
             <>
               <button
-                onClick={() => ""}
+                onClick={() => handleModal("Rejected")}
                 className="w-full h-[44px] rounded-[4px] border-red-400 border-[1px] text-red-400 mt-4 text-[16px] font-[500]"
               >
                 Cancel Appointment

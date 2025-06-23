@@ -2,8 +2,17 @@ import * as Yup from "yup";
 
 export const signInSchema = Yup.object({
   email: Yup.string()
-    .email("Please enter a valid email address.")
-    .required("Please enter your email"),
+    .required("Email is required")
+    .test("no-leading-space", "Email cannot start with a space.", (value) =>
+      value ? value[0] !== " " : false
+    )
+    .test(
+      "no-internal-or-trailing-space",
+      "Email cannot contain spaces.",
+      (value) => (value ? value.trim() === value && !/\s/.test(value) : false)
+    )
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, "Invalid email format."),
+
   password: Yup.string()
     .matches(/^(?!\s)(?!.*\s$)/, "Password must not begin or end with spaces")
     .min(6, "Password must contain atleast 6 alphanumeric characters.")
@@ -13,15 +22,66 @@ export const signInSchema = Yup.object({
 
 export const signupSchema = Yup.object().shape({
   fname: Yup.string()
-    .trim()
     .required("First name is required.")
-    .matches(/^[A-Za-z ]+$/, "First name must only contain letters and spaces"),
-
+    .test(
+      "not-empty-after-trim",
+      "First name cannot be empty or just spaces.",
+      (value) => value?.trim().length > 0
+    )
+    .test(
+      "no-leading-space",
+      "First name cannot start with a space.",
+      (value) => (value ? !value.startsWith(" ") : true)
+    )
+    .test(
+      "no-multiple-spaces",
+      "First name cannot contain multiple spaces.",
+      (value) => (value ? !/ {2,}/.test(value) : true)
+    )
+    .test("no-numbers", "First name cannot contain numbers.", (value) =>
+      value ? !/\d/.test(value) : true
+    )
+    .test(
+      "first-letter-uppercase",
+      "First letter must be uppercase.",
+      (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
+    ),
   lname: Yup.string()
-    .trim()
     .required("Last name is required.")
-    .matches(/^[A-Za-z ]+$/, "Last name must only contain letters and spaces"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
+    .test(
+      "not-empty-after-trim",
+      "Last name cannot be empty or just spaces.",
+      (value) => value?.trim().length > 0
+    )
+    .test("no-leading-space", "Last name cannot start with a space.", (value) =>
+      value ? !value.startsWith(" ") : true
+    )
+    .test(
+      "no-multiple-spaces",
+      "Last name cannot contain multiple spaces.",
+      (value) => (value ? !/ {2,}/.test(value) : true)
+    )
+    .test("no-numbers", "Last name cannot contain numbers.", (value) =>
+      value ? !/\d/.test(value) : true
+    )
+    .test(
+      "first-letter-uppercase",
+      "First letter must be uppercase.",
+      (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
+    ),
+
+  email: Yup.string()
+    .required("Email is required")
+    .test("no-leading-space", "Email cannot start with a space.", (value) =>
+      value ? value[0] !== " " : false
+    )
+    .test(
+      "no-internal-or-trailing-space",
+      "Email cannot contain spaces.",
+      (value) => (value ? value.trim() === value && !/\s/.test(value) : false)
+    )
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, "Invalid email format."),
+
   number: Yup.string()
     .transform((value) => value.replace(/\D/g, "")) // Remove all non-numeric chars
     .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")

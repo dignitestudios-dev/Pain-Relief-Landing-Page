@@ -137,6 +137,7 @@ export const processSendRequest = (
   loginAuth
 ) => {
   if (data?.success) {
+    console.log(data,"data")
     loginAuth({
       data: { user: data?.data },
     });
@@ -223,11 +224,18 @@ export const processDeleteFamilyMember = (
   }
 };
 
-export const processUpdateFamily = (data, setEditModal, stateModal = false, setUpdate) => {
+export const processUpdateFamily = (
+  data,
+  setEditModal,
+  _setMembers,
+  setUpdate
+) => {
   if (data?.success) {
     SuccessToast(data?.message);
     setEditModal(false);
-    setUpdate((prev) => !prev);
+     if (typeof setUpdate === "function") {
+      setUpdate((prev) => !prev);
+    }
     sessionStorage.setItem("familyMembers", JSON.stringify(data?.data));
 
     return;

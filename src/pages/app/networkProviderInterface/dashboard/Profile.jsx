@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import HeroSection from "../../../../components/app/networkProviderInterface/dashboard/profile/HeroSection";
 import ProfileDetailSection from "../../../../components/app/networkProviderInterface/dashboard/profile/ProfileDetailSection";
 import {
@@ -15,9 +15,11 @@ import RefferalQrCodeModal from "../../../../components/app/networkProviderInter
 import RequestSendModal from "../../../../components/app/networkProviderInterface/dashboard/home/RequestSendModal";
 import EditLocationModal from "../../../../components/onboarding/EditLocationModal";
 import ApprovedPending from "../../../../components/app/networkProviderInterface/dashboard/profile/ApprovedPending";
+import { AppContext } from "../../../../context/AppContext";
 
 const Profile = () => {
   const [requestModal, setRequestModal] = useState(false);
+  const { loginAuth } = useContext(AppContext);
   const [isModal, setIsModal] = useState(false);
   const [isEditModal, setIsEditModall] = useState(false);
   const [licenseModal, setLicenseModal] = useState(false);
@@ -81,7 +83,8 @@ const Profile = () => {
       null,
       processSendRequest,
       setRequestModal,
-      setUpdate
+      setUpdate,
+      loginAuth
     );
   };
 

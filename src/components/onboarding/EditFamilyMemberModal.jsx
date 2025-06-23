@@ -84,7 +84,7 @@ const EditFamilyMemberModal = ({
           formData,
           processUpdateFamily,
           setEditModal,
-          () => {},   
+          undefined,
           setUpdate
         );
       } else {
@@ -93,7 +93,7 @@ const EditFamilyMemberModal = ({
           updatedPayload,
           processUpdateFamily,
           setEditModal,
-          () => {},
+         undefined,
           setUpdate
         );
       }

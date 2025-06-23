@@ -23,6 +23,16 @@ const SignUp = () => {
     useFormik({
       initialValues: signUpValues,
       validationSchema: signupSchema,
+      validateOnChange: true,
+      validateOnBlur: true,
+      initialTouched: {
+        fname: true,
+        lname: true,
+        email: true,
+        number:true,
+        password:true,
+        cPassword:true
+      },
       onSubmit: (values) => {
         let formattedPhoneNumber = values?.number.startsWith("+1")
           ? values?.number
@@ -65,7 +75,7 @@ const SignUp = () => {
   //     handleSubmit();
   //   }
   // }, [isSuccess]);
-
+console.log(values.email,"Email")
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc] ">
       <div className="p-4 lg:block  hidden">
@@ -98,7 +108,7 @@ const SignUp = () => {
                 onBlur={handleBlur}
                 error={errors.fname}
                 touched={touched.fname}
-                maxLength={50}
+                maxLength={30}
               />
               <AuthInput
                 text="Last Name"
@@ -111,7 +121,7 @@ const SignUp = () => {
                 onBlur={handleBlur}
                 error={touched.lname && errors.lname}
                 touched={touched.lname}
-                maxLength={50}
+                maxLength={30}
               />
             </div>
 

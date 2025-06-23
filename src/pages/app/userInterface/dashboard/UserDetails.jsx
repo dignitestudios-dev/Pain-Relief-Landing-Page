@@ -110,6 +110,7 @@ const UserDetails = () => {
             setCancelModal(false);
             setCancelReasonModal(true);
           }}
+          onClose={()=>  setCancelModal(false)}
         />
       )}
       {cancelReasonModal && (
