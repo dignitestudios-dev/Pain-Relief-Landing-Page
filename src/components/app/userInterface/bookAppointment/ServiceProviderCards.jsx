@@ -49,7 +49,7 @@ const ServiceProviderCards = ({ providerData, loading }) => {
                 </div>
               </div>
               <p className="text-[#565656] text-[14px] font-[500] mt-1">
-                Something Miles Away
+              {item?.distanceInMiles} Miles Away
               </p>
             </div>
             <div className="flex justify-center items-center">

@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTherapyType } from "../../../../hooks/api/Get";
 import { DropDownDark } from "../../landingPage/Inputs/DropDown";
 import Button from "../../landingPage/Inputs/Button";
 import GoogleMapComponent from "../../../global/GoogleMap";
 
-const BookAppointmentFilter = ({ getproviderData }) => {
+const BookAppointmentFilter = ({ getproviderData, filterData }) => {
   const [services, setServices] = useState([]);
   const [address, setAddress] = useState({});
 
   const [distance, setDistance] = useState(10);
+
+  useEffect(() => {
+    setAddress({
+      location: { coordinates: [filterData?.latitude, filterData?.longitude] },
+    });
+  }, [filterData]);
 
   const handleFetchProvider = () => {
     getproviderData(distance, address?.location, services);

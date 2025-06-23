@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "../../axios";
 
 import { processError } from "../../lib/utils";
+import { AppContext } from "../../context/AppContext";
 
 const useUsers = (url, currentPage = 1) => {
   const [loading, setLoading] = useState(false);
@@ -142,7 +143,6 @@ const useAppointmentProvider = (url, filters = {}) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
-
   const getProvider = async () => {
     try {
       setLoading(true);
@@ -150,13 +150,18 @@ const useAppointmentProvider = (url, filters = {}) => {
       const params = new URLSearchParams();
 
       const lat = filters?.address?.coordinates?.[1];
-      console.log("🚀 ~ getProvider ~ lat:", lat);
+
       const lng = filters?.address?.coordinates?.[0];
-      console.log("🚀 ~ getProvider ~ lng:", lng);
+
       if (lat && lng) {
         params.append("latitude", lat);
         params.append("longitude", lng);
       }
+
+      // if (!lat && !lng && latitude && longitude) {
+      //   params.append("latitude", latitude);
+      //   params.append("longitude", longitude);
+      // }
 
       // 2. Distance (radius)
       if (filters.distance) {

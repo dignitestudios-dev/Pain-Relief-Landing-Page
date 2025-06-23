@@ -102,9 +102,9 @@ const CreateProfile = () => {
     setFieldValue("state", data.state);
     setFieldValue("zipCode", data.zipCode);
     setFieldValue("location", data.location);
-   setFieldValue("address", data.address || "");
+    setFieldValue("address", data.address || "");
   };
-const handleCapitalizedChange = (e) => {
+  const handleCapitalizedChange = (e) => {
     const { name, value } = e.target;
 
     const formatted =

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import Cookies from "js-cookie";
@@ -8,6 +8,8 @@ export const AppContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const [token, setToken] = useState(() => Cookies.get("token"));
   const [userData, setUserData] = useState(() => {
     const cookieData = Cookies.get("user");
@@ -47,6 +49,20 @@ export const AppContextProvider = ({ children }) => {
     setUserData(null);
   };
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+
+        setLatitude(latitude);
+        setLongitude(longitude);
+      },
+      (error) => {
+        ErrorToast("Reset Your Permissions", error);
+      }
+    );
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
@@ -56,6 +72,8 @@ export const AppContextProvider = ({ children }) => {
         token,
         userData,
         setUserData,
+        longitude,
+        latitude
       }}
     >
       {children}

@@ -6,7 +6,12 @@ import BookAppointmentFilter from "./BookAppointmentFilter";
 import { useNavigate } from "react-router";
 import { IoIosArrowBack } from "react-icons/io";
 
-const ServiceProviders = ({ providerData, setFilterData, loading }) => {
+const ServiceProviders = ({
+  providerData,
+  setFilterData,
+  loading,
+  filterData,
+}) => {
   const [showDrawer, setShowDrawer] = useState(false);
   const navigate = useNavigate();
   const getProviderData = (distance, address, services) => {
@@ -57,7 +62,10 @@ const ServiceProviders = ({ providerData, setFilterData, loading }) => {
           >
             <IoIosArrowBack size={16} color="white" /> Back
           </h2>
-          <BookAppointmentFilter getproviderData={getProviderData} />
+          <BookAppointmentFilter
+            getproviderData={getProviderData}
+            filterData={filterData}
+          />
         </div>
 
         <div className="col-span-12 md:col-span-9 xl:mt-0 lg:mt-0 md:mt-0 mt-10  ">
