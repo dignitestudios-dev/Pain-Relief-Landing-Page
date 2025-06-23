@@ -3,7 +3,7 @@ import AuthInput from "../../components/onboarding/AuthInput";
 import Button from "../../components/app/landingPage/Inputs/Button";
 import SocialLogin from "../../components/onboarding/SocialLogin";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { useFormik } from "formik";
 import { signUpValues } from "../../init/authentication/authenticationValues";
 import { signupSchema } from "../../schema/authentication/authenticationSchema";
@@ -16,6 +16,10 @@ const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userType = location.state?.userType;
+
+  const [searchParams] = useSearchParams();
+  const referralToken = searchParams.get("referral");
+  console.log("🚀 ~ SignUp ~ referralToken:", referralToken);
 
   const { loading, postData } = useSignUp();
 
@@ -38,16 +42,32 @@ const SignUp = () => {
           ? values?.number
           : `+1${values?.number}`;
 
-        let payload = {
-          firstName: values.fname,
-          lastName: values.lname,
-          email: values.email,
-          phone: formattedPhoneNumber,
-          password: values.password,
-          role: userType === "user" ? "user" : "provider",
-          idToken: "123",
-          fcmToken: "123",
-        };
+        let payload = {};
+
+        if (referralToken) {
+          payload = {
+            firstName: values.fname,
+            lastName: values.lname,
+            email: values.email,
+            phone: formattedPhoneNumber,
+            password: values.password,
+            referalLink: referralToken,
+            role: "user",
+            idToken: "123",
+            fcmToken: "123",
+          };
+        } else {
+          payload = {
+            firstName: values.fname,
+            lastName: values.lname,
+            email: values.email,
+            phone: formattedPhoneNumber,
+            password: values.password,
+            role: userType === "user" ? "user" : "provider",
+            idToken: "123",
+            fcmToken: "123",
+          };
+        }
 
         postData("/auth/signup", payload, processSignup);
       },
@@ -75,6 +95,7 @@ const SignUp = () => {
   //     handleSubmit();
   //   }
   // }, [isSuccess]);
+  console.log(values.email, "Email");
   const handleCapitalizedChange = (e) => {
     const { name, value } = e.target;
 
