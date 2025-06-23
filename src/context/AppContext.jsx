@@ -15,7 +15,7 @@ export const AppContextProvider = ({ children }) => {
   });
 
   const loginAuth = (data) => {
-    console.log(data,"data===Context")
+    console.log(data, "data===Context");
     if (data) {
       if (data?.data?.token) {
         Cookies.set("token", data?.data?.token);
@@ -38,11 +38,21 @@ export const AppContextProvider = ({ children }) => {
     navigate("/auth/sign-in");
   };
 
+  const onBoardLogout = () => {
+    Cookies.remove("token");
+    Cookies.remove("user");
+    localStorage.clear();
+    sessionStorage.clear();
+    setToken(null);
+    setUserData(null);
+  };
+
   return (
     <AppContext.Provider
       value={{
         loginAuth,
         logoutAuth,
+        onBoardLogout,
         token,
         userData,
         setUserData,
