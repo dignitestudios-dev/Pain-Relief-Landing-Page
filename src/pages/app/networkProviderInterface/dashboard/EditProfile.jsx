@@ -38,8 +38,8 @@ const {loginAuth} =useContext(AppContext)
     },
     validationSchema: EditproviderSchema,
     enableReinitialize: true,
-    validateOnBlur: false,
-    validateOnChange: false,
+    validateOnBlur: true,
+    validateOnChange: true,
     onSubmit: (values) => {
       const formData = new FormData();
 

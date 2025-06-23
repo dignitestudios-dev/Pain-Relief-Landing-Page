@@ -239,6 +239,7 @@ console.log(userData,"userData")
                 value={values.description}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                maxLength={250}
               ></textarea>
               {touched.description && errors.description && (
                 <p className="text-red-600 text-xs mt-1">

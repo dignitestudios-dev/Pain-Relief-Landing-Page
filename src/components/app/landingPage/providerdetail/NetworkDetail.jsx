@@ -31,10 +31,10 @@ const NetworkDetail = ({
         </div>
       </div>
 
-      <p className="text-[16px] text-[#181818] font-medium mt-1">
+      <p className="text-[16px] text-[#181818] font-medium mt-1 break-words">
         {detail}
         {message && (
-          <span className="block text-[#565656] text-sm mt-1">{message}</span>
+          <span className="block text-[#565656] text-sm mt-1 ">{message}</span>
         )}
       </p>
     </div>

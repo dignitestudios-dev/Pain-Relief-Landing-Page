@@ -29,9 +29,9 @@ const SignUp = () => {
         fname: true,
         lname: true,
         email: true,
-        number:true,
-        password:true,
-        cPassword:true
+        number: true,
+        password: true,
+        cPassword: true,
       },
       onSubmit: (values) => {
         let formattedPhoneNumber = values?.number.startsWith("+1")
@@ -75,7 +75,20 @@ const SignUp = () => {
   //     handleSubmit();
   //   }
   // }, [isSuccess]);
-console.log(values.email,"Email")
+  const handleCapitalizedChange = (e) => {
+    const { name, value } = e.target;
+
+    const formatted =
+      value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+
+    handleChange({
+      target: {
+        name,
+        value: formatted,
+      },
+    });
+  };
+
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc] ">
       <div className="p-4 lg:block  hidden">
@@ -104,7 +117,7 @@ console.log(values.email,"Email")
                 id="fname"
                 name="fname"
                 value={values.fname}
-                onChange={handleChange}
+                onChange={handleCapitalizedChange}
                 onBlur={handleBlur}
                 error={errors.fname}
                 touched={touched.fname}
@@ -117,7 +130,7 @@ console.log(values.email,"Email")
                 id="lname"
                 name="lname"
                 value={values.lname}
-                onChange={handleChange}
+                onChange={handleCapitalizedChange}
                 onBlur={handleBlur}
                 error={touched.lname && errors.lname}
                 touched={touched.lname}

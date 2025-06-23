@@ -72,7 +72,7 @@ const EditForm = ({
             error={errors.name}
             touched={touched.name}
             text="Name of Chiropractor"
-            maxLength={50}
+            maxLength={30}
           />
           <InputField
             id={"clinicName"}
@@ -138,6 +138,7 @@ const EditForm = ({
             value={values.npi}
             placeholder="Enter your NPI"
             text="Provider Individual NPI (required)"
+            maxLength={10}
           />
         </div>
 
@@ -168,6 +169,7 @@ const EditForm = ({
             rows={5}
             className="w-full rounded-[8px] bg-transparent border border-[#BEC2C9] p-2 mt-1"
             placeholder="Describe yourself"
+            maxLength={250}
           ></textarea>
           {touched.description && errors.description && (
             <p className="text-red-600 text-xs mt-1">{errors.description}</p>

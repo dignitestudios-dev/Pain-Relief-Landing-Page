@@ -93,7 +93,7 @@ const EditFamilyMemberModal = ({
           updatedPayload,
           processUpdateFamily,
           setEditModal,
-         undefined,
+          undefined,
           setUpdate
         );
       }
@@ -226,10 +226,15 @@ const EditFamilyMemberModal = ({
             <div className="md:w-1/2 space-y-3">
               <div>
                 <Calender
-                  startDate={values.db}
+                  startDate={new Date(values.db).toISOString().split("T")[0]}
                   setStartDate={(date) => setFieldValue("db", date)}
                   text="DD/MM/YY"
                   isStyle={true}
+                  max={
+                    new Date(
+                      new Date().setFullYear(new Date().getFullYear() - 18)
+                    )
+                  }
                   label="Date of Birth (required)"
                 />
                 {touched.db && errors.db && (
