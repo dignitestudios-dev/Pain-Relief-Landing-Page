@@ -46,8 +46,15 @@ export const providerSchema = Yup.object({
     .matches(/^[0-9]{10}$/, "NPI must be exactly 10 digits.")
     .required("Provider NPI is required"),
   website: Yup.string()
-    .url("Enter a valid URL")
-    .required("Website is required"),
+    .required("Website is required")
+    .test("is-valid-url", "Enter a valid URL", (value) => {
+      if (!value) return false;
+      // Accept URLs starting with http:// or https://
+      if (/^https?:\/\/.+/.test(value)) return true;
+      // Accept URLs starting with www.
+      if (/^www\..+\..+/.test(value)) return true;
+      return false;
+    }),
 
   description: Yup.string().required("Description is required"),
 });
@@ -67,8 +74,15 @@ export const EditproviderSchema = Yup.object({
   npi: Yup.string().required("Provider NPI is required"),
 
   website: Yup.string()
-    .url("Enter a valid URL")
-    .required("Website is required"),
+    .required("Website is required")
+    .test("is-valid-url", "Enter a valid URL", (value) => {
+      if (!value) return false;
+      // Accept URLs starting with http:// or https://
+      if (/^https?:\/\/.+/.test(value)) return true;
+      // Accept URLs starting with www.
+      if (/^www\..+\..+/.test(value)) return true;
+      return false;
+    }),
 
   description: Yup.string().required("Description is required"),
 });
