@@ -10,7 +10,7 @@ const ServiceProviderCards = ({ providerData, loading }) => {
       {loading ? (
         <SkeletonProviderCard />
       ) : providerData.length === 0 ? (
-        <div className="flex justify-center items-center w-full">
+        <div className="flex justify-center h-[400px] items-center w-full">
           <EmptyScreen
             text={
               "No results match your filters. Try adjusting them to see more options"
