@@ -5,7 +5,7 @@ import MapSection from "./MapSection";
 import { useSubscriptions } from "../../../../hooks/api/Get";
 import SubscriptionCards from "../../userInterface/subscription/SubscriptionsCards";
 
-const DetailSection = ({ providerDetail, loading, provider }) => {
+const DetailSection = ({ providerDetail, loading }) => {
   const [tabActive, setTabActive] = useState("Provider Detail");
   const tabs = [
     "Provider Detail",
@@ -13,7 +13,9 @@ const DetailSection = ({ providerDetail, loading, provider }) => {
     "Care Costs",
     "Contact & Map",
   ];
-  const { data, loadingLloader } = useSubscriptions("/payment/get-subscriptions");
+  const { data, loadingLloader } = useSubscriptions(
+    "/payment/get-subscriptions"
+  );
 
   const [selectedPlans, setSelectedPlans] = useState({});
   const [billingPeriods, setBillingPeriods] = useState({});
@@ -66,7 +68,7 @@ const DetailSection = ({ providerDetail, loading, provider }) => {
       )}
       {tabActive === "Care Costs" && <CareCosts />}
       {tabActive === "Contact & Map" && (
-        <MapSection provider={provider} providerDetail={providerDetail} />
+        <MapSection provider={providerDetail} />
       )}
     </div>
   );

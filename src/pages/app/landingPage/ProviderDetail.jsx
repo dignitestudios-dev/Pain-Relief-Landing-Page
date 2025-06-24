@@ -6,7 +6,6 @@ import { useDetailProvider } from "../../../hooks/api/Get";
 const ProviderDetail = () => {
   const { id: providerDetail } = useParams();
   const location = useLocation();
-  const provider = location.state?.provider;
 
   const { data, loading } = useDetailProvider(
     `/provider/details`,
@@ -15,11 +14,7 @@ const ProviderDetail = () => {
   return (
     <div>
       <HeroSection providerDetail={data} loading={loading} />
-      <DetailSection
-        providerDetail={data}
-        loading={loading}
-        provider={provider}
-      />
+      <DetailSection providerDetail={data} loading={loading} />
     </div>
   );
 };

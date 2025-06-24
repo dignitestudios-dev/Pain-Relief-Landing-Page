@@ -50,17 +50,17 @@ const Cards = ({ providerData, loading }) => {
                   {item?.address}
                 </div>
               </div>
-              <p className="text-[#565656] text-[14px] font-[500] mt-1">
-                20Miles Away
-              </p>
+              {item?.distanceInMiles > 0 && (
+                <p className="text-[#565656] text-[14px] font-[500] mt-1">
+                  {item?.distanceInMiles} Miles Away
+                </p>
+              )}
             </div>
             <div className="flex justify-center items-center">
               <div className="w-[200px]  relative top-5 ">
                 <Button
                   text={"View Details"}
-                  onClick={() =>
-                    navigate(`/app/provider-detail/${item?.provider?._id}`)
-                  }
+                  onClick={() => navigate(`/app/provider-detail/${item?._id}`)}
                 />
               </div>
             </div>
