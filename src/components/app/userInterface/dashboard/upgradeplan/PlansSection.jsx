@@ -202,7 +202,9 @@ const PlansSection = ({ subscriptionsData, loader }) => {
                               className="cursor-pointer w-[17px] h-[17px]"
                               alt=""
                             />
-                            <span className="text-black">{plan.planType}</span>
+                            <span className="text-black capitalize">
+                              {plan.planType}
+                            </span>
                           </label>
                         );
                       })}
@@ -308,7 +310,7 @@ const PlansSection = ({ subscriptionsData, loader }) => {
                               className="cursor-pointer w-[17px] h-[17px]"
                               alt=""
                             />
-                            <span>{plan.planType}</span>
+                            <span className="capitalize">{plan.planType}</span>
                           </label>
                         ))}
                     </div>

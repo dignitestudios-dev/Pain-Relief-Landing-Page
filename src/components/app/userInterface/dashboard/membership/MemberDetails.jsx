@@ -25,7 +25,7 @@ const MemberDetails = ({
                 <h3 className="text-[18px] font-semibold text-[#181818] mb-2">
                   Select Plan
                 </h3>
-                <div className="flex flex-col md:flex-col items-center gap-3 lg:flex-col xl:flex-row xl:space-x-4">
+                <div className="flex flex-col md:flex-col items-center gap-3 lg:flex-col xl:flex-row xl:space-x-4 capitalize">
                   <img
                     src={RadioBtnActive}
                     alt=""
@@ -85,7 +85,9 @@ const MemberDetails = ({
             <div className="w-[249px]">
               <button
                 onClick={() => setCancelSubscriptionModal(true)}
-                  disabled={subscriptiondata?.userSubscription?.cancelAtPeriodEnd === true}
+                disabled={
+                  subscriptiondata?.userSubscription?.cancelAtPeriodEnd === true
+                }
                 className={`h-[49px] w-[249px] rounded-[8px] text-white ${
                   subscriptiondata?.userSubscription?.cancelAtPeriodEnd
                     ? "bg-gray-300 cursor-not-allowed"

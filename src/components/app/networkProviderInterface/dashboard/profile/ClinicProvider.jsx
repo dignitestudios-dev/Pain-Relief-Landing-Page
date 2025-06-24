@@ -8,6 +8,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import DeleteModal from "../../../../global/DeleteModal";
 import axios from "../../../../../axios";
+import { ErrorToast } from "../../../../global/Toaster";
 
 const ClinicProvider = ({
   profileData,
@@ -90,8 +91,14 @@ const ClinicProvider = ({
                 setIsEditModall(true);
               }}
               onClickDelete={() => {
-                setDeleteId(item?._id);
-                setDeleteModal(true);
+                if (profileData?.addresses.length === 1) {
+                  ErrorToast(
+                    "You must keep at least one location. Please add another before deleting this one. "
+                  );
+                } else {
+                  setDeleteId(item?._id);
+                  setDeleteModal(true);
+                }
               }}
             />
           ))}

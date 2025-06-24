@@ -74,7 +74,7 @@ const SubscriptionCards = ({
                     {plans?.map((plan) => (
                       <label
                         key={plan?._id}
-                        className="flex items-center space-x-1 text-sm cursor-pointer"
+                        className="flex items-center space-x-1 text-sm cursor-pointer capitalize"
                       >
                         <img
                           onClick={() =>
@@ -99,7 +99,11 @@ const SubscriptionCards = ({
                 {/* Price */}
                 <div className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent xl:text-[45px] text-[25px] font-bold">
                   ${selectedPlanData?.price?.toFixed(2) || "0.00"}
-                  <span className="text-[18px] font-normal">{selectedPlanData?.billingPeriod == "monthly" ? "/mo" : "/yr" }</span>
+                  <span className="text-[18px] font-normal">
+                    {selectedPlanData?.billingPeriod == "monthly"
+                      ? "/mo"
+                      : "/yr"}
+                  </span>
                 </div>
               </div>
 
