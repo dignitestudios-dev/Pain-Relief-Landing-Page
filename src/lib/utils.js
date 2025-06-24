@@ -58,7 +58,7 @@ export const processUserProfileCreate = (data, navigate, loginAuth) => {
   if (data?.success) {
     loginAuth({ data: { user: data?.data } });
     SuccessToast(data?.message);
-    sessionStorage.setItem("familyMembers", true);
+    sessionStorage.setItem("isFamilyMembers", true);
     navigate("/onboard/create-family-member");
     return;
   }
@@ -76,6 +76,8 @@ export const processUserFamilyMember = (
     setUpdate((prev) => !prev);
     setMembers(data?.data);
     sessionStorage.setItem("familyMembers", JSON.stringify(data?.data));
+    sessionStorage.removeItem("isFamilyMembers");
+
     return;
   }
 };

@@ -4,7 +4,7 @@ const OnboardLayout = ({ token, role, user }) => {
   console.log("🚀 ~ OnboardLayout ~ user:", user);
   const location = useLocation();
   const path = location.pathname;
-  const familyMember = sessionStorage.getItem("familyMembers");
+  const familyMember = sessionStorage.getItem("isFamilyMembers");
   console.log("familyMember-->", familyMember);
 
   // Not authenticated
@@ -32,18 +32,19 @@ const OnboardLayout = ({ token, role, user }) => {
     } else if (
       user?.isSubscribed &&
       user?.isProfileCompleted &&
+      familyMember &&
+      !path.startsWith("/onboard/create-family-member")
+    ) {
+      console.log("🚀 if 46 run", path);
+      return <Navigate to="/onboard/create-family-member" replace />;
+    } else if (
+      user?.isSubscribed &&
+      user?.isProfileCompleted &&
       path.startsWith("/onboard/create-family-member") &&
       !familyMember
     ) {
       console.log("🚀 if 38 run", path);
-      sessionStorage.removeItem("justCompletedProfile");
-      return <Navigate to="/user/dashboard" replace />;
-    } else if (
-      user?.isSubscribed &&
-      user?.isProfileCompleted &&
-      path.startsWith("/onboard/create-family-member")
-    ) {
-      console.log("🚀 if 46 run", path);
+      sessionStorage.removeItem("isFamilyMembers");
       return <Navigate to="/user/dashboard" replace />;
     }
   }

@@ -131,8 +131,8 @@ const CreateFamilyMember = () => {
       setErrors("");
     }
   };
-  
-const handleCapitalizedChange = (e) => {
+
+  const handleCapitalizedChange = (e) => {
     const { name, value } = e.target;
 
     const formatted =
@@ -197,7 +197,10 @@ const handleCapitalizedChange = (e) => {
 
                   <button
                     type="button"
-                    onClick={() => setIsCreated(true)}
+                    onClick={() => {
+                      sessionStorage.removeItem("isFamilyMembers");
+                      setIsCreated(true);
+                    }}
                     className="w-full flex justify-center items-center gap-1 cursor-pointer mt-6"
                   >
                     {/* <IoIosArrowDropleftCircle className="text-lg text-[#212121]" /> */}
