@@ -9,7 +9,7 @@ import { SkeletonProviderCard } from "../../../global/Sekelton";
 
 const Carousel = ({ providerData, loading }) => {
   const swiperRef = useRef(null);
-
+console.log(providerData,"providerData=>")
   return (
     <div className="w-full  px-4 py-10">
       {providerData.length === 0 && !loading ? (

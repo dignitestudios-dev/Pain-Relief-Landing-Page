@@ -92,6 +92,7 @@ const useDashboardProvider = (
         .join("&");
 
       const requestUrl = `${url}?${filterParams}&${serviceParams}`;
+      console.log("requestUrl ===> ", requestUrl);
 
       const { data } = await axios.get(requestUrl);
 
@@ -139,7 +140,6 @@ const useDetailProvider = (url, id) => {
 };
 
 const useAppointmentProvider = (url, filters = {}) => {
-  console.log("🚀 ~ useAppointmentProvider ~ filters:", filters);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});

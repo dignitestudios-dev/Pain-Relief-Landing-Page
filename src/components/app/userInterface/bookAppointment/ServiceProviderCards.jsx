@@ -58,7 +58,7 @@ const ServiceProviderCards = ({ providerData, loading }) => {
                   text={"Book Now"}
                   onClick={() =>
                     navigate(
-                      `/user/appointmentDetailSection/${item?.provider?._id}`,
+                      `/user/appointmentDetailSection/${item?._id}`,
                       {
                         state: {
                           provider: item,

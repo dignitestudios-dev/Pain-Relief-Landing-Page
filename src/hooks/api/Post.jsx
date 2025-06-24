@@ -134,6 +134,8 @@ const useProviderCreateProfile = () => {
       }
       return response?.data;
     } catch (error) {
+      sessionStorage.setItem("familyMembers", true);
+
       processError(error);
     } finally {
       setLoading(false);

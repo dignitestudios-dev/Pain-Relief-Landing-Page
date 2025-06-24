@@ -7,7 +7,7 @@ import { AppContext } from "../../../../context/AppContext";
 
 const BookAppointment = () => {
   const { longitude, latitude } = useContext(AppContext);
-  console.log("longitude=== > ", longitude);
+  
 
   const [filterData, setFilterData] = useState({
     distance: 10,

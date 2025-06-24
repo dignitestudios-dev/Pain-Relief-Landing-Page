@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { InputsDark } from "../Inputs/Inputs";
 import { DropDownDark } from "../Inputs/DropDown";
 import Button from "../Inputs/Button";
@@ -7,12 +7,14 @@ import {
   useDashboardProvider,
   useTherapyType,
 } from "../../../../hooks/api/Get";
+import { AppContext } from "../../../../context/AppContext";
 
 const PainRelief = () => {
   const [update, setUpdate] = useState("");
   const [services, setServices] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [radius, setRadius] = useState([]);
+  const [radius, setRadius] = useState([{ id: 10, name: "10" }]);
+  const { latitude, longitude } = useContext(AppContext);
 
   const radiusOptions = [
     { _id: 10, name: "10" },
@@ -26,7 +28,20 @@ const PainRelief = () => {
     zipCode: "",
     therapistName: "",
     practiceName: "",
+    longitude: "",
+    latitude: "",
   });
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      setFilter((prev) => ({
+        ...prev,
+        longitude,
+        latitude,
+      }));
+      setUpdate((prev) => !prev);
+    }
+  }, [latitude, longitude]);
 
   const { data, loading, pagination } = useDashboardProvider(
     `/provider/dashboard`,
@@ -117,6 +132,8 @@ const PainRelief = () => {
               setFilter((prev) => ({
                 ...prev,
                 zipCode: e.target.value,
+                latitude: "",
+                longitude: "",
               }))
             }
           />

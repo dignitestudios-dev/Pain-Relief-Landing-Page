@@ -199,7 +199,7 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
               Appointment Detail
             </h2>
             {[
-              ["ID", appointmentData?._id ?? "-"],
+              ["ID", appointmentData?.shortCode ?? "-"],
               ["Date", formatDate(appointmentData?.appointmentDate)],
               ["Time", appointmentData?.appointmentTime],
             ].map(([label, value]) => (

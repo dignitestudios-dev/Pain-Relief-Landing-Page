@@ -117,10 +117,6 @@ export const DropDownDark = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  {
-    console.log(options, "genderOptions");
-  }
-
   const dropdownRef = useRef();
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -137,7 +133,7 @@ export const DropDownDark = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  console.log(value, " - - length");
+
   return (
     <div ref={dropdownRef} className="relative w-full">
       {label && (

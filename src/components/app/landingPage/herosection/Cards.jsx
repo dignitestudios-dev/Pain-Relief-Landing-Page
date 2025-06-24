@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Location, ProfileImg } from "../../../../assets/export";
 import Button from "../Inputs/Button";
 import { useNavigate } from "react-router";
 
+
 const Card = ({ data }) => {
   const navigate = useNavigate();
+ 
   return (
     <div className="min-w-[250px] bg-white p-2 rounded-[14px] mx-2 w-[279px] h-[350px] flex flex-col justify-between">
       <div className="bg-cards  h-24 flex items-center justify-center rounded-md">
@@ -38,7 +40,7 @@ const Card = ({ data }) => {
           </div>
         </div>
         <p className="text-[#565656] text-[14px] font-[500] mt-1">
-          20Miles Away
+          {data?.distanceInMiles}Miles Away
         </p>
       </div>
       <div className="flex justify-center items-center relative top-6">
@@ -46,7 +48,7 @@ const Card = ({ data }) => {
           <Button
             text={"View Details"}
             onClick={() =>
-              navigate(`/app/provider-detail/${data?.provider?._id}`, {
+              navigate(`/app/provider-detail/${data?._id}`, {
                 state: { provider: data },
               })
             }

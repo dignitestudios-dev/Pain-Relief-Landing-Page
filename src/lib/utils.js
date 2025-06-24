@@ -58,6 +58,7 @@ export const processUserProfileCreate = (data, navigate, loginAuth) => {
   if (data?.success) {
     loginAuth({ data: { user: data?.data } });
     SuccessToast(data?.message);
+    sessionStorage.setItem("familyMembers", true);
     navigate("/onboard/create-family-member");
     return;
   }
@@ -137,7 +138,7 @@ export const processSendRequest = (
   loginAuth
 ) => {
   if (data?.success) {
-    console.log(data,"data")
+    console.log(data, "data");
     loginAuth({
       data: { user: data?.data },
     });
@@ -233,7 +234,7 @@ export const processUpdateFamily = (
   if (data?.success) {
     SuccessToast(data?.message);
     setEditModal(false);
-     if (typeof setUpdate === "function") {
+    if (typeof setUpdate === "function") {
       setUpdate((prev) => !prev);
     }
     sessionStorage.setItem("familyMembers", JSON.stringify(data?.data));
