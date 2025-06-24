@@ -29,7 +29,7 @@ const BookChiropractorModal = ({
       <div className="bg-white rounded-[26px] shadow-md p-4 h-[560px] overflow-y-auto w-[470px] ">
         <div className="flex border-b pb-4 border-b-gray-300 justify-between items-center">
           <p className="text-[24px] font-[600] capitalize">
-            Book Now Chiropractor
+            Book Now Network Provider
           </p>
           <div>
             <img

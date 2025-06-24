@@ -18,7 +18,7 @@ const ScheduleModal = ({
       <div className="bg-white rounded-[26px] p-6 w-[90%] max-w-md">
         {/* Header */}
         <div className="flex justify-between border-b pb-4 items-center mb-4">
-          <h2 className="text-xl font-semibold">Book Now Chiropractor</h2>
+          <h2 className="text-xl font-semibold">Book Now Network Provider</h2>
           <div onClick={onClose}>
             <img
               src={CancelIcon}
