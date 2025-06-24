@@ -16,14 +16,16 @@ const BookAppointment = () => {
     page: 1,
   });
 
-  useEffect(() => {
-    if (latitude && longitude) {
-      setFilterData((prev) => ({
-        ...prev,
-        address: { coordinates: [longitude,  latitude] },
-      }));  
-    }
-  }, [latitude]);
+  // useEffect(() => {
+  //   if (latitude && longitude) {
+  //     setFilterData((prev) => ({
+  //       ...prev,
+  //       address: {},
+  //     }));  
+  //   }
+  // }, [latitude]);
+//  coordinates: [longitude,  latitude] 
+
 
   const handlePageChange = (page) => {
     setFilterData((prev) => ({
