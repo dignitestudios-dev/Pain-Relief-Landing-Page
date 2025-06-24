@@ -11,7 +11,7 @@ const ServiceProviderCards = ({ providerData, loading }) => {
         <SkeletonProviderCard />
       ) : providerData.length === 0 ? (
         <div className="flex relative top-0 left-20 bottom-0 right-0 justify-center items-center">
-          <EmptyScreen text={"No Data Found"} />
+          <EmptyScreen text={"No Search Results Found"} />
         </div>
       ) : (
         providerData?.map((item, index) => (
