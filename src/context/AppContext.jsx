@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import Cookies from "js-cookie";
+import { ErrorToast } from "../components/global/Toaster";
 
 export const AppContext = createContext();
 
@@ -57,7 +58,7 @@ export const AppContextProvider = ({ children }) => {
         setLongitude(longitude);
       },
       (error) => {
-        ErrorToast("Reset Your Permissions", error);
+        console.log("🚀 ~ useEffect ~ error:", error);
       }
     );
   }, []);
