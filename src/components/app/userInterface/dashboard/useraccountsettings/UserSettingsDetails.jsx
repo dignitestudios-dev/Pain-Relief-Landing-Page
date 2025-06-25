@@ -52,7 +52,7 @@ const UserSettingsDetails = () => {
         </div>
 
         <div className="grid xl:grid-cols-12 mt-3 gap-3">
-          <div className="hidden xl:flex col-span-2 border-r border-r-[#0000001C] flex-col justify-between">
+          <div className="hidden h-[400px] xl:flex col-span-2 border-r border-r-[#0000001C] flex-col justify-between">
             <div>
               {tabs.map((item) => (
                 <div className="flex cursor-pointer" key={item}>
