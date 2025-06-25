@@ -9,8 +9,6 @@ import Button from "../../../landingPage/Inputs/Button";
 const HeroSection = ({ userData, loading }) => {
   const navigate = useNavigate();
 
-  const isLoading = false;
-
   return (
     <div className="min-h-[250px]">
       <div className="bg-provider-detail h-[350px] w-full">
@@ -28,8 +26,8 @@ const HeroSection = ({ userData, loading }) => {
 
       <div className="flex justify-center -mt-40 sm:-mt-36 md:-mt-32 lg:-mt-28 xl:-mt-24">
         <div className="w-[90%] max-w-[1500px]">
-          {isLoading ? (
-           <SkeletonProviderDetail />
+          {loading ? (
+            <SkeletonProviderDetail />
           ) : (
             <div className="flex flex-col lg:flex-row items-center justify-between bg-white rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 gap-4 sm:gap-6">
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">

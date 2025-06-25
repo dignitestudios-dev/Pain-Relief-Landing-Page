@@ -23,13 +23,12 @@ const AppoitmentTable = () => {
     page: 1,
   });
 
-  console.log("🚀 ~ filters status:", filters?.status);
-
   const { data, loading, pagination } = useSchedules(
     `/booking/get-appointments`,
     filters,
     ""
   );
+  console.log("🚀 ~ AppoitmentTable ~ data:", data);
   const navigate = useNavigate();
   const debounceId = useRef(null);
   const handleFilter = (status) => {
@@ -290,7 +289,7 @@ const AppoitmentTable = () => {
                               src={
                                 a.familyMember !== null
                                   ? a.familyMember.profilePicture
-                                  : ProfileImg
+                                  : a.user?.profilePicture
                               }
                               className="w-[39px] h-[39px] rounded-full object-cover"
                               alt="Provider"
@@ -323,11 +322,16 @@ const AppoitmentTable = () => {
                 ))}
               </tbody>
             ) : (
-              <div className="border-t border-gray-100 hover:bg-gray-50 p-4">
-                <div className="flex justify-between items-center">
-                  No Record Found
-                </div>
-              </div>
+              <tbody>
+                <tr>
+                  <td
+                    colSpan="7"
+                    className="text-center text-gray-500 text-sm py-6"
+                  >
+                    No Results Found
+                  </td>
+                </tr>
+              </tbody>
             )}
           </table>
         </div>

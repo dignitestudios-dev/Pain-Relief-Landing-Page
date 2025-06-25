@@ -122,7 +122,11 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
                 <div className="p-[2px] bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px] rounded-full">
                   <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
                     <img
-                      src={ProfileImg}
+                      src={
+                        appointmentData?.familyMember !== null
+                          ? appointmentData?.familyMember?.profilePicture
+                          : appointmentData?.user?.profilePicture
+                      }
                       className="w-[39px] h-[39px] rounded-full object-cover"
                       alt="Profile"
                     />
