@@ -1,11 +1,9 @@
 import { Navigate, Outlet, useLocation } from "react-router";
 
 const OnboardLayout = ({ token, role, user }) => {
-  console.log("🚀 ~ OnboardLayout ~ user:", user);
   const location = useLocation();
   const path = location.pathname;
   const familyMember = sessionStorage.getItem("isFamilyMembers");
-  console.log("familyMember-->", familyMember);
 
   // Not authenticated
   if (!token) {
@@ -19,7 +17,6 @@ const OnboardLayout = ({ token, role, user }) => {
       !path.startsWith("/onboard/subscription-plans") &&
       !path.startsWith("/onboard/subscription-payment-detail")
     ) {
-      console.log("🚀 if 22 run", path);
       return <Navigate to="/onboard/subscription-plans" replace />;
     } else if (
       user?.isSubscribed &&
@@ -27,7 +24,6 @@ const OnboardLayout = ({ token, role, user }) => {
       !path.startsWith("/onboard/create-profile") &&
       !path.startsWith("/onboard/create-family-member")
     ) {
-      console.log("🚀 if 30 run", path);
       return <Navigate to="/onboard/create-profile" replace />;
     } else if (
       user?.isSubscribed &&
@@ -35,7 +31,6 @@ const OnboardLayout = ({ token, role, user }) => {
       familyMember &&
       !path.startsWith("/onboard/create-family-member")
     ) {
-      console.log("🚀 if 46 run", path);
       return <Navigate to="/onboard/create-family-member" replace />;
     } else if (
       user?.isSubscribed &&
@@ -43,7 +38,6 @@ const OnboardLayout = ({ token, role, user }) => {
       path.startsWith("/onboard/create-family-member") &&
       !familyMember
     ) {
-      console.log("🚀 if 38 run", path);
       sessionStorage.removeItem("isFamilyMembers");
       return <Navigate to="/user/dashboard" replace />;
     }

@@ -30,7 +30,6 @@ const BookAppointmentDetails = () => {
   );
 
   const { loading: isLoader, postData } = useAppointmentRequest();
-  console.log("🚀 ~ BookAppointmentDetails ~ isLoader:", isLoader);
 
   const appointmentBooking = async (data) => {
     if (!dateTime.date || !dateTime.time) {
@@ -54,7 +53,6 @@ const BookAppointmentDetails = () => {
           familyMemberId: activeMember,
         }),
     };
-    console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
 
     postData(
       "/booking/create-appointment",

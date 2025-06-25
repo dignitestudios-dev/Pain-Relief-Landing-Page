@@ -2,7 +2,6 @@ import AccountSetting from "../../../pages/app/networkProviderInterface/dashboar
 import Dashboard from "../../../pages/app/networkProviderInterface/dashboard/Dashboard";
 import EditProfile from "../../../pages/app/networkProviderInterface/dashboard/EditProfile";
 import MembershipAgreement from "../../../pages/app/networkProviderInterface/dashboard/MembershipAgreement";
-import NetworkProviderDetail from "../../../pages/app/networkProviderInterface/dashboard/NetworkProviderDetail";
 import PainReliefCoach from "../../../pages/app/networkProviderInterface/dashboard/PainReliefCoach";
 import PrivacyPolicy from "../../../pages/app/networkProviderInterface/dashboard/PrivacyPolicy";
 import Profile from "../../../pages/app/networkProviderInterface/dashboard/Profile";

@@ -14,7 +14,7 @@ const EditProfile = () => {
   const editProfile = location.state;
   const [selectedImage, setSelectedImage] = useState(null);
   const [update, setUpdate] = useState(false);
-const {loginAuth} =useContext(AppContext)
+  const { loginAuth } = useContext(AppContext);
   const { postData, loading } = useEditProfileProvider();
   const {
     values,
@@ -73,7 +73,6 @@ const {loginAuth} =useContext(AppContext)
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log("Image selected:", file);
       setSelectedImage(file);
       setFieldValue("profilePicture", file);
     }

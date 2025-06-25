@@ -41,7 +41,6 @@ const Dashboard = () => {
     () => data?.some((appt) => appt?.status === "Pending"),
     [data]
   );
-  console.log("🚀 ~ Dashboard ~ hasPending:", hasPending);
 
   return (
     <div>

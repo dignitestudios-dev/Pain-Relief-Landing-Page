@@ -24,7 +24,6 @@ const AppoitmentTable = ({ update }) => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
-  console.log("🚀 ~ AppoitmentTable ~ isOpen:", isOpen);
 
   const toggleCalendar = () => {
     setIsOpen((prev) => !prev);

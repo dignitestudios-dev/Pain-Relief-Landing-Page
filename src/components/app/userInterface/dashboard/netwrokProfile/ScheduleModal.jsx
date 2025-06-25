@@ -12,7 +12,6 @@ const ScheduleModal = ({
   dateTimeError = false,
   setDateTimeError = () => {},
 }) => {
-  console.log("dateTime--> ", dateTime?.date);
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] p-6 w-[90%] max-w-md">

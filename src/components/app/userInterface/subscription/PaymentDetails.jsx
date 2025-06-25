@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 
 const PaymentDetails = ({ planData, subscriptionData }) => {
   const { planType, billingPeriod: billing } = planData;
-  console.log("🚀 ~ PaymentDetails ~ planType:", planType);
+
   const navigate = useNavigate();
 
   const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);

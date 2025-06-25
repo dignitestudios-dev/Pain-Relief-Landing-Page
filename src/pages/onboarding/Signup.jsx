@@ -19,7 +19,6 @@ const SignUp = () => {
 
   const [searchParams] = useSearchParams();
   const referralToken = searchParams.get("referral");
-  console.log("🚀 ~ SignUp ~ referralToken:", referralToken);
 
   const { loading, postData } = useSignUp();
 

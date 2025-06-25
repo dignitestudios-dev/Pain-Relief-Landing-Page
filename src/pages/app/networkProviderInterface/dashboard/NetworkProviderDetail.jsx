@@ -95,7 +95,6 @@ const NetworkProviderDetail = () => {
           reason: values?.description || scheduleDescription,
           status: appointmentState.status,
         };
-        console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
 
         postData(
           "/booking/update-status",
@@ -108,8 +107,6 @@ const NetworkProviderDetail = () => {
     });
 
   const handleModal = (status, time) => {
-    console.log("🚀 ~ handleModal ~ time:", time);
-    console.log("🚀 ~ handleModal ~ status:", status);
     if (status) setAppointmentState({ status: status });
 
     if (status === "Rejected") {

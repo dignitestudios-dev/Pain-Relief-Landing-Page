@@ -77,7 +77,7 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
       );
     },
   });
-  console.log(values.address);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -213,8 +213,6 @@ const UserEditForm = ({ genderOptions, editProfile }) => {
           {touched.address?.address && errors.address?.address && (
             <p className="text-red-600 text-[12px]">{errors.address.address}</p>
           )}
-
-          {console.log(errors.address?.address, "errors.address?.address==>")}
         </div>
 
         <div className="my-5">

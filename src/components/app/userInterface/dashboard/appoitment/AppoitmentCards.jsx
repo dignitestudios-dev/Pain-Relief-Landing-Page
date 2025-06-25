@@ -41,7 +41,6 @@ const AppointmentCards = ({ data, setUpdate, setIsSuggestedView }) => {
           // reason: values?.description || "",
           status: appointmentState.status,
         };
-        console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
 
         postData(
           "/booking/accept-reject",

@@ -68,7 +68,6 @@ const UserDetails = () => {
           rejectedReason: values?.description,
           status: appointmentState.status,
         };
-        console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
 
         postData(
           "/booking/accept-reject",
@@ -81,8 +80,6 @@ const UserDetails = () => {
     });
 
   const handleModal = (status, time) => {
-    console.log("🚀 ~ handleModal ~ time:", time);
-
     if (status) setAppointmentState((prev) => ({ ...prev, status: status }));
     if (status === "Rejected") {
       setCancelModal(true);

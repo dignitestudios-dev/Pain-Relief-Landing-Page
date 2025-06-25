@@ -13,7 +13,6 @@ const AppoitmentTable = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [filterDate, setFilterDate] = useState({ startDate: "", endDate: "" });
-  console.log("🚀 ~ AppoitmentTable ~ filterDate:", filterDate);
 
   const [filters, setFilters] = useState({
     status: "",
@@ -28,7 +27,7 @@ const AppoitmentTable = () => {
     filters,
     ""
   );
-  console.log("🚀 ~ AppoitmentTable ~ data:", data);
+
   const navigate = useNavigate();
   const debounceId = useRef(null);
   const handleFilter = (status) => {

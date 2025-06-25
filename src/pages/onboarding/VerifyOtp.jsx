@@ -87,7 +87,6 @@ const VerifyOtp = () => {
       const response = await axios.post("/auth/verify-otp", obj);
 
       if (response.status === 200) {
-        console.log("response?.data", response?.data);
         // login(response?.data);
         // Cookies.set("token", response?.data?.data?.token);
         loginAuth({

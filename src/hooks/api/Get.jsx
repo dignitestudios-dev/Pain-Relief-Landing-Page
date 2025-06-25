@@ -92,7 +92,6 @@ const useDashboardProvider = (
         .join("&");
 
       const requestUrl = `${url}?${filterParams}&${serviceParams}`;
-      console.log("requestUrl ===> ", requestUrl);
 
       const { data } = await axios.get(requestUrl);
 

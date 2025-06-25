@@ -8,7 +8,6 @@ const MemberDetails = ({
   setCancelSubscriptionModal,
   loading,
 }) => {
-  console.log("🚀 ~ subscriptiondata:", subscriptiondata);
   return (
     <div>
       {loading ? (

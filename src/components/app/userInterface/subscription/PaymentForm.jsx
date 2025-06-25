@@ -60,7 +60,6 @@ const PaymentForm = ({ planData, selectedPlanData }) => {
     });
 
     if (error) {
-      console.log("🚀 ~ 52 ~ error:", error);
       setError(error.message);
       ErrorToast(error.message);
       setLoading(false);

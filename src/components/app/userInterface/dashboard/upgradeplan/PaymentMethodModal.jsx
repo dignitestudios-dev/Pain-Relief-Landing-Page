@@ -46,7 +46,6 @@ const PaymentMethodModal = ({ onClose, setUpdate }) => {
       type: "card",
       card: cardNumberElement,
     });
-    console.log("🚀 ~ handleSubmit ~ error:", error);
 
     if (error) {
       setStripeError(error?.message);
@@ -59,14 +58,12 @@ const PaymentMethodModal = ({ onClose, setUpdate }) => {
         });
 
         if (response.status === 200) {
-          console.log("🚀 ~ handleSubmit ~ response:", response);
           onClose();
           setUpdate((prev) => !prev);
           SuccessToast("Card Added");
         }
       } catch (apiError) {
         ErrorToast(apiError?.response?.data?.message);
-        console.log("the error is ===", apiError);
       } finally {
         setLoading(false);
       }

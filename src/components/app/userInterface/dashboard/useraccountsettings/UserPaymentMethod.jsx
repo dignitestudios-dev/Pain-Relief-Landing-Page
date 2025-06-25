@@ -15,7 +15,7 @@ const UserPaymentMethod = () => {
   const { userData } = useContext(AppContext);
   const [update, setUpdate] = useState(false);
   const { data, loading } = useGetCards("/payment/cards", update);
-  console.log("🚀 ~ UserPaymentMethod ~ data:", data);
+
   const [deleteId, setDeleteId] = useState(false);
 
   const [deleteModal, setDeleteModal] = useState(false);

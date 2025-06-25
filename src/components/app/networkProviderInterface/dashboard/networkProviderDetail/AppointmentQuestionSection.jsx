@@ -1,21 +1,11 @@
 import { useNavigate } from "react-router";
-import { LocationDark, MapImg, ProfileImg } from "../../../../../assets/export";
+import { LocationDark, ProfileImg } from "../../../../../assets/export";
 import Button from "../../../landingPage/Inputs/Button";
 import GoogleMapComponent from "../../../../global/GoogleMap";
 import { getDateFormat } from "../../../../../lib/helpers";
 
 const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
-  console.log("🚀 ~~ AppointmentData: ~~ ", AppointmentData);
   const navigate = useNavigate();
-  const formatDate = (d) => (d ? new Date(d).toLocaleDateString("en-US") : "-");
-  const formatTime = (t) =>
-    t
-      ? new Date(t).toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        })
-      : "-";
 
   return (
     <div className="flex flex-col items-center justify-center relative bottom-28 px-2 sm:px-4 md:px-6">
@@ -220,7 +210,7 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
             </h2>
             {[
               ["ID", AppointmentData?.shortCode ?? "-"],
-              ["Date", formatDate(AppointmentData?.appointmentDate)],
+              ["Date", getDateFormat(AppointmentData?.appointmentDate)],
               ["Time", AppointmentData?.appointmentTime],
             ].map(([label, value]) => (
               <div

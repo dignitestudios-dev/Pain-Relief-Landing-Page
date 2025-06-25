@@ -42,7 +42,6 @@ const Login = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values, action) => {
-      console.log("🚀 ~ onSubmit: ~ action:", action);
       let payload = {
         email: values.email,
         password: values.password,

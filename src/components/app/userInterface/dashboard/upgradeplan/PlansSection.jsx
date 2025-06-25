@@ -41,7 +41,7 @@ const PlansSection = ({ subscriptionsData, loader }) => {
   /** send only the plan that belongs to the clicked card */
   const handleBuyNow = (cardIndex) => {
     const plan = selectedPlans[cardIndex];
-    console.log("🚀 ~ PlansSection ~ plan:", plan);
+
     if (!plan) return ErrorToast("Please choose a plan first");
     setPriceId(plan?._id);
     setPaymentModal(true);
@@ -73,7 +73,6 @@ const PlansSection = ({ subscriptionsData, loader }) => {
   };
   // ───────────────────────────────────────────────────────────── helper
   const getFirstEligiblePlan = (planArray = [], cardName) => {
-    console.log("🚀 ~ PlansSection ~ planArray:", planArray);
     return (
       planArray.find(
         (p) =>

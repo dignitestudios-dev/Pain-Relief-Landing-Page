@@ -45,7 +45,6 @@ export const processLogin = (
 };
 
 export const processProviderProfileCreate = (data, navigate, loginAuth) => {
-  console.log(data, "data==>");
   if (data?.success) {
     loginAuth({ data: { user: data?.data } });
     SuccessToast(data?.message);
@@ -140,7 +139,6 @@ export const processSendRequest = (
   loginAuth
 ) => {
   if (data?.success) {
-    console.log(data, "data");
     loginAuth({
       data: { user: data?.data },
     });
@@ -159,7 +157,6 @@ export const processEditProviderProfile = (
   loginAuth
 ) => {
   if (data?.success) {
-    console.log(data, "ProviderData");
     SuccessToast(data?.message);
     loginAuth({ data: { user: data?.data } });
     navigate("/provider/profile-network-provider");

@@ -10,7 +10,6 @@ const StepTwo = ({
   error,
   handleSelection,
 }) => {
-    console.log(isSelectedVal,"isSelectedVal")
   const options = [
     "I would like to schedule appointment with Chiropractor",
     "I am having constant headaches?",

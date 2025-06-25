@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import AddressMap from "../../../global/AddressMap";
 
 const MapSection = ({ provider }) => {
-  console.log(provider, "provider in MapSection");
   return (
     <div>
       <div className="w-full h-[500px] bg-white mt-6 rounded-lg relative">

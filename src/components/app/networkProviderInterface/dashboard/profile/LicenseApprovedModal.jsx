@@ -8,7 +8,7 @@ const LicenseApprovedModal = ({
   handleUploadLicense,
   licenseloader,
   error,
-  setError
+  setError,
 }) => {
   const [isLicenseAdded, setIsLicenseAdded] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -19,10 +19,10 @@ const LicenseApprovedModal = ({
       setFileName(file.name);
       setFile(file);
       setIsLicenseAdded(true);
-       setError("");
+      setError("");
     }
   };
-console.log(isLicenseAdded,"isLicenseAdded")
+
   return (
     <div className="fixed inset-0 bg-[#0A150F80] z-50 flex items-center justify-center">
       <div className="bg-white rounded-[26px] shadow-lg p-6 w-full max-w-[470px] mx-4">

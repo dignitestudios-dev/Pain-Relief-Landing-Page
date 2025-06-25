@@ -1,8 +1,6 @@
 import { useState } from "react";
 import AcceptModal from "./AcceptModal";
-import RejectModal from "./RejectModal";
-import RejectResonModal from "./RejectResonModal";
-import RequestRejectedModal from "./RequestRejectedModal";
+
 import SuggestTimeModal from "./SuggestTimeModal";
 import SuggestDeferentTimeModal from "./SuggestDeferentTimeModal";
 import DiffrentTimeSuggestedModal from "./DiffrentTimeSuggestedModal";
@@ -16,9 +14,8 @@ import * as Yup from "yup";
 import { processAppointmentRequest } from "../../../../../lib/utils";
 
 const AppointmentCard = ({ setIsSuggestedView, data, setUpdate }) => {
-  console.log("🚀 ~ AppointmentCard ~ data:", data);
   const [appointmentState, setAppointmentState] = useState({ status: "" });
-  console.log("🚀 ~ AppointmentCard ~ appointmentState:", appointmentState);
+
   const [appointmentId, setAppointmentId] = useState("");
 
   const [acceptModal, setAcceptModal] = useState(false);
@@ -54,7 +51,6 @@ const AppointmentCard = ({ setIsSuggestedView, data, setUpdate }) => {
           : false,
 
       onSubmit: async (values) => {
-        console.log("on submit call -- ");
         if (appointmentState.status === "Suggested" && !dateTime.time) {
           setDateTimeError("Suggestion time is required");
           return;
@@ -67,7 +63,6 @@ const AppointmentCard = ({ setIsSuggestedView, data, setUpdate }) => {
           reason: values?.description || "",
           status: appointmentState.status,
         };
-        console.log("🚀 ~ onSubmit: ~ payLoad:", payLoad);
 
         postData(
           "/booking/update-status",

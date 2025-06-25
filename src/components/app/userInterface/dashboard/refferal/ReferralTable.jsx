@@ -23,7 +23,6 @@ const ReferralTable = ({ tableData, tableloader }) => {
       setReferralLoading(true);
       const response = await axios.get("/user/generate-refferal-link");
       if (response.status === 200) {
-        console.log("first-- > ", response?.data?.data?.referralLink);
         setReferralModal(true);
         setReferralLink(response?.data?.data?.referralLink);
       }
