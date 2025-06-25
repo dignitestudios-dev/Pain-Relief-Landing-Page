@@ -154,11 +154,12 @@ const Login = () => {
               Forgot password?
             </p>
           </div>
+
           <div className="w-[350px] mt-3 mb-4">
             <Button text={"Login"} loading={loading} />
           </div>
         </form>
-        {values?.type === "member" && (
+        {values?.type === "user" && (
           <>
             <div className="flex items-center lg:w-[350px] md:w-[550px] w-[340px]">
               <hr className="w-full border-t border-[#D9D9D9]" />
