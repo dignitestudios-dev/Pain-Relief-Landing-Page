@@ -11,7 +11,11 @@ const referralData = Array(7).fill({
   status: "Subscribes",
 });
 
-const ReferralTable = ({ referralFriends, referralLoader,setVoucherModal }) => {
+const ReferralTable = ({
+  referralFriends,
+  referralLoader,
+  setVoucherModal,
+}) => {
   return (
     <div className="bg-white rounded-lg shadow-md  mt-4">
       <div className="flex justify-between items-center mb-4 border-b border-b-[#EAEAEA] pb-4  p-4">
@@ -37,32 +41,48 @@ const ReferralTable = ({ referralFriends, referralLoader,setVoucherModal }) => {
               <th className="py-3 px-4">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
-            {referralFriends?.map((item, index) => (
-              <tr key={index} className="text-sm text-[#212121]">
-                <td className="py-3 px-4">{index + 1}</td>
+          {referralFriends?.length > 0 ? (
+            <tbody className="divide-y divide-gray-100">
+              {referralFriends?.map((item, index) => (
+                <tr key={index} className="text-sm text-[#212121]">
+                  <td className="py-3 px-4">{index + 1}</td>
 
-                <td className="py-3 px-4 flex items-center gap-2">
-                  <img
-                    src={
-                      item?.profilePicture ? item?.profilePicture : ProfileImg
-                    }
-                    alt="Profile"
-                    className="w-[36px] h-[36px] rounded-full object-cover border-2 border-[#00B7C2]"
-                  />
-                  <span>{`${item?.firstName} ${item?.lastName}`}</span>
-                </td>
-                <td className="py-3 px-4">{item?.email}</td>
-                <td className="py-3 px-4">{getDateFormat(item?.referredAt)}</td>
-                <td className="py-3 px-4">
-                  {item?.isSubscribed === false ? "UnSubscribe" : "Subscribe"}
+                  <td className="py-3 px-4 flex items-center gap-2">
+                    <img
+                      src={
+                        item?.profilePicture ? item?.profilePicture : ProfileImg
+                      }
+                      alt="Profile"
+                      className="w-[36px] h-[36px] rounded-full object-cover border-2 border-[#00B7C2]"
+                    />
+                    <span>{`${item?.firstName} ${item?.lastName}`}</span>
+                  </td>
+                  <td className="py-3 px-4">{item?.email}</td>
+                  <td className="py-3 px-4">
+                    {getDateFormat(item?.referredAt)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {item?.isSubscribed === false ? "UnSubscribe" : "Subscribe"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr>
+                <td
+                  colSpan="7"
+                  className="text-center text-gray-500 text-sm py-6"
+                >
+                  You haven’t referred anyone yet. Share your link to get
+                  started, once someone joins using it, you’ll see them listed
+                  here.
                 </td>
               </tr>
-            ))}
-          </tbody>
+            </tbody>
+          )}
         </table>
       </div>
-     
     </div>
   );
 };

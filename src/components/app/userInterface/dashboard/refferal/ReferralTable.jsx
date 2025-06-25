@@ -60,82 +60,89 @@ const ReferralTable = ({ tableData, tableloader }) => {
               <th className="py-3 px-4">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
-            {tableloader ? (
-              <>
-                {Array.from({ length: 4 }).map((_, idx) => (
-                  <tr key={idx} className="text-sm animate-pulse">
-                    {/* # */}
-                    <td className="py-3 px-4">
-                      <div className="h-4 w-5 bg-gray-200 rounded"></div>
-                    </td>
+          {tableloader ? (
+            <tbody>
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <tr key={idx} className="text-sm animate-pulse">
+                  {/* # */}
+                  <td className="py-3 px-4">
+                    <div className="h-4 w-5 bg-gray-200 rounded"></div>
+                  </td>
 
-                    {/* Referral ID */}
-                    <td className="py-3 px-4">
-                      <div className="h-4 w-32 bg-gray-200 rounded"></div>
-                    </td>
+                  {/* Referral ID */}
+                  <td className="py-3 px-4">
+                    <div className="h-4 w-32 bg-gray-200 rounded"></div>
+                  </td>
 
-                    {/* Referred Member */}
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-9 h-9 rounded-full bg-gray-200"></div>
-                        <div className="h-4 w-28 bg-gray-200 rounded"></div>
-                      </div>
-                    </td>
+                  {/* Referred Member */}
+                  <td className="py-3 px-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-9 h-9 rounded-full bg-gray-200"></div>
+                      <div className="h-4 w-28 bg-gray-200 rounded"></div>
+                    </div>
+                  </td>
 
-                    {/* Email */}
-                    <td className="py-3 px-4">
-                      <div className="h-4 w-40 bg-gray-200 rounded"></div>
-                    </td>
+                  {/* Email */}
+                  <td className="py-3 px-4">
+                    <div className="h-4 w-40 bg-gray-200 rounded"></div>
+                  </td>
 
-                    {/* Date */}
-                    <td className="py-3 px-4">
-                      <div className="h-4 w-24 bg-gray-200 rounded"></div>
-                    </td>
+                  {/* Date */}
+                  <td className="py-3 px-4">
+                    <div className="h-4 w-24 bg-gray-200 rounded"></div>
+                  </td>
 
-                    {/* Status */}
-                    <td className="py-3 px-4">
-                      <div className="h-4 w-20 bg-gray-200 rounded"></div>
-                    </td>
-                  </tr>
-                ))}
-              </>
-            ) : (
-              <>
-                {tableData?.map((item, index) => (
-                  <tr key={index} className="text-sm text-[#212121]">
-                    <td className="py-3 px-4">{index + 1}</td>
-                    <td className="py-3 px-4">{item?._id}</td>
+                  {/* Status */}
+                  <td className="py-3 px-4">
+                    <div className="h-4 w-20 bg-gray-200 rounded"></div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ) : tableData?.length > 0 ? (
+            <tbody className="divide-y divide-gray-100">
+              {tableData?.map((item, index) => (
+                <tr key={index} className="text-sm text-[#212121]">
+                  <td className="py-3 px-4">{index + 1}</td>
+                  <td className="py-3 px-4">{item?._id}</td>
 
-                    <td className="py-3 px-4 flex items-center gap-2">
-                      <img
-                        src={
-                          item?.profilePicture
-                            ? item?.profilePicture
-                            : ProfileImg
-                        }
-                        alt="Profile"
-                        className="w-[36px] h-[36px] rounded-full object-cover border-2 border-[#00B7C2]"
-                      />
-                      <span>
-                        {item.firstName} {item.lastName}
-                      </span>
-                    </td>
+                  <td className="py-3 px-4 flex items-center gap-2">
+                    <img
+                      src={
+                        item?.profilePicture ? item?.profilePicture : ProfileImg
+                      }
+                      alt="Profile"
+                      className="w-[36px] h-[36px] rounded-full object-cover border-2 border-[#00B7C2]"
+                    />
+                    <span>
+                      {item.firstName} {item.lastName}
+                    </span>
+                  </td>
 
-                    <td className="py-3 px-4">{item?.email}</td>
-                    <td className="py-3 px-4">
-                      {getDateFormat(item?.referredAt)}
-                    </td>
-                    <td className="py-3 px-4">
-                      {item?.isSubscribed === false
-                        ? "UnSubscribe"
-                        : "Subscribe"}
-                    </td>
-                  </tr>
-                ))}
-              </>
-            )}
-          </tbody>
+                  <td className="py-3 px-4">{item?.email}</td>
+                  <td className="py-3 px-4">
+                    {getDateFormat(item?.referredAt)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {item?.isSubscribed === false ? "UnSubscribe" : "Subscribe"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr>
+                <td
+                  colSpan="7"
+                  className="text-center text-gray-500 text-sm py-6"
+                >
+                  You haven’t referred anyone yet. Share your link to get
+                  started, once someone joins using it, you’ll see them listed
+                  here.
+                </td>
+              </tr>
+            </tbody>
+          )}
         </table>
       </div>
       {referralModal && (

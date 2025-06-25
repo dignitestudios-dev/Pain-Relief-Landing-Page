@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeroSection from "../../../components/app/landingPage/scheduleAppointment/HeroSection";
 import SearchServiceProvider from "../../../components/app/landingPage/scheduleAppointment/SearchServiceProvider";
 import { useDashboardProvider, useTherapyType } from "../../../hooks/api/Get";
@@ -8,7 +8,7 @@ const ScheduleAppointment = () => {
   const [isTrue, setIsTrue] = useState(false);
   const [update, setUpdate] = useState("");
   const [services, setServices] = useState([]);
-  const [radius, setRadius] = useState([]);
+  const [radius, setRadius] = useState([{ id: 10, name: "10" }]);
 
   const radiusOptions = [
     { _id: 10, name: "10" },
@@ -52,6 +52,13 @@ const ScheduleAppointment = () => {
       }
     });
   };
+
+  // useEffect(() => {
+  //   if (therapyTypes?.length > 0) {
+  //     console.log(therapyTypes, "therapyTypes");
+  //     setServices([{ name: therapyTypes[0]?.name, id: therapyTypes[0]?._id }]);
+  //   }
+  // }, [therapyTypes]);
 
   const handleDistance = (option) => {
     setRadius((prev) => {

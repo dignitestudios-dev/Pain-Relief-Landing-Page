@@ -312,7 +312,8 @@ const AppoitmentTable = ({ update }) => {
                     colSpan="7"
                     className="text-center text-gray-500 text-sm py-6"
                   >
-                    No Results Found
+                    Nothing to display at the moment. Appointments will appear
+                    here once available.
                   </td>
                 </tr>
               </tbody>

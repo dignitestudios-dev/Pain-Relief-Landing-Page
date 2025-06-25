@@ -9,6 +9,7 @@ const BookAppointmentFilter = ({ getproviderData, filterData }) => {
   const [address, setAddress] = useState({});
 
   const [distance, setDistance] = useState(10);
+  const [isClear, setIsClear] = useState(false);
 
   // useEffect(() => {
   //   setAddress({
@@ -50,6 +51,7 @@ const BookAppointmentFilter = ({ getproviderData, filterData }) => {
     setAddress({});
     setDistance(10);
     getproviderData(null, null, null);
+    setIsClear((prev) => !prev);
     // setRadius([]);
   };
 
@@ -83,6 +85,7 @@ const BookAppointmentFilter = ({ getproviderData, filterData }) => {
               isEditMode={false}
               distance={distance}
               showRadius={true}
+              isClear={isClear}
             />
           </div>
         </div>

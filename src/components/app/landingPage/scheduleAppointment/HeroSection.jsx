@@ -58,7 +58,7 @@ const HeroSection = ({
                 />
                 <DropDown
                   label={"Therapy Type"}
-                  placeholder={"Select "}
+                  placeholder={"All "}
                   options={therapyTypes}
                   value={services}
                   onChange={handleSelect}

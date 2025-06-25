@@ -32,17 +32,6 @@ const PainRelief = () => {
     latitude: "",
   });
 
-  useEffect(() => {
-    if (latitude && longitude) {
-      setFilter((prev) => ({
-        ...prev,
-        longitude,
-        latitude,
-      }));
-      setUpdate((prev) => !prev);
-    }
-  }, [latitude, longitude]);
-
   const { data, loading, pagination } = useDashboardProvider(
     `/provider/dashboard`,
     { ...filters, radius: radius?.map((item) => item?.id) },
@@ -66,6 +55,21 @@ const PainRelief = () => {
       }
     });
   };
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      setFilter((prev) => ({
+        ...prev,
+        longitude,
+        latitude,
+      }));
+      setUpdate((prev) => !prev);
+    }
+    // if (therapyTypes?.length > 0) {
+    //   console.log(therapyTypes, "therapyTypes");
+    //   setServices([{ name: therapyTypes[0]?.name, id: therapyTypes[0]?._id }]);
+    // }
+  }, [latitude, longitude]);
 
   const handleDistance = (option) => {
     setRadius((prev) => {
@@ -117,7 +121,7 @@ const PainRelief = () => {
           />
           <DropDownDark
             label={"Therapy Type"}
-            placeholder={"Select "}
+            placeholder={"All "}
             options={therapyTypes}
             value={services}
             onChange={handleSelect}

@@ -7,10 +7,7 @@ import SubscriptionSection from "../../../components/app/landingPage/herosection
 import FAQAccordion from "../../../components/app/landingPage/herosection/Faqs";
 import JoinNowCards from "../../../components/app/landingPage/herosection/JoinNowCards";
 
-
 const Home = () => {
-
-
   return (
     <div>
       <HeroSection />

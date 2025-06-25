@@ -27,6 +27,7 @@ const GoogleMapComponent = ({
   showRadius = false,
   isDisabled = false,
   error,
+  isClear = false,
 }) => {
   const radiusInMeters = distance * 1609.34;
   const { isLoaded } = useLoadScript({
@@ -37,6 +38,9 @@ const GoogleMapComponent = ({
   const [mapCenter, setMapCenter] = useState(defaultCenter);
   const [marker, setMarker] = useState(defaultCenter);
   const [inputValue, setInputValue] = useState("");
+  useEffect(() => {
+    setInputValue("");
+  }, [isClear]);
 
   const autocompleteRef = useRef(null);
 

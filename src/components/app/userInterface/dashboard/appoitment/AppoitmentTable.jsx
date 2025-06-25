@@ -327,7 +327,8 @@ const AppoitmentTable = () => {
                     colSpan="7"
                     className="text-center text-gray-500 text-sm py-6"
                   >
-                    No Results Found
+                    No activity to show right now. Your appointments will appear
+                    here once available.
                   </td>
                 </tr>
               </tbody>
