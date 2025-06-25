@@ -9,11 +9,13 @@ import { SkeletonProviderCard } from "../../../global/Sekelton";
 
 const Carousel = ({ providerData, loading }) => {
   const swiperRef = useRef(null);
-console.log(providerData,"providerData=>")
+
   return (
     <div className="w-full  px-4 py-10">
       {providerData.length === 0 && !loading ? (
-        <div className="text-center">No Data Found</div>
+        <div className="text-center text-gray-600 font-[500] text-[18px] mt-20  ">
+          No results match your filters. Try adjusting them to see more options
+        </div>
       ) : loading ? (
         <SkeletonProviderCard />
       ) : (

@@ -14,7 +14,7 @@ const AddNewLocationModal = ({
   setEditIndex,
   isLocationAdded,
   therapyTypesOption,
-  isEditMode = false,
+  // isEditMode = false,
   isBtn = false,
   setUpdate,
   setFormErrors,
@@ -64,22 +64,14 @@ const AddNewLocationModal = ({
     }
 
     setEditIndex(null);
-    setForm({ address: "", specialty: [] });
     setIsModal(false);
   };
 
-  // useEffect(() => {
-  //   if (editIndex !== null && isLocationAdded[editIndex]) {
-  //     if (isEditMode) {
-  //       setForm(() => ({
-  //         address: isLocationAdded[editIndex],
-  //         specialty: isLocationAdded[editIndex].services,
-  //       }));
-  //     } else {
-  //       setForm(isLocationAdded[editIndex]);
-  //     }
-  //   }
-  // }, [editIndex]);
+  useEffect(() => {
+    if (editIndex !== null) {
+      setForm(() => isLocationAdded[editIndex]);
+    }
+  }, [editIndex]);
 
   const onLocationSelect = (data) => {
     setForm((prev) => ({
@@ -117,7 +109,10 @@ const AddNewLocationModal = ({
         <div className="flex  justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
           <p className="text-[24px] font-semibold">Add New Location</p>
           <span
-            onClick={() => setIsModal(false)}
+            onClick={() => {
+              setEditIndex(null);
+              setIsModal(false);
+            }}
             className="cursor-pointer border-[1px] border-gray-300 rounded-sm p-[2px]"
           >
             <svg
@@ -144,7 +139,7 @@ const AddNewLocationModal = ({
               <GoogleMapComponent
                 onLocationSelect={onLocationSelect}
                 editAddress={form.address}
-                isEditMode={isEditMode}
+                isEditMode={false}
               />
             </div>
           </div>

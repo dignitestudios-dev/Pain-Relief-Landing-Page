@@ -1,4 +1,5 @@
 import { LocationDark, ProfileImg } from "../../../../../assets/export";
+import { getDateFormat } from "../../../../../lib/helpers";
 import GoogleMapComponent from "../../../../global/GoogleMap";
 import Button from "../../../landingPage/Inputs/Button";
 import { useNavigate } from "react-router";
@@ -156,7 +157,7 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
         </div>
 
         {/* Right Section */}
-        <div className="bg-white min-h-[320px] max-h-[450px] rounded-[8px] p-4 sm:p-6 w-full xl:col-span-2 lg:col-span-4">
+        <div className="bg-white min-h-[320px] max-h-auto rounded-[8px] p-4 sm:p-6 w-full xl:col-span-2 lg:col-span-4">
           {appointmentData?.status === "Rejected" ? (
             <div className="space-y-4 border-b border-[#1010101A] pb-4">
               <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#FF67671C] text-[#FF6767] text-center text-[16px] font-[500]">
@@ -183,7 +184,13 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
           ) : appointmentData?.status === "Cancelled" ? (
             <div className="space-y-4 border-b border-[#1010101A] pb-4">
               <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#FF67671C] text-[#FF6767] text-center text-[16px] font-[500]">
-                Rejected
+                Cancelled
+              </div>
+            </div>
+          ) : appointmentData?.status === "Suggested" ? (
+            <div className="space-y-4 border-b border-[#1010101A] pb-4">
+              <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#7B93DE33] text-[#7B93DE] text-center text-[16px] font-[500]">
+                Suggested Time
               </div>
             </div>
           ) : (
@@ -212,11 +219,18 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
               </div>
             ))}
           </div>
-          {appointmentData.status === "Rejected" ||
-          appointmentData.status === "Cancelled" ? (
+          {appointmentData.status === "Rejected" ? (
             <div>
               <h2 className="text-[20px] font-[500] mt-3 ">Rejection Reason</h2>
               <p>{appointmentData?.rejectedReason}</p>
+            </div>
+          ) : appointmentData.status === "Cancelled" ? (
+            <div>
+              <h2 className="text-[20px] font-[500] mt-3 ">Cancelled Reason</h2>
+              <p>
+                {appointmentData?.rejectedReason ||
+                  appointmentData?.suggestedReason}
+              </p>
             </div>
           ) : appointmentData.status === "Approved" ? (
             <>
@@ -227,6 +241,31 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
                 Cancel Appointment
               </button>
             </>
+          ) : appointmentData.status === "Suggested" ? (
+            <div className="w-full grid grid-cols-1 gap-2 ">
+              <div>
+                <h2 className="text-[20px] font-[500] mt-3 ">
+                  Suggested Time & Reason
+                </h2>
+                <p>{appointmentData?.suggestedReason}</p>
+                <p className="pt-4 bg-gradient-to-r to-[#29ABE2] from-[#63CFAC] bg-clip-text text-transparent text-[18px] font-semibold">
+                  {getDateFormat(appointmentData?.appointmentDate)} -{" "}
+                  {appointmentData?.suggestedTime}
+                </p>
+              </div>
+              <button
+                onClick={() => handleModal("Approved")}
+                className="w-full h-[44px] rounded-[8px] bg-[#17c351] text-white text-[16px] font-[500]"
+              >
+                Accept
+              </button>
+              <button
+                onClick={() => handleModal("Rejected")}
+                className="w-full h-[44px] rounded-[8px] bg-red-400 text-white text-[16px] font-[500]"
+              >
+                Reject
+              </button>
+            </div>
           ) : appointmentData.status === "Completed" ? (
             ""
           ) : (

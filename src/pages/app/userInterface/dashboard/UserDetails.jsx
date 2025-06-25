@@ -11,6 +11,7 @@ import axios from "../../../../axios";
 import AppointmentDetailLoader from "../../../../components/app/networkProviderInterface/dashboard/networkProviderDetail/AppointmentDetailLoader";
 import { processAppointmentRequest } from "../../../../lib/utils";
 import { useAppointmentRequest } from "../../../../hooks/api/Post";
+import AcceptModal from "../../../../components/app/networkProviderInterface/dashboard/home/AcceptModal";
 const UserDetails = () => {
   const [cancelModal, setCancelModal] = useState(false);
   const [cancelReasonModal, setCancelReasonModal] = useState(false);
@@ -20,6 +21,8 @@ const UserDetails = () => {
   const { loading, postData } = useAppointmentRequest();
   const [detailLoading, setDetailLoading] = useState(true);
   const [update, setUpdate] = useState(false);
+  const [acceptModal, setAcceptModal] = useState(false);
+
   const [appointmentState, setAppointmentState] = useState({
     suggestedTime: "",
     status: "",
@@ -57,7 +60,7 @@ const UserDetails = () => {
       initialValues: {
         description: "",
       },
-      validationSchema: validationSchema,
+      validationSchema: cancelReasonModal ? validationSchema : false,
 
       onSubmit: async (values) => {
         const payLoad = {
@@ -83,8 +86,11 @@ const UserDetails = () => {
     if (status) setAppointmentState((prev) => ({ ...prev, status: status }));
     if (status === "Rejected") {
       setCancelModal(true);
+    } else if (status === "Approved") {
+      setAcceptModal(true);
     } else {
       setCancelReasonModal(false);
+      setAcceptModal(false);
 
       if (status === "IsReject") {
         setCancelRequestModal(true);
@@ -103,6 +109,14 @@ const UserDetails = () => {
           handleModal={handleModal}
         />
       )}
+      {acceptModal && (
+        <AcceptModal
+          onClick={() => handleSubmit()}
+          type={"submit"}
+          loading={loading}
+          onClose={() => setAcceptModal(false)}
+        />
+      )}
       {cancelModal && (
         <CancelModal
           heading={"Cancel Booking"}
@@ -110,7 +124,7 @@ const UserDetails = () => {
             setCancelModal(false);
             setCancelReasonModal(true);
           }}
-          onClose={()=>  setCancelModal(false)}
+          onClose={() => setCancelModal(false)}
         />
       )}
       {cancelReasonModal && (

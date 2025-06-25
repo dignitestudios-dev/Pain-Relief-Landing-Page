@@ -224,7 +224,11 @@ const CreateProfile = () => {
               </div>
               <div>
                 <Calender
-                  startDate={values.db}
+                  startDate={
+                    values.db
+                      ? new Date(values.db).toISOString().split("T")[0]
+                      : values.db
+                  }
                   setStartDate={(date) => setFieldValue("db", date)}
                   text={"DD/MM/YY"}
                   isStyle={true}
