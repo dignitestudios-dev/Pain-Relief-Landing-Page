@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { EditIcon, LocationDark, RedBin } from "../../assets/export";
 import AddNewLocationModal from "./AddNewLocationModal";
 
@@ -74,7 +75,7 @@ const AddNewLocation = ({
           isLocationAdded={isLocationAdded}
           therapyTypesOption={therapyTypesOption}
           setFormErrors={setFormErrors}
-          />
+        />
       )}
     </div>
   );

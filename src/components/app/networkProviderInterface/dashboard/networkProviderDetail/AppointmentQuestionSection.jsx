@@ -155,6 +155,12 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
                 Rejected
               </div>
             </div>
+          ) : AppointmentData.status === "Cancelled" ? (
+            <div className="space-y-4 border-b border-[#1010101A] pb-4">
+              <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#FF67671C] text-[#FF6767] text-center text-[16px] font-[500]">
+                Cancelled
+              </div>
+            </div>
           ) : AppointmentData?.status === "Approved" ? (
             <div className="space-y-4 border-b border-[#1010101A] pb-4">
               <div className="w-full flex justify-center items-center h-[44px] rounded-[4px] bg-[#17C35133] text-[#17C351] text-center text-[16px] font-[500]">
@@ -213,7 +219,7 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
               Appointment Detail
             </h2>
             {[
-              ["ID", AppointmentData?._id ?? "-"],
+              ["ID", AppointmentData?.shortCode ?? "-"],
               ["Date", formatDate(AppointmentData?.appointmentDate)],
               ["Time", AppointmentData?.appointmentTime],
             ].map(([label, value]) => (
@@ -229,6 +235,11 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
           {AppointmentData.status === "Rejected" ? (
             <div>
               <h2 className="text-[20px] font-[500] mt-3 ">Rejection Reason</h2>
+              <p>{AppointmentData?.rejectedReason}</p>
+            </div>
+          ) : AppointmentData.status === "Cancelled" ? (
+            <div>
+              <h2 className="text-[20px] font-[500] mt-3 ">Cancelled Reason</h2>
               <p>{AppointmentData?.rejectedReason}</p>
             </div>
           ) : AppointmentData.status === "Approved" ? (

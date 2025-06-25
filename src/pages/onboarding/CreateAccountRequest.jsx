@@ -114,8 +114,10 @@ const CreateAccountRequest = () => {
               setEditIndex={setEditIndex}
               setFormErrors={setFormErrors}
             />
-            {formErrors.document && (
-              <p className="text-red-500 text-sm mt-1">{formErrors.document}</p>
+            {formErrors.locations && (
+              <p className="text-red-500 text-sm mt-1">
+                {formErrors.locations}
+              </p>
             )}
             <MediaLicense
               fileName={fileName}
@@ -123,10 +125,9 @@ const CreateAccountRequest = () => {
               setFile={setSelectedFile}
               setFormErrors={setFormErrors}
             />
-            {formErrors.locations && (
-              <p className="text-red-500 text-sm mt-1">
-                {formErrors.locations}
-              </p>
+
+            {formErrors.document && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.document}</p>
             )}
             <div className="flex justify-end">
               <div className="w-[128px]  ">

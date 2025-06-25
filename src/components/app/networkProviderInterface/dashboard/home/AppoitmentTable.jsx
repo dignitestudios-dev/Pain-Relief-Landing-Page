@@ -249,9 +249,9 @@ const AppoitmentTable = ({ update }) => {
                   </tr>
                 ))}
               </tbody>
-            ) : (
+            ) : data?.length > 0 ? (
               <tbody>
-                {data?.map((a, index) => (
+                {data.map((a, index) => (
                   <tr
                     key={a._id || index}
                     className="border-t border-gray-100 hover:bg-gray-50"
@@ -269,7 +269,7 @@ const AppoitmentTable = ({ update }) => {
                             />
                           </div>
                         </div>
-                        <h2 className="text-[14px] font-[400] ">
+                        <h2 className="text-[14px] font-[400]">
                           {a.user?.firstName} {a.user?.lastName}
                         </h2>
                       </div>
@@ -283,7 +283,7 @@ const AppoitmentTable = ({ update }) => {
 
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-4">
-                        <h2 className="text-[14px] font-[400] ">
+                        <h2 className="text-[14px] font-[400]">
                           {a.services[0]?.name || "Unknown"}
                         </h2>
                       </div>
@@ -305,6 +305,17 @@ const AppoitmentTable = ({ update }) => {
                     </td>
                   </tr>
                 ))}
+              </tbody>
+            ) : (
+              <tbody>
+                <tr>
+                  <td
+                    colSpan="7"
+                    className="text-center text-gray-500 text-sm py-6"
+                  >
+                    No Results Found
+                  </td>
+                </tr>
               </tbody>
             )}
           </table>
