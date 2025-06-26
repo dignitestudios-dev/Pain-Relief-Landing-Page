@@ -29,9 +29,13 @@ const SuggestDeferentTimeModal = ({
         </div>
 
         {/* Select Date */}
-        {/* <div>
+        <div>
           <Calender
-            startDate={dateTime.date}
+            startDate={
+              dateTime.date
+                ? new Date(dateTime.date).toISOString().split("T")[0]
+                : dateTime.date
+            }
             setStartDate={(date) => {
               setDateTime((prev) => ({ ...prev, date: date }));
               setDateTimeError(false);
@@ -42,7 +46,7 @@ const SuggestDeferentTimeModal = ({
             max={null}
             min={new Date()}
           />
-        </div> */}
+        </div>
 
         {/* Select Time */}
         <div className="mb-4 mt-4">

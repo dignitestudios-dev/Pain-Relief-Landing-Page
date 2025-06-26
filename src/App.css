@@ -110,7 +110,30 @@
     z-index: -1;
 }
 
+/* Align the dropdown icon (arrow) with the text */
+.react-datepicker__year-read-view {
+    width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 6px; /* Space between text and arrow */
+  font-size: 16px;
+  font-weight: 600;
+  padding: 4px 10px;
+  cursor: pointer;
+}
 
+/* Optional: Adjust the dropdown arrow size and alignment */
+.react-datepicker__year-read-view--down-arrow {
+  margin-top: -8px;
+  transform: rotate(45deg);
+  border-width: 2px 2px 0 0;
+  height: 8px;
+  width: 8px;
+}
+
+
+/*  */
 
 .react-datepicker__day--selected {
     background-color: #002c56 !important;

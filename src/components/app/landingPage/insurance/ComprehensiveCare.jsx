@@ -16,7 +16,9 @@ const ComprehensiveCare = () => {
       <div className="xl:w-[90%] w-full mx-auto flex flex-col p-12 ">
         <h2 className="lg:text-[50px] md:text-[35px] text-[35px] font-[600] text-black ">
           Simple, comprehensive{" "}
-          <span className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">Pain Relief Care</span>{" "}
+          <span className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">
+            Pain Relief Care
+          </span>{" "}
         </h2>
         <p className="xl:text-[16px]  text-[14px] font-[400] text-[#565656] ">
           Your Pain Relief USA membership includes several options for access to
@@ -25,8 +27,8 @@ const ComprehensiveCare = () => {
           quality credentialled network, and at-home support for your entire
           family.
         </p>
-        <div className="  w-full flex justify-end pt-20 gap-36 px-5 ">
-          <div className="bg-[#47BEC733] xl:w-[451px] flex  justify-between rounded-t-[10px] p-3">
+        <div className="  w-full flex justify-end pt-20  px-5 ">
+          <div className="bg-[#47BEC733] xl:w-[415px] flex  justify-between rounded-t-[10px] p-3">
             <p className="text-[14px] font-[500] ">Standard Insurance</p>
             <p className="text-[14px] font-[500]">Pain Relief USA</p>
           </div>
@@ -37,17 +39,21 @@ const ComprehensiveCare = () => {
               className="flex flex-wrap  items-center xl:justify-between  lg:justify-between md:justify-between justify-center  border-b xl:h-[77px] h-auto border-b-[#D4D4D4]  "
               key={indx}
             >
-              <div className="p-6">
+              <div className="p-6 font-medium">
                 <p> {features}</p>
               </div>
-              <div className="flex items-center justify-start px-4 gap-40">
+              <div className="flex items-center justify-between w-[415px] px-4 gap-40">
                 <div>
-                  <img src={CrossIcon} className="xl:w-[19px] xl:h-[19px] w-[12px] h-[12px] " alt="" />
+                  <img
+                    src={CrossIcon}
+                    className="xl:w-[19px]  mx-auto xl:h-[19px] w-[12px] h-[12px] "
+                    alt=""
+                  />
                 </div>
-                <div className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] xl:h-[76.2px] xl:py-6 xl:px-9 lg:p-5 md:p-4 p-2  ">
+                <div className="bg-gradient-to-l  to-[#63CFAC] from-[#29ABE2] xl:h-[76.2px] xl:py-6 xl:px-9 lg:p-5 md:p-4 p-2  ">
                   <img
                     src={TickWhite}
-                    className="w-[19px] h-[19px]  object-contain"
+                    className="w-[50px] h-[19px]  object-contain"
                     alt=""
                   />
                 </div>

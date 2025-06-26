@@ -16,5 +16,5 @@ export const userProfileValues = {
   gender: "",
   db: "",
   address: "",
-  userImage: null,
+  userImage: "",
 };

@@ -83,18 +83,23 @@ const NetworkProviderAppointment = () => {
           : false,
 
       onSubmit: async (values) => {
-        if (appointmentState.status === "Suggested" && !dateTime.time) {
-          setDateTimeError("Suggestion time is required");
+        if (
+          appointmentState.status === "Suggested" &&
+          (!dateTime.date || !dateTime.time)
+        ) {
+          setDateTimeError("Suggestion date/time is required");
           return;
         }
         const payLoad = {
           _id: state?._id,
           ...(dateTime.time && {
             suggestedTime: dateTime.time,
+            suggestedDate: dateTime.date,
           }),
           reason: values?.description || scheduleDescription,
           status: appointmentState.status,
         };
+        console.log("payload-->", payLoad);
 
         postData(
           "/booking/update-status",

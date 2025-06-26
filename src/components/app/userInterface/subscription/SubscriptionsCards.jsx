@@ -1,6 +1,8 @@
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { RadioBtn, RadioBtnActive, SubsTick } from "../../../../assets/export";
 import Button from "../../landingPage/Inputs/Button";
+import { AppContext } from "../../../../context/AppContext";
+import { useContext } from "react";
 
 const SubscriptionCards = ({
   subscriptionsData,
@@ -10,6 +12,8 @@ const SubscriptionCards = ({
   billingPeriods,
 }) => {
   const navigate = useNavigate();
+  const { token } = useContext(AppContext);
+  console.log("🚀 ~ token:", token);
 
   return (
     <div className="grid xl:grid-cols-2 grid-cols-1 gap-20 mt-10 my-16">
@@ -131,15 +135,19 @@ const SubscriptionCards = ({
               <div className="w-[249px]">
                 <Button
                   text={"Buy Now"}
-                  onClick={() =>
+                  onClick={() => {
+                    if (!token) {
+                      navigate("/auth/account-selection");
+                      return;
+                    }
                     navigate("/onboard/subscription-payment-detail", {
                       state: {
                         subscriptionData: data,
                         planType: selectedPlanData,
                         billingPeriod: currentPeriod,
                       },
-                    })
-                  }
+                    });
+                  }}
                 />
               </div>
               <p className="xl:text-[12px] text-[10px] font-[500] text-[#000000]">

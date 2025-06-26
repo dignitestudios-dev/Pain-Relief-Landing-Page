@@ -15,21 +15,28 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
           <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-[600] mb-3">
             Appointment Summary
           </h2>
-          <ul className="list-disc pl-5">
-            {AppointmentData?.question?.response
-              ?.filter((item) => item?.question !== null)
-              ?.map((item, index) => (
-                <li
-                  key={index}
-                  className="text-[14px] sm:text-[16px] border-b pb-4 font-[600] mb-2"
-                >
-                  {item.question}
-                  <p className="text-[#565656] font-[500] text-[14px] sm:text-[16px]">
-                    {item.answer || "No answer provided"}
-                  </p>
-                </li>
-              ))}
-          </ul>
+          {!AppointmentData?.isPainReliefCoach && (
+            <ul className="list-disc pl-5">
+              {AppointmentData?.question?.response
+                ?.filter(
+                  (item) =>
+                    item?.question !== null &&
+                    item?.answer !== "user" &&
+                    item?.answer !== "provider"
+                )
+                ?.map((item, index) => (
+                  <li
+                    key={index}
+                    className="text-[14px] sm:text-[16px] border-b pb-4 font-[600] mb-2"
+                  >
+                    {item.question}
+                    <p className="text-[#565656] font-[500] text-[14px] sm:text-[16px]">
+                      {item.answer || "No answer provided"}
+                    </p>
+                  </li>
+                ))}
+            </ul>
+          )}
 
           <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-[600] mb-3 mt-4">
             Clinic Location
@@ -104,15 +111,22 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
                 <div className="p-[2px] bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px] rounded-full">
                   <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
                     <img
-                      src={ProfileImg}
+                      src={
+                        AppointmentData?.familyMember
+                          ? AppointmentData?.familyMember?.profilePicture
+                          : AppointmentData?.user?.profilePicture
+                      }
                       className="w-[39px] h-[39px] rounded-full object-cover"
                       alt="Profile"
                     />
                   </div>
                 </div>
                 <h2 className="text-[14px] font-[600]">
-                  {AppointmentData?.user?.firstName}{" "}
-                  {AppointmentData?.user?.lastName}
+                  {AppointmentData?.familyMember
+                    ? AppointmentData?.familyMember?.name
+                    : AppointmentData?.user?.firstName}{" "}
+                  {AppointmentData?.familyMember === null &&
+                    AppointmentData?.user?.lastName}
                 </h2>
               </div>
               <div>
@@ -246,8 +260,12 @@ const AppointmentQuestionSection = ({ AppointmentData, handleModal }) => {
               <h2 className="text-[20px] font-[500] mt-3 ">Suggested Time</h2>
               <p>{AppointmentData?.suggestedReason}</p>
               <p className="pt-4 bg-gradient-to-r to-[#29ABE2] from-[#63CFAC] bg-clip-text text-transparent text-[18px] font-semibold">
-                {getDateFormat(AppointmentData?.appointmentDate)} -{" "}
-                {AppointmentData?.suggestedTime}
+                {getDateFormat(
+                  AppointmentData?.suggestedDate
+                    ? AppointmentData?.suggestedDate
+                    : AppointmentData?.appointmentDate
+                )}{" "}
+                - {AppointmentData?.suggestedTime}
               </p>
             </div>
           ) : (

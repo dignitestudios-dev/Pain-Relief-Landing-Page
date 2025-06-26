@@ -60,6 +60,8 @@ const Calender = ({
           <DatePicker
             selected={startDate ? new Date(`${startDate}T00:00:00`) : null}
             onChange={handleChange}
+            showYearDropdown
+            scrollableYearDropdown
             inline
             maxDate={max}
             minDate={min}

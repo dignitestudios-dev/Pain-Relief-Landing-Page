@@ -196,10 +196,10 @@ export const processDeleteAccount = (data, setDeleteModal) => {
     return;
   }
 };
-export const processQuestionCreate = (data, navigate, route) => {
+export const processQuestionCreate = (data, navigate, route, stepOne) => {
   if (data?.success) {
     SuccessToast(data?.message);
-    navigate(route);
+    navigate(route, { state: stepOne });
     return;
   }
 };

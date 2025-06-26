@@ -193,7 +193,7 @@ const CreateProviderProfile = () => {
             </div>
 
             <InputField
-              text="Provider Individual NPI (required)"
+              text="Provider Individual NPI"
               placeholder="Enter your provider NPI"
               type="text"
               id="providerNPI"
@@ -222,7 +222,7 @@ const CreateProviderProfile = () => {
 
             <div>
               <label className="text-[12px] text-[#121516] font-medium">
-                Description (Required)
+                Description
               </label>
               <textarea
                 name="description"

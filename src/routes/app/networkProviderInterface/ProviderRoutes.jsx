@@ -20,16 +20,7 @@ export const ProviderRoutes = [
     page: <PainReliefCoach />,
     isPublic: true,
   },
-  {
-    url: "privacy-policy",
-    page: <PrivacyPolicy />,
-    isPublic: true,
-  },
-  {
-    url: "terms-of-use",
-    page: <TermsOfUse />,
-    isPublic: true,
-  },
+
   {
     url: "membership-agreement",
     page: <MembershipAgreement />,
@@ -58,6 +49,16 @@ export const ProviderRoutes = [
   {
     url: "account-setting",
     page: <AccountSetting />,
+    isPublic: true,
+  },
+  {
+    url: "privacy-policy",
+    page: <PrivacyPolicy />,
+    isPublic: true,
+  },
+  {
+    url: "terms-of-use",
+    page: <TermsOfUse />,
     isPublic: true,
   },
 ];

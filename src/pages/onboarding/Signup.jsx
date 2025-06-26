@@ -47,7 +47,7 @@ const SignUp = () => {
           payload = {
             firstName: values.fname,
             lastName: values.lname,
-            email: values.email,
+            email: values.email.toLocaleLowerCase(),
             phone: formattedPhoneNumber,
             password: values.password,
             referalLink: referralToken,
@@ -59,7 +59,7 @@ const SignUp = () => {
           payload = {
             firstName: values.fname,
             lastName: values.lname,
-            email: values.email,
+            email: values.email.toLocaleLowerCase(),
             phone: formattedPhoneNumber,
             password: values.password,
             role: userType === "user" ? "user" : "provider",
@@ -94,7 +94,7 @@ const SignUp = () => {
   //     handleSubmit();
   //   }
   // }, [isSuccess]);
-  console.log(values.email, "Email");
+
   const handleCapitalizedChange = (e) => {
     const { name, value } = e.target;
 

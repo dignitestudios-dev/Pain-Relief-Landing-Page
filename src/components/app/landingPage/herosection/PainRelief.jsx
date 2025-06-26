@@ -15,6 +15,7 @@ const PainRelief = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [radius, setRadius] = useState([{ id: 10, name: "10" }]);
   const { latitude, longitude } = useContext(AppContext);
+  const [isTrue, setIsTrue] = useState(false);
 
   const radiusOptions = [
     { _id: 10, name: "10" },
@@ -38,8 +39,13 @@ const PainRelief = () => {
     services,
     currentPage,
     update,
-    true
+    isTrue
   );
+
+  const handleFetchProvider = () => {
+    setIsTrue(true);
+    setUpdate((prev) => !prev);
+  };
 
   const { data: therapyTypes, loading: loader } =
     useTherapyType(`/booking/services`);
@@ -152,7 +158,8 @@ const PainRelief = () => {
           <div className="mt-7 w-[164px] ">
             <Button
               text={"Find Therapist"}
-              onClick={() => setUpdate((prev) => !prev)}
+              // onClick={() => setUpdate((prev) => !prev)}
+              onClick={handleFetchProvider}
             />
           </div>
         </div>

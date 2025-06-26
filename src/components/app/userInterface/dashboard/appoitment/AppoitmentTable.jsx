@@ -262,14 +262,14 @@ const AppoitmentTable = () => {
                         <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
                           <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
                             <img
-                              src={a.user?.profilePicture || ProfileImg}
+                              src={a.provider?.profilePicture || ProfileImg}
                               className="w-[39px] h-[39px] rounded-full object-cover"
                               alt="User"
                             />
                           </div>
                         </div>
                         <h2 className="text-[14px] font-[400] ">
-                          {a.user?.firstName} {a.user?.lastName}
+                          {a.provider?.name}
                         </h2>
                       </div>
                     </td>

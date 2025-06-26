@@ -26,6 +26,7 @@ const AppointmentCard = ({ setIsSuggestedView, data, setUpdate }) => {
     useState(false);
 
   const [dateTime, setDateTime] = useState({ date: "", time: "" });
+
   const [dateTimeError, setDateTimeError] = useState(false);
 
   const [cancelModal, setCancelModal] = useState(false);
@@ -51,14 +52,18 @@ const AppointmentCard = ({ setIsSuggestedView, data, setUpdate }) => {
           : false,
 
       onSubmit: async (values) => {
-        if (appointmentState.status === "Suggested" && !dateTime.time) {
-          setDateTimeError("Suggestion time is required");
+        if (
+          appointmentState.status === "Suggested" &&
+          (!dateTime.time || !dateTime.date)
+        ) {
+          setDateTimeError("Suggestion date/time is required");
           return;
         }
         const payLoad = {
           _id: appointmentId,
           ...(dateTime.time && {
             suggestedTime: dateTime.time,
+            suggestedDate: dateTime.date,
           }),
           reason: values?.description || "",
           status: appointmentState.status,

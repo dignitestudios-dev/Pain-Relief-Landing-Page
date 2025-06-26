@@ -21,7 +21,6 @@ export const userInfoValidationSchema = Yup.object({
 
 export const providerSchema = Yup.object({
   userImage: Yup.mixed()
-    .required("Image is required")
     .test(
       "fileSize",
       "File too large",
@@ -43,50 +42,55 @@ export const providerSchema = Yup.object({
   //   .required("Please enter your phone number"),
   providerNPI: Yup.string()
     .transform((value) => value.replace(/\D/g, ""))
-    .matches(/^[0-9]{10}$/, "NPI must be exactly 10 digits.")
-    .required("Provider NPI is required"),
+    .matches(/^[0-9]{10}$/, "NPI must be exactly 10 digits."),
   website: Yup.string()
-    .required("Website is required")
+    .nullable()
     .test("is-valid-url", "Enter a valid URL", (value) => {
-      if (!value) return false;
+      // Allow empty (optional)
+      if (!value || value.trim() === "") return true;
+
       // Accept URLs starting with http:// or https://
       if (/^https?:\/\/.+/.test(value)) return true;
+
       // Accept URLs starting with www.
       if (/^www\..+\..+/.test(value)) return true;
+
       return false;
     }),
 
-  description: Yup.string().required("Description is required"),
+  description: Yup.string(),
 });
 
 export const EditproviderSchema = Yup.object({
   // name: Yup.string().required("Name of service provider is required"),
-  name:Yup.string()
-      .required("Name of service provider is required.")
-      .test(
-        "not-empty-after-trim",
-        "Name of service provider cannot be empty or just spaces.",
-        (value) => value?.trim().length > 0
-      )
-      .test(
-        "no-leading-space",
-        "Name of service provider cannot start with a space.",
-        (value) => (value ? !value.startsWith(" ") : true)
-      )
-      .test(
-        "no-multiple-spaces",
-        "Name of service provider cannot contain multiple spaces.",
-        (value) => (value ? !/ {2,}/.test(value) : true)
-      )
-      .test("no-numbers", "Name of service provider cannot contain numbers.", (value) =>
-        value ? !/\d/.test(value) : true
-      )
-      .test(
-        "first-letter-uppercase",
-        "First letter must be uppercase.",
-        (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
-      ),
-  clinicName:Yup.string()
+  name: Yup.string()
+    .required("Name of service provider is required.")
+    .test(
+      "not-empty-after-trim",
+      "Name of service provider cannot be empty or just spaces.",
+      (value) => value?.trim().length > 0
+    )
+    .test(
+      "no-leading-space",
+      "Name of service provider cannot start with a space.",
+      (value) => (value ? !value.startsWith(" ") : true)
+    )
+    .test(
+      "no-multiple-spaces",
+      "Name of service provider cannot contain multiple spaces.",
+      (value) => (value ? !/ {2,}/.test(value) : true)
+    )
+    .test(
+      "no-numbers",
+      "Name of service provider cannot contain numbers.",
+      (value) => (value ? !/\d/.test(value) : true)
+    )
+    .test(
+      "first-letter-uppercase",
+      "First letter must be uppercase.",
+      (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
+    ),
+  clinicName: Yup.string()
     .required("Clinic/practice is required.")
     .test(
       "not-empty-after-trim",

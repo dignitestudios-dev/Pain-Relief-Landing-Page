@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroSection from "../../../components/app/landingPage/membership/HeroSection";
 import Cards from "../../../components/app/landingPage/membership/Cards";
 import MemeberContent from "../../../components/app/landingPage/membership/MemeberContent";
 import Button from "../../../components/app/landingPage/Inputs/Button";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import SubscriptionCards from "../../../components/app/userInterface/subscription/SubscriptionsCards";
 import { useSubscriptions } from "../../../hooks/api/Get";
 
@@ -27,6 +27,18 @@ const MemberShip = () => {
       [cardId]: period,
     }));
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location, "hasee");
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
 
   return (
     <div>

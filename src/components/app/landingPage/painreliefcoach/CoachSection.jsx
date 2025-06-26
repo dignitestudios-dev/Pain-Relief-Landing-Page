@@ -8,8 +8,10 @@ import {
   VisionTechnology,
 } from "../../../../assets/export";
 import Button from "../Inputs/Button";
+import { useNavigate } from "react-router";
 
 const CoachSection = () => {
+  const navigate = useNavigate();
   const programList = [
     "Injury prevention and recovery – designed to assist a variety of professions to mitigate workplace related injuries, physical risk, and recovery if injured",
     "Pain Management – specific protocol for over 15 body areas supporting muscular and joint pain recovery designed to reduce acute and chronic pain, improve physical function – all with the goal of eliminating pain!",
@@ -117,12 +119,14 @@ const CoachSection = () => {
           </div>
         ))}
       </div>
-        <div className=" flex justify-center">
+      <div className=" flex justify-center">
         <div className="xl:w-[249px] lg:w-[200px] md:w-[150px]  w-[160px]  my-10 ">
-          <Button text={"Get Started Now"} />
+          <Button
+            onClick={() => navigate("/auth/account-selection")}
+            text={"Get Started Now"}
+          />
         </div>
-
-        </div>
+      </div>
     </div>
   );
 };

@@ -4,10 +4,10 @@ import { CardsData } from "../../../../static/MemberCards";
 import { useNavigate } from "react-router";
 
 const Cards = () => {
-    const navigate =useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <div>
+    <div id="oneSize-section">
       <h2 className="lg:text-[50px] md:text-[35px] text-[28px] font-semibold capitalize mt-4  text-start ">
         One Size For{" "}
         <span className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">
@@ -43,7 +43,10 @@ const Cards = () => {
                   {item.title}
                 </h2>
                 <p className="text-white text-[16px]  my-2">{item?.para}</p>
-                <button  onClick={() => navigate("/auth/account-selection")} className="bg-white text-[#29ABE2]  w-[249px] py-3 rounded-[8px] text-[16px] font-[500] mt-2">
+                <button
+                  onClick={() => navigate("/auth/account-selection")}
+                  className="bg-white text-[#29ABE2]  w-[249px] py-3 rounded-[8px] text-[16px] font-[500] mt-2"
+                >
                   <span className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent">
                     Sign Up Now
                   </span>

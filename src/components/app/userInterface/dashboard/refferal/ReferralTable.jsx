@@ -104,7 +104,7 @@ const ReferralTable = ({ tableData, tableloader }) => {
               {tableData?.map((item, index) => (
                 <tr key={index} className="text-sm text-[#212121]">
                   <td className="py-3 px-4">{index + 1}</td>
-                  <td className="py-3 px-4">{item?._id}</td>
+                  <td className="py-3 px-4">{item?.referId}</td>
 
                   <td className="py-3 px-4 flex items-center gap-2">
                     <img

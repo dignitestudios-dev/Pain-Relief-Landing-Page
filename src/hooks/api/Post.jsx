@@ -395,7 +395,7 @@ const useCreateQuestion = () => {
       setLoading(true);
       const response = await axios.post(url, { response: data });
       if (typeof callback === "function") {
-        callback(response?.data, navigate, route);
+        callback(response?.data, navigate, route, data?.step1);
       }
       return response?.data;
     } catch (error) {

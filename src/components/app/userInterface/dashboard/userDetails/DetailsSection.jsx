@@ -244,8 +244,12 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
                 </h2>
                 <p>{appointmentData?.suggestedReason}</p>
                 <p className="pt-4 bg-gradient-to-r to-[#29ABE2] from-[#63CFAC] bg-clip-text text-transparent text-[18px] font-semibold">
-                  {getDateFormat(appointmentData?.appointmentDate)} -{" "}
-                  {appointmentData?.suggestedTime}
+                  {getDateFormat(
+                    appointmentData?.suggestedDate
+                      ? appointmentData?.suggestedDate
+                      : appointmentData?.appointmentDate
+                  )}{" "}
+                  - {appointmentData?.suggestedTime}
                 </p>
               </div>
               <button

@@ -2,7 +2,13 @@ import React from "react";
 import QuestionField from "../appoitment/QuestionField";
 import { SmallTick } from "../../../../../assets/export";
 
-const StepOne = ({ label, isSelected, handleSelection,error }) => {
+const StepOne = ({
+  label,
+  isSelected,
+  handleSelection,
+  error,
+  subscription,
+}) => {
   return (
     <div className="py-2 space-y-4">
       <p className="font-[500] text-[16px] tracking-[1]">{label}</p>
@@ -15,15 +21,17 @@ const StepOne = ({ label, isSelected, handleSelection,error }) => {
           isSelected={isSelected}
           handleSelection={handleSelection}
         />
-        <QuestionField
-          label="Pain Relief Coach"
-          value="provider"
-          tick={SmallTick}
-          isSelected={isSelected}
-          handleSelection={handleSelection}
-        />
+        {subscription?.name.toLowerCase()?.split(" ")?.[0] === "premium" && (
+          <QuestionField
+            label="Pain Relief Coach"
+            value="provider"
+            tick={SmallTick}
+            isSelected={isSelected}
+            handleSelection={handleSelection}
+          />
+        )}
       </div>
-        {error && <div className="text-red-500 text-sm">{error}</div>}
+      {error && <div className="text-red-500 text-sm">{error}</div>}
     </div>
   );
 };

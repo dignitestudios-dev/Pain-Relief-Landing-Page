@@ -18,8 +18,8 @@ const Footer = () => {
   ];
 
   const SupportLinksTwo = [
-    { label: "Membership", url: "/app/membership" },
-    { label: "Multiple Levels", url: "/app/schedule-appointment" },
+    { label: "Membership", url: "/app/membership#membership-section" },
+    { label: "Multiple Levels", url: "/app/membership#oneSize-section" },
     { label: "Pain Relief Coach", url: "/app/pain-relief-coach" },
   ];
 

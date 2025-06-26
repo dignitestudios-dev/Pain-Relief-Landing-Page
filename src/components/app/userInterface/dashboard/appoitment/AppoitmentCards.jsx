@@ -139,7 +139,11 @@ const AppointmentCards = ({ data, setUpdate, setIsSuggestedView }) => {
                 <div className="flex justify-between text-sm">
                   <div>
                     <p className="text-gray-500">Appointment Date</p>
-                    {getDateFormat(item?.appointmentDate)}
+                    {getDateFormat(
+                      item?.suggestedDate
+                        ? item?.suggestedDate
+                        : item?.appointmentDate
+                    )}
                   </div>
                   <div>
                     <p className="text-gray-500">Appointment Time</p>

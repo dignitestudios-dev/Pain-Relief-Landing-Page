@@ -138,7 +138,7 @@ const useDetailProvider = (url, id) => {
   return { loading, data, pagination };
 };
 
-const useAppointmentProvider = (url, filters = {}) => {
+const useAppointmentProvider = (url, filters = {}, answer) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -175,7 +175,7 @@ const useAppointmentProvider = (url, filters = {}) => {
       }
 
       // 4. Optional searchPainRelief (example default false)
-      params.append("searchPainRelief", false);
+      params.append("searchPainRelief", answer === "provider" ? true : false);
 
       params.append("page", filters.page);
 

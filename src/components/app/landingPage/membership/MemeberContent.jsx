@@ -4,7 +4,7 @@ import { TickBlue } from "../../../../assets/export";
 
 const MemeberContent = () => {
   return (
-    <div >
+    <section id="membership-section">
       <h2 className="lg:text-[24px] md:text-[18px] text-[16px] font-semibold capitalize mt-4 text-start  ">
         Membership Options
       </h2>
@@ -36,7 +36,7 @@ const MemeberContent = () => {
           </p>
         </div>
       ))}
-    </div>
+    </section>
   );
 };
 

@@ -87,51 +87,63 @@ const BookChiropractorModal = ({
             </div>
           </div>
         </div>
-        <h2 className="text-[18px] font-[600] capitalize">
-          Family Member Profile
-        </h2>
-        {profile?.familyMembers?.map((item) => (
+        {profile?.familyMembers?.length > 0 ? (
           <>
-            <div
-              key={item._id}
-              className={` border rounded-[8px] p-[2px] my-5 cursor-pointer ${
-                activeMember == item?._id
-                  ? "bg-gradient-to-r from-[#63CFAC] to-[#29ABE2]"
-                  : "border border-gray-300"
-              }`}
-              onClick={() => {
-                setActiveMember(item._id);
-                setMemberMessage(false);
-              }}
-            >
-              <div className="bg-white  rounded-[8px] p-3 flex items-center justify-between">
-                <div className="flex gap-4 items-center">
-                  <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[81px] h-[81px]">
-                    <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+            <h2 className="text-[18px] font-[600] capitalize">
+              Family Member Profile
+            </h2>
+            {profile?.familyMembers?.map((item) => (
+              <>
+                <div
+                  key={item._id}
+                  className={` border rounded-[8px] p-[2px] my-5 cursor-pointer ${
+                    activeMember == item?._id
+                      ? "bg-gradient-to-r from-[#63CFAC] to-[#29ABE2]"
+                      : "border border-gray-300"
+                  }`}
+                  onClick={() => {
+                    setActiveMember(item._id);
+                    setMemberMessage(false);
+                  }}
+                >
+                  <div className="bg-white  rounded-[8px] p-3 flex items-center justify-between">
+                    <div className="flex gap-4 items-center">
+                      <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[81px] h-[81px]">
+                        <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+                          <img
+                            src={item?.profilePicture || ProfileImg}
+                            className="w-full h-full rounded-full object-cover"
+                            alt="Profile"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <h2 className="text-[16px] font-[600] ">
+                          {item?.name}
+                        </h2>
+                        <p className="text-[12px] text-[#565656] ">
+                          {item?.email}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div>
                       <img
-                        src={item?.profilePicture || ProfileImg}
-                        className="w-full h-full rounded-full object-cover"
-                        alt="Profile"
+                        src={
+                          activeMember === item?._id ? RadioBtnActive : RadioBtn
+                        }
+                        alt=""
+                        className="w-[18px] h-[18px]"
                       />
                     </div>
                   </div>
-                  <div>
-                    <h2 className="text-[16px] font-[600] ">{item?.name}</h2>
-                    <p className="text-[12px] text-[#565656] ">{item?.email}</p>
-                  </div>
                 </div>
-
-                <div>
-                  <img
-                    src={activeMember === item?._id ? RadioBtnActive : RadioBtn}
-                    alt=""
-                    className="w-[18px] h-[18px]"
-                  />
-                </div>
-              </div>
-            </div>
+              </>
+            ))}
           </>
-        ))}
+        ) : (
+          <div className="h-[200px]"></div>
+        )}
 
         {memberMessage && (
           <p className="text-red-500 text-sm pb-1">Please select the member</p>

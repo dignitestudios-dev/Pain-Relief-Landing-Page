@@ -14,7 +14,7 @@ export const providerInitialValues = {
   providerNPI: "",
   website: "",
   description: "",
-  userImage: null,
+  userImage: "",
 };
 
 export const EditProfileproviderInitialValues = {

@@ -117,6 +117,7 @@ const CreateProfile = () => {
       },
     });
   };
+
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">

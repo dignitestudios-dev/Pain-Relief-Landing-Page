@@ -4,10 +4,11 @@ import ServiceProviders from "../../../../components/app/userInterface/bookAppoi
 import { useAppointmentProvider } from "../../../../hooks/api/Get";
 import Pagination from "../../../../components/global/Pagination";
 import { AppContext } from "../../../../context/AppContext";
+import { useLocation } from "react-router";
 
 const BookAppointment = () => {
   const { longitude, latitude } = useContext(AppContext);
-  
+  const location = useLocation();
 
   const [filterData, setFilterData] = useState({
     distance: 10,
@@ -21,11 +22,10 @@ const BookAppointment = () => {
   //     setFilterData((prev) => ({
   //       ...prev,
   //       address: {},
-  //     }));  
+  //     }));
   //   }
   // }, [latitude]);
-//  coordinates: [longitude,  latitude] 
-
+  //  coordinates: [longitude,  latitude]
 
   const handlePageChange = (page) => {
     setFilterData((prev) => ({
@@ -39,7 +39,8 @@ const BookAppointment = () => {
 
   const { data, loading, pagination } = useAppointmentProvider(
     `/provider/get-providers`,
-    filterData
+    filterData,
+    location?.state?.answer
   );
 
   return (

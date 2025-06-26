@@ -13,8 +13,12 @@ import StepSeven from "../../../../components/app/userInterface/dashboard/appoit
 import { useCreateQuestion } from "../../../../hooks/api/Post";
 import { processQuestionCreate } from "../../../../lib/utils";
 import { useNavigate } from "react-router";
+import { useGetCards } from "../../../../hooks/api/Get";
 const AppointmentQuestions = () => {
   const navigate = useNavigate();
+
+  const { data } = useGetCards("/payment/get-subscription-user");
+
   const { loading: loader, postData } = useCreateQuestion();
 
   const [step, setStep] = useState(1);
@@ -28,6 +32,7 @@ const AppointmentQuestions = () => {
   const [otherText, setOtherText] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const [formData, setFormData] = useState({
     step1: { question: "", answer: "" },
     step2: { question: "", answer: "" },
@@ -285,6 +290,7 @@ const AppointmentQuestions = () => {
                     label={" What can I help you with today?"}
                     isSelected={typeStep1}
                     handleSelection={handleSelection}
+                    subscription={data?.userSubscription}
                   />
                 </>
               )}
