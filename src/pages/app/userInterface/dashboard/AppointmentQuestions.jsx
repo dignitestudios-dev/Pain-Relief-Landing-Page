@@ -17,7 +17,9 @@ import { useGetCards } from "../../../../hooks/api/Get";
 const AppointmentQuestions = () => {
   const navigate = useNavigate();
 
-  const { data } = useGetCards("/payment/get-subscription-user");
+  const { data, loading: subLoader } = useGetCards(
+    "/payment/get-subscription-user"
+  );
 
   const { loading: loader, postData } = useCreateQuestion();
 
@@ -291,6 +293,7 @@ const AppointmentQuestions = () => {
                     isSelected={typeStep1}
                     handleSelection={handleSelection}
                     subscription={data?.userSubscription}
+                    subLoader={subLoader}
                   />
                 </>
               )}

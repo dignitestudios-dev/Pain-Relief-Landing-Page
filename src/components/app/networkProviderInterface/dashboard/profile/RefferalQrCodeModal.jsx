@@ -9,7 +9,7 @@ const RefferalQrCodeModal = ({ onClick, referralCode }) => {
 
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
-      <div className="bg-[#fefefe] rounded-[26px] shadow-md p-8 w-[470px] h-[700px] overflow-auto ">
+      <div className="bg-[#fefefe] rounded-[26px] shadow-md p-8 w-[720px] h-[700px]  ">
         <div>
           <div
             className="flex justify-end items-center pb-4 "
@@ -51,7 +51,9 @@ const RefferalQrCodeModal = ({ onClick, referralCode }) => {
             </button>
           ))}
         </div>
-        {tabActive === "Brochure" && <BrochureSection referralCode={referralCode} />}
+        {tabActive === "Brochure" && (
+          <BrochureSection referralCode={referralCode} />
+        )}
         {tabActive === "QR Code" && <QrCode referralCode={referralCode} />}
       </div>
     </div>
