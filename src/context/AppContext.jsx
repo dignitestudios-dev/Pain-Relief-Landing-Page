@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { onMessageListener } from "../firebase/messages";
 
 import Cookies from "js-cookie";
-import { ErrorToast } from "../components/global/Toaster";
 
 export const AppContext = createContext();
 
@@ -14,7 +13,6 @@ export const AppContextProvider = ({ children }) => {
   const [longitude, setLongitude] = useState(null);
   const [token, setToken] = useState(() => Cookies.get("token"));
   const [notification, setNotification] = useState({ title: "", body: "" });
-  const [notifications, setNotifications] = useState([]);
   const [notificationUpdate, setNotificationUpdate] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -100,8 +98,6 @@ export const AppContextProvider = ({ children }) => {
         setShow,
         notification,
         setNotification,
-        notifications,
-        setNotifications,
         notificationUpdate,
         setNotificationUpdate,
       }}

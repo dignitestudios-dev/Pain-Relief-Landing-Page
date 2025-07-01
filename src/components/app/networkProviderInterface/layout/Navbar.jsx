@@ -10,12 +10,15 @@ const Navbar = () => {
   const location = useLocation();
   const { logoutAuth, userData, notification } = useContext(AppContext);
   console.log("🚀 ~ Navbar ~ notification:", notification);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const [notificationCount, setNotificationCount] = useState(0);
-  console.log("🚀 ~ Navbar ~ notificationCount:", notificationCount);
+
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  console.log("🚀 ~ Navbar ~ notifications:", notifications);
+
   const profileRef = useRef(null);
   const notiRef = useRef(null);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -48,7 +51,11 @@ const Navbar = () => {
 
   useEffect(() => {
     if (notification.body) {
-      setNotificationCount((prev) => prev + 1);
+      setNotifications((prev) => [
+        ...prev,
+        { title: notification.title, body: notification.body },
+      ]);
+      setUnreadCount((prev) => prev + 1);
     }
   }, [notification.body]);
 
@@ -81,14 +88,19 @@ const Navbar = () => {
             ref={profileRef}
           >
             <li
-              className="cursor-pointer"
+              className="relative cursor-pointer"
               onClick={() => {
                 setIsNotiOpen((prev) => !prev);
                 setOpenProfile(false);
+                setUnreadCount(0); // Reset unread count when dropdown opens
               }}
             >
-              <IoMdNotificationsOutline size={21} />
-              <span>{notificationCount}</span>
+              <IoMdNotificationsOutline size={24} />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 text-[10px] font-bold text-white bg-red-500 w-4 h-4 flex items-center justify-center rounded-full">
+                  {unreadCount}
+                </span>
+              )}
             </li>
             <li
               className="rounded-full border cursor-pointer "
@@ -132,39 +144,43 @@ const Navbar = () => {
                 ref={notiRef}
                 className="bg-white w-[292px] absolute top-28  right-14 rounded-[12px]"
               >
-                <div className="flex  justify-between bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] rounded-t-[12px]  p-3 text-nowrap  ">
-                  <h2>Notification </h2>
-                  <p className="text-[10px] font-[600] text-[#F8F8F8] ">
+                <div className="flex justify-between bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] rounded-t-[12px] p-3">
+                  <h2 className="text-white font-semibold">Notification</h2>
+                  <button
+                    onClick={() => {
+                      setUnreadCount(0);
+                      setIsNotiOpen(false);
+                    }}
+                    className="text-[10px] font-bold text-white"
+                  >
                     View All
-                  </p>
+                  </button>
                 </div>
                 <div>
-                  {["Appointment Title", "Appointment Title"].map(
-                    (item, index) => (
-                      <li
-                        key={index}
-                        onClick={() => {
-                          navigate(item?.url);
-                          closeMenus();
-                        }}
-                        className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
-                      >
-                        <h2 className="flex justify-between ">
-                          {notification?.title}
-                          <p className="text-[12px] font-[400] text-[#0000007A] ">
+                  {notifications.map((item, index) => (
+                    <li
+                      key={index}
+                      // onClick={() => {
+                      //   navigate(item?.url);
+                      //   closeMenus();
+                      // }}
+                      className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
+                    >
+                      <h2 className="flex justify-between ">
+                        {item?.title}
+                        {/* <p className="text-[12px] font-[400] text-[#0000007A] ">
                             09:00pm
-                          </p>
-                        </h2>
-                        <p className="flex justify-between text-[12px] font-[400] text-[#212121] ">
-                          {notification?.body}
-                          {index == 0 ? "accepted" : "rejected"}
+                          </p> */}
+                      </h2>
+                      <p className="flex justify-between text-[12px] font-[400] text-[#212121] ">
+                        {item?.body}
+                        {/* {index == 0 ? "accepted" : "rejected"}
                           <p className="text-[12px] font-[400] text-[#0000007A] ">
                             {index == 0 ? "Today" : "9 May, 25"}
-                          </p>
-                        </p>
-                      </li>
-                    )
-                  )}
+                          </p> */}
+                      </p>
+                    </li>
+                  ))}
                 </div>
               </div>
             )}
