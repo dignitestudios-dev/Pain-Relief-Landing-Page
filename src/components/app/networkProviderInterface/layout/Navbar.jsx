@@ -9,6 +9,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { logoutAuth, userData, notification } = useContext(AppContext);
+  console.log("🚀 ~ Navbar ~ notification:", notification);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,10 +47,10 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (notification) {
-      setNotificationCount(notificationCount++);
+    if (notification.body) {
+      setNotificationCount((prev) => prev + 1);
     }
-  }, [notification]);
+  }, [notification.body]);
 
   return (
     <nav className="w-full border-b border-[#FFFFFF5E] bg-transparent">
