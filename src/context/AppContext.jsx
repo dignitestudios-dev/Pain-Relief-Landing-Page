@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { onMessageListener } from "../firebase/messages";
 
 import Cookies from "js-cookie";
 import { ErrorToast } from "../components/global/Toaster";
@@ -12,10 +13,31 @@ export const AppContextProvider = ({ children }) => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [token, setToken] = useState(() => Cookies.get("token"));
+  const [notification, setNotification] = useState({ title: "", body: "" });
+  const [notifications, setNotifications] = useState([]);
+  const [notificationUpdate, setNotificationUpdate] = useState(false);
+  const [show, setShow] = useState(false);
+
   const [userData, setUserData] = useState(() => {
     const cookieData = Cookies.get("user");
     return cookieData ? JSON.parse(cookieData) : null;
   });
+
+  onMessageListener()
+    .then((payload) => {
+      console.log("🚀 ~ .then ~ payload:", payload);
+      setShow(true);
+      setNotification({
+        title: payload.notification.title,
+        body: payload.notification.body,
+      });
+      setNotificationUpdate((prev) => !prev);
+      setTimeout(() => {
+        setShow(false);
+        setNotification({ title: "", body: "" });
+      }, 3000);
+    })
+    .catch((err) => console.log("failed: ", err));
 
   const loginAuth = (data) => {
     if (data) {
@@ -74,6 +96,14 @@ export const AppContextProvider = ({ children }) => {
         setUserData,
         longitude,
         latitude,
+        show,
+        setShow,
+        notification,
+        setNotification,
+        notifications,
+        setNotifications,
+        notificationUpdate,
+        setNotificationUpdate,
       }}
     >
       {children}

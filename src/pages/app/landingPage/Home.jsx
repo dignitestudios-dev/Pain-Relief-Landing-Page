@@ -1,4 +1,3 @@
-import React from "react";
 import HeroSection from "../../../components/app/landingPage/herosection/HeroSection";
 import About from "../../../components/app/landingPage/herosection/AboutUs";
 import PainRelief from "../../../components/app/landingPage/herosection/PainRelief";

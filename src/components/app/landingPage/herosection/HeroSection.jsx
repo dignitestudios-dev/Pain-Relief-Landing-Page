@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 
 const HeroSection = () => {
   const navigate = useNavigate();
+
   return (
     <div className="bg-hero text-white">
       <div className="flex  h-[100vh] justify-center lg:items-center py-40 min-h-screen w-[90%] mx-auto">

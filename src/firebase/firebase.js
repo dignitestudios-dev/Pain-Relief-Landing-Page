@@ -6,13 +6,11 @@ import { getMessaging } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_KEY,
-  // Update this api key with your own firebase api key
-  // authDomain: "rentibles-app.firebaseapp.com",
-  // projectId: "rentibles-app",
-  // storageBucket: "rentibles-app.firebasestorage.app",
-  // messagingSenderId: "366992554576",
-  // appId: "1:366992554576:web:8c8781df54b276fc1eef55",
-  // measurementId: "G-V0F642L156",
+  authDomain: "pain-relief-bcf38.firebaseapp.com",
+  projectId: "pain-relief-bcf38",
+  storageBucket: "pain-relief-bcf38.firebasestorage.app",
+  messagingSenderId: "549752441272",
+  appId: "1:549752441272:web:1f8a7813984534f8ace74d",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -25,6 +23,4 @@ export const storage = getStorage(app);
 
 const messaging = getMessaging(app);
 
-export { messaging };
-
-export default app; // Export the app if needed
+export { messaging, app };

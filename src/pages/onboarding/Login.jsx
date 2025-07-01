@@ -20,6 +20,7 @@ import { signInSchema } from "../../schema/authentication/authenticationSchema";
 import { processLogin } from "../../lib/utils";
 import { useState } from "react";
 import RequestModal from "../../components/onboarding/RequestModal";
+import getFCMToken from "./../../firebase/getFcmToken";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -42,10 +43,11 @@ const Login = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values, action) => {
+      const fcmToken = await getFCMToken();
       let payload = {
         email: values.email,
         password: values.password,
-        fcmToken: "123",
+        fcmToken: fcmToken,
         role: values?.type === "user" ? "user" : "provider",
       };
       let routeName =
