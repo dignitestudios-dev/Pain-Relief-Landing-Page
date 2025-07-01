@@ -8,11 +8,13 @@ import { AppContext } from "../../../../context/AppContext";
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { logoutAuth, userData } = useContext(AppContext);
+  const { logoutAuth, userData, notification } = useContext(AppContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
+  console.log("🚀 ~ Navbar ~ notificationCount:", notificationCount);
   const profileRef = useRef(null);
   const notiRef = useRef(null);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -42,6 +44,12 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (notification) {
+      setNotificationCount(notificationCount++);
+    }
+  }, [notification]);
 
   return (
     <nav className="w-full border-b border-[#FFFFFF5E] bg-transparent">
@@ -79,6 +87,7 @@ const Navbar = () => {
               }}
             >
               <IoMdNotificationsOutline size={21} />
+              <span>{notificationCount}</span>
             </li>
             <li
               className="rounded-full border cursor-pointer "
@@ -123,7 +132,7 @@ const Navbar = () => {
                 className="bg-white w-[292px] absolute top-28  right-14 rounded-[12px]"
               >
                 <div className="flex  justify-between bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] rounded-t-[12px]  p-3 text-nowrap  ">
-                  <h2>Notification</h2>
+                  <h2>Notification </h2>
                   <p className="text-[10px] font-[600] text-[#F8F8F8] ">
                     View All
                   </p>
@@ -140,13 +149,13 @@ const Navbar = () => {
                         className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
                       >
                         <h2 className="flex justify-between ">
-                          {item}
+                          {notification?.title}
                           <p className="text-[12px] font-[400] text-[#0000007A] ">
                             09:00pm
                           </p>
                         </h2>
                         <p className="flex justify-between text-[12px] font-[400] text-[#212121] ">
-                          Your appointment has been{" "}
+                          {notification?.body}
                           {index == 0 ? "accepted" : "rejected"}
                           <p className="text-[12px] font-[400] text-[#0000007A] ">
                             {index == 0 ? "Today" : "9 May, 25"}
