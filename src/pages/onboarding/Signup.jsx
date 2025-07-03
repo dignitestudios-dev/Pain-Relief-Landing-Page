@@ -214,7 +214,7 @@ const SignUp = () => {
             />
           </div>
           <div className="w-[350px] my-7">
-            <Button text="Sign Up" loading={loading} />
+            <Button text="Sign Up" loading={loading} disabled={loading} />
           </div>
         </form>
         {userType === "user" && (

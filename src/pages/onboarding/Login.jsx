@@ -158,7 +158,7 @@ const Login = () => {
           </div>
 
           <div className="w-[350px] mt-3 mb-4">
-            <Button text={"Login"} loading={loading} />
+            <Button text={"Login"} loading={loading} disabled={loading} />
           </div>
         </form>
         {values?.type === "user" && (
