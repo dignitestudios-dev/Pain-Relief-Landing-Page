@@ -11,11 +11,14 @@ import { useSignUp } from "../../hooks/api/Post";
 import { processSignup } from "../../lib/utils";
 import { phoneFormatter } from "../../lib/helpers";
 import PhoneInput from "../../components/app/landingPage/Inputs/PhoneInput";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userType = location.state?.userType;
+  const { fcmToken } = useContext(AppContext);
 
   const [searchParams] = useSearchParams();
   const referralToken = searchParams.get("referral");
@@ -53,7 +56,7 @@ const SignUp = () => {
             referalLink: referralToken,
             role: "user",
             idToken: "123",
-            fcmToken: "123",
+            fcmToken: fcmToken,
           };
         } else {
           payload = {
@@ -64,7 +67,7 @@ const SignUp = () => {
             password: values.password,
             role: userType === "user" ? "user" : "provider",
             idToken: "123",
-            fcmToken: "123",
+            fcmToken: fcmToken,
           };
         }
 

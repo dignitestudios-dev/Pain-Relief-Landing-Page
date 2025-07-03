@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import { onMessageListener } from "../firebase/messages";
 
 import Cookies from "js-cookie";
+import { ErrorToast } from "../components/global/Toaster";
+import getFCMToken from "./../firebase/getFcmToken";
 
 export const AppContext = createContext();
 
@@ -20,6 +22,8 @@ export const AppContextProvider = ({ children }) => {
     const cookieData = Cookies.get("user");
     return cookieData ? JSON.parse(cookieData) : null;
   });
+
+  const [fcmToken, setFcmToken] = useState("");
 
   onMessageListener()
     .then((payload) => {
@@ -69,7 +73,18 @@ export const AppContextProvider = ({ children }) => {
     setUserData(null);
   };
 
+  const getFcm = async () => {
+    try {
+      const fcmTokenResponse = await getFCMToken();
+      setFcmToken(fcmTokenResponse);
+    } catch (err) {
+      console.log("🚀 ~ getFcm ~ err:", err);
+      ErrorToast(err);
+    }
+  };
+
   useEffect(() => {
+    getFcm();
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
@@ -100,6 +115,7 @@ export const AppContextProvider = ({ children }) => {
         setNotification,
         notificationUpdate,
         setNotificationUpdate,
+        fcmToken,
       }}
     >
       {children}

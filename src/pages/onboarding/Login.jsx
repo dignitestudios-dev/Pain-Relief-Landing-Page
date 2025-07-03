@@ -18,12 +18,14 @@ import { useFormik } from "formik";
 import { signInValues } from "../../init/authentication/authenticationValues";
 import { signInSchema } from "../../schema/authentication/authenticationSchema";
 import { processLogin } from "../../lib/utils";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import RequestModal from "../../components/onboarding/RequestModal";
-import getFCMToken from "./../../firebase/getFcmToken";
+import { AppContext } from "../../context/AppContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { fcmToken } = useContext(AppContext);
+
   const { loading, postData } = useLogin();
   const [requestModal, setRequestModal] = useState(false);
 
@@ -43,7 +45,6 @@ const Login = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values, action) => {
-      const fcmToken = await getFCMToken();
       let payload = {
         email: values.email,
         password: values.password,
