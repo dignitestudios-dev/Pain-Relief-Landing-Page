@@ -114,9 +114,15 @@ const Navbar = () => {
               onClick={() => {
                 setIsNotiOpen((prev) => !prev);
                 setOpenProfile(false);
+                setUnreadCount(0);
               }}
             >
               <IoMdNotificationsOutline size={21} />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 text-[10px] font-bold text-white bg-red-500 w-4 h-4 flex items-center justify-center rounded-full">
+                  {unreadCount}
+                </span>
+              )}
             </li>
             <li
               className="rounded-full border cursor-pointer "
