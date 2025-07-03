@@ -17,7 +17,7 @@ const UserSettingsDetails = () => {
     "Report An Issue",
   ];
 
-  const { logoutAuth } = useContext(AppContext);
+  const { logoutAuth, loadingLogout } = useContext(AppContext);
 
   const [active, setActive] = useState("Notification");
   const [notificationStatus, setNotificationStatus] = useState(false);
@@ -79,7 +79,12 @@ const UserSettingsDetails = () => {
             </div>
 
             <div className="w-[150px] px-4 mt-auto mb-4">
-              <Button text={"Logout"} type={"button"} onClick={logoutAuth} />
+              <Button
+                text={"Logout"}
+                type={"button"}
+                onClick={logoutAuth}
+                loading={loadingLogout}
+              />
             </div>
           </div>
 

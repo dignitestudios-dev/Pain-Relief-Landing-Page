@@ -10,7 +10,7 @@ const DeleteAccountModal = ({ onClick }) => {
   const [otpError, setOtpError] = useState("");
   const [loading, setLoading] = useState(false);
   const inputs = useRef([]);
-  const { userData, logoutAuth } = useContext(AppContext);
+  const { userData, logoutAuth, loadingLogout } = useContext(AppContext);
 
   const isOtpFilled = otp.every((digit) => digit !== "");
 
@@ -113,7 +113,7 @@ const DeleteAccountModal = ({ onClick }) => {
             <div className="xl:w-[240px] lg:w-[350px] md:w-[550px] w-full mt-6">
               <Button
                 text={"Verify"}
-                loading={loading}
+                loading={loading || loadingLogout}
                 onClick={handleSubmit}
               />
             </div>

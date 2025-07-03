@@ -8,8 +8,8 @@ import { AppContext } from "../../../../context/AppContext";
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { logoutAuth, userData, notification } = useContext(AppContext);
-  console.log("🚀 ~ Navbar ~ notification:", notification);
+  const { logoutAuth, userData, notification, loadingLogout } =
+    useContext(AppContext);
 
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -141,7 +141,7 @@ const Navbar = () => {
                   onClick={() => logoutAuth()}
                   className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
                 >
-                  Logout
+                  {loadingLogout ? "Logging out..." : "Logout"}
                 </li>
               </div>
             )}

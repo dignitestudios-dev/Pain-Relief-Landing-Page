@@ -5,6 +5,7 @@ import { onMessageListener } from "../firebase/messages";
 import Cookies from "js-cookie";
 import { ErrorToast } from "../components/global/Toaster";
 import getFCMToken from "./../firebase/getFcmToken";
+import axios from "../axios";
 
 export const AppContext = createContext();
 
@@ -24,6 +25,7 @@ export const AppContextProvider = ({ children }) => {
   });
 
   const [fcmToken, setFcmToken] = useState("");
+  const [loadingLogout, setLoadingLogout] = useState(false);
 
   onMessageListener()
     .then((payload) => {
@@ -54,14 +56,24 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
-  const logoutAuth = () => {
-    Cookies.remove("token");
-    Cookies.remove("user");
-    localStorage.clear();
-    sessionStorage.clear();
-    setToken(null);
-    setUserData(null);
-    navigate("/auth/sign-in");
+  const logoutAuth = async () => {
+    try {
+      setLoadingLogout(true);
+      const response = await axios.post("/auth/logout");
+      if (response.status === 200) {
+        Cookies.remove("token");
+        Cookies.remove("user");
+        localStorage.clear();
+        sessionStorage.clear();
+        setToken(null);
+        setUserData(null);
+        navigate("/auth/sign-in");
+      }
+    } catch (err) {
+      ErrorToast(err.response.data.message);
+    } finally {
+      setLoadingLogout(false);
+    }
   };
 
   const onBoardLogout = () => {
@@ -116,6 +128,7 @@ export const AppContextProvider = ({ children }) => {
         notificationUpdate,
         setNotificationUpdate,
         fcmToken,
+        loadingLogout,
       }}
     >
       {children}

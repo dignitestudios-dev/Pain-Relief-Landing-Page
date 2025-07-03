@@ -6,7 +6,7 @@ import { AppContext } from "../../context/AppContext";
 
 const RequestModal = ({ setIsOpen, isLogin = false }) => {
   const navigate = useNavigate();
-  const { logoutAuth } = useContext(AppContext);
+  const { logoutAuth, loadingLogout } = useContext(AppContext);
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center p-4">
       {isLogin ? (
@@ -47,7 +47,11 @@ const RequestModal = ({ setIsOpen, isLogin = false }) => {
             </div>
 
             <div className="xl:w-[350px] lg:w-[350px] md:w-[300px] w-full mt-3">
-              <Button text="Continue" onClick={() => logoutAuth()} />
+              <Button
+                text="Continue"
+                onClick={() => logoutAuth()}
+                loading={loadingLogout}
+              />
             </div>
           </div>
         </div>
