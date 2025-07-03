@@ -8,6 +8,7 @@ import Profile from "../../../pages/app/networkProviderInterface/dashboard/Profi
 import TermsOfUse from "../../../pages/app/networkProviderInterface/dashboard/TermsOfUse";
 import ViewProfile from "../../../pages/app/networkProviderInterface/dashboard/ViewProfile";
 import NetworkProviderAppointment from "../../../pages/app/networkProviderInterface/dashboard/NetworkProviderAppointment";
+import Notifications from "../../../pages/app/networkProviderInterface/dashboard/Notifications";
 
 export const ProviderRoutes = [
   {
@@ -59,6 +60,11 @@ export const ProviderRoutes = [
   {
     url: "terms-of-use",
     page: <TermsOfUse />,
+    isPublic: true,
+  },
+  {
+    url: "notifications",
+    page: <Notifications />,
     isPublic: true,
   },
 ];

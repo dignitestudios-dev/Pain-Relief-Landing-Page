@@ -9,11 +9,15 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { logoutAuth, userData } = useContext(AppContext);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { logoutAuth, userData, notification } = useContext(AppContext);
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+  console.log("🚀 ~ Navbar ~ unreadCount:", unreadCount);
+  const [notifications, setNotifications] = useState([]);
+
   const profileRef = useRef(null);
   const notiRef = useRef(null);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -44,6 +48,22 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (notification.body) {
+      setNotifications((prev) => [
+        ...prev,
+        { title: notification.title, body: notification.body },
+      ]);
+      setUnreadCount((prev) => prev + 1);
+    }
+  }, [notification.body]);
+
+  const handleViewAll = () => {
+    setUnreadCount(0);
+    setIsNotiOpen(false);
+    navigate("/user/notifications");
+  };
 
   return (
     <nav className="w-full border-b border-[#FFFFFF5E] bg-transparent">
@@ -140,40 +160,47 @@ const Navbar = () => {
                 ref={notiRef}
                 className="bg-white w-[292px] absolute top-28  right-14 rounded-[12px]"
               >
-                <div className="flex  justify-between bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] rounded-t-[12px]  p-3 text-nowrap  ">
-                  <h2>Notification</h2>
-                  <p className="text-[10px] font-[600] text-[#F8F8F8] ">
+                <div className="flex justify-between bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] rounded-t-[12px] p-3">
+                  <h2 className="text-white font-semibold">Notification</h2>
+                  <button
+                    onClick={handleViewAll}
+                    className="text-[10px] font-bold text-white"
+                  >
                     View All
-                  </p>
+                  </button>
                 </div>
-                <div>
-                  {["Appointment Title", "Appointment Title"].map(
-                    (item, index) => (
+                {notifications?.length > 0 ? (
+                  <div>
+                    {notifications.map((item, index) => (
                       <li
                         key={index}
-                        onClick={() => {
-                          navigate(item?.url);
-                          closeMenus();
-                        }}
+                        // onClick={() => {
+                        //   navigate(item?.url);
+                        //   closeMenus();
+                        // }}
                         className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
                       >
                         <h2 className="flex justify-between ">
-                          {item}
-                          <p className="text-[12px] font-[400] text-[#0000007A] ">
+                          {item?.title}
+                          {/* <p className="text-[12px] font-[400] text-[#0000007A] ">
                             09:00pm
-                          </p>
+                          </p> */}
                         </h2>
                         <p className="flex justify-between text-[12px] font-[400] text-[#212121] ">
-                          Your appointment has been{" "}
-                          {index == 0 ? "accepted" : "rejected"}
+                          {item?.body}
+                          {/* {index == 0 ? "accepted" : "rejected"}
                           <p className="text-[12px] font-[400] text-[#0000007A] ">
                             {index == 0 ? "Today" : "9 May, 25"}
-                          </p>
+                          </p> */}
                         </p>
                       </li>
-                    )
-                  )}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex justify-center items-center h-[200px]">
+                    <p className="text-black">No record found</p>
+                  </div>
+                )}
               </div>
             )}
           </div>

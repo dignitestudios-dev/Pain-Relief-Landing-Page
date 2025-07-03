@@ -30,8 +30,10 @@ const Profile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [pendingModal, setPendingModal] = useState(false);
   const [error, setError] = useState("");
-  const { data: therapyTypes, loading: loading } =
-    useTherapyType(`/booking/services`);
+  const { data: therapyTypes, loading: loading } = useTherapyType(
+    `/booking/services`,
+    ""
+  );
 
   const therapyTypesOption = therapyTypes?.map((item) => ({
     id: item?._id,

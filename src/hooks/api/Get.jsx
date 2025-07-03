@@ -198,7 +198,7 @@ const useAppointmentProvider = (url, filters = {}, answer) => {
   return { loading, data, pagination };
 };
 
-const useTherapyType = (url) => {
+const useTherapyType = (url, update) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -218,7 +218,7 @@ const useTherapyType = (url) => {
 
   useEffect(() => {
     getProvider();
-  }, []);
+  }, [update]);
 
   return { loading, data, pagination };
 };

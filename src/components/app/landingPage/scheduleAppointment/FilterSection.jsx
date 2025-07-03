@@ -45,8 +45,10 @@ const FilterSection = ({ getproviderData }) => {
     setUpdate((prev) => !prev);
   };
 
-  const { data: therapyTypes, loading: loader } =
-    useTherapyType(`/booking/services`);
+  const { data: therapyTypes, loading: loader } = useTherapyType(
+    `/booking/services`,
+    ""
+  );
 
   const handleSelect = (option) => {
     setServices((prev) => {

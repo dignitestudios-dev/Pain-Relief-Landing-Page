@@ -16,6 +16,7 @@ import TermsOfUse from "../../../pages/app/userInterface/dashboard/TermsOfUse";
 import UserAccountSetting from "../../../pages/app/userInterface/dashboard/UserAccountSetting";
 import UserIDCard from "../../../pages/app/userInterface/dashboard/UserIDCard";
 import MemberShipGuide from "../../../pages/app/userInterface/dashboard/MemberShipGuide";
+import Notifications from "../../../pages/app/userInterface/notifications/Notifications";
 
 export const UserRoutes = [
   {
@@ -106,6 +107,12 @@ export const UserRoutes = [
     page: <MemberShipGuide />,
     isPublic: true,
   },
+  {
+    url: "notifications",
+    page: <Notifications />,
+    isPublic: true,
+  },
+
   // {
   //   url: "create-provider-profile",
   //   page: <CreateProviderProfile />,

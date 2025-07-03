@@ -59,6 +59,12 @@ const Navbar = () => {
     }
   }, [notification.body]);
 
+  const handleViewAll = () => {
+    setUnreadCount(0);
+    setIsNotiOpen(false);
+    navigate("/provider/notifications");
+  };
+
   return (
     <nav className="w-full border-b border-[#FFFFFF5E] bg-transparent">
       <div className="flex items-center justify-between lg:px-2  md:px-2 p-4">
@@ -147,40 +153,45 @@ const Navbar = () => {
                 <div className="flex justify-between bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] rounded-t-[12px] p-3">
                   <h2 className="text-white font-semibold">Notification</h2>
                   <button
-                    onClick={() => {
-                      setUnreadCount(0);
-                      setIsNotiOpen(false);
-                    }}
+                    onClick={handleViewAll}
                     className="text-[10px] font-bold text-white"
                   >
                     View All
                   </button>
                 </div>
                 <div>
-                  {notifications.map((item, index) => (
-                    <li
-                      key={index}
-                      // onClick={() => {
-                      //   navigate(item?.url);
-                      //   closeMenus();
-                      // }}
-                      className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
-                    >
-                      <h2 className="flex justify-between ">
-                        {item?.title}
-                        {/* <p className="text-[12px] font-[400] text-[#0000007A] ">
+                  {notifications?.length > 0 ? (
+                    <div>
+                      {notifications.map((item, index) => (
+                        <li
+                          key={index}
+                          // onClick={() => {
+                          //   navigate(item?.url);
+                          //   closeMenus();
+                          // }}
+                          className="text-black cursor-pointer border-b border-b-[#0000001A] p-2 "
+                        >
+                          <h2 className="flex justify-between ">
+                            {item?.title}
+                            {/* <p className="text-[12px] font-[400] text-[#0000007A] ">
                             09:00pm
                           </p> */}
-                      </h2>
-                      <p className="flex justify-between text-[12px] font-[400] text-[#212121] ">
-                        {item?.body}
-                        {/* {index == 0 ? "accepted" : "rejected"}
+                          </h2>
+                          <p className="flex justify-between text-[12px] font-[400] text-[#212121] ">
+                            {item?.body}
+                            {/* {index == 0 ? "accepted" : "rejected"}
                           <p className="text-[12px] font-[400] text-[#0000007A] ">
                             {index == 0 ? "Today" : "9 May, 25"}
                           </p> */}
-                      </p>
-                    </li>
-                  ))}
+                          </p>
+                        </li>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center h-[200px]">
+                      <p className="text-black">No record found</p>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
