@@ -150,7 +150,9 @@ const Notifications = () => {
 
                     <div className="w-[20%] flex flex-col items-center">
                       <p className="text-xs mb-2">
-                        {moment(item.createdAt).format("mm-dd-yy-h:mm A")}
+                        {moment(item.createdAt).format(
+                          "MM-DD-YYYY - h:mm:ss A"
+                        )}
                       </p>
                       {unReadLoadingId === item._id ? (
                         <p className="text-xs text-gray-500">Loading...</p>
