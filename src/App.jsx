@@ -17,6 +17,7 @@ import OnboardLayout from "./layouts/OnboardLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import { OnboardingRoutes } from "./routes/onboarding/OnboardingRoutes";
 import { AuthenticationRoutes } from "./routes/authentication/AuthenticationRoutes";
+import Home from "./pages/app/landingPage/Home";
 
 function App() {
   const { token, userData } = useContext(AppContext);
@@ -26,6 +27,7 @@ function App() {
       <Route path="/" element={<Navigate to="/app/home" />} />
 
       <Route path="app" element={<AppLayout />}>
+        <Route index element={<Home />} />
         {PublicRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}
@@ -35,6 +37,7 @@ function App() {
         path="auth"
         element={<AuthLayout token={token} role={userData?.role} />}
       >
+        <Route index element={<div className="text-7xl">Page Not Found</div>} />
         {AuthenticationRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}
@@ -46,6 +49,7 @@ function App() {
           <OnboardLayout token={token} role={userData?.role} user={userData} />
         }
       >
+        <Route index element={<div className="text-7xl">Page Not Found</div>} />
         {OnboardingRoutes?.map((Link, i) => (
           <Route path={Link.url} key={i} element={Link.page} />
         ))}

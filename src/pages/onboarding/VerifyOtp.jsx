@@ -89,12 +89,13 @@ const VerifyOtp = () => {
       if (response.status === 200) {
         // login(response?.data);
         // Cookies.set("token", response?.data?.data?.token);
-        loginAuth({
-          data: {
-            token: response?.data?.data?.token,
-          },
-          // user: { ...response?.data?.data?.user, role: userType },
-        });
+        // loginAuth({
+        //   data: {
+        //     token: response?.data?.data?.token,
+        //   },
+        // user: { ...response?.data?.data?.user, role: userType },
+        // });
+        loginAuth(response?.data);
         SuccessToast(response?.data?.message);
         setIsOtpSuccess(true);
       }
