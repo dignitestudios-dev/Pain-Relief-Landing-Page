@@ -15,6 +15,7 @@ const UpgradePlan = () => {
   const [billingPeriods, setBillingPeriods] = useState({});
   const { data, loading } = useSubscriptions("/payment/get-subscriptions");
   const handlePlanChange = (cardId, planType) => {
+    console.log("🚀 ~ handlePlanChange ~ cardId:", cardId, planType);
     setSelectedPlans((prev) => ({
       ...prev,
       [cardId]: planType,
@@ -26,6 +27,11 @@ const UpgradePlan = () => {
       ...prev,
       [cardId]: period,
     }));
+
+    setSelectedPlans((prev) => ({
+      ...prev,
+      [cardId]: "",
+    }));
   };
   return (
     <div>
@@ -36,8 +42,10 @@ const UpgradePlan = () => {
           loader={loading}
           handleBillingPeriodChange={handleBillingPeriodChange}
           selectedPlans={selectedPlans}
+          setSelectedPlans={setSelectedPlans}
           handlePlanChange={handlePlanChange}
           billingPeriods={billingPeriods}
+          setBillingPeriods={setBillingPeriods}
         />
       </div>
       {cancelModal && (
