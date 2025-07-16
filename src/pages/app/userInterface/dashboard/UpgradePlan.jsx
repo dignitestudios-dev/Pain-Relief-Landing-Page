@@ -11,13 +11,34 @@ const UpgradePlan = () => {
   const [subscriptionStatusModal, setSubscriptionStatusModal] = useState(false);
   const [subscriptionActiveModal, setSubscriptionActiveModal] = useState(false);
 
+  const [selectedPlans, setSelectedPlans] = useState({});
+  const [billingPeriods, setBillingPeriods] = useState({});
   const { data, loading } = useSubscriptions("/payment/get-subscriptions");
+  const handlePlanChange = (cardId, planType) => {
+    setSelectedPlans((prev) => ({
+      ...prev,
+      [cardId]: planType,
+    }));
+  };
 
+  const handleBillingPeriodChange = (cardId, period) => {
+    setBillingPeriods((prev) => ({
+      ...prev,
+      [cardId]: period,
+    }));
+  };
   return (
     <div>
       <HeroSection />
       <div className="flex justify-center">
-        <PlansSection subscriptionsData={data} loader={loading} />
+        <PlansSection
+          subscriptionsData={data}
+          loader={loading}
+          handleBillingPeriodChange={handleBillingPeriodChange}
+          selectedPlans={selectedPlans}
+          handlePlanChange={handlePlanChange}
+          billingPeriods={billingPeriods}
+        />
       </div>
       {cancelModal && (
         <CancelSubscriptionModal
