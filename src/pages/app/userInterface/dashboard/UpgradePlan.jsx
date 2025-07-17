@@ -15,7 +15,6 @@ const UpgradePlan = () => {
   const [billingPeriods, setBillingPeriods] = useState({});
   const { data, loading } = useSubscriptions("/payment/get-subscriptions");
   const handlePlanChange = (cardId, planType) => {
-    console.log("🚀 ~ handlePlanChange ~ cardId:", cardId, planType);
     setSelectedPlans((prev) => ({
       ...prev,
       [cardId]: planType,

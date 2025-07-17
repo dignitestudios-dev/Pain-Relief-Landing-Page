@@ -6,7 +6,7 @@ export const addFamilMemberValues = {
   phone: "",
   relation: "",
   descriptions: "",
-  userImage: null,
+  userImage: "",
 };
 export const userProfileValues = {
   fname: "",

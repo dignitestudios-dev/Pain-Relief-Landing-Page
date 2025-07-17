@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { RadioBtn, RadioBtnActive, SubsTick } from "../../../../assets/export";
 import Button from "../../landingPage/Inputs/Button";
 import { AppContext } from "../../../../context/AppContext";
@@ -18,6 +18,7 @@ const SubscriptionCards = ({
 
   const scrollRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  console.log("🚀 ~ scrollPosition:", scrollPosition);
 
   const handleScroll = (direction) => {
     const scrollAmount = 400;
@@ -40,36 +41,38 @@ const SubscriptionCards = ({
             onClick={() => handleScroll("left")}
             className="absolute -left-10 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2"
           >
-          <IoIosArrowBack color="black"  />
-
+            <IoIosArrowBack color="black" />
           </button>
           <button
             onClick={() => handleScroll("right")}
             className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2"
           >
-         <IoIosArrowForward color="black" />
+            <IoIosArrowForward color="black" />
           </button>
         </>
       )}
 
       <div
         ref={scrollRef}
-         className={`w-full ${
-      isCarousel
-        ? "flex overflow-hidden space-x-6 scroll-smooth px-2 snap-x snap-mandatory"
-        : "grid xl:grid-cols-2 grid-cols-1 gap-20"
-    }`}
-    style={{
-      scrollbarWidth: "none",
-      msOverflowStyle: "none",
-    }}
+        className={`w-full ${
+          isCarousel
+            ? "flex overflow-hidden space-x-6 scroll-smooth px-2 snap-x snap-mandatory"
+            : "grid xl:grid-cols-2 grid-cols-1 gap-20"
+        }`}
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
 
         // className="grid xl:grid-cols-2 grid-cols-1 gap-20 mt-10 my-16"
       >
         {subscriptionsData?.map((data, index) => {
           const cardId = data._id || index;
           const currentPeriod = billingPeriods[cardId] || "yearly";
-          const selectedPlan = selectedPlans[cardId] || "individual";
+          const selectedPlan =
+            currentPeriod === "yearly"
+              ? selectedPlans[cardId] || data?.yearly[0]?.planType
+              : selectedPlans[cardId] || data?.monthly[0]?.planType;
           const plans =
             currentPeriod === "yearly" ? data?.yearly : data?.monthly;
           const selectedPlanData = plans?.find(
@@ -79,9 +82,11 @@ const SubscriptionCards = ({
           return (
             <div
               key={cardId}
-            className={`bg-white rounded-[22px] p-6 lg:h-[752px] h-full flex flex-col justify-between ${
-            isCarousel ? "snap-start flex-shrink-0 w-[90%] md:w-[48%]" : "w-full"
-          }`}
+              className={`bg-white rounded-[22px] p-6 lg:h-[752px] h-full flex flex-col justify-between ${
+                isCarousel
+                  ? "snap-start flex-shrink-0 w-[90%] md:w-[48%]"
+                  : "w-full"
+              }`}
             >
               <div>
                 <div className="grid md:grid-cols-2 grid-cols-1 border-b border-[#e8e8e8] pb-2">

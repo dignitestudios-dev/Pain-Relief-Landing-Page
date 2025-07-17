@@ -44,22 +44,18 @@ export const addFamilMemberSchema = Yup.object({
   descriptions: Yup.string().required("Description is required"),
 
   userImage: Yup.mixed()
-    .required("Image is required")
-    .test("fileSize", "File too large", (value) => {
-      // Allow image URLs (already uploaded)
-      if (typeof value === "string") return true;
-      if (value instanceof File) {
-        return value.size <= 10 * 1024 * 1024; // 10MB
-      }
-      return false;
-    })
-    .test("fileType", "Unsupported file format", (value) => {
-      if (typeof value === "string") return true;
-      if (value instanceof File) {
-        return ["image/jpeg", "image/jpg", "image/png"].includes(value.type);
-      }
-      return false;
-    }),
+    .test(
+      "fileSize",
+      "File too large",
+      (value) => !value || (value && value.size <= 10 * 1024 * 1024)
+    )
+    .test(
+      "fileType",
+      "Unsupported file format",
+      (value) =>
+        !value ||
+        (value && ["image/jpeg", "image/jpg", "image/png"].includes(value.type))
+    ),
 
   db: Yup.date().required("Date of birth is required"),
   relation: Yup.string().trim().required("Relation is required."),

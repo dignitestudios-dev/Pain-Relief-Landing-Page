@@ -22,6 +22,7 @@ const PlansSection = ({
   selectedPlans,
   setSelectedPlans,
 }) => {
+  console.log("🚀 ~ subscriptionsData:", subscriptionsData);
   const navigate = useNavigate();
   const [Isactive, setIsActive] = useState("Year");
   const [paymentModal, setPaymentModal] = useState(false);
@@ -204,7 +205,10 @@ const PlansSection = ({
             {subscriptionsData?.map((data, index) => {
               const cardId = data._id || index;
               const currentPeriod = billingPeriods[cardId] || "yearly";
-              const selectedPlan = selectedPlans[cardId] || "individual";
+              const selectedPlan =
+                currentPeriod === "yearly"
+                  ? selectedPlans[cardId] || data?.yearly[0]?.planType
+                  : selectedPlans[cardId] || data?.monthly[0]?.planType;
               const plans =
                 currentPeriod === "yearly" ? data?.yearly : data?.monthly;
               const selectedPlanData = plans?.find(

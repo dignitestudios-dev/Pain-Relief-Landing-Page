@@ -54,7 +54,6 @@ const CreateFamilyMember = () => {
     initialValues: addFamilMemberValues,
     validationSchema: addFamilMemberSchema,
     onSubmit: (values, action) => {
-      console.log("🚀 ~ CreateFamilyMember ~ values:", values);
       const formattedDate = new Date(values.db).toISOString();
       const formData = new FormData();
 
