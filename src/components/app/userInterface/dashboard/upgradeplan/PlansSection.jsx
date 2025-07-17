@@ -230,34 +230,35 @@ const PlansSection = ({
                         {data?.name}
                       </h2>
                       <div className="w-full flex md:justify-end justify-center">
-                        {data?.monthly?.length > 0 && (
-                          <div className="flex gap-2 border h-[43px] border-[#63CFAC] p-[2px] w-[120px] md:w-[150px] xl:w-[180px] rounded-[6px]">
-                            <button
-                              className={`w-1/2 rounded-[6px] ${
-                                currentPeriod === "monthly"
-                                  ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white"
-                                  : "text-black"
-                              }`}
-                              onClick={() =>
-                                handleBillingPeriodChange(cardId, "monthly")
-                              }
-                            >
-                              Month
-                            </button>
-                            <button
-                              className={`w-1/2 rounded-[6px] ${
-                                currentPeriod === "yearly"
-                                  ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white"
-                                  : "text-black"
-                              }`}
-                              onClick={() =>
-                                handleBillingPeriodChange(cardId, "yearly")
-                              }
-                            >
-                              Year
-                            </button>
-                          </div>
-                        )}
+                        {data?.monthly?.length > 0 &&
+                          data?.yearly?.length > 0 && (
+                            <div className="flex gap-2 border h-[43px] border-[#63CFAC] p-[2px] w-[120px] md:w-[150px] xl:w-[180px] rounded-[6px]">
+                              <button
+                                className={`w-1/2 rounded-[6px] ${
+                                  currentPeriod === "monthly"
+                                    ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white"
+                                    : "text-black"
+                                }`}
+                                onClick={() =>
+                                  handleBillingPeriodChange(cardId, "monthly")
+                                }
+                              >
+                                Month
+                              </button>
+                              <button
+                                className={`w-1/2 rounded-[6px] ${
+                                  currentPeriod === "yearly"
+                                    ? "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] text-white"
+                                    : "text-black"
+                                }`}
+                                onClick={() =>
+                                  handleBillingPeriodChange(cardId, "yearly")
+                                }
+                              >
+                                Year
+                              </button>
+                            </div>
+                          )}
                       </div>
                     </div>
 
