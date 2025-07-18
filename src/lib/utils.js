@@ -21,8 +21,12 @@ export const processLogin = (
   setRequestModal
 ) => {
   if (data?.success) {
-    loginAuth(data);
     const user = data?.data?.user;
+    if (user?.isDeactivatedByAdmin) {
+      ErrorToast("Account Deactivated By Admin");
+      return;
+    }
+    loginAuth(data);
     if (!user?.isProfileCompleted) {
       navigate("/onboard/create-provider-profile");
       return;

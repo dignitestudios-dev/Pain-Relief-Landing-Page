@@ -25,6 +25,7 @@ import { AppContext } from "../../context/AppContext";
 const Login = () => {
   const navigate = useNavigate();
   const { fcmToken } = useContext(AppContext);
+  console.log("🚀 ~ Login ~ fcmToken:", fcmToken);
 
   const { loading, postData } = useLogin();
   const [requestModal, setRequestModal] = useState(false);
@@ -48,7 +49,7 @@ const Login = () => {
       let payload = {
         email: values.email,
         password: values.password,
-        fcmToken: fcmToken,
+        fcmToken: fcmToken || "123",
         role: values?.type === "user" ? "user" : "provider",
       };
       let routeName =
