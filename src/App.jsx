@@ -25,6 +25,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/app/home" />} />
       <Route
         index
         path="stripe/financialSession/:id"
