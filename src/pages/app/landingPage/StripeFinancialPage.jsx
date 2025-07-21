@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { ErrorToast } from "../../../components/global/Toaster";
+import { useParams } from "react-router";
 
 const StripeFinancialPage = () => {
+  const { id } = useParams();
+  console.log("🚀 ~ StripeFinancialPage ~ id:", id);
   const [stripeError, setStripeError] = useState(null);
   const openFinancialConnectionsSession = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
@@ -13,7 +16,7 @@ const StripeFinancialPage = () => {
     }
 
     const { error } = await stripe.collectFinancialConnectionsAccounts({
-      clientSecret: "fcsess_client_secret_5IZhUbRRGKuIZwdK0TnRxTIj",
+      clientSecret: id,
     });
 
     if (error) {
