@@ -27,7 +27,7 @@ function App() {
     <Routes>
       <Route
         index
-        path="stripe/financialSession"
+        path="stripe/financialSession/:id"
         element={<StripeFinancialPage />}
       />
 
