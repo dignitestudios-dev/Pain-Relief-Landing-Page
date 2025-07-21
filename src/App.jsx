@@ -25,7 +25,11 @@ function App() {
 
   return (
     <Routes>
-      <Route path="stripe/financialSession" element={<StripeFinancialPage />} />
+      <Route
+        index
+        path="stripe/financialSession"
+        element={<StripeFinancialPage />}
+      />
 
       <Route path="app" element={<AppLayout />}>
         <Route index element={<Home />} />
