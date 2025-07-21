@@ -18,13 +18,14 @@ import AuthLayout from "./layouts/AuthLayout";
 import { OnboardingRoutes } from "./routes/onboarding/OnboardingRoutes";
 import { AuthenticationRoutes } from "./routes/authentication/AuthenticationRoutes";
 import Home from "./pages/app/landingPage/Home";
+import StripeFinancialPage from "./pages/app/landingPage/StripeFinancialPage";
 
 function App() {
   const { token, userData } = useContext(AppContext);
 
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/app/home" />} />
+      <Route path="stripe/financialSession" element={<StripeFinancialPage />} />
 
       <Route path="app" element={<AppLayout />}>
         <Route index element={<Home />} />
