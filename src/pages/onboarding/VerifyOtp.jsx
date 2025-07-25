@@ -120,7 +120,7 @@ const VerifyOtp = () => {
   const handleResendOtp = async () => {
     try {
       setResendLoading(true);
-      let obj = { email: emailValue };
+      let obj = { email: emailValue ? emailValue : queryParams?.email };
 
       const response = await axios.post("/auth/request-email-otp", obj);
 
