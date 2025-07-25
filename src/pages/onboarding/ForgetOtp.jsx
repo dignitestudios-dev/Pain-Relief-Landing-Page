@@ -1,19 +1,27 @@
 import { useRef, useState } from "react";
-import { OtpLogo, SideImg, SmallTick } from "../../assets/export";
-import { useLocation, useNavigate } from "react-router";
+import { OtpLogo, SideImg } from "../../assets/export";
+import { useNavigate, useSearchParams } from "react-router";
 import Button from "../../components/app/landingPage/Inputs/Button";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../../components/global/Toaster";
 import CountDown from "../../components/global/CountDown";
 import Cookies from "js-cookie";
 const ForgetOtp = () => {
+  const [searchParams] = new useSearchParams();
+
+  let queryParams = {};
+
+  for (const [key, value] of searchParams.entries()) {
+    queryParams[key] = value;
+  }
+
   const [loading, setLoading] = useState(false);
-  const [isOtpSuccess, setIsOtpSuccess] = useState(false);
+
   const [resendLoading, setResendLoading] = useState(false);
-  const location = useLocation();
+  // const location = useLocation();
   // const [resendLoading, setResendLoading] = useState(false);
-  const email = sessionStorage.getItem("email");
-  const userType = location.state?.userType;
+  const emailValue = sessionStorage.getItem("email");
+  // const userType = location.state?.userType;
   // const token = sessionStorage.getItem("token");
   const [otp, setOtp] = useState(Array(4).fill(""));
   const inputs = useRef([]);
@@ -62,6 +70,7 @@ const ForgetOtp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { email } = queryParams;
     const isOtpFilled = otp.every((digit) => digit !== "");
 
     if (!isOtpFilled) {
@@ -72,7 +81,7 @@ const ForgetOtp = () => {
     setLoading(true);
     try {
       let obj = {
-        email: email,
+        email: emailValue ? emailValue : email,
         otp: getOtpValue(),
       };
       const response = await axios.post("/auth/verify-reset-otp", obj);
@@ -95,8 +104,10 @@ const ForgetOtp = () => {
 
   const handleResendOtp = async () => {
     try {
+      const { email } = queryParams;
+
       setResendLoading(true);
-      let obj = { email: email };
+      let obj = { email: emailValue ? emailValue : email };
 
       const response = await axios.post("/auth/forgot-password", obj);
 
@@ -133,7 +144,10 @@ const ForgetOtp = () => {
           </div>
           <p className="text-[32px] font-semibold capitalize">Verify OTP </p>
           <p className="text-[16px] mt-3 capitalize text-[#565656]">
-            The code was sent to <span className="text-black">{email}</span>
+            The code was sent to{" "}
+            <span className="text-black">
+              {emailValue ? emailValue : queryParams?.email}
+            </span>
           </p>
         </div>
         <form onSubmit={handleSubmit}>
