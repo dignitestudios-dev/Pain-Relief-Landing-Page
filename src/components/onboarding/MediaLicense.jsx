@@ -18,7 +18,7 @@ const MediaLicense = ({ setFileName, fileName, setFile, setFormErrors }) => {
       <div>
         <label htmlFor="license-upload" className="text-[14px] font-[500]">
           Medical license and insurance{" "}
-          <span className="text-[#555555]">(Required)</span>
+          {/* <span className="text-[#555555]">(Required)</span> */}
         </label>
 
         <div className="relative border border-dashed border-[rgba(85,85,85,0.2)] bg-white rounded-2xl flex flex-col justify-center items-center h-[142px] cursor-pointer">

@@ -112,6 +112,7 @@ export const userProfileSchema = Yup.object({
       (value) => (value ? /^[A-Z]/.test(value.trim()) : true)
     ),
   userImage: Yup.mixed()
+    .required("User image is required")
     .test(
       "fileSize",
       "File too large",

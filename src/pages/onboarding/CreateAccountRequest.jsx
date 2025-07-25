@@ -17,7 +17,7 @@ const CreateAccountRequest = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const [formErrors, setFormErrors] = useState({
-    document: "",
+    // document: "",
     locations: "",
   });
 
@@ -38,10 +38,10 @@ const CreateAccountRequest = () => {
     let errors = { document: "", locations: "" };
     let hasError = false;
 
-    if (!selectedFile) {
-      errors.document = "Please upload the required document.";
-      hasError = true;
-    }
+    // if (!selectedFile) {
+    //   errors.document = "Please upload the required document.";
+    //   hasError = true;
+    // }
 
     if (!isLocationAdded.length) {
       errors.locations = "Please add at least one location with specialties.";
@@ -128,9 +128,9 @@ const CreateAccountRequest = () => {
               setFormErrors={setFormErrors}
             />
 
-            {formErrors.document && (
+            {/* {formErrors.document && (
               <p className="text-red-500 text-sm mt-1">{formErrors.document}</p>
-            )}
+            )} */}
             <div className="flex justify-end">
               <div className="w-[128px]  ">
                 <Button

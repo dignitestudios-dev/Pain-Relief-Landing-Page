@@ -1,15 +1,10 @@
-import React, { useContext } from "react";
-
 import { ProfileImg } from "../../../../../assets/export";
 import { useNavigate } from "react-router";
 import { SkeletonProviderDetail } from "../../../../global/Sekelton";
 import Button from "../../../landingPage/Inputs/Button";
-import { AppContext } from "../../../../../context/AppContext";
 
 const HeroSection = ({ userData }) => {
   const navigate = useNavigate();
-
-  const { userData } = useContext(AppContext);
 
   return (
     <div className="min-h-[250px]">
