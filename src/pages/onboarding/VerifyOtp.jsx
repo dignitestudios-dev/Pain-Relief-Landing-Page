@@ -1,13 +1,21 @@
 import { useContext, useRef, useState } from "react";
 import { OtpLogo, SideImg, SmallTick } from "../../assets/export";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import Button from "../../components/app/landingPage/Inputs/Button";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../../components/global/Toaster";
 import CountDown from "../../components/global/CountDown";
 import { AppContext } from "../../context/AppContext";
 const VerifyOtp = () => {
-  const { loginAuth, userData } = useContext(AppContext);
+  const [searchParams] = new useSearchParams();
+
+  let queryParams = {};
+
+  for (const [key, value] of searchParams.entries()) {
+    queryParams[key] = value;
+  }
+
+  const { loginAuth } = useContext(AppContext);
 
   const [loading, setLoading] = useState(false);
   const [isOtpSuccess, setIsOtpSuccess] = useState(false);
@@ -16,7 +24,7 @@ const VerifyOtp = () => {
   // const [resendLoading, setResendLoading] = useState(false);
   // const email = sessionStorage.getItem("email");
   const userType = location.state?.userType;
-  const email = location.state?.email;
+  const emailValue = location.state?.email;
 
   // const token = sessionStorage.getItem("token");
   const [otp, setOtp] = useState(Array(4).fill(""));
@@ -69,6 +77,7 @@ const VerifyOtp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { email } = queryParams;
     const isOtpFilled = otp.every((digit) => digit !== "");
 
     if (!isOtpFilled) {
@@ -79,7 +88,7 @@ const VerifyOtp = () => {
     setLoading(true);
     try {
       let obj = {
-        email: email,
+        email: emailValue ? emailValue : email,
         otp: getOtpValue(),
         type: "email",
       };
@@ -111,7 +120,7 @@ const VerifyOtp = () => {
   const handleResendOtp = async () => {
     try {
       setResendLoading(true);
-      let obj = { email: email };
+      let obj = { email: emailValue };
 
       const response = await axios.post("/auth/request-email-otp", obj);
 
@@ -170,7 +179,10 @@ const VerifyOtp = () => {
             </div>
             <p className="text-[32px] font-semibold capitalize">Verify OTP </p>
             <p className="text-[16px] mt-3  text-[#565656]">
-              The code was sent to <span className="text-black">{email}</span>
+              The code was sent to{" "}
+              <span className="text-black">
+                {emailValue ? emailValue : queryParams?.email}
+              </span>
             </p>
           </div>
           <form onSubmit={handleSubmit}>

@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 
 const StripeFinancialPage = () => {
   const { id } = useParams();
-  console.log("🚀 ~ StripeFinancialPage ~ id:", id);
+
   const [stripeError, setStripeError] = useState(null);
   const openFinancialConnectionsSession = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
