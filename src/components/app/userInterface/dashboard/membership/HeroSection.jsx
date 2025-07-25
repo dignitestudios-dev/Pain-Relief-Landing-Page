@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { ProfileImg } from "../../../../../assets/export";
 import { useNavigate } from "react-router";
 import { SkeletonProviderDetail } from "../../../../global/Sekelton";
 import Button from "../../../landingPage/Inputs/Button";
+import { AppContext } from "../../../../../context/AppContext";
 
-const HeroSection = ({userData}) => {
+const HeroSection = ({ userData }) => {
   const navigate = useNavigate();
+
+  const { userData } = useContext(AppContext);
 
   return (
     <div className="min-h-[250px]">
@@ -34,16 +37,20 @@ const HeroSection = ({userData}) => {
                     {userData?.firstName} {userData?.lastName}
                   </h2>
                   <p className="text-[14px] sm:text-[16px] lg:text-[18px] text-[#565656] break-all">
-                   {userData?.email}
+                    {userData?.email}
                   </p>
                 </div>
               </div>
 
               <div className="w-full sm:w-[160px] md:w-[180px] lg:w-[214px]">
-                <Button
-                  text={"Upgrade Plan"}
-                  onClick={() => navigate("/user/upgrade-plan")}
-                />
+                {userData?.isCompanyEmployee ? (
+                  <div></div>
+                ) : (
+                  <Button
+                    text={"Upgrade Plan"}
+                    onClick={() => navigate("/user/upgrade-plan")}
+                  />
+                )}
               </div>
             </div>
           )}
