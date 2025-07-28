@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import HeroSection from "../../../../components/app/userInterface/dashboard/membershipguide/HeroSection";
 import ViewMemberShipGuide from "../../../../components/app/userInterface/dashboard/membershipguide/ViewMemberShipGuide";
+import { useNavigate } from "react-router";
 
 const MemberShipGuide = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     window.open("/User-Guide.pdf", "_blank");
-    window.location.href = "/user/dashboard";
+    navigate("/user/dashboard");
   }, []);
   return (
     <div>
