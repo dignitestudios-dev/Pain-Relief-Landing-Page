@@ -103,7 +103,7 @@ export const AppContextProvider = ({ children }) => {
         setLongitude(longitude);
       },
       (error) => {
-        ErrorToast(error);
+        ErrorToast(error.message);
       }
     );
   }, []);
