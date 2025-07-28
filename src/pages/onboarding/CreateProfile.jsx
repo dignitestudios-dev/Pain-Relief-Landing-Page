@@ -25,10 +25,10 @@ const CreateProfile = () => {
   const { userData } = useContext(AppContext);
 
   const [userImage, setUserImage] = useState("");
-  const [addressError, setAddressErrors] = useState({ address: "" });
-  const [form, setForm] = useState({ address: "" });
+  // const [addressError, setAddressErrors] = useState({ address: "" });
+  // const [form, setForm] = useState({ address: "" });
   const { loading, postData } = useProviderCreateProfile();
-  console.log(addressError, "addressError");
+
   const {
     values,
     errors,

@@ -32,7 +32,7 @@ export const processLogin = (
       return;
     }
 
-    if (!user?.isDocumentsSubmitted || !user?.isAddressCompleted) {
+    if (!user?.isAddressCompleted) {
       navigate("/onboard/create-account-request");
       return;
     }

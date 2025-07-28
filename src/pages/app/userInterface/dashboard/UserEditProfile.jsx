@@ -10,7 +10,6 @@ import UserEditForm from "../../../../components/app/userInterface/dashboard/edi
 const UserEditProfile = () => {
   const location = useLocation();
   const editProfile = location.state;
-  console.log(editProfile, "editProfile");
 
   const [update, setUpdate] = useState(false);
   const genderOptions = [

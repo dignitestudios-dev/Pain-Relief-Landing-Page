@@ -22,9 +22,8 @@ const PlansSection = ({
   selectedPlans,
   setSelectedPlans,
 }) => {
-  console.log("🚀 ~ subscriptionsData:", subscriptionsData);
   const navigate = useNavigate();
-  const [Isactive, setIsActive] = useState("Year");
+  // const [Isactive, setIsActive] = useState("Year");
   const [paymentModal, setPaymentModal] = useState(false);
 
   const [priceId, setPriceId] = useState(false);
@@ -102,7 +101,6 @@ const PlansSection = ({
             card.name === subData?.userSubscription?.name
           )
       );
-      console.log(subData, "-- eligible --", eligible);
 
       if (eligible) selected[cardId] = eligible.planType;
     });
@@ -113,6 +111,7 @@ const PlansSection = ({
 
   const scrollRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  console.log("🚀 ~ PlansSection ~ scrollPosition:", scrollPosition);
 
   const handleScroll = (direction) => {
     const scrollAmount = 400;

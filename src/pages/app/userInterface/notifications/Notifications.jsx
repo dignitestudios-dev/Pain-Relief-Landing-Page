@@ -21,7 +21,6 @@ const Notifications = () => {
   const [unReadLoadingId, setUnReadLoadingId] = useState(null);
 
   const handleMarkAsRead = async (id) => {
-    console.log("🚀 ~ handleMarkAsRead ~ id:", id);
     try {
       setUnReadLoadingId(id);
       const response = await axios.post("/notification/notification-read", {
@@ -41,7 +40,6 @@ const Notifications = () => {
     `/notification/get-notifications`,
     update
   );
-  console.log("🚀 ~ Notifications ~ data:", data);
 
   //   const filteredTasks = data?.filter((item) => {
   //     if (selectTab === "all") return true;

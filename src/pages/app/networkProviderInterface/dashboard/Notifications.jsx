@@ -38,7 +38,6 @@ const Notifications = () => {
   });
 
   const handleMarkAsRead = async (id) => {
-    console.log("🚀 ~ handleMarkAsRead ~ id:", id);
     try {
       setUnReadLoadingId(id);
       const response = await axios.post("/notification/notification-read", {

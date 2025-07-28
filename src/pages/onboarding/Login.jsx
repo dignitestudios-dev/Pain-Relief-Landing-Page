@@ -25,7 +25,6 @@ import { AppContext } from "../../context/AppContext";
 const Login = () => {
   const navigate = useNavigate();
   const { fcmToken } = useContext(AppContext);
-  console.log("🚀 ~ Login ~ fcmToken:", fcmToken);
 
   const { loading, postData } = useLogin();
   const [requestModal, setRequestModal] = useState(false);
@@ -45,7 +44,7 @@ const Login = () => {
     validationSchema: signInSchema,
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: async (values, action) => {
+    onSubmit: async (values) => {
       let payload = {
         email: values.email,
         password: values.password,

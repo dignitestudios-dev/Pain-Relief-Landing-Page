@@ -16,7 +16,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
-  console.log("🚀 ~ Navbar ~ unreadCount:", unreadCount);
+
   const [notifications, setNotifications] = useState([]);
 
   const profileRef = useRef(null);

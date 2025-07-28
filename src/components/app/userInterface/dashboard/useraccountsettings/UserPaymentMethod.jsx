@@ -27,8 +27,6 @@ const UserPaymentMethod = () => {
 
   const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
 
-  console.log(data, "33 -- data");
-
   const handleDeleteModal = (id) => {
     setDeleteId(id);
     setDeleteModal(true);

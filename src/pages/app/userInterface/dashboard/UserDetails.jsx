@@ -12,6 +12,7 @@ import AppointmentDetailLoader from "../../../../components/app/networkProviderI
 import { processAppointmentRequest } from "../../../../lib/utils";
 import { useAppointmentRequest } from "../../../../hooks/api/Post";
 import AcceptModal from "../../../../components/app/networkProviderInterface/dashboard/home/AcceptModal";
+import { ErrorToast } from "../../../../components/global/Toaster";
 const UserDetails = () => {
   const [cancelModal, setCancelModal] = useState(false);
   const [cancelReasonModal, setCancelReasonModal] = useState(false);
@@ -38,7 +39,7 @@ const UserDetails = () => {
         setAppointmentData(response?.data?.data);
       }
     } catch (error) {
-      console.log("🚀 ~ appointmentDetail ~ error:", error);
+      ErrorToast(error.response.data.message);
     } finally {
       setDetailLoading(false);
     }

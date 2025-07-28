@@ -15,6 +15,7 @@ import AppointmentDetailLoader from "../../../../components/app/networkProviderI
 import SuggestTimeModal from "../../../../components/app/networkProviderInterface/dashboard/home/SuggestTimeModal";
 import SuggestDeferentTimeModal from "../../../../components/app/networkProviderInterface/dashboard/home/SuggestDeferentTimeModal";
 import DiffrentTimeSuggestedModal from "../../../../components/app/networkProviderInterface/dashboard/home/DiffrentTimeSuggestedModal";
+import { ErrorToast } from "../../../../components/global/Toaster";
 
 const NetworkProviderAppointment = () => {
   const [appointmentState, setAppointmentState] = useState({ status: "" });
@@ -56,7 +57,7 @@ const NetworkProviderAppointment = () => {
         setAppointmentData(response?.data?.data);
       }
     } catch (error) {
-      console.log("🚀 ~ appointmentDetail ~ error:", error);
+      ErrorToast(error.response.data.message);
     } finally {
       setDetailLoading(false);
     }
@@ -99,7 +100,6 @@ const NetworkProviderAppointment = () => {
           reason: values?.description || scheduleDescription,
           status: appointmentState.status,
         };
-        console.log("payload-->", payLoad);
 
         postData(
           "/booking/update-status",

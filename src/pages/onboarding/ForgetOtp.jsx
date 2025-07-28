@@ -94,7 +94,6 @@ const ForgetOtp = () => {
         navigate("/auth/update-password");
       }
     } catch (err) {
-      console.log("🚀 ~ createAccount ~ err:", err);
       setOtp(Array(4).fill(""));
       ErrorToast(err?.response?.data?.message);
     } finally {

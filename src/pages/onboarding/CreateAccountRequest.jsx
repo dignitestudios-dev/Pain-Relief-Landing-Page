@@ -21,11 +21,7 @@ const CreateAccountRequest = () => {
     locations: "",
   });
 
-  const { data: therapyTypes, loading: loader } = useTherapyType(
-    `/booking/services`,
-    ""
-  );
-  console.log("🚀 ~ CreateAccountRequest ~ loader:", loader);
+  const { data: therapyTypes } = useTherapyType(`/booking/services`, "");
 
   const therapyTypesOption = therapyTypes?.map((item) => ({
     id: item?._id,

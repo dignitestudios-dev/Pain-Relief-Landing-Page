@@ -29,7 +29,6 @@ export const AppContextProvider = ({ children }) => {
 
   onMessageListener()
     .then((payload) => {
-      console.log("🚀 ~ .then ~ payload:", payload);
       setShow(true);
       setNotification({
         title: payload.notification.title,
@@ -90,7 +89,6 @@ export const AppContextProvider = ({ children }) => {
       const fcmTokenResponse = await getFCMToken();
       setFcmToken(fcmTokenResponse);
     } catch (err) {
-      console.log("🚀 ~ getFcm ~ err:", err);
       ErrorToast(err);
     }
   };
@@ -105,7 +103,7 @@ export const AppContextProvider = ({ children }) => {
         setLongitude(longitude);
       },
       (error) => {
-        console.log("🚀 ~ useEffect ~ error:", error);
+        ErrorToast(error);
       }
     );
   }, []);

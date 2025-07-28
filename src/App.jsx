@@ -41,7 +41,9 @@ function App() {
 
       <Route
         path="auth"
-        element={<AuthLayout token={token} role={userData?.role} />}
+        element={
+          <AuthLayout token={token} role={userData?.role} userData={userData} />
+        }
       >
         <Route index element={<div className="text-7xl">Page Not Found</div>} />
         {AuthenticationRoutes?.map((Link, i) => (

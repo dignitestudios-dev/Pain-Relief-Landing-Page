@@ -17,7 +17,6 @@ const Navbar = () => {
 
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
-  console.log("🚀 ~ Navbar ~ notifications:", notifications);
 
   const profileRef = useRef(null);
   const notiRef = useRef(null);
