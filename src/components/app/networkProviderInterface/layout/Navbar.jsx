@@ -29,7 +29,7 @@ const Navbar = () => {
     { url: "profile-network-provider", name: "Profile" },
     { url: "privacy-policy", name: "Privacy Policy" },
     { url: "terms-of-use", name: "Terms of use" },
-    { url: "membership-agreement", name: "Membership Agreement" },
+    // { url: "membership-agreement", name: "Membership Agreement" },
     { url: "account-setting", name: "Account & Setting" },
   ];
 

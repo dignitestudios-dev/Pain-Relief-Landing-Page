@@ -4,7 +4,7 @@ import DetailsSection from "../../../../components/app/userInterface/dashboard/m
 import { AppContext } from "../../../../context/AppContext";
 
 const MemberShip = () => {
-  const {userData}=useContext(AppContext)
+  const { userData } = useContext(AppContext);
   return (
     <div>
       <HeroSection userData={userData} />

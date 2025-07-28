@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeroSection from "../../../../components/app/userInterface/dashboard/membershipguide/HeroSection";
 import ViewMemberShipGuide from "../../../../components/app/userInterface/dashboard/membershipguide/ViewMemberShipGuide";
 
 const MemberShipGuide = () => {
+  useEffect(() => {
+    window.open("/User-Guide.pdf", "_blank");
+    window.location.href = "/user/dashboard";
+  }, []);
   return (
     <div>
       <HeroSection />
-      <ViewMemberShipGuide />
+      <div className="flex justify-center relative -mt-28 w-full mb-10">
+        <div className="bg-white  w-[90%] h-[62px] overflow-auto rounded-[8px] p-8"></div>
+      </div>
     </div>
   );
 };

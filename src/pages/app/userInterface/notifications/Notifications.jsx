@@ -11,10 +11,10 @@ const Notifications = () => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
 
-  const [selectTab, setSelectTab] = useState("all");
-  const handleSelect = (val) => {
-    setSelectTab(val);
-  };
+  // const [selectTab, setSelectTab] = useState("all");
+  // const handleSelect = (val) => {
+  //   setSelectTab(val);
+  // };
 
   //   const isLoading = true;
   const [update, setUpdate] = useState(false);
@@ -57,7 +57,7 @@ const Notifications = () => {
       <HeroSection />
       <div className="px-12 ">
         <h1 className="text-[24px] font-semibold pb-4">Notifications</h1>
-        <div className="rounded-lg shadow-customShadow bg-white p-8">
+        <div className="rounded-lg shadow-customShadow bg-white p-8 mb-10">
           {/* <div className="h-14 w-full flex justify-between items-center"> */}
           {/* <div className="w-[90%] h-full border-b-2 border-gray-100">
               <div className="flex justify-start items-center h-full gap-4">
@@ -124,11 +124,15 @@ const Notifications = () => {
             </div>
           ) : (
             <div className="mt-4 h-[430px] overflow-y-auto ">
-              {data?.map((item, index) => (
-                <div key={index}>
-                  <div className="flex justify-between items-center w-[95%] py-3 border-gray-100">
-                    <div className="bg-white flex p-2 min-w-[84%] max-w-[90%]">
-                      {/* <div className="py-3 px-2 mt-1">
+              {data?.length === 0 ? (
+                <div>No record found</div>
+              ) : (
+                <>
+                  {data?.map((item, index) => (
+                    <div key={index}>
+                      <div className="flex justify-between items-center w-[95%] py-3 border-gray-100">
+                        <div className="bg-white flex p-2 min-w-[84%] max-w-[90%]">
+                          {/* <div className="py-3 px-2 mt-1">
                   <img
                     src={task.image}
                     alt="profile"
@@ -136,39 +140,43 @@ const Notifications = () => {
                   />
                 </div> */}
 
-                      <div className="py-3 px-2">
-                        <h1 className="text-[16px] font-bold">
-                          {convertText(item?.notificationContent?.title)}
-                        </h1>
-                        <p className="text-[16px] text-primary-text ">
-                          {item?.notificationContent?.description}
-                        </p>
-                      </div>
-                    </div>
+                          <div className="py-3 px-2">
+                            <h1 className="text-[16px] font-bold">
+                              {convertText(item?.notificationContent?.title)}
+                            </h1>
+                            <p className="text-[16px] text-primary-text ">
+                              {item?.notificationContent?.description}
+                            </p>
+                          </div>
+                        </div>
 
-                    <div className="w-[20%] flex flex-col items-center">
-                      <p className="text-xs mb-2">
-                        {moment(item.createdAt).format(
-                          "MM-DD-YYYY - h:mm:ss A"
-                        )}
-                      </p>
-                      {unReadLoadingId === item._id ? (
-                        <p className="text-xs text-gray-500">Loading...</p>
-                      ) : (
-                        <span className="flex items-center pt-1">
-                          <p className="text-green-600 pr-1">Mark As Read</p>
-                          <input
-                            type="checkbox"
-                            className="w-5 h-5 accent-[#62466b] rounded cursor-pointer"
-                            onChange={() => handleMarkAsRead(item?._id)}
-                          />
-                        </span>
-                      )}
+                        <div className="w-[20%] flex flex-col items-center">
+                          <p className="text-xs mb-2">
+                            {moment(item.createdAt).format(
+                              "MM-DD-YYYY - h:mm:ss A"
+                            )}
+                          </p>
+                          {unReadLoadingId === item._id ? (
+                            <p className="text-xs text-gray-500">Loading...</p>
+                          ) : (
+                            <span className="flex items-center pt-1">
+                              <p className="text-green-600 pr-1">
+                                Mark As Read
+                              </p>
+                              <input
+                                type="checkbox"
+                                className="w-5 h-5 accent-[#62466b] rounded cursor-pointer"
+                                onChange={() => handleMarkAsRead(item?._id)}
+                              />
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <hr className="h-px my-2 ml-2 w-[92%] bg-gray-100 border" />
                     </div>
-                  </div>
-                  <hr className="h-px my-2 ml-2 w-[92%] bg-gray-100 border" />
-                </div>
-              ))}
+                  ))}
+                </>
+              )}
             </div>
           )}
         </div>

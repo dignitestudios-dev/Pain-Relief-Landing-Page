@@ -46,7 +46,7 @@ const CreateProfile = () => {
       const formData = new FormData();
       formData.append("firstName", values.fname);
       formData.append("lastName", values.lname);
-      formData.append("phone", values.phone ? values.phone : "1234567890");
+      formData.append("phone", values.phone);
       formData.append("country", values.country);
       formData.append("address", values.address);
       formData.append("city", values.city);
@@ -220,7 +220,7 @@ const CreateProfile = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   autoComplete="off"
-                  isDisabled={true}
+                  isDisabled={userData?.isCompanyEmployee ? false : true}
                 />
               </div>
               <div>

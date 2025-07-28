@@ -51,7 +51,7 @@ const IDCards = ({ IdCardData, userData, referralLink, referralLoading }) => {
                 </div>
               ))}
               <p className="text-sm font-semibold mt-2">
-                {userData?.firstName}
+                {userData?.firstName + " " + userData?.lastName}
               </p>
               <p className="text-[10px] text-[#565656] mt-4">C-212-02152022</p>
             </div>
