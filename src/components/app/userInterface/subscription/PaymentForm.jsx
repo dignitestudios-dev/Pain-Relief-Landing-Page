@@ -113,7 +113,7 @@ const PaymentForm = ({ planData, selectedPlanData }) => {
       </div>
       <div className="flex justify-between items-center   pb-4 my-5">
         <h2 className="text-[14px] font-[500]  ">Total Amount </h2>
-        <p className="text-[14px] font-[500] ">${selectedPlanData}</p>
+        <p className="text-[14px] font-[500] ">${+selectedPlanData + 20}</p>
       </div>
 
       <form>

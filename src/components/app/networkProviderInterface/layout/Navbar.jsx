@@ -14,6 +14,7 @@ const Navbar = () => {
   const [notiOpen, setIsNotiOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [openMobileProfile, setOpenMobileProfile] = useState(false);
 
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -219,27 +220,12 @@ const Navbar = () => {
         <div className="p-4 flex justify-end" onClick={toggleMobileMenu}>
           <HiX size={28} />
         </div>
-        <div className="p-4 space-y-4 text-black">
-          <Link to="dashboard" onClick={closeMenus} className="block">
-            Dashboard
-          </Link>
-          <Link to="pain-relief-coach" onClick={closeMenus} className="block">
-            Pain Relief Coach
-          </Link>
-          <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => {
-              closeMenus();
-            }}
-          >
-            <IoMdNotificationsOutline size={21} />
-            <span>Notifications</span>
-          </div>
 
+        <div className="mt-2 p-4 flex justify-between items-center">
           {/* Mobile Profile Avatar + Toggle */}
           <div
-            className="mt-4 cursor-pointer w-fit"
-            onClick={() => setOpenProfile((prev) => !prev)}
+            className=" cursor-pointer w-fit"
+            onClick={() => setOpenMobileProfile((prev) => !prev)}
           >
             <div className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] rounded-full p-[1.5px] w-fit">
               <img
@@ -250,19 +236,63 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Dropdown Menu */}
-          {openProfile && (
-            <div className="bg-[#FFFFFF] text-nowrap w-full rounded-[12px] mt-2 border border-[#ddd]">
-              {LinksPage.map((item, index) => (
-                <div
-                  key={index}
-                  className="text-black border-b border-b-[#0000001A] p-2"
-                >
-                  {item.name}
-                </div>
-              ))}
-            </div>
-          )}
+          <div
+            className="flex items-center gap-1 cursor-pointer"
+            onClick={() => {
+              closeMenus();
+            }}
+          >
+            <span className="bg-gray-200 rounded-full p-1 relative">
+              <IoMdNotificationsOutline
+                size={21}
+                className="text-[#4DD0B0] bg-clip-text"
+              />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 text-[10px] font-bold text-white bg-red-500 w-4 h-4 flex items-center justify-center rounded-full">
+                  {unreadCount}
+                </span>
+              )}
+            </span>
+            <Link
+              to="notifications"
+              className="bg-gradient-to-l from-[#4DD0B0] to-[#29ABE2] bg-clip-text text-transparent"
+            >
+              Notifications
+            </Link>
+          </div>
+        </div>
+        {/* Mobile Dropdown Menu */}
+        {openMobileProfile && (
+          <div className="bg-[#FFFFFF] text-nowrap w-full rounded-[12px]  border border-[#ddd] absolute">
+            {LinksPage.map((item, index) => (
+              <div
+                onClick={() => {
+                  navigate(item?.url);
+                  setIsMobileMenuOpen(false);
+                }}
+                key={index}
+                className="text-black border-b border-b-[#0000001A] p-2"
+              >
+                {item.name}
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="p-4 space-y-4 text-black">
+          <Link
+            to="dashboard"
+            onClick={closeMenus}
+            className="block bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] font-medium bg-clip-text text-transparent"
+          >
+            Dashboard
+          </Link>
+          <Link
+            to="pain-relief-coach"
+            onClick={closeMenus}
+            className="block bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] font-medium bg-clip-text text-transparent"
+          >
+            Pain Relief Coach
+          </Link>
         </div>
       </div>
     </nav>

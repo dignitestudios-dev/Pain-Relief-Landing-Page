@@ -82,7 +82,7 @@ const SubscriptionCards = ({
           return (
             <div
               key={cardId}
-              className={`bg-white rounded-[22px] p-6 lg:h-[752px] h-full flex flex-col justify-between ${
+              className={`bg-white rounded-[22px] p-6 lg:h-[752px] h-[752px] flex flex-col justify-between ${
                 isCarousel
                   ? "snap-start flex-shrink-0 w-[90%] md:w-[48%]"
                   : "w-full"
@@ -192,7 +192,7 @@ const SubscriptionCards = ({
               </div>
 
               {/* Footer with button */}
-              <div className="mt-6 grid md:grid-cols-2 grid-cols-1 gap-3">
+              <div className="mt-6 grid lg:grid-cols-2 grid-cols-1 gap-3">
                 <div className="w-[249px]">
                   <Button
                     text={"Buy Now"}
@@ -211,10 +211,12 @@ const SubscriptionCards = ({
                     }}
                   />
                 </div>
-                <p className="xl:text-[12px] text-[10px] font-[500] text-[#000000]">
-                  All membership plans will have an additional $20 one-time
-                  application fee
-                </p>
+                <div>
+                  <p className="xl:text-[12px] text-[10px] font-[500] text-[#000000]">
+                    All membership plans will have an additional $20 one-time
+                    application fee
+                  </p>
+                </div>
               </div>
             </div>
           );

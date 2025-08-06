@@ -116,7 +116,7 @@ const AppoitmentTable = ({ update }) => {
               <CiFilter size={24} className="text-white" />
             </div>
             {isOpen && (
-              <div className="bg-white shadow-md rounded-[12px] w-[360px] h-[220px] absolute top-16 right-0">
+              <div className="bg-white shadow-md rounded-[12px] w-[360px] h-[220px] absolute top-16 xxl:right-0 -right-8">
                 <div className="flex justify-between mx-4 mb-4 pt-4 pb-2 border-b border-b-gray-200">
                   <div className="text-[16px] font-semibold">Filter</div>
                   <div onClick={toggleCalendar}>
@@ -199,126 +199,196 @@ const AppoitmentTable = ({ update }) => {
             </div>
           </div>
 
-          <table className="min-w-full text-sm text-left">
-            <thead className="bg-cyan-50 text-gray-700">
-              <tr>
-                <th className="px-4 py-3">#</th>
-                <th className="px-4 py-3">Name</th>
-                <th className="px-4 py-3">Appointment Date</th>
-                <th className="px-4 py-3">Appointment Time</th>
-                <th className="px-4 py-3">Specialty</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3">Action</th>
-              </tr>
-            </thead>
-            {loading ? (
-              <tbody>
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <tr
-                    key={i}
-                    className="border-t border-gray-100 animate-pulse"
-                  >
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-4 bg-gray-200 rounded" />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-4">
-                        <div className="rounded-full bg-gray-200 w-[42px] h-[42px]" />
-                        <div className="h-4 w-24 bg-gray-200 rounded" />
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-24 bg-gray-200 rounded" />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-16 bg-gray-200 rounded" />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-4">
-                        <div className="rounded-full bg-gray-200 w-[42px] h-[42px]" />
-                        <div className="h-4 w-24 bg-gray-200 rounded" />
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-16 bg-gray-200 rounded" />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-20 bg-gray-200 rounded" />
-                    </td>
+          <div className="overflow-x-auto">
+            {/* Table View (Desktop & Tablet) */}
+            <div className="hidden md:block">
+              <table className="min-w-full text-sm text-left">
+                <thead className="bg-cyan-50 text-gray-700">
+                  <tr>
+                    <th className="px-4 py-3">#</th>
+                    <th className="px-4 py-3">Name</th>
+                    <th className="px-4 py-3">Appointment Date</th>
+                    <th className="px-4 py-3">Appointment Time</th>
+                    <th className="px-4 py-3">Specialty</th>
+                    <th className="px-4 py-3">Status</th>
+                    <th className="px-4 py-3">Action</th>
                   </tr>
-                ))}
-              </tbody>
-            ) : data?.length > 0 ? (
-              <tbody>
-                {data.map((a, index) => (
-                  <tr
-                    key={a._id || index}
-                    className="border-t border-gray-100 hover:bg-gray-50"
-                  >
-                    <td className="px-4 py-3">{index + 1}</td>
+                </thead>
 
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-4">
-                        <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
-                          <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
-                            <img
-                              src={a.user?.profilePicture || ProfileImg}
-                              className="w-[39px] h-[39px] rounded-full object-cover"
-                              alt="User"
-                            />
+                {loading ? (
+                  <tbody>
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <tr
+                        key={i}
+                        className="border-t border-gray-100 animate-pulse"
+                      >
+                        <td className="px-4 py-3">
+                          <div className="h-4 w-4 bg-gray-200 rounded" />
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-4">
+                            <div className="rounded-full bg-gray-200 w-[42px] h-[42px]" />
+                            <div className="h-4 w-24 bg-gray-200 rounded" />
                           </div>
-                        </div>
-                        <h2 className="text-[14px] font-[400]">
-                          {a.user?.firstName} {a.user?.lastName}
-                        </h2>
-                      </div>
-                    </td>
-
-                    <td className="px-4 py-3">
-                      {getLongDateFormat(a.appointmentDate)}
-                    </td>
-
-                    <td className="px-4 py-3">{a?.appointmentTime}</td>
-
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-4">
-                        <h2 className="text-[14px] font-[400]">
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="h-4 w-24 bg-gray-200 rounded" />
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="h-4 w-16 bg-gray-200 rounded" />
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="h-4 w-24 bg-gray-200 rounded" />
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="h-4 w-16 bg-gray-200 rounded" />
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="h-4 w-20 bg-gray-200 rounded" />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : data?.length > 0 ? (
+                  <tbody>
+                    {data.map((a, index) => (
+                      <tr
+                        key={a._id || index}
+                        className="border-t border-gray-100 hover:bg-gray-50"
+                      >
+                        <td className="px-4 py-3">{index + 1}</td>
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-4">
+                            <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
+                              <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+                                <img
+                                  src={a.user?.profilePicture || ProfileImg}
+                                  className="w-[39px] h-[39px] rounded-full object-cover"
+                                  alt="User"
+                                />
+                              </div>
+                            </div>
+                            <h2 className="text-[14px] font-[400]">
+                              {a.user?.firstName} {a.user?.lastName}
+                            </h2>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3">
+                          {getLongDateFormat(a.appointmentDate)}
+                        </td>
+                        <td className="px-4 py-3">{a?.appointmentTime}</td>
+                        <td className="px-4 py-3">
                           {a.services[0]?.name || "Unknown"}
-                        </h2>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="capitalize text-sm">{a.status}</span>
+                        </td>
+                        <td
+                          onClick={() =>
+                            navigate("/provider/network-provider-appointment", {
+                              state: a,
+                            })
+                          }
+                          className="px-4 py-3 text-black underline font-medium cursor-pointer"
+                        >
+                          View Detail
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : (
+                  <tbody>
+                    <tr>
+                      <td
+                        colSpan="7"
+                        className="text-center text-gray-500 text-sm py-6"
+                      >
+                        Nothing to display at the moment. Appointments will
+                        appear here once available.
+                      </td>
+                    </tr>
+                  </tbody>
+                )}
+              </table>
+            </div>
+
+            {/* Card View (Mobile) */}
+            <div className="block md:hidden space-y-4">
+              {loading ? (
+                Array.from({ length: 4 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="p-4 border rounded-lg shadow-sm animate-pulse"
+                  >
+                    <div className="h-4 w-8 bg-gray-200 rounded mb-2"></div>
+                    <div className="flex items-center gap-4 mb-2">
+                      <div className="rounded-full bg-gray-200 w-[42px] h-[42px]" />
+                      <div className="h-4 w-24 bg-gray-200 rounded" />
+                    </div>
+                    <div className="h-4 w-24 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 w-16 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 w-24 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 w-16 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 w-20 bg-gray-200 rounded"></div>
+                  </div>
+                ))
+              ) : data?.length > 0 ? (
+                data.map((a, index) => (
+                  <div
+                    key={a._id || index}
+                    className="p-4 border rounded-lg shadow-sm"
+                  >
+                    <p className="text-sm mb-2">
+                      <strong>#:</strong> {index + 1}
+                    </p>
+                    <div className="flex items-center gap-4 mb-2">
+                      <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
+                        <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+                          <img
+                            src={a.user?.profilePicture || ProfileImg}
+                            className="w-[39px] h-[39px] rounded-full object-cover"
+                            alt="User"
+                          />
+                        </div>
                       </div>
-                    </td>
-
-                    <td className="px-4 py-3">
-                      <span className="capitalize text-sm">{a.status}</span>
-                    </td>
-
-                    <td
+                      <h2 className="text-[14px] font-[400]">
+                        {a.user?.firstName} {a.user?.lastName}
+                      </h2>
+                    </div>
+                    <p className="text-sm">
+                      <strong>Date:</strong>{" "}
+                      {getLongDateFormat(a.appointmentDate)}
+                    </p>
+                    <p className="text-sm">
+                      <strong>Time:</strong> {a?.appointmentTime}
+                    </p>
+                    <p className="text-sm">
+                      <strong>Specialty:</strong>{" "}
+                      {a.services[0]?.name || "Unknown"}
+                    </p>
+                    <p className="text-sm">
+                      <strong>Status:</strong> {a.status}
+                    </p>
+                    <button
                       onClick={() =>
                         navigate("/provider/network-provider-appointment", {
                           state: a,
                         })
                       }
-                      className="px-4 py-3 text-black underline font-medium cursor-pointer"
+                      className="text-black underline font-medium mt-2"
                     >
                       View Detail
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            ) : (
-              <tbody>
-                <tr>
-                  <td
-                    colSpan="7"
-                    className="text-center text-gray-500 text-sm py-6"
-                  >
-                    Nothing to display at the moment. Appointments will appear
-                    here once available.
-                  </td>
-                </tr>
-              </tbody>
-            )}
-          </table>
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-gray-500 text-sm py-6">
+                  Nothing to display at the moment. Appointments will appear
+                  here once available.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
         <div className="flex justify-end">
           <Pagination

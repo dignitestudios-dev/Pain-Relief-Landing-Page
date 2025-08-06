@@ -1,10 +1,10 @@
 import React from "react";
 import { SmallTick } from "../../../../../assets/export";
 
-const DiffrentTimeSuggestedModal = ({onClick}) => {
+const DiffrentTimeSuggestedModal = ({ onClick }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
-      <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] h-[337px]">
+      <div className="bg-white rounded-[26px] shadow-md p-8 xxl:w-[470px] w-[390px] h-[337px]">
         <div>
           <div
             className="flex justify-end items-center pb-4 "

@@ -73,29 +73,31 @@ const Login = () => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc]">
       <div className="p-4 lg:block hidden">
-        <img src={SideImg} />
+        <img className="xxl:w-[1200px] xl:w-[1000px]" src={SideImg} />
       </div>
-      <div className="flex flex-col justify-center items-center h-auto">
+      <div className="flex flex-col justify-center items-center h-auto ">
         <div className="my-4 text-center">
-          <div className="w-[158px] h-[158px]">
+          <div className="xxl:h-[188px] xxl:w-[280px] xxl:mx-auto xxl:mb-24 w-[158px] h-[158px]">
             <img src={Logo} />
           </div>
-          <p className="text-[26px] mt-2  font-semibold capitalize">
+          <p className="xxl:text-[56px] xl:text-[30px] text-[26px] mt-2  font-semibold capitalize">
             Pain Relief USA
           </p>
-          <p className="text-[14px] font-[500] capitalize text-[#565656]">
+          <p className="xxl:text-[28px] text-[16px] font-[500] capitalize text-[#565656]">
             pain Relief made easy
           </p>
         </div>
-        <div className="py-4">
-          <p className="text-[32px] font-[600] capitalize">Welcome Back</p>
-          <p className="text-[16px]  capitalize text-[#565656]">
+        <div className="py-4 xxl:w-[400px] xxl:ml-12">
+          <p className=" xxl:text-[48px] text-[32px] font-[600] capitalize">
+            Welcome Back
+          </p>
+          <p className="xxl:text-[26px] text-[16px] capitalize text-[#565656]">
             Please enter details to continue
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
+          <div className="xxl:space-y-8 space-y-4 xxl:w-[650px] lg:w-[350px] md:w-[550px] w-[320px]">
             <div className=" flex justify-between gap-2">
               <SelectField
                 icon={UserWhite}
@@ -147,17 +149,17 @@ const Login = () => {
               touched={touched?.password}
             />
           </div>
-          <div className="flex my-2 justify-end lg:w-[350px] md:w-[550px] w-[320px]">
+          <div className="flex my-2 justify-end xxl:w-[650px] lg:w-[350px] md:w-[550px] w-[320px]">
             <p
               type="button"
-              className="text-[#181818] text-[12px] font-[500] pt-1 cursor-pointer"
+              className="text-[#181818] xxl:text-[20px] text-[12px] font-[500] pt-1 cursor-pointer"
               onClick={() => navigate("/auth/forget-password")}
             >
               Forgot password?
             </p>
           </div>
 
-          <div className="w-[350px] mt-3 mb-4">
+          <div className="xxl:w-[650px] w-[350px] mt-3 mb-4">
             <Button text={"Login"} loading={loading} disabled={loading} />
           </div>
         </form>
@@ -172,10 +174,10 @@ const Login = () => {
           </>
         )}
         <div className="flex items-center justify-center gap-2 my-6  ">
-          <p className="text-center text-[16px] leading-[21.6px] text-[#181818]">
+          <p className="text-center xxl:text-[26px] text-[16px] leading-[21.6px] text-[#181818]">
             Don’t have an account?
             <span
-              className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text text-transparent font-medium pl-1 cursor-pointer "
+              className="bg-gradient-to-l to-[#63CFAC] from-[#29ABE2] bg-clip-text xxl:text-[26px] text-transparent font-medium pl-1 cursor-pointer "
               onClick={() => navigate("/auth/account-selection")}
             >
               Sign Up
@@ -184,11 +186,11 @@ const Login = () => {
         </div>
         <button
           type="button"
-          className="w-full flex justify-center  items-center gap-1 cursor-pointer"
+          className="w-full flex justify-center items-center gap-1 cursor-pointer"
           onClick={() => navigate("/app/home")}
         >
-          <IoIosArrowDropleftCircle className="text-lg text-[#212121]" />
-          <p className="text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
+          <IoIosArrowDropleftCircle className="xxl:text-[26px] text-lg text-[#212121]" />
+          <p className="text-[12px] xxl:text-[20px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
             Back
           </p>
         </button>

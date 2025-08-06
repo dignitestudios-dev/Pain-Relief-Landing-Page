@@ -11,7 +11,7 @@ const Button = ({ text, onClick, loading, type, disabled = false }) => {
           disabled
             ? " bg-gray-400 cursor-not-allowed"
             : "bg-gradient-to-l to-[#63CFAC] from-[#29ABE2]"
-        }  rounded-[8px] w-full text-white  font-[500] text-[16px] h-[49px] `}
+        }  rounded-[8px] w-full text-white  font-[500] text-[16px] xxl:h-[68px] h-[49px] `}
       >
         <div className="flex justify-center items-center">
           <span className="mr-1">{text}</span>

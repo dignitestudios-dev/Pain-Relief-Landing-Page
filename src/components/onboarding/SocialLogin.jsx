@@ -23,7 +23,7 @@ const SocialLogin = () => {
     }, 1000);
   };
   return (
-    <div className="justify-center lg:w-[350px] md:w-[550px] w-[340px] space-y-4 mt-6">
+    <div className="justify-center xxl:w-[650px] lg:w-[350px] md:w-[550px] w-[340px] space-y-4 mt-6">
       <button
         disabled={appleLoading}
         onClick={handleGoogleSocial}

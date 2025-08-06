@@ -103,7 +103,7 @@ const AddNewLocationModal = ({
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-10 z-50 flex items-center justify-center p-1">
       <div
-        className={`bg-white  overflow-y-auto overflow-x-hidden  rounded-[18px] shadow-md p-6 
+        className={`bg-white overflow-y-auto overflow-x-hidden rounded-[18px] shadow-md p-6 xxl:w-[800px] xxl:h-[600px]
        ${isSelectField ? "lg:h-[644px]" : "lg:h-[460px]"} h-[482px]`}
       >
         <div className="flex  justify-between items-center pb-4 border-b-[1px] border-b-gray-200">
@@ -132,7 +132,7 @@ const AddNewLocationModal = ({
 
         <div className="space-y-3 mt-4">
           <div className="mt-3">
-            <div className="w-[421px] h-[194px] mt-3 rounded-md overflow-hidden">
+            <div className="xxl:w-auto w-[421px] xxl:h-[294px] h-[194px] mt-3 rounded-md overflow-hidden">
               <label className="text-[12px] text-[#121516] font-medium">
                 Primary Clinic Location
               </label>
@@ -146,7 +146,7 @@ const AddNewLocationModal = ({
           {errors.address && (
             <p className="text-red-600 text-[12px] ">{errors.address}</p>
           )}
-          <div>
+          <div className="xxl:w-full">
             <SelectableField
               placeholder="Select Specialties"
               label="Specialty Services"

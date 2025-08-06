@@ -131,17 +131,22 @@ const ForgetOtp = () => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
-        <img src={SideImg} />
+        <img
+          className="w-full h-full object-cover xxl:w-[1200px] xl:w-[1000px]"
+          src={SideImg}
+        />
       </div>
 
-      <div className="flex flex-col mt-24 items-center lg:h-auto h-screen p-3">
+      <div className="xxl:w-[520px] xxl:mx-auto flex flex-col mt-24 items-center lg:h-auto h-screen p-3">
         <div className="pb-4 text-center">
           <div className="flex justify-center">
-            <div className="w-[210.88px] mb-8">
+            <div className="xxl:h-[188px] xxl:w-[280px] xxl:mx-auto xxl:mb-24 w-[210.88px] xxl:mt-60 mb-8">
               <img src={OtpLogo} />
             </div>
           </div>
-          <p className="text-[32px] font-semibold capitalize">Verify OTP </p>
+          <p className="xxl:text-[52px] text-[32px] font-semibold capitalize">
+            Verify OTP{" "}
+          </p>
           <p className="text-[16px] mt-3 capitalize text-[#565656]">
             The code was sent to{" "}
             <span className="text-black">
@@ -150,8 +155,8 @@ const ForgetOtp = () => {
           </p>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col items-center justify-center">
-            <div className="grid grid-cols-4 gap-4 xl:w-[300px] lg:w-[350px] md:w-[550px] w-full pl-2 ">
+          <div className=" xxl:space-y-12 flex flex-col items-center justify-center">
+            <div className="xxl:w-[600px] xxl:m-4 grid grid-cols-4 gap-4 xl:w-[300px] lg:w-[350px] md:w-[550px] w-full pl-2 ">
               {otp.map((digit, index) => (
                 <input
                   inputMode="numeric"
@@ -163,18 +168,18 @@ const ForgetOtp = () => {
                   onChange={(e) => handleChange(e, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
                   ref={(el) => (inputs.current[index] = el)}
-                  className="h-[49px] w-[49px] rounded-[12px] outline-none text-center border-[1px] border-[#D9D9D9] placeholder:text-[#181818]
-                placeholder:text-[16px] focus-within:border-[#8A8A8A] flex items-center justify-center"
+                  className="xxl:h-[79px] xxl:w-[79px] h-[49px] w-[49px] rounded-[12px] outline-none text-center border-[1px] border-[#D9D9D9] placeholder:text-[#181818]
+                placeholder:text-[16px] xxl:placeholder:text-[20px] focus-within:border-[#8A8A8A] flex items-center justify-center"
                 />
               ))}
             </div>
-            <div className="xl:w-[290px] lg:w-[350px] md:w-[550px] w-full mt-3 ">
+            <div className="xxl:w-[600px] xl:w-[290px] lg:w-[350px] md:w-[550px] w-full mt-3 ">
               <Button loading={loading} text="Verify" />
             </div>
           </div>
         </form>
-        <div className="flex items-center justify-center gap-2  mt-4 mb-3 relative z-10">
-          <p className="text-center text-[16px] leading-[21.6px] text-[#565656]">
+        <div className="flex items-center justify-center gap-2 xxl:mt-10 mt-4 mb-3 relative z-10">
+          <p className="xxl:text-[26px] text-center text-[16px] leading-[21.6px] text-[#565656]">
             Didn&apos;t receive the code yet?
             {isActive ? (
               <CountDown

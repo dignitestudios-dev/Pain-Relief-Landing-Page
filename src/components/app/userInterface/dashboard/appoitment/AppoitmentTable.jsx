@@ -199,141 +199,166 @@ const AppoitmentTable = () => {
             </div>
           </div>
 
-          <table className="min-w-full text-sm text-left">
-            <thead className="bg-cyan-50 text-gray-700">
-              <tr>
-                <th className="px-4 py-3">#</th>
-                <th className="px-4 py-3">Name</th>
-                <th className="px-4 py-3">Appointment Date</th>
-                <th className="px-4 py-3">Appointment Time</th>
-                <th className="px-4 py-3">Booked For</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3">Action</th>
-              </tr>
-            </thead>
-            {loading ? (
-              <tbody>
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <tr
-                    key={i}
-                    className="border-t border-gray-100 animate-pulse"
-                  >
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-4 bg-gray-200 rounded" />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-4">
-                        <div className="rounded-full bg-gray-200 w-[42px] h-[42px]" />
-                        <div className="h-4 w-24 bg-gray-200 rounded" />
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-24 bg-gray-200 rounded" />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-16 bg-gray-200 rounded" />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-4">
-                        <div className="rounded-full bg-gray-200 w-[42px] h-[42px]" />
-                        <div className="h-4 w-24 bg-gray-200 rounded" />
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-16 bg-gray-200 rounded" />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="h-4 w-20 bg-gray-200 rounded" />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            ) : data?.length > 0 ? (
-              <tbody>
-                {data?.map((a, index) => (
-                  <tr
-                    key={a._id || index}
-                    className="border-t border-gray-100 hover:bg-gray-50"
-                  >
-                    <td className="px-4 py-3">{index + 1}</td>
-
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-4">
-                        <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
-                          <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
-                            <img
-                              src={a.provider?.profilePicture || ProfileImg}
-                              className="w-[39px] h-[39px] rounded-full object-cover"
-                              alt="User"
-                            />
-                          </div>
-                        </div>
-                        <h2 className="text-[14px] font-[400] ">
-                          {a.provider?.name}
-                        </h2>
-                      </div>
-                    </td>
-
-                    <td className="px-4 py-3">
-                      {getLongDateFormat(a.appointmentDate)}
-                    </td>
-
-                    <td className="px-4 py-3">{a.appointmentTime}</td>
-
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-4">
-                        <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
-                          <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
-                            <img
-                              src={
-                                a.familyMember !== null
-                                  ? a.familyMember.profilePicture
-                                  : a.user?.profilePicture
-                              }
-                              className="w-[39px] h-[39px] rounded-full object-cover"
-                              alt="Provider"
-                            />
-                          </div>
-                        </div>
-                        <h2 className="text-[14px] font-[400] ">
-                          {a.familyMember !== null
-                            ? a.familyMember.name
-                            : "Self"}
-                        </h2>
-                      </div>
-                    </td>
-
-                    <td className="px-4 py-3">
-                      <span className="capitalize text-sm">{a.status}</span>
-                    </td>
-
-                    <td
-                      onClick={() =>
-                        navigate(`/user/user-details/${a?._id}`, {
-                          state: a,
-                        })
-                      }
-                      className="px-4 py-3 text-black underline font-medium cursor-pointer"
-                    >
-                      View Detail
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            ) : (
-              <tbody>
+          {/* Desktop/Table View */}
+          <div className="hidden md:block">
+            <table className="min-w-full text-sm text-left">
+              <thead className="bg-cyan-50 text-gray-700">
                 <tr>
-                  <td
-                    colSpan="7"
-                    className="text-center text-gray-500 text-sm py-6"
-                  >
-                    No activity to show right now. Your appointments will appear
-                    here once available.
-                  </td>
+                  <th className="px-4 py-3">#</th>
+                  <th className="px-4 py-3">Name</th>
+                  <th className="px-4 py-3">Appointment Date</th>
+                  <th className="px-4 py-3">Appointment Time</th>
+                  <th className="px-4 py-3">Booked For</th>
+                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3">Action</th>
                 </tr>
+              </thead>
+              <tbody>
+                {data?.length > 0 ? (
+                  data.map((a, index) => (
+                    <tr
+                      key={a._id || index}
+                      className="border-t border-gray-100 hover:bg-gray-50"
+                    >
+                      <td className="px-4 py-3">{index + 1}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-4">
+                          <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
+                            <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+                              <img
+                                src={a.provider?.profilePicture || ProfileImg}
+                                className="w-[39px] h-[39px] rounded-full object-cover"
+                                alt="User"
+                              />
+                            </div>
+                          </div>
+                          <h2 className="text-[14px] font-[400]">
+                            {a.provider?.name}
+                          </h2>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        {getLongDateFormat(a.appointmentDate)}
+                      </td>
+                      <td className="px-4 py-3">{a.appointmentTime}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-4">
+                          <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
+                            <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+                              <img
+                                src={
+                                  a.familyMember !== null
+                                    ? a.familyMember.profilePicture
+                                    : a.user?.profilePicture
+                                }
+                                className="w-[39px] h-[39px] rounded-full object-cover"
+                                alt="Provider"
+                              />
+                            </div>
+                          </div>
+                          <h2 className="text-[14px] font-[400]">
+                            {a.familyMember !== null
+                              ? a.familyMember.name
+                              : "Self"}
+                          </h2>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="capitalize text-sm">{a.status}</span>
+                      </td>
+                      <td
+                        onClick={() =>
+                          navigate(`/user/user-details/${a?._id}`, { state: a })
+                        }
+                        className="px-4 py-3 text-black underline font-medium cursor-pointer"
+                      >
+                        View Detail
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="7"
+                      className="text-center text-gray-500 text-sm py-6"
+                    >
+                      No activity to show right now. Your appointments will
+                      appear here once available.
+                    </td>
+                  </tr>
+                )}
               </tbody>
+            </table>
+          </div>
+
+          {/* Mobile/Card View */}
+          <div className="block md:hidden space-y-4">
+            {data?.length > 0 ? (
+              data.map((a, index) => (
+                <div
+                  key={a._id || index}
+                  className="p-4 border rounded-lg shadow-sm"
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="font-medium">#{index + 1}</h3>
+                    <span className="capitalize text-sm">{a.status}</span>
+                  </div>
+                  <div className="flex items-center gap-4 mb-2">
+                    <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
+                      <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+                        <img
+                          src={a.provider?.profilePicture || ProfileImg}
+                          className="w-[39px] h-[39px] rounded-full object-cover"
+                          alt="User"
+                        />
+                      </div>
+                    </div>
+                    <h2 className="text-[14px] font-[400]">
+                      {a.provider?.name}
+                    </h2>
+                  </div>
+                  <p className="text-sm">
+                    <strong>Date:</strong>{" "}
+                    {getLongDateFormat(a.appointmentDate)}
+                  </p>
+                  <p className="text-sm">
+                    <strong>Time:</strong> {a.appointmentTime}
+                  </p>
+                  <div className="flex items-center gap-4 my-2">
+                    <div className="p-[2px] rounded-full bg-gradient-to-r from-[#63CFAC] to-[#29ABE2] w-[42px] h-[42px]">
+                      <div className="bg-white rounded-full w-full h-full flex items-center justify-center">
+                        <img
+                          src={
+                            a.familyMember !== null
+                              ? a.familyMember.profilePicture
+                              : a.user?.profilePicture
+                          }
+                          className="w-[39px] h-[39px] rounded-full object-cover"
+                          alt="Provider"
+                        />
+                      </div>
+                    </div>
+                    <h2 className="text-[14px] font-[400]">
+                      {a.familyMember !== null ? a.familyMember.name : "Self"}
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() =>
+                      navigate(`/user/user-details/${a?._id}`, { state: a })
+                    }
+                    className="text-black underline font-medium mt-2"
+                  >
+                    View Detail
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500 text-sm py-6">
+                No activity to show right now. Your appointments will appear
+                here once available.
+              </p>
             )}
-          </table>
+          </div>
         </div>
         <div className="flex justify-end">
           <Pagination

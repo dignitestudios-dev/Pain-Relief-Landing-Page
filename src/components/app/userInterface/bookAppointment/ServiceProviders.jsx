@@ -33,10 +33,12 @@ const ServiceProviders = ({
   return (
     <div className="flex justify-center items-center w-full my-10 relative">
       <button
-        className="md:hidden absolute -top-2 right-4 text-[24px] text-gray-600"
+        className="lg:hidden absolute -top-8 left-8 text-[24px] text-white "
         onClick={() => setShowDrawer(true)}
       >
-        <FiFilter />
+        <span className="flex items-center font-[600] text-[19px]">
+          Filter <FiFilter />{" "}
+        </span>
       </button>
 
       {showDrawer && (
@@ -48,27 +50,31 @@ const ServiceProviders = ({
                 ✕
               </button>
             </div>
-            <BookAppointmentFilter getproviderData={getProviderData} />
+            <BookAppointmentFilter
+              getproviderData={getProviderData}
+              showDrawer={showDrawer}
+            />
           </div>
           <div className="flex-1" onClick={() => setShowDrawer(false)}></div>
         </div>
       )}
 
       <div className="grid grid-cols-12 xl:w-[90%] lg:w-[96%] xl:gap-4 lg:gap-1">
-        <div className="col-span-12 md:col-span-3 hidden md:block">
-          <h2
+        <div className=" col-span-12 md:col-span-3 hidden lg:block">
+          {/* <h2
             onClick={() => navigate(-1)}
             className="flex -mt-10 mb-4 text-white font-[600] text-[19px] items-center"
           >
             <IoIosArrowBack size={16} color="white" /> Back
-          </h2>
+          </h2> */}
           <BookAppointmentFilter
             getproviderData={getProviderData}
             filterData={filterData}
+            showDrawer={showDrawer}
           />
         </div>
 
-        <div className="col-span-12 md:col-span-9 xl:mt-0 lg:mt-0 md:mt-0 mt-10  ">
+        <div className="col-span-12 md:col-span-9   ">
           <div className="flex items-center gap-4 px-10 mb-2">
             <h2 className="text-[32px] font-semibold text-white">
               Search Results

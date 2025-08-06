@@ -13,7 +13,7 @@ const SelectField = ({
   return (
     <div
       onClick={() => handleSelection(value)}
-      className={`relative w-full h-[54px] border-[1px] cursor-pointer rounded-[10px]  ${
+      className={`relative w-full xxl:h-[68px] xl:h-[50px] border-[1px] cursor-pointer rounded-[10px]  ${
         isActive ? "gradient-border " : "border-[#D9D9D9]"
       } 
         flex justify-between items-center rounded-[10px] md:pl-1 md:py-[2px] pl-1.5 py-[2px]`}

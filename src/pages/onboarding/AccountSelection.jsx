@@ -44,28 +44,28 @@ const AccountSelection = () => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc]">
       <div className="p-4 lg:block hidden">
-        <img src={SideImg} />
+        <img className="xxl:w-[1200px] xl:w-[1000px] w-full" src={SideImg} />
       </div>
-      <div className="flex flex-col mt-10 items-center h-auto p-2">
-        <div className="my-4 text-center">
-          <div className="w-[148px] h-[158px]">
+      <div className="flex flex-col xxl:mt-60 xl:mt-24 mt-16 items-center h-auto p-2">
+        <div className="xxl:my-10 my-4 text-center">
+          <div className="xxl:w-[280px] w-[148px] xxl:h-[188px] h-[158px] xxl:mx-auto xxl:mb-24 mx-auto mb-0">
             <img src={Logo} />
           </div>
-          <p className="text-[26px] mt-2  font-semibold capitalize">
+          <p className="xxl:text-[56px] xl:text-[30px] text-[26px] mt-2 font-semibold capitalize">
             Pain Relief USA
           </p>
-          <p className="text-[14px] font-[500] capitalize text-[#565656]">
+          <p className="xxl:text-[28px] text-[16px] font-[500] capitalize text-[#565656]">
             pain Relief made easy
           </p>
         </div>
         <div className="py-4">
-          <p className="lg:text-[32px] xl:w-[250px] lg:w-[250px] md:text-[25px] text-[22px] text-center font-[600] text-wrap capitalize">
+          <p className="xxl:w-[320px] xl:w-[250px] lg:w-[250px] xxl:text-[38px] lg:text-[32px] md:text-[25px] text-[22px] text-center font-[600] text-wrap capitalize">
             Create Account Request
           </p>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="space-y-4 xl:w-[350px] lg:w-[350px] md:w-[550px] w-full ">
-            <div className=" space-y-5">
+          <div className="xxl:space-y-8 space-y-4 xxl:w-[650px] lg:w-[350px] md:w-[550px] w-[340px] ">
+            <div className="xxl:space-y-8 space-y-5">
               <SelectField
                 icon={UserWhite}
                 iconDark={UserDark}
@@ -91,7 +91,7 @@ const AccountSelection = () => {
             )}
           </div>
 
-          <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-3 mb-4">
+          <div className="xxl:w-[650px] xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-3 mb-4">
             <Button text={"Continue"} />
           </div>
         </form>
@@ -100,8 +100,8 @@ const AccountSelection = () => {
           className="w-full flex justify-center  items-center gap-1 cursor-pointer"
           onClick={() => navigate(-1)}
         >
-          <IoIosArrowDropleftCircle className="text-lg text-[#212121]" />
-          <p className="text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
+          <IoIosArrowDropleftCircle className="text-lg xxl:text-[26px] text-[#212121]" />
+          <p className="text-[12px] xxl:text-[20px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
             Back
           </p>
         </button>

@@ -151,22 +151,25 @@ const CreateFamilyMember = () => {
       ) : (
         <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
           <div className="p-4 lg:block hidden">
-            <img src={SideImg} />
+            <img
+              src={SideImg}
+              className="xxl:w-[1200px] xl:w-[1000px] w-full"
+            />
           </div>
           <div className="flex flex-col justify-center items-center lg:h-auto h-screen md:pl-0 pl-8">
-            <div className="pb-4 text-center lg:w-[350px] ">
-              <div className="lg:w-[350px] w-[450px] flex justify-center mb-8">
-                <img src={AccountLogo} className="w-[216px]" />
+            <div className="pb-4 text-center xxl:w-[480px] lg:w-[350px] ">
+              <div className="lg:w-[480px] w-[450px] flex justify-center mb-8">
+                <img src={AccountLogo} className="w-[216px] xxl:w-[316px]" />
               </div>
-              <p className="text-[32px] font-bold capitalize">
+              <p className="xxl:text-[36px] text-[32px] font-bold capitalize">
                 Add Family Members{" "}
               </p>
-              <p className="text-[16px] text-[#565656]">
+              <p className="xxl:text-[24px] text-[16px] text-[#565656]">
                 Please enter family member details to continue
               </p>
             </div>
 
-            <div className="space-y-4 lg:w-[350px] md:w-[500px] w-[320px]">
+            <div className="space-y-4 xxl:w-[480px] lg:w-[350px] md:w-[500px] w-[320px]">
               <div className="border border-dashed border-[rgba(85,85,85,0.2)] bg-[#EAEAEA50] rounded-2xl flex justify-center items-center h-[142px] flex-col">
                 <p
                   onClick={() => {
@@ -200,7 +203,7 @@ const CreateFamilyMember = () => {
                       sessionStorage.removeItem("isFamilyMembers");
                       setIsCreated(true);
                     }}
-                    className="w-full flex justify-center items-center gap-1 cursor-pointer mt-6"
+                    className=" w-full flex justify-center items-center gap-1 cursor-pointer mt-6"
                   >
                     {/* <IoIosArrowDropleftCircle className="text-lg text-[#212121]" /> */}
                     <p className="text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
@@ -210,7 +213,7 @@ const CreateFamilyMember = () => {
                 </div>
               ) : (
                 <>
-                  <div className="lg:w-[350px] md:w-[500px] w-[320px] max-h-[250px] overflow-y-auto overflow-x-hidden p-3 space-y-4">
+                  <div className="xxl:w-[480px] lg:w-[350px] md:w-[500px] w-[320px] max-h-[250px] overflow-y-auto overflow-x-hidden p-3 space-y-4">
                     {storedMembers?.map((values, index) => (
                       <div key={index}>
                         <div className=" rounded-[12px]  p-4 shadow-[0_0_16px_rgba(17,17,26,0.1)] ">
@@ -277,7 +280,7 @@ const CreateFamilyMember = () => {
                       </div>
                     ))}
                   </div>
-                  <div className=" mt-4 lg:w-[350px] md:w-[500px] w-[320px] ">
+                  <div className=" mt-4 xl:w-[480px] lg:w-[350px] md:w-[500px] w-[320px] ">
                     <Button
                       text={"Next"}
                       onClick={handleCreateFamily}

@@ -268,24 +268,24 @@ const AppointmentQuestions = () => {
     <div className="">
       <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc]">
         <div className="p-4 lg:block hidden">
-          <img src={SideImg} />
+          <img className="xxl:w-[1200px] xl:w-[1000px]" src={SideImg} />
         </div>
         <div className="flex flex-col justify-center items-center h-auto">
-          <div className="my-2 text-center">
-            <div className="w-[158px] h-[158px]">
+          <div className="xxl:space-y-8  my-2 text-center">
+            <div className="xxl:w-[188px] lg:w-[158px] lg:h-[158px] w-[128px] h-[128px]">
               <img src={Logo} />
             </div>
-            <p className="text-[26px] mt-2  font-semibold capitalize">
+            <p className="xxl:text-[36px] text-[26px] mt-2 font-semibold capitalize">
               Schedule <br /> An Appointments
             </p>
           </div>
           <div className="py-3">
-            <p className="text-[16px]  capitalize text-[#565656]">
+            <p className="xxl:text-[20px] text-[16px] capitalize text-[#565656]">
               Please answer a couple of questions
             </p>
           </div>
           <form>
-            <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
+            <div className="space-y-4 xxl:w-[580px] lg:w-[350px] md:w-[550px] w-[320px]">
               {step === 1 && (
                 <>
                   <StepOne
@@ -384,7 +384,7 @@ const AppointmentQuestions = () => {
               />
             )}
 
-            <div className="w-[350px] mt-6 mb-4">
+            <div className="xxl:w-[580px] lg:w-[350px] mt-6 mb-4">
               <button
                 type="button"
                 disabled={isNextDisabled()}
@@ -407,11 +407,11 @@ const AppointmentQuestions = () => {
 
           <button
             type="button"
-            className="w-full flex justify-center  items-center gap-1 cursor-pointer"
+            className="w-full flex justify-center items-center gap-1 cursor-pointer"
             onClick={handleBack}
           >
-            <IoIosArrowDropleftCircle className="text-lg text-[#212121]" />
-            <p className="text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
+            <IoIosArrowDropleftCircle className="xxl:text-[28px] text-lg text-[#212121]" />
+            <p className="xxl:text-[16px] text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
               Back
             </p>
           </button>

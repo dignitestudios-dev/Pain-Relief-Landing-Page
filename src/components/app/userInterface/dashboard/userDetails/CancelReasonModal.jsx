@@ -10,16 +10,14 @@ const CancelReasonModal = ({
   values,
   loading,
   onCLose,
-  heading
+  heading,
 }) => {
   return (
     <div className="fixed inset-0 bg-[#0A150F80] bg-opacity-0 z-50 flex items-center justify-center">
-      <div className="bg-white rounded-[26px] shadow-md p-8 w-[470px] ">
-        <div className="flex flex-col justify-center items-center lg:h-auto md:h-screen ">
+      <div className="bg-white rounded-[26px] shadow-md p-8 xxl:w-[470px] w-[390px]">
+        <div className="flex flex-col justify-center items-center lg:h-auto  ">
           <div className="text-center w-[330px] flex flex-col justify-center items-center">
-            <p className="text-[24px] font-[600] capitalize">
-              {heading}
-            </p>
+            <p className="text-[24px] font-[600] capitalize">{heading}</p>
           </div>
         </div>
         <form action="" onSubmit={handleSubmit}>

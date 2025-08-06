@@ -14,7 +14,7 @@ const StepOne = ({
     <div className="py-2 space-y-4">
       <p className="font-[500] text-[16px] tracking-[1]">{label}</p>
 
-      <div className="flex justify-between gap-2">
+      <div className="lg:flex lg:items-center lg:space-y-0 space-y-2 gap-2">
         <QuestionField
           label="Network Professional"
           value="user"

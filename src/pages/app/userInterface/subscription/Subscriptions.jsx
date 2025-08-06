@@ -38,7 +38,7 @@ const Subscriptions = () => {
           </p>
         </div>
         <div className="w-[80%]">
-          <div className="grid xl:grid-cols-2 grid-cols-1 gap-20 mt-10 my-16">
+          <div className="grid xl:grid-cols-2 grid-cols-1 gap-20 ">
             {loading &&
               Array.from({ length: 2 }).map((_, index) => (
                 <div

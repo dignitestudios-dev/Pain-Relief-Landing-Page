@@ -39,23 +39,23 @@ const UpdatePassword = () => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
-        <img src={SideImg} />
+        <img className="xxl:w-[1200px] xl:w-[1000px]" src={SideImg} />
       </div>
       <div className="flex flex-col justify-center items-center lg:h-auto h-screen">
-        <div className="pb-4 text-center">
-          <div className="w-[350px] flex justify-center mb-8">
+        <div className="pb-4 text-center space-y-4">
+          <div className="xxl:h-[188px] xxl:w-[480px] w-[350px] flex justify-center mb-8">
             <img src={OtpLogo} className="w-[216px]" />
           </div>
-          <p className="text-[32px] font-semibold capitalize">
+          <p className="xxl:text-[52px] text-[32px] font-semibold capitalize">
             Set New Password{" "}
           </p>
-          <p className="text-[16px] capitalize text-[#565656]">
+          <p className="xxl:text-[24px] text-[16px] capitalize text-[#565656]">
             Enter new password to Continue
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
+          <div className="xxl:w-[650px] xxl:space-y-8 space-y-4 lg:w-[350px] md:w-[550px] w-[320px]">
             <AuthInput
               text={" New Password"}
               placeholder={"New Password"}
@@ -86,7 +86,7 @@ const UpdatePassword = () => {
             />
           </div>
 
-          <div className="xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
+          <div className="xxl:w-[650px] xl:w-[350px] lg:w-[350px] md:w-[550px] w-full mt-6">
             <Button text="Save" loading={loading} />
           </div>
         </form>

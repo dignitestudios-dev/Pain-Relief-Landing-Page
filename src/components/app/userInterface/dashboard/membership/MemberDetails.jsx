@@ -80,14 +80,14 @@ const MemberDetails = ({
             </ul>
           </div>
 
-          <div className="mt-6 flex items-center gap-3">
-            <div className="w-[249px]">
+          <div className="mt-6 md:flex items-center gap-3">
+            <div className="md:w-[249px] w-[219px]">
               <button
                 onClick={() => setCancelSubscriptionModal(true)}
                 disabled={
                   subscriptiondata?.userSubscription?.cancelAtPeriodEnd === true
                 }
-                className={`h-[49px] w-[249px] rounded-[8px] text-white ${
+                className={`h-[49px] md:w-[249px] w-[219px] rounded-[8px] text-white ${
                   subscriptiondata?.userSubscription?.cancelAtPeriodEnd
                     ? "bg-gray-300 cursor-not-allowed"
                     : "bg-[#EE3131]"

@@ -1,13 +1,6 @@
 /* eslint-disable react/prop-types */
 
-const QuestionField = ({
-
-  label,
-  value,
-  tick,
-  isSelected,
-  handleSelection,
-}) => {
+const QuestionField = ({ label, value, tick, isSelected, handleSelection }) => {
   const isActive = isSelected === value;
   return (
     <div
@@ -20,17 +13,20 @@ const QuestionField = ({
         flex justify-between items-center rounded-[10px] md:pl-1 md:py-[2px] pl-1.5 py-[2px]`}
     >
       <div className="flex items-center">
-       
         <div className="pl-2 ">
-          <p className={`text-[14px]  font-medium  ${
-        isActive
-          ? "text-white"
-          : "border-[#D9D9D9]"
-      } `}>{label}</p>
+          <p
+            className={`text-[14px]  font-medium  ${
+              isActive ? "text-white" : "border-[#D9D9D9]"
+            } `}
+          >
+            {label}
+          </p>
         </div>
       </div>
       <div className="absolute -right-1.5 -top-2">
-        {isActive && <img src={tick} className="w-[14px] rounded-full border-[1px]" />}
+        {isActive && (
+          <img src={tick} className="w-[14px] rounded-full border-[1px]" />
+        )}
       </div>
     </div>
   );

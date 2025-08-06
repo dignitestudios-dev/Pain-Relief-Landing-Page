@@ -25,7 +25,7 @@ const SubscriptionSuccessModal = ({ onClick }) => {
             </span>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center lg:h-auto md:h-screen ">
+        <div className="flex flex-col justify-center items-center h-auto ">
           <div className="pb-4 text-center  flex flex-col justify-center items-center">
             <div className=" mb-8">
               <img src={SmallTick} />

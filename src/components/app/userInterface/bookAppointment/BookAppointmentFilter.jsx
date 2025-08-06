@@ -4,7 +4,7 @@ import { DropDownDark } from "../../landingPage/Inputs/DropDown";
 import Button from "../../landingPage/Inputs/Button";
 import GoogleMapComponent from "../../../global/GoogleMap";
 
-const BookAppointmentFilter = ({ getproviderData, filterData }) => {
+const BookAppointmentFilter = ({ getproviderData, filterData, showDrawer }) => {
   const [services, setServices] = useState([]);
   const [address, setAddress] = useState({});
 
@@ -62,7 +62,11 @@ const BookAppointmentFilter = ({ getproviderData, filterData }) => {
   };
 
   return (
-    <div className="bg-white h-full md:h-[518px] p-4 rounded-[8px] w-full md:w-auto">
+    <div
+      className={`bg-white lg:w-auto lg:h-[518px] p-4 rounded-[8px] h-full w-full  ${
+        showDrawer ? "lg:hidden block" : "lg:block hidden "
+      }`}
+    >
       <h2 className="text-[24px] font-[600] border-b border-b-[#8B8B8B5E] pb-3">
         Filter
       </h2>
@@ -77,7 +81,7 @@ const BookAppointmentFilter = ({ getproviderData, filterData }) => {
         />
 
         <div className="mt-3">
-          <div className="w-[300px] h-[194px] mt-3 rounded-md overflow-hidden">
+          <div className="xxl:w-full xl:w-[280px] lg:w-[200px] w-[300px] h-[194px] mt-3 rounded-md overflow-hidden">
             <label className="text-[12px] text-[#121516] font-medium">
               Primary Clinic Location
             </label>
@@ -120,7 +124,7 @@ const BookAppointmentFilter = ({ getproviderData, filterData }) => {
         <div className="flex justify-center items-center gap-4 text-[#565656] font-[500] ">
           <button
             onClick={() => handleClear()}
-            className="bg-[#E0E0E0] rounded-[8px] h-[49px] w-[150px]"
+            className="bg-[#E0E0E0] rounded-[8px] h-[49px] w-[150px] xxl:h-[68px]"
           >
             Clear
           </button>

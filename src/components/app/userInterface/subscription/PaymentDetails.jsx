@@ -34,7 +34,7 @@ const PaymentDetails = ({ planData, subscriptionData }) => {
         Purchase Details
       </h2>
       <div className="flex justify-center my-10 ">
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-10 w-[70%]  ">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-10 w-[70%] ">
           <div className="w-full bg-white rounded-[22px] p-6 lg:h-[652px] h-full flex flex-col justify-between">
             <div>
               {/* Header with billing period toggle */}

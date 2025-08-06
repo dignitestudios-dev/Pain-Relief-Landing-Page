@@ -217,7 +217,7 @@ const PlansSection = ({
               return (
                 <div
                   key={cardId}
-                  className={`bg-white rounded-[22px] p-6 lg:h-[752px] h-full flex flex-col justify-between ${
+                  className={`bg-white rounded-[22px] p-6 lg:h-[752px] h-auto flex flex-col justify-between ${
                     isCarousel
                       ? "snap-start flex-shrink-0 w-[90%] md:w-[48%]"
                       : "w-full"
@@ -328,8 +328,8 @@ const PlansSection = ({
                   </div>
 
                   {/* Footer with button */}
-                  <div className="mt-6 grid md:grid-cols-2 grid-cols-1 gap-3">
-                    <div className="w-[249px]">
+                  <div className="mt-6 grid lg:grid-cols-2 grid-cols-1 gap-3">
+                    <div className="md:w-[239px] w-[209px] ">
                       <Button
                         text={"Buy Now"}
                         onClick={() => handleBuyNow(data?._id)}

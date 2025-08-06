@@ -1,13 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import HeroSection from "../../../../components/app/userInterface/bookAppointment/HeroSection";
 import ServiceProviders from "../../../../components/app/userInterface/bookAppointment/ServiceProviders";
 import { useAppointmentProvider } from "../../../../hooks/api/Get";
 import Pagination from "../../../../components/global/Pagination";
-import { AppContext } from "../../../../context/AppContext";
 import { useLocation } from "react-router";
 
 const BookAppointment = () => {
-  const { longitude, latitude } = useContext(AppContext);
+  // const { longitude, latitude } = useContext(AppContext);
   const location = useLocation();
 
   const [filterData, setFilterData] = useState({

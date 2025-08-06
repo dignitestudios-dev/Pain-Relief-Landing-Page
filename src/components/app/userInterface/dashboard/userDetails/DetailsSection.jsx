@@ -10,7 +10,7 @@ const DetailsSection = ({ appointmentData, handleModal }) => {
 
   return (
     <div className="flex flex-col items-center justify-center relative bottom-28 px-2 sm:px-4 md:px-6">
-      <div className="grid w-full max-w-[1400px] gap-6 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-1">
+      <div className="grid w-full xxl:max-w-[2000px] max-w-[1400px] gap-6 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-1">
         {/* Left Section */}
         <div className="bg-white rounded-[8px] p-4 sm:p-6 xl:col-span-4 lg:col-span-4">
           <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-[600] mb-3">

@@ -19,6 +19,7 @@ const SignUp = () => {
   const location = useLocation();
   const userType = location.state?.userType;
   const { fcmToken } = useContext(AppContext);
+  console.log("🚀 ~ SignUp ~ fcmToken:", fcmToken);
 
   const [searchParams] = useSearchParams();
   const referralToken = searchParams.get("referral");
@@ -115,23 +116,23 @@ const SignUp = () => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full bg-[#fcfcfc] ">
       <div className="p-4 lg:block  hidden">
-        <img src={SideImg} />
+        <img className="xxl:w-[1200px] xl:w-[1000px] w-full" src={SideImg} />
       </div>
       <div
         className={`flex flex-col ${
-          userType === "user" ? "justify-center" : "mt-16"
+          userType === "user" ? "justify-center" : "xxl:mt-60 xl:mt-24 mt-16"
         } items-center lg:h-auto md:h-screen  `}
       >
         <div className="pb-4 text-center">
-          <p className="text-[32px] font-[600] capitalize text-[#181818] ">
+          <p className="text-[32px] xl:text-[40px] xxl:text-[56px] font-[600] capitalize text-[#181818] ">
             Sign Up
           </p>
-          <p className="text-[16px] text-[#565656]">
+          <p className="xxl:text-[28px] text-[16px] text-[#565656]">
             Please enter details to continue
           </p>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="space-y-4 lg:w-[350px] md:w-[550px] w-[340px]">
+          <div className="xxl:space-y-8 space-y-4 xxl:w-[650px] lg:w-[350px] md:w-[550px] w-[340px]">
             <div className="grid grid-cols-2 justify-between gap-2">
               <AuthInput
                 text="First Name"
@@ -213,13 +214,13 @@ const SignUp = () => {
               maxLength={50}
             />
           </div>
-          <div className="w-[350px] my-7">
+          <div className="xxl:w-[650px] w-[350px] my-7">
             <Button text="Sign Up" loading={loading} disabled={loading} />
           </div>
         </form>
         {userType === "user" && (
           <>
-            <div className="flex items-center lg:w-[350px] md:w-[550px] w-[340px]">
+            <div className="flex items-center xxl:w-[650px] lg:w-[350px] md:w-[550px] w-[340px]">
               <hr className="w-full border-t border-[#D9D9D9]" />
               <p className="px-2 text-[#D9D9D9]">OR</p>
               <hr className="w-full border-t border-[#D9D9D9]" />
@@ -228,10 +229,10 @@ const SignUp = () => {
           </>
         )}
         <div className="flex items-center justify-center gap-2 mt-4 mb-3 relative z-10">
-          <p className="text-center text-[16px] leading-[21.6px] text-[#181818]">
+          <p className="text-center xxl:text-[26px] text-[16px] leading-[21.6px] text-[#181818]">
             Already have an account?
             <span
-              className="text-[#29ABE2] font-medium pl-1 cursor-pointer"
+              className="text-[#29ABE2] xxl:text-[26px] font-medium pl-1 cursor-pointer"
               onClick={() => navigate("/auth/sign-in")}
             >
               Sign In
@@ -243,8 +244,8 @@ const SignUp = () => {
           className="w-full flex justify-center items-center gap-1 cursor-pointer my-5"
           onClick={() => navigate(-1)}
         >
-          <IoIosArrowDropleftCircle className="text-lg text-[#212121]" />
-          <p className="text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
+          <IoIosArrowDropleftCircle className="xxl:text-[26px] text-lg text-[#212121]" />
+          <p className="xxl:text-[20px] text-[12px] uppercase font-bold leading-none tracking-wider text-[#212121] ">
             Back
           </p>
         </button>

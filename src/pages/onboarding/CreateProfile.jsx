@@ -121,7 +121,7 @@ const CreateProfile = () => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 w-full">
       <div className="p-4 lg:block hidden">
-        <img src={SideImg} />
+        <img className="xxl:w-[1200px] xl:w-[1000px] w-full" src={SideImg} />
       </div>
       <div className="flex flex-col justify-center items-center lg:h-auto md:h-screen">
         <div className="pb-4 text-center xl:w-[500px] lg:w-[400px] md:w-[500px] w-[400px]">
@@ -166,7 +166,7 @@ const CreateProfile = () => {
           <p className="text-[24px] font-semibold capitalize">Basic Details</p>
         </div>
 
-        <div className="space-y-4 xl:w-[500px] lg:w-[400px] md:w-[600px] w-[350px]">
+        <div className="space-y-4 xxl:w-[650px] xl:w-[500px] lg:w-[400px] md:w-[600px] w-[350px]">
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-3">
               <InputField
@@ -271,7 +271,7 @@ const CreateProfile = () => {
             </div>
 
             <div className="flex justify-end mt-3">
-              <div className="w-[128px] ">
+              <div className="w-[128px] xxl:w-[650px] ">
                 <Button text={"Next"} type={"submit"} loading={loading} />
               </div>
             </div>

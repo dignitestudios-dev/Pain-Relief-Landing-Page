@@ -22,7 +22,7 @@ const ServiceProviderCards = ({ providerData, loading }) => {
           {providerData?.map((item, index) => (
             <div
               key={index}
-              className="min-w-[250px] bg-white p-2 rounded-[14px] mx-2 w-[279px] flex flex-col justify-between min-h-[310px]"
+              className="min-w-[250px] bg-white p-2 rounded-[14px] mx-2 xxl:w-[379px] xxl:h-[379px] w-[279px] flex flex-col justify-between min-h-[310px]"
             >
               <div className="bg-cards  h-24 flex items-center justify-center rounded-md">
                 <div className="bg-gradient-to-l from-[#29ABE2] to-[#63CFAC] p-[3px] rounded-full relative top-6  ">
