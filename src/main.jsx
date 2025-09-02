@@ -11,12 +11,13 @@ import ScrollToTop from "./components/global/ScrollToTop.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <div>App is under construction</div>
+    {/* <BrowserRouter>
       <AppContextProvider>
         <ToasterContainer />
         <ScrollToTop />
         <App />
       </AppContextProvider>
-    </BrowserRouter>
+    </BrowserRouter> */}
   </StrictMode>
 );
